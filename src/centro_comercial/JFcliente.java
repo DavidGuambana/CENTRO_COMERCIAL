@@ -18,7 +18,7 @@ public class JFcliente extends javax.swing.JFrame {
     PreparedStatement ps;
     conexion base = new conexion();
     long d;
-    
+    public static final String FK = "Click para seleccionar...";
     
     public JFcliente() {
         initComponents();
@@ -44,7 +44,7 @@ public class JFcliente extends javax.swing.JFrame {
         jb_Ejecutar.setBackground(color);
         jp_1.setBackground(color);
 
-        for (int i = 1; i <= 9; i++) {
+        for (int i = 1; i <= 10; i++) {
             switch (i) {
                 case 1:
                     titulo = "Cédula:";
@@ -62,16 +62,19 @@ public class JFcliente extends javax.swing.JFrame {
                     titulo = "Género:";
                     break;
                 case 6:
-                    titulo = "Tipo de descuento:";
+                    titulo = "N°. Celular:";
                     break;
                 case 7:
-                    titulo = "Teléfono:";
+                    titulo = "Email:";
                     break;
                 case 8:
-                    titulo = "Correo:";
+                    titulo = "Dirección:";
                     break;
                 case 9:
-                    titulo = "Dirección:";
+                    titulo = "Ciudad:";
+                    break;
+                case 10:
+                    titulo = "Descuento:";
                     break;
             }
             tb = new TitledBorder(titulo);
@@ -96,18 +99,20 @@ public class JFcliente extends javax.swing.JFrame {
                     genero.setBorder(tb);
                     break;
                 case 6:
-                    descuento.setBorder(tb);
+                    celular.setBorder(tb);
                     break;
                 case 7:
-                    telefono.setBorder(tb);
+                    email.setBorder(tb);
                     break;
                 case 8:
-                    correo.setBorder(tb);
-                    break;
-                case 9:
                     direccion.setBorder(tb);
                     break;
-
+                case 9:
+                    ciudad.setBorder(tb);
+                    break;
+                case 10:
+                    descuento.setBorder(tb);
+                    break;
             }
         }
     }
@@ -117,79 +122,108 @@ public class JFcliente extends javax.swing.JFrame {
         nombre.setText("");
         apellido.setText("");
         nacimiento.setDate(null);
-        genero.setSelectedIndex(0);
-        descuento.setText("¡Click para seleccionar!");
-        telefono.setText("");
-        correo.setText("");
+        genero.setText(FK);
+        celular.setText("");
+        email.setText("");
         direccion.setText("");
+        ciudad.setText(FK);
+        descuento.setText(FK);
     }
-    public void llenar(String id){
+    public void llenar(String xcedula){
         con =  (Connection) base.conectar_base();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM cliente WHERE cédula = '"+id+"'");
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PERSONA WHERE CEDULA='" + xcedula + "'");
                 rs = ps.executeQuery();
-                if (rs.next()) {
-                    cedula.setText(rs.getString("cédula"));
-                    cedula.setEditable(false);
-                    nombre.setText(rs.getString("nombre"));
-                    apellido.setText(rs.getString("apellido"));
-                    telefono.setText(rs.getString("teléfono"));
-                    direccion.setText(rs.getString("dirección"));
-                    nacimiento.setDate(rs.getDate("fecha_nac"));
-                    genero.setSelectedItem(rs.getString("género"));
-                    this.setVisible(true);
-                } else{
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "¡El cliente "+id+" no existe!");
-                    SISTEMA.actualizado = false;
-                    SISTEMA.jpDatos_cli.setVisible(false);
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                rs.next();
+                cedula.setText(rs.getString("CEDULA"));
+                nombre.setText(rs.getString("NOMBRE"));
+                apellido.setText(rs.getString("APELLIDO"));
+                nacimiento.setDate(rs.getDate("FECHA_NAC"));
+                genero.setText(""+rs.getInt("ID_SEXO"));
+                celular.setText(rs.getString("CELULAR"));
+                email.setText(rs.getString("EMAIL"));
+                direccion.setText(rs.getString("DIRECCION"));
+                ciudad.setText(""+rs.getInt("ID_CIUDAD"));
+            
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM CLIENTE WHERE CEDULA_PER='" + xcedula + "'");
+                rs = ps.executeQuery();
+                rs.next();
+                descuento.setText("" + rs.getInt("ID_DES"));
+                this.setVisible(true);
+            } catch (SQLException e) {
+                getToolkit().beep();
+                JOptionPane.showMessageDialog(rootPane, "¡El cliente '" + xcedula + "' no existe!");
             }
         }
     }
 
     public void registrar() {
-        try {
-            ps = (PreparedStatement) con.prepareStatement("INSERT INTO cliente (cédula, nombre, apellido, teléfono, dirección, fecha_nac, fecha_reg, género) VALUES (?,?,?,?,?,?,?,?)");
-            ps.setString(1, cedula.getText());
-            ps.setString(2, nombre.getText());
-            ps.setString(3, apellido.getText());
-            ps.setString(4, telefono.getText());
-            ps.setString(5, direccion.getText());
-            java.sql.Date nac = new java.sql.Date(d);
-            ps.setDate(6, nac);
-            Date date = new Date();
-            long e = date.getTime();
-            java.sql.Date hoy = new java.sql.Date(e);
-            ps.setDate(7, hoy);
-            ps.setString(8, genero.getSelectedItem().toString());
-            ps.executeUpdate(); //ejecuta la consulta
-            JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-        } catch (SQLException ex) {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "¡Error al registrar!");
+        con = (Connection) base.conectar_base();
+        if (con != null) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PERSONA WHERE CEDULA = '" + cedula.getText() + "'");
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    getToolkit().beep();
+                    JOptionPane.showMessageDialog(rootPane, "¡El cliente '" + cedula.getText() + "' ya existe!");
+                } else {
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO PERSONA (CEDULA,NOMBRE,APELLIDO,FECHA_NAC,ID_SEXO,CELULAR,EMAIL,DIRECCION,ID_CIUDAD) VALUES (?,?,?,?,?,?,?,?,?)");
+                    ps.setString(1, cedula.getText());
+                    ps.setString(2, nombre.getText().toUpperCase());
+                    ps.setString(3, apellido.getText().toUpperCase());
+                    java.sql.Date nac = new java.sql.Date(d);
+                    ps.setDate(4, nac);
+                    ps.setInt(5, Integer.parseInt(genero.getText()));
+                    ps.setString(6, celular.getText());
+                    ps.setString(7, email.getText());
+                    ps.setString(8, direccion.getText());
+                    ps.setInt(9, Integer.parseInt(ciudad.getText()));
+                    ps.executeUpdate(); //Ejecuta la consulta
+                    
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO CLIENTE (CEDULA_PER,ID_DES) VALUES (?,?)");
+                    ps.setString(1, cedula.getText());
+                    ps.setInt(2, Integer.parseInt(descuento.getText()));
+                    ps.executeUpdate(); //Ejecuta la consulta
+                    
+                    JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
+                    SISTEMA.actualizado = false;
+                    this.dispose();
+                }
+            } catch (SQLException ex) {
+                getToolkit().beep();
+                JOptionPane.showMessageDialog(null, "¡Error al registrar!");
+            }
         }
     }
+
     public void modificar() {
-        try {
-            ps = (PreparedStatement) con.prepareStatement("UPDATE cliente SET nombre=?, apellido=?, teléfono=?, dirección=?, fecha_nac=?, género=? WHERE cédula=?");
-            ps.setString(1, nombre.getText());
-            ps.setString(2, apellido.getText());
-            ps.setString(3, telefono.getText());
-            ps.setString(4, direccion.getText());
-            java.sql.Date nac = new java.sql.Date(d);
-            ps.setDate(5, nac);
-            ps.setString(6, genero.getSelectedItem().toString());
-            ps.setString(7, cedula.getText());
-            ps.executeUpdate(); //ejecuta la consulta
-            JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-            
-        } catch (SQLException ex) {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "¡Error al modificar!");
+        con = (Connection) base.conectar_base();
+        if (con != null) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("UPDATE PERSONA SET NOMBRE=?,APELLIDO=?,FECHA_NAC=?,ID_SEXO=?,CELULAR=?,EMAIL=?,DIRECCION=?,ID_CIUDAD=? WHERE CEDULA=?");
+                ps.setString(1, nombre.getText().toUpperCase());
+                ps.setString(2, apellido.getText().toUpperCase());
+                java.sql.Date nac = new java.sql.Date(d);
+                ps.setDate(3, nac);
+                ps.setInt(4, Integer.parseInt(genero.getText()));
+                ps.setString(5, celular.getText());
+                ps.setString(6, email.getText());
+                ps.setString(7, direccion.getText());
+                ps.setInt(8, Integer.parseInt(ciudad.getText()));
+                ps.setString(9, cedula.getText());
+                ps.executeUpdate(); //Ejecuta la consulta
+
+                ps = (PreparedStatement) con.prepareStatement("UPDATE PERSONA SET ID_DES=? WHERE CEDULA_PER=?");
+                ps.setInt(1, Integer.parseInt(descuento.getText()));
+                ps.setString(2, cedula.getText());
+                ps.executeUpdate(); //ejecuta la consulta
+                JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
+
+            } catch (SQLException ex) {
+                getToolkit().beep();
+                JOptionPane.showMessageDialog(null, "¡Error al modificar!");
+            }
         }
     }
 
@@ -201,12 +235,13 @@ public class JFcliente extends javax.swing.JFrame {
         cedula = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
         apellido = new javax.swing.JTextField();
-        telefono = new javax.swing.JTextField();
+        celular = new javax.swing.JTextField();
         direccion = new javax.swing.JTextField();
-        genero = new javax.swing.JComboBox<>();
         jb_Ejecutar = new javax.swing.JButton();
         nacimiento = new com.toedter.calendar.JDateChooser();
-        correo = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
+        ciudad = new javax.swing.JTextField();
+        genero = new javax.swing.JTextField();
         descuento = new javax.swing.JTextField();
         jp_1 = new javax.swing.JPanel();
         jl_cerrar = new javax.swing.JLabel();
@@ -217,7 +252,6 @@ public class JFcliente extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         cedula.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         cedula.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cédula:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
@@ -240,18 +274,23 @@ public class JFcliente extends javax.swing.JFrame {
         apellido.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         apellido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Apellido:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
         apellido.setPreferredSize(new java.awt.Dimension(64, 58));
+        apellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apellidoActionPerformed(evt);
+            }
+        });
         apellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 apellidoKeyPressed(evt);
             }
         });
 
-        telefono.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        telefono.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Teléfono:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        telefono.setPreferredSize(new java.awt.Dimension(64, 58));
-        telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+        celular.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        celular.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "N°. Celular:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        celular.setPreferredSize(new java.awt.Dimension(64, 58));
+        celular.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                telefonoKeyPressed(evt);
+                celularKeyPressed(evt);
             }
         });
 
@@ -263,10 +302,6 @@ public class JFcliente extends javax.swing.JFrame {
                 direccionKeyPressed(evt);
             }
         });
-
-        genero.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "FEMENINO", "MASCULINO" }));
-        genero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Género:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
 
         jb_Ejecutar.setBackground(new java.awt.Color(0, 204, 102));
         jb_Ejecutar.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
@@ -285,38 +320,44 @@ public class JFcliente extends javax.swing.JFrame {
         nacimiento.setDateFormatString("yyyy-MM-dd");
         nacimiento.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
 
-        correo.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        correo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        correo.setPreferredSize(new java.awt.Dimension(64, 58));
-        correo.addActionListener(new java.awt.event.ActionListener() {
+        email.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        email.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        email.setPreferredSize(new java.awt.Dimension(64, 58));
+        email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                correoActionPerformed(evt);
+                emailActionPerformed(evt);
             }
         });
-        correo.addKeyListener(new java.awt.event.KeyAdapter() {
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                correoKeyPressed(evt);
+                emailKeyPressed(evt);
             }
         });
 
-        descuento.setEditable(false);
-        descuento.setBackground(new java.awt.Color(255, 255, 255));
-        descuento.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 16)); // NOI18N
+        ciudad.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        ciudad.setForeground(new java.awt.Color(0, 153, 153));
+        ciudad.setText("Click para seleccionar...");
+        ciudad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ciudad:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        ciudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ciudadKeyPressed(evt);
+            }
+        });
+
+        genero.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        genero.setForeground(new java.awt.Color(0, 153, 153));
+        genero.setText("Click para seleccionar...");
+        genero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Género:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        genero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                generoKeyPressed(evt);
+            }
+        });
+
+        descuento.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         descuento.setForeground(new java.awt.Color(0, 153, 153));
-        descuento.setText("¡Click para seleccionar!");
-        descuento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de descuento:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        descuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        descuento.setPreferredSize(new java.awt.Dimension(64, 58));
-        descuento.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                descuentoMouseClicked(evt);
-            }
-        });
-        descuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descuentoActionPerformed(evt);
-            }
-        });
+        descuento.setText("Click para seleccionar...");
+        descuento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descuento:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
         descuento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 descuentoKeyPressed(evt);
@@ -327,33 +368,37 @@ public class JFcliente extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cedula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(telefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(15, 15, 15)
+                            .addComponent(nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(correo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nombre)
-                            .addComponent(genero, 0, 190, Short.MAX_VALUE))
+                            .addComponent(genero)
+                            .addComponent(nombre))
                         .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(descuento, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                            .addComponent(apellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(direccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(celular, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                            .addComponent(apellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(248, 248, 248)
+                        .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(15, 15, 15)
+                        .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(descuento, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,20 +407,21 @@ public class JFcliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(genero, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(descuento, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(celular, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(genero, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(correo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descuento, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jp_1.setBackground(new java.awt.Color(0, 204, 102));
-        jp_1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jp_1.setPreferredSize(new java.awt.Dimension(560, 40));
 
         jl_cerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
@@ -398,18 +444,15 @@ public class JFcliente extends javax.swing.JFrame {
         jp_1Layout.setHorizontalGroup(
             jp_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jl_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jp_1Layout.setVerticalGroup(
             jp_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jp_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jl_cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
+            .addComponent(jl_cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+            .addComponent(jl_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -417,38 +460,32 @@ public class JFcliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jp_1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jp_1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-        
         try {
-            
             Date fecha = nacimiento.getDate();
             d = fecha.getTime();
-            
-            
-            if (cedula.getText().equals("") || nombre.getText().equals("") || apellido.getText().equals("")
-                    || genero.getSelectedIndex() == 0 || descuento.getText().equals("¡Click para seleccionar!")
-                    || telefono.getText().equals("") || correo.getText().equals("") || direccion.getText().equals("")) {
+            if (cedula.getText().equals("")||nombre.getText().equals("")||apellido.getText().equals("")||genero.getText().equals(FK)||celular.getText().equals("")||
+                    email.getText().equals("") || direccion.getText().equals("") || ciudad.getText().equals(FK)||descuento.getText().equals(FK)) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
             } else {
                 boolean ced_corr = validar.V_cedula(cedula.getText());
                 boolean nac_corr = validar.V_edad(nacimiento.getDate());
-                boolean tel_corr = validar.V_telefono(telefono.getText());
-                boolean email_corr = validar.V_correo(correo);
+                boolean tel_corr = validar.V_telefono(celular.getText());
+                boolean email_corr = validar.V_correo(email);
                 if (ced_corr && nac_corr && tel_corr && email_corr) {
                     if (forma.equals("registrar")) {
                         registrar();
@@ -491,38 +528,41 @@ public class JFcliente extends javax.swing.JFrame {
         validar.V_letras(apellido,20);
     }//GEN-LAST:event_apellidoKeyPressed
 
-    private void telefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyPressed
-        validar.V_numero(telefono,10);
+    private void celularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_celularKeyPressed
+        validar.V_numero(celular,10);
         
-    }//GEN-LAST:event_telefonoKeyPressed
+    }//GEN-LAST:event_celularKeyPressed
 
     private void direccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionKeyPressed
         validar.nombre_compuesto(direccion,80);
     }//GEN-LAST:event_direccionKeyPressed
 
-    private void correoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoKeyPressed
+    private void emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_correoKeyPressed
+    }//GEN-LAST:event_emailKeyPressed
 
-    private void correoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoActionPerformed
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_correoActionPerformed
+    }//GEN-LAST:event_emailActionPerformed
 
     private void jl_cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_cerrarMouseClicked
         this.dispose();
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
-    private void descuentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_descuentoMouseClicked
-        SISTEMA.MENU.setSelectedIndex(4);
-        this.setVisible(false);
-    }//GEN-LAST:event_descuentoMouseClicked
-
-    private void descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descuentoActionPerformed
+    private void ciudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ciudadKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_descuentoActionPerformed
+    }//GEN-LAST:event_ciudadKeyPressed
+
+    private void generoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_generoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_generoKeyPressed
+
+    private void apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apellidoActionPerformed
 
     private void descuentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descuentoKeyPressed
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_descuentoKeyPressed
 
     public static void main(String args[]) {
@@ -575,10 +615,12 @@ public class JFcliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField apellido;
     public static javax.swing.JTextField cedula;
-    public static javax.swing.JTextField correo;
+    public static javax.swing.JTextField celular;
+    public static javax.swing.JTextField ciudad;
     public static javax.swing.JTextField descuento;
     public static javax.swing.JTextField direccion;
-    public static javax.swing.JComboBox<String> genero;
+    public static javax.swing.JTextField email;
+    public static javax.swing.JTextField genero;
     private javax.swing.JPanel jPanel1;
     public static javax.swing.JButton jb_Ejecutar;
     private javax.swing.JLabel jl_cerrar;
@@ -586,6 +628,5 @@ public class JFcliente extends javax.swing.JFrame {
     public static javax.swing.JPanel jp_1;
     public static com.toedter.calendar.JDateChooser nacimiento;
     public static javax.swing.JTextField nombre;
-    public static javax.swing.JTextField telefono;
     // End of variables declaration//GEN-END:variables
 }

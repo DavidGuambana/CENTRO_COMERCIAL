@@ -1,23 +1,9 @@
 package centro_comercial;
-
-import base_datos.base;
-import clases.Categoria;
-import clases.Ciudad;
-import clases.Cliente;
-import clases.Descuento;
-import clases.Detalle_fac;
-import clases.Empleado;
-import clases.Encabezado_fac;
-import clases.Pago_prov;
-import clases.Producto;
-import clases.Proveedor;
-import com.db4o.ObjectSet;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JButton;
@@ -30,10 +16,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import otros.BotonTabla;
-import otros.Clientes_Facturas;
-import otros.Codigos;
 import otros.ImagenTabla;
-import otros.Productos_Detalles;
 import otros.fechas;
 
 public class SISTEMA extends javax.swing.JFrame implements Runnable {
@@ -43,9 +26,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     //otras variables útiles:
     public static boolean actualizado = false;
-    ObjectSet resultado;
-    ObjectSet resultado2;
-    ObjectSet resultado3;
+    
     DefaultTableModel tabla = null, tabla_detalle = null;
     TableRowSorter sorter;
     public static String modo_prov = "producto";
@@ -62,14 +43,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static int xcolum,xrow;
     
     //instancias de los frames:
-    public static JFcategoria JFcat = new JFcategoria();//fr1
-    public static JFciudad JFciu = new JFciudad();//fr2
+//    public static JFcategoria JFcat = new JFcategoria();//fr1
+//    public static JFciudad JFciu = new JFciudad();//fr2
     public static JFcliente JFcli = new JFcliente(); //fr3
-    public static JFdescuento JFdes = new JFdescuento();//fr4
-    public static JFempleado JFemp = new JFempleado();//fr6
-    public static JFpagos JFpag = new JFpagos();//8
-    public static JFproducto JFpro = new JFproducto();//fr9
-    public static JFproveedor JFprov = new JFproveedor(); //fr10
+//    public static JFdescuento JFdes = new JFdescuento();//fr4
+//    public static JFempleado JFemp = new JFempleado();//fr6
+//    public static JFpagos JFpag = new JFpagos();//8
+//    public static JFproducto JFpro = new JFproducto();//fr9
+//    public static JFproveedor JFprov = new JFproveedor(); //fr10
 
     public SISTEMA() {
         initComponents();
@@ -108,188 +89,188 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     //método para cargar los datos en las tablas:
     public void visualizar() {
-        base.abrir();
-        resumen();
-        for (int i = 1; i <= 10; i++) {
-            switch (i) {
-                case 1:
-                    String[] colum_cat = {"Nombre", "Descipción"};
-                    tabla = new DefaultTableModel(null, colum_cat);
-                    Categoria cate = new Categoria(null, null);
-                    resultado = base.gettear(cate);
-                    for (int j = 0; j < resultado.size(); j++) {
-                        cate = (Categoria) resultado.next();
-                        tabla.addRow(new Object[]{cate.getNombre(), cate.getDescripcion()});
-                    }
-                    JTcategorias.setModel(tabla);
-                    cat = resultado.size();
-                    v1.setText(String.valueOf(cat));
-                    res_num_cat.setText("Resultados: " + cat + " de " + cat);
-                    break;
-                case 2://ciudades
-                    String[] colum_ciud = {"Código", "Nombre", "Provincia"};
-                    tabla = new DefaultTableModel(null, colum_ciud);
-                    Ciudad c = new Ciudad(0, null, null);
-                    resultado = base.gettear(c);
-                    if (!resultado.isEmpty()) {
-                        for (int j = 0; j < resultado.size(); j++) {
-                            c = (Ciudad) resultado.next();
-                            tabla.addRow(new Object[]{c.getCodigo(), c.getNombre(), c.getProvincia()});
-                        }
-                    } else {
-                        Codigos.reiniciar_codigo("Ciudad");
-                    }
-                    JTciudades.setModel(tabla);
-                    ciu = resultado.size();
-                    v2.setText(String.valueOf(ciu));
-                    res_num_ciu.setText("Resultados: " + ciu + " de " + ciu);
-                    break;
-                case 3://clientes
-                    String[] colum_cli = {"Cédula", "Nombre", "Apellido", "F. Nacimiento", "Género", "Teléfono", "Correo", "Dirección", "T. Descuento", "F. Registro"};
-                    tabla = new DefaultTableModel(null, colum_cli);
-                    Cliente cl = new Cliente(null, null, null, null, null, null, null, null, null, null);
-                    resultado = base.gettear(cl);
-                    for (int j = 0; j < resultado.size(); j++) {
-                        cl = (Cliente) resultado.next();
-                        tabla.addRow(new Object[]{cl.getCedula(), cl.getNombre(), cl.getApellido(), fechas.transformar_fecha(cl.getFecha_nac()), cl.getGenero(),
-                            cl.getTelefono(), cl.getCorreo(), cl.getDireccion(), cl.getDescuento(), fechas.transformar_fecha(cl.getFecha_reg())});
-                    }
-                    JTclientes.setModel(tabla);
-                    cli = resultado.size();
-                    v3.setText(String.valueOf(cli));
-                    res_num_cli.setText("Resultados: " + cli + " de " + cli);
-
-                    break;
-                case 4://descuentos
-                    String[] colum_des = {"Nombre", "Porcentaje (%)"};
-                    tabla = new DefaultTableModel(null, colum_des);
-                    Descuento d = new Descuento(null, 0);
-                    resultado = base.gettear(d);
-                    for (int j = 0; j < resultado.size(); j++) {
-                        d = (Descuento) resultado.next();
-                        tabla.addRow(new Object[]{d.getNombre(), d.getPorcentaje()});
-                    }
-                    JTdescuentos.setModel(tabla);
-                    des = resultado.size();
-                    v4.setText(String.valueOf(des));
-                    res_num_des.setText("Resultados: " + des + " de " + des);
-                    break;
-                case 5: //detalles de facturas
-                    String[] colum_det = {"Código", "C. Producto", "Cantidad", "Subtotal", "C. Factura"};
-                    tabla = new DefaultTableModel(null, colum_det);
-                    Detalle_fac de = new Detalle_fac(0, 0, 0, 0, 0);
-                    resultado = base.gettear(de);
-                    if (!resultado.isEmpty()) {
-                        for (int j = 0; j < resultado.size(); j++) {
-                            de = (Detalle_fac) resultado.next();
-                            Encabezado_fac en = new Encabezado_fac(de.getCodigo_fac(), null, null, 0, "ACTIVO");
-                            ObjectSet res = base.gettear(en);
-                            if (!res.isEmpty()) {
-                                tabla.addRow(new Object[]{de.getCodigo(), de.getCodigo_pro(), de.getCant(), de.getSubtotal(), de.getCodigo_fac()});
-                            }
-                        }
-                    } else{
-                        Codigos.reiniciar_codigo("Detalle_fac");
-                    }
-                    JTdet_fac.setModel(tabla);
-                    det = tabla.getRowCount();
-                    res_num_det.setText("Resultados: " + det + " de " + det);
-                    
-                    
-                    break;
-                case 6: //empleados
-                    String[] colum_emp = {"Cédula", "Nombre", "Apellido", "F. Nacimiento", "Género", "Teléfono", "Correo", "Dirección", "Sueldo", "F. Registro"};
-                    tabla = new DefaultTableModel(null, colum_emp);
-                    Empleado em = new Empleado(0, null, null, null, null, null, null, null, null, null);
-                    resultado = base.gettear(em);
-                    for (int j = 0; j < resultado.size(); j++) {
-                        em = (Empleado) resultado.next();
-                        tabla.addRow(new Object[]{em.getCedula(), em.getNombre(), em.getApellido(), fechas.transformar_fecha(em.getFecha_nac()), em.getGenero(),
-                            em.getTelefono(), em.getCorreo(), em.getDireccion(), em.getSueldo(), fechas.transformar_fecha(em.getFecha_reg())});
-                    }
-                    JTempleados.setModel(tabla);
-                    emp = resultado.size();
-                    v6.setText(String.valueOf(emp));
-                    res_num_emp.setText("Resultados: " + emp + " de " + emp);
-                    break;
-                case 7: //encabezados de facturas
-                    String[] colum_enc = {"Código", "C. Cliente", "F. Registro", "Total", "Estado"};
-                    tabla = new DefaultTableModel(null, colum_enc);
-                    Encabezado_fac en = new Encabezado_fac(0, null, null, 0, "ACTIVO");
-                    resultado = base.gettear(en);
-                    if (!resultado.isEmpty()) {
-                        for (int j = 0; j < resultado.size(); j++) {
-                            en = (Encabezado_fac) resultado.next();
-                            tabla.addRow(new Object[]{en.getCodigo(), en.getCedula_cli(), fechas.transformar_fecha(en.getFecha()), en.getTotal(), en.getEstado()});
-                        }
-                    } else{
-                        Codigos.reiniciar_codigo("Encabezado_fac");
-                    }
-                    
-                    JTenc_fac.setModel(tabla);
-                    enc = resultado.size();
-                    res_num_enc.setText("Resultados: " + enc + " de " + enc);
-                    
-                    break;
-                case 8: //pagos a proveedores
-                    String[] colum_pag = {"Número", "Monto", "C. Empleado", "RUC proveedor", "Descripción", "F. Registro"};
-                    tabla = new DefaultTableModel(null, colum_pag);
-                    Pago_prov pago = new Pago_prov(0, 0, null, null, null, null);
-                    resultado = base.gettear(pago);
-                    if (!resultado.isEmpty()) {
-                        for (int j = 0; j < resultado.size(); j++) {
-                            pago = (Pago_prov) resultado.next();
-                            tabla.addRow(new Object[]{pago.getCodigo(), pago.getValor(), pago.getCedula_emp(), pago.getRUC_prov(), pago.getDescripcion(),
-                                fechas.transformar_fecha(pago.getFecha_reg())});
-                        }
-                    } else{
-                        Codigos.reiniciar_codigo("Pago_prov");
-                    }
-                    
-                    JTpagos.setModel(tabla);
-                    pag = resultado.size();
-                    res_num_pag.setText("Resultados: " + pag + " de " + pag);
-                    break;
-                case 9://productos
-                    JTproductos.setDefaultRenderer(Object.class, new ImagenTabla());
-                    String[] colum_pro = {"Código", "Nombre", "Precio", "Existencias", "Categoría", "Proveedor", "F. Registro", "Imagen"};
-                    tabla = new DefaultTableModel(null, colum_pro);
-                    Producto pr = new Producto(0, null, 0, 0, null, null, null, null);
-                    resultado = base.gettear(pr);
-                    if (!resultado.isEmpty()) {
-                        for (int j = 0; j < resultado.size(); j++) {
-                            pr = (Producto) resultado.next();
-                            JLabel lb = new JLabel();
-                            lb.setSize(125, 60);
-                            rsscalelabel.RSScaleLabel.setScaleLabel(lb, pr.getUrl_imagen());
-                            tabla.addRow(new Object[]{pr.getCodigo(), pr.getNombre(), pr.getPrecio(), pr.getExistencias(), pr.getNombre_cat(), pr.getRUC_prov(), fechas.transformar_fecha(pr.getFecha_reg()), lb});
-                        }
-                    } else {
-                        Codigos.reiniciar_codigo("Producto");
-                    }
-                    JTproductos.setModel(tabla);
-                    pro = resultado.size();
-                    v9.setText(String.valueOf(pro));
-                    res_num_pro.setText("Resultados: " + pro + " de " + pro);
-                    break;
-                case 10: //proveedores
-                    String[] colum_prov = {"RUC", "Nombre", "Ciudad", "Teléfono", "Correo", "F. Registro"};
-                    tabla = new DefaultTableModel(null, colum_prov);
-                    Proveedor p = new Proveedor(null, null, null, null, null, null);
-                    resultado = base.gettear(p);
-                    for (int j = 0; j < resultado.size(); j++) {
-                        p = (Proveedor) resultado.next();
-                        tabla.addRow(new Object[]{p.getRUC(), p.getNombre_empresa(), p.getCodigo_ciu(), p.getTelefono(), p.getCorreo(), fechas.transformar_fecha(p.getFecha_reg())});
-                    }
-                    JTproveedores.setModel(tabla);
-                    prov = resultado.size();
-                    v10.setText(String.valueOf(prov));
-                    res_num_prov.setText("Resultados: " + prov + " de " + prov);
-                    break;
-
-            }
-        }
-        base.cerrar();
+        
+        
+//        resumen();
+//        for (int i = 1; i <= 10; i++) {
+//            switch (i) {
+//                case 1:
+//                    String[] colum_cat = {"Nombre", "Descipción"};
+//                    tabla = new DefaultTableModel(null, colum_cat);
+//                    Categoria cate = new Categoria(null, null);
+//                    resultado = base.gettear(cate);
+//                    for (int j = 0; j < resultado.size(); j++) {
+//                        cate = (Categoria) resultado.next();
+//                        tabla.addRow(new Object[]{cate.getNombre(), cate.getDescripcion()});
+//                    }
+//                    JTcategorias.setModel(tabla);
+//                    cat = resultado.size();
+//                    v1.setText(String.valueOf(cat));
+//                    res_num_cat.setText("Resultados: " + cat + " de " + cat);
+//                    break;
+//                case 2://ciudades
+//                    String[] colum_ciud = {"Código", "Nombre", "Provincia"};
+//                    tabla = new DefaultTableModel(null, colum_ciud);
+//                    Ciudad c = new Ciudad(0, null, null);
+//                    resultado = base.gettear(c);
+//                    if (!resultado.isEmpty()) {
+//                        for (int j = 0; j < resultado.size(); j++) {
+//                            c = (Ciudad) resultado.next();
+//                            tabla.addRow(new Object[]{c.getCodigo(), c.getNombre(), c.getProvincia()});
+//                        }
+//                    } else {
+//                        Codigos.reiniciar_codigo("Ciudad");
+//                    }
+//                    JTciudades.setModel(tabla);
+//                    ciu = resultado.size();
+//                    v2.setText(String.valueOf(ciu));
+//                    res_num_ciu.setText("Resultados: " + ciu + " de " + ciu);
+//                    break;
+//                case 3://clientes
+//                    String[] colum_cli = {"Cédula", "Nombre", "Apellido", "F. Nacimiento", "Género", "Teléfono", "Correo", "Dirección", "T. Descuento", "F. Registro"};
+//                    tabla = new DefaultTableModel(null, colum_cli);
+//                    Cliente cl = new Cliente(null, null, null, null, null, null, null, null, null, null);
+//                    resultado = base.gettear(cl);
+//                    for (int j = 0; j < resultado.size(); j++) {
+//                        cl = (Cliente) resultado.next();
+//                        tabla.addRow(new Object[]{cl.getCedula(), cl.getNombre(), cl.getApellido(), fechas.transformar_fecha(cl.getFecha_nac()), cl.getGenero(),
+//                            cl.getTelefono(), cl.getCorreo(), cl.getDireccion(), cl.getDescuento(), fechas.transformar_fecha(cl.getFecha_reg())});
+//                    }
+//                    JTclientes.setModel(tabla);
+//                    cli = resultado.size();
+//                    v3.setText(String.valueOf(cli));
+//                    res_num_cli.setText("Resultados: " + cli + " de " + cli);
+//
+//                    break;
+//                case 4://descuentos
+//                    String[] colum_des = {"Nombre", "Porcentaje (%)"};
+//                    tabla = new DefaultTableModel(null, colum_des);
+//                    Descuento d = new Descuento(null, 0);
+//                    resultado = base.gettear(d);
+//                    for (int j = 0; j < resultado.size(); j++) {
+//                        d = (Descuento) resultado.next();
+//                        tabla.addRow(new Object[]{d.getNombre(), d.getPorcentaje()});
+//                    }
+//                    JTdescuentos.setModel(tabla);
+//                    des = resultado.size();
+//                    v4.setText(String.valueOf(des));
+//                    res_num_des.setText("Resultados: " + des + " de " + des);
+//                    break;
+//                case 5: //detalles de facturas
+//                    String[] colum_det = {"Código", "C. Producto", "Cantidad", "Subtotal", "C. Factura"};
+//                    tabla = new DefaultTableModel(null, colum_det);
+//                    Detalle_fac de = new Detalle_fac(0, 0, 0, 0, 0);
+//                    resultado = base.gettear(de);
+//                    if (!resultado.isEmpty()) {
+//                        for (int j = 0; j < resultado.size(); j++) {
+//                            de = (Detalle_fac) resultado.next();
+//                            Encabezado_fac en = new Encabezado_fac(de.getCodigo_fac(), null, null, 0, "ACTIVO");
+//                            ObjectSet res = base.gettear(en);
+//                            if (!res.isEmpty()) {
+//                                tabla.addRow(new Object[]{de.getCodigo(), de.getCodigo_pro(), de.getCant(), de.getSubtotal(), de.getCodigo_fac()});
+//                            }
+//                        }
+//                    } else{
+//                        Codigos.reiniciar_codigo("Detalle_fac");
+//                    }
+//                    JTdet_fac.setModel(tabla);
+//                    det = tabla.getRowCount();
+//                    res_num_det.setText("Resultados: " + det + " de " + det);
+//                    
+//                    
+//                    break;
+//                case 6: //empleados
+//                    String[] colum_emp = {"Cédula", "Nombre", "Apellido", "F. Nacimiento", "Género", "Teléfono", "Correo", "Dirección", "Sueldo", "F. Registro"};
+//                    tabla = new DefaultTableModel(null, colum_emp);
+//                    Empleado em = new Empleado(0, null, null, null, null, null, null, null, null, null);
+//                    resultado = base.gettear(em);
+//                    for (int j = 0; j < resultado.size(); j++) {
+//                        em = (Empleado) resultado.next();
+//                        tabla.addRow(new Object[]{em.getCedula(), em.getNombre(), em.getApellido(), fechas.transformar_fecha(em.getFecha_nac()), em.getGenero(),
+//                            em.getTelefono(), em.getCorreo(), em.getDireccion(), em.getSueldo(), fechas.transformar_fecha(em.getFecha_reg())});
+//                    }
+//                    JTempleados.setModel(tabla);
+//                    emp = resultado.size();
+//                    v6.setText(String.valueOf(emp));
+//                    res_num_emp.setText("Resultados: " + emp + " de " + emp);
+//                    break;
+//                case 7: //encabezados de facturas
+//                    String[] colum_enc = {"Código", "C. Cliente", "F. Registro", "Total", "Estado"};
+//                    tabla = new DefaultTableModel(null, colum_enc);
+//                    Encabezado_fac en = new Encabezado_fac(0, null, null, 0, "ACTIVO");
+//                    resultado = base.gettear(en);
+//                    if (!resultado.isEmpty()) {
+//                        for (int j = 0; j < resultado.size(); j++) {
+//                            en = (Encabezado_fac) resultado.next();
+//                            tabla.addRow(new Object[]{en.getCodigo(), en.getCedula_cli(), fechas.transformar_fecha(en.getFecha()), en.getTotal(), en.getEstado()});
+//                        }
+//                    } else{
+//                        Codigos.reiniciar_codigo("Encabezado_fac");
+//                    }
+//                    
+//                    JTenc_fac.setModel(tabla);
+//                    enc = resultado.size();
+//                    res_num_enc.setText("Resultados: " + enc + " de " + enc);
+//                    
+//                    break;
+//                case 8: //pagos a proveedores
+//                    String[] colum_pag = {"Número", "Monto", "C. Empleado", "RUC proveedor", "Descripción", "F. Registro"};
+//                    tabla = new DefaultTableModel(null, colum_pag);
+//                    Pago_prov pago = new Pago_prov(0, 0, null, null, null, null);
+//                    resultado = base.gettear(pago);
+//                    if (!resultado.isEmpty()) {
+//                        for (int j = 0; j < resultado.size(); j++) {
+//                            pago = (Pago_prov) resultado.next();
+//                            tabla.addRow(new Object[]{pago.getCodigo(), pago.getValor(), pago.getCedula_emp(), pago.getRUC_prov(), pago.getDescripcion(),
+//                                fechas.transformar_fecha(pago.getFecha_reg())});
+//                        }
+//                    } else{
+//                        Codigos.reiniciar_codigo("Pago_prov");
+//                    }
+//                    
+//                    JTpagos.setModel(tabla);
+//                    pag = resultado.size();
+//                    res_num_pag.setText("Resultados: " + pag + " de " + pag);
+//                    break;
+//                case 9://productos
+//                    JTproductos.setDefaultRenderer(Object.class, new ImagenTabla());
+//                    String[] colum_pro = {"Código", "Nombre", "Precio", "Existencias", "Categoría", "Proveedor", "F. Registro", "Imagen"};
+//                    tabla = new DefaultTableModel(null, colum_pro);
+//                    Producto pr = new Producto(0, null, 0, 0, null, null, null, null);
+//                    resultado = base.gettear(pr);
+//                    if (!resultado.isEmpty()) {
+//                        for (int j = 0; j < resultado.size(); j++) {
+//                            pr = (Producto) resultado.next();
+//                            JLabel lb = new JLabel();
+//                            lb.setSize(125, 60);
+//                            rsscalelabel.RSScaleLabel.setScaleLabel(lb, pr.getUrl_imagen());
+//                            tabla.addRow(new Object[]{pr.getCodigo(), pr.getNombre(), pr.getPrecio(), pr.getExistencias(), pr.getNombre_cat(), pr.getRUC_prov(), fechas.transformar_fecha(pr.getFecha_reg()), lb});
+//                        }
+//                    } else {
+//                        Codigos.reiniciar_codigo("Producto");
+//                    }
+//                    JTproductos.setModel(tabla);
+//                    pro = resultado.size();
+//                    v9.setText(String.valueOf(pro));
+//                    res_num_pro.setText("Resultados: " + pro + " de " + pro);
+//                    break;
+//                case 10: //proveedores
+//                    String[] colum_prov = {"RUC", "Nombre", "Ciudad", "Teléfono", "Correo", "F. Registro"};
+//                    tabla = new DefaultTableModel(null, colum_prov);
+//                    Proveedor p = new Proveedor(null, null, null, null, null, null);
+//                    resultado = base.gettear(p);
+//                    for (int j = 0; j < resultado.size(); j++) {
+//                        p = (Proveedor) resultado.next();
+//                        tabla.addRow(new Object[]{p.getRUC(), p.getNombre_empresa(), p.getCodigo_ciu(), p.getTelefono(), p.getCorreo(), fechas.transformar_fecha(p.getFecha_reg())});
+//                    }
+//                    JTproveedores.setModel(tabla);
+//                    prov = resultado.size();
+//                    v10.setText(String.valueOf(prov));
+//                    res_num_prov.setText("Resultados: " + prov + " de " + prov);
+//                    break;
+//
+//            }
+//        }
     }
     
 
@@ -305,177 +286,177 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     //método para eliminar registros de la base de datos:
     public void eliminar(int clase) {
-        if (JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea continuar con esta acción?", "Eliminar registro", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
-            boolean eliminado = true;
-            try {
-                base.abrir();
-                switch (clase) {
-                    case 1: //eliminar categoria
-                        Categoria cate = new Categoria(jlNombre_cat.getText(), null);
-                        resultado = base.gettear(cate);
-                        Producto prod = new Producto(0, null, 0, 0, jlNombre_cat.getText(), null, null, null);
-                        resultado2 = base.gettear(prod);
-                        if (resultado2.isEmpty()) {
-                            cate = (Categoria) resultado.next();
-                            base.eliminar(cate);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar la categoría ya que se encuentra asignado a un producto!");
-                            eliminado = false;
-                        }
-
-                        break;
-                    case 2: //eliminar ciudad
-                        Ciudad c = new Ciudad(Integer.parseInt(jlCodigo_ciu.getText()), null, null);
-                        resultado = base.gettear(c);
-                        Proveedor prov = new Proveedor(null, null, jlCodigo_ciu.getText(), null, null, null);
-                        resultado2 = base.gettear(prov);
-                        if (resultado2.isEmpty()) {
-                            c = (Ciudad) resultado.next();
-                            base.eliminar(c);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar la ciudad ya que se encuentra asignado a un proveedor!");
-                            eliminado = false;
-                        }
-
-                        break;
-                    case 3: //eliminar cliente
-                        Cliente cl = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
-                        resultado = base.gettear(cl);
-                        Encabezado_fac fact = new Encabezado_fac(0, jlCedula_cli.getText(), null, 0, null);
-                        resultado2 = base.gettear(fact);
-                        if (resultado2.isEmpty()) {
-                            cl = (Cliente) resultado.next();
-                            base.eliminar(cl);
-                            reiniciar_factura(); //por precaución
-                        } else {
-                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el cliente ya que se encuentra asignado a una factura!");
-                            eliminado = false;
-                        }        
-                        break;
-                    case 4: //eliminar descuento
-                        Descuento d = new Descuento(jlNombre_des.getText(), 0);
-                        resultado = base.gettear(d);
-                        Cliente cli2 = new Cliente(jlNombre_des.getText(), null, null, null, null, null, null, null, null, null);
-                        resultado2 = base.gettear(cli2);
-                        if (resultado2.isEmpty()) {
-                            d = (Descuento) resultado.next();
-                            base.eliminar(d);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el descuento ya que se encuentra asignado a un cliente!");
-                            eliminado = false;
-                        }
-                        break;
-                    case 6: //eliminar empleado
-                        Empleado e = new Empleado(0, jlCedula_emp.getText(), null, null, null, null, null, null, null, null);
-                        resultado = base.gettear(e);
-                        Pago_prov pp = new Pago_prov(0, 0, jlCedula_emp.getText(), null, null, null);
-                        resultado2 = base.gettear(pp);
-                        if (resultado2.isEmpty()) {
-                            e = (Empleado) resultado.next();
-                            base.eliminar(e);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el empleado ya que se encuentra asignado a un gasto!");
-                            eliminado = false;
-                        }
-                        break;
-                    case 7: //ocultar factura
-                        Encabezado_fac en = new Encabezado_fac(Integer.parseInt(VF_CODIGO.getText()), null, null, 0, null);
-                        resultado = base.gettear(en);
-                        en = (Encabezado_fac) resultado.next();
-                        en.setEstado("INACTIVO");
-                        base.settear(en);
-                        break;
-                    case 8: //eliminar pago a proveedor
-                        Pago_prov p_p = new Pago_prov(Integer.parseInt(jlCodigo_pag.getText()), 0, null, null, null, null);
-                        resultado = base.gettear(p_p);
-                        p_p = (Pago_prov) resultado.next();
-                        base.eliminar(p_p);
-                        break;
-                    case 9: //eliminar producto
-                        Producto pr = new Producto(Integer.parseInt(jlCodigo_pro.getText()), null, 0, 0, null, null, null, null);
-                        resultado = base.gettear(pr);
-                        Detalle_fac enca = new Detalle_fac(0, Integer.parseInt(jlCodigo_pro.getText()), 0, 0,0);
-                        resultado2 = base.gettear(enca);
-                        if (resultado2.isEmpty()) {
-                            pr = (Producto) resultado.next();
-                            base.eliminar(pr);
-                            reiniciar_factura(); //por precaución
-                        } else {
-                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el producto ya que se encuentra asignado a un detalle!");
-                            eliminado = false;
-                        }
-
-                        break;
-                    case 10: //eliminar proveedor
-                        Proveedor p = new Proveedor(jlRUC.getText(), null, null, null, null, null);
-                        resultado = base.gettear(p);
-                        Producto q = new Producto(0, null, 0, 0, null, null, jlRUC.getText(), null);
-                        resultado2 = base.gettear(q);
-                        Pago_prov r = new Pago_prov(0, 0, null, jlRUC.getText(), null, null);
-                        resultado3 = base.gettear(r);
-
-                        if (resultado2.isEmpty() && resultado3.isEmpty()) {
-                            p = (Proveedor) resultado.next();
-                            base.eliminar(p);
-                            limpiar(clase);
-                        } else {
-                            if (!resultado2.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el proveedor ya que se encuentra asignado a un producto!");
-                            } 
-                            if (!resultado3.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el proveedor ya que se encuentra asignado a un pago!");
-                            }
-                            eliminado = false;
-                        }
-                        break;
-
-                }
-            } catch (Exception e) {
-                eliminado = false;
-                getToolkit().beep();
-                JOptionPane.showMessageDialog(rootPane, "¡Registro no existente!", null, JOptionPane.ERROR_MESSAGE);
-            } finally {
-                base.cerrar();
-                if (eliminado) {
-                    JOptionPane.showMessageDialog(null, "¡Eliminado correctamente!");
-                }
-                limpiar(clase);
-                visualizar();
-            }
-        }
+//        if (JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea continuar con esta acción?", "Eliminar registro", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+//            boolean eliminado = true;
+//            try {
+//                base.abrir();
+//                switch (clase) {
+//                    case 1: //eliminar categoria
+//                        Categoria cate = new Categoria(jlNombre_cat.getText(), null);
+//                        resultado = base.gettear(cate);
+//                        Producto prod = new Producto(0, null, 0, 0, jlNombre_cat.getText(), null, null, null);
+//                        resultado2 = base.gettear(prod);
+//                        if (resultado2.isEmpty()) {
+//                            cate = (Categoria) resultado.next();
+//                            base.eliminar(cate);
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar la categoría ya que se encuentra asignado a un producto!");
+//                            eliminado = false;
+//                        }
+//
+//                        break;
+//                    case 2: //eliminar ciudad
+//                        Ciudad c = new Ciudad(Integer.parseInt(jlCodigo_ciu.getText()), null, null);
+//                        resultado = base.gettear(c);
+//                        Proveedor prov = new Proveedor(null, null, jlCodigo_ciu.getText(), null, null, null);
+//                        resultado2 = base.gettear(prov);
+//                        if (resultado2.isEmpty()) {
+//                            c = (Ciudad) resultado.next();
+//                            base.eliminar(c);
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar la ciudad ya que se encuentra asignado a un proveedor!");
+//                            eliminado = false;
+//                        }
+//
+//                        break;
+//                    case 3: //eliminar cliente
+//                        Cliente cl = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
+//                        resultado = base.gettear(cl);
+//                        Encabezado_fac fact = new Encabezado_fac(0, jlCedula_cli.getText(), null, 0, null);
+//                        resultado2 = base.gettear(fact);
+//                        if (resultado2.isEmpty()) {
+//                            cl = (Cliente) resultado.next();
+//                            base.eliminar(cl);
+//                            reiniciar_factura(); //por precaución
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el cliente ya que se encuentra asignado a una factura!");
+//                            eliminado = false;
+//                        }        
+//                        break;
+//                    case 4: //eliminar descuento
+//                        Descuento d = new Descuento(jlNombre_des.getText(), 0);
+//                        resultado = base.gettear(d);
+//                        Cliente cli2 = new Cliente(jlNombre_des.getText(), null, null, null, null, null, null, null, null, null);
+//                        resultado2 = base.gettear(cli2);
+//                        if (resultado2.isEmpty()) {
+//                            d = (Descuento) resultado.next();
+//                            base.eliminar(d);
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el descuento ya que se encuentra asignado a un cliente!");
+//                            eliminado = false;
+//                        }
+//                        break;
+//                    case 6: //eliminar empleado
+//                        Empleado e = new Empleado(0, jlCedula_emp.getText(), null, null, null, null, null, null, null, null);
+//                        resultado = base.gettear(e);
+//                        Pago_prov pp = new Pago_prov(0, 0, jlCedula_emp.getText(), null, null, null);
+//                        resultado2 = base.gettear(pp);
+//                        if (resultado2.isEmpty()) {
+//                            e = (Empleado) resultado.next();
+//                            base.eliminar(e);
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el empleado ya que se encuentra asignado a un gasto!");
+//                            eliminado = false;
+//                        }
+//                        break;
+//                    case 7: //ocultar factura
+//                        Encabezado_fac en = new Encabezado_fac(Integer.parseInt(VF_CODIGO.getText()), null, null, 0, null);
+//                        resultado = base.gettear(en);
+//                        en = (Encabezado_fac) resultado.next();
+//                        en.setEstado("INACTIVO");
+//                        base.settear(en);
+//                        break;
+//                    case 8: //eliminar pago a proveedor
+//                        Pago_prov p_p = new Pago_prov(Integer.parseInt(jlCodigo_pag.getText()), 0, null, null, null, null);
+//                        resultado = base.gettear(p_p);
+//                        p_p = (Pago_prov) resultado.next();
+//                        base.eliminar(p_p);
+//                        break;
+//                    case 9: //eliminar producto
+//                        Producto pr = new Producto(Integer.parseInt(jlCodigo_pro.getText()), null, 0, 0, null, null, null, null);
+//                        resultado = base.gettear(pr);
+//                        Detalle_fac enca = new Detalle_fac(0, Integer.parseInt(jlCodigo_pro.getText()), 0, 0,0);
+//                        resultado2 = base.gettear(enca);
+//                        if (resultado2.isEmpty()) {
+//                            pr = (Producto) resultado.next();
+//                            base.eliminar(pr);
+//                            reiniciar_factura(); //por precaución
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el producto ya que se encuentra asignado a un detalle!");
+//                            eliminado = false;
+//                        }
+//
+//                        break;
+//                    case 10: //eliminar proveedor
+//                        Proveedor p = new Proveedor(jlRUC.getText(), null, null, null, null, null);
+//                        resultado = base.gettear(p);
+//                        Producto q = new Producto(0, null, 0, 0, null, null, jlRUC.getText(), null);
+//                        resultado2 = base.gettear(q);
+//                        Pago_prov r = new Pago_prov(0, 0, null, jlRUC.getText(), null, null);
+//                        resultado3 = base.gettear(r);
+//
+//                        if (resultado2.isEmpty() && resultado3.isEmpty()) {
+//                            p = (Proveedor) resultado.next();
+//                            base.eliminar(p);
+//                            limpiar(clase);
+//                        } else {
+//                            if (!resultado2.isEmpty()) {
+//                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el proveedor ya que se encuentra asignado a un producto!");
+//                            } 
+//                            if (!resultado3.isEmpty()) {
+//                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el proveedor ya que se encuentra asignado a un pago!");
+//                            }
+//                            eliminado = false;
+//                        }
+//                        break;
+//
+//                }
+//            } catch (Exception e) {
+//                eliminado = false;
+//                getToolkit().beep();
+//                JOptionPane.showMessageDialog(rootPane, "¡Registro no existente!", null, JOptionPane.ERROR_MESSAGE);
+//            } finally {
+//                base.cerrar();
+//                if (eliminado) {
+//                    JOptionPane.showMessageDialog(null, "¡Eliminado correctamente!");
+//                }
+//                limpiar(clase);
+//                visualizar();
+//            }
+//        }
     }
     
     //método para registrar una factura (encabezado y detalles):
     public void generar_factura() {
-        base.abrir();
-        try {
-            //registra el encabezado de la factura
-            Encabezado_fac enc_fac = new Encabezado_fac(Codigos.obtener_codigo("Encabezado_fac"),enc_cedula.getText(),fechas.obtener_fecha(),total,"ACTIVO");
-            base.settear(enc_fac);
-            enc_codigo.setText("" + enc_fac.getCodigo());
-
-            for (int i = 0; i < num_det; i++) {
-                int xcodigo_pro = Integer.parseInt(JTdetalle.getValueAt(i, 0).toString());
-                int xcantidad = Integer.parseInt(JTdetalle.getValueAt(i, 2).toString());
-                double xsubtotal = Double.parseDouble(JTdetalle.getValueAt(i, 6).toString());
-
-                Detalle_fac det_fac = new Detalle_fac(Codigos.obtener_codigo("Detalle_fac"), xcodigo_pro, xcantidad, xsubtotal, enc_fac.getCodigo());
-                base.settear(det_fac);
-                
-                //actualiza las existencias del producto vendido
-                Producto p = new Producto(xcodigo_pro,null,0,0,null,null,null,null);
-                resultado = base.gettear(p);
-                p = (Producto)resultado.next();
-                p.setExistencias(p.getExistencias()-xcantidad);
-                base.settear(p);
-            }
-            JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-            
-        } catch (Exception a) {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "¡Error al registrar!");
-        }
-        base.cerrar();
+//        base.abrir();
+//        try {
+//            //registra el encabezado de la factura
+//            Encabezado_fac enc_fac = new Encabezado_fac(Codigos.obtener_codigo("Encabezado_fac"),enc_cedula.getText(),fechas.obtener_fecha(),total,"ACTIVO");
+//            base.settear(enc_fac);
+//            enc_codigo.setText("" + enc_fac.getCodigo());
+//
+//            for (int i = 0; i < num_det; i++) {
+//                int xcodigo_pro = Integer.parseInt(JTdetalle.getValueAt(i, 0).toString());
+//                int xcantidad = Integer.parseInt(JTdetalle.getValueAt(i, 2).toString());
+//                double xsubtotal = Double.parseDouble(JTdetalle.getValueAt(i, 6).toString());
+//
+//                Detalle_fac det_fac = new Detalle_fac(Codigos.obtener_codigo("Detalle_fac"), xcodigo_pro, xcantidad, xsubtotal, enc_fac.getCodigo());
+//                base.settear(det_fac);
+//                
+//                //actualiza las existencias del producto vendido
+//                Producto p = new Producto(xcodigo_pro,null,0,0,null,null,null,null);
+//                resultado = base.gettear(p);
+//                p = (Producto)resultado.next();
+//                p.setExistencias(p.getExistencias()-xcantidad);
+//                base.settear(p);
+//            }
+//            JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
+//            
+//        } catch (Exception a) {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "¡Error al registrar!");
+//        }
+//        base.cerrar();
     }
     
     //limpia los campos de texto y los reinicia valores:
@@ -932,7 +913,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SISTEMA PAPELERIA");
+        setTitle("Proyecto Final");
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(1020, 625));
         setResizable(false);
@@ -4687,7 +4668,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         sistema_titulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         sistema_titulo.setForeground(new java.awt.Color(255, 255, 255));
         sistema_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        sistema_titulo.setText("Sistema Papelería");
+        sistema_titulo.setText("Centro Comercial");
 
         FECHA_HORA.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         FECHA_HORA.setForeground(new java.awt.Color(255, 255, 255));
@@ -4804,21 +4785,21 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbEnviar_provActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviar_provActionPerformed
-        if (!jlRUC.getText().equals(" ")) {
-            if (modo_prov.equals("producto")) {
-                JFproducto.jt_proveedor.setText(jlRUC.getText());
-                SISTEMA.MENU.setSelectedIndex(6);
-                JFpro.setVisible(true);
-            } else {
-                JFpagos.jt_proveedor.setText(jlRUC.getText());
-                SISTEMA.MENU.setSelectedIndex(0);
-                INICIO.setSelectedIndex(2);
-                JFpag.setVisible(true);
-            }
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlRUC.getText().equals(" ")) {
+//            if (modo_prov.equals("producto")) {
+//                JFproducto.jt_proveedor.setText(jlRUC.getText());
+//                SISTEMA.MENU.setSelectedIndex(6);
+//                JFpro.setVisible(true);
+//            } else {
+//                JFpagos.jt_proveedor.setText(jlRUC.getText());
+//                SISTEMA.MENU.setSelectedIndex(0);
+//                INICIO.setSelectedIndex(2);
+//                JFpag.setVisible(true);
+//            }
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
 
     }//GEN-LAST:event_jbEnviar_provActionPerformed
 
@@ -4832,14 +4813,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jb_Eliminar_provActionPerformed
 
     private void jbModificar_provActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_provActionPerformed
-        if (!jlRUC.getText().equals(" ")) {
-            JFproveedor.forma = "modificar";
-            JFproveedor.cambiar_diseño();
-            JFprov.llenar(jlRUC.getText());
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlRUC.getText().equals(" ")) {
+//            JFproveedor.forma = "modificar";
+//            JFproveedor.cambiar_diseño();
+//            JFprov.llenar(jlRUC.getText());
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
 
     }//GEN-LAST:event_jbModificar_provActionPerformed
 
@@ -4915,10 +4896,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbRegistrar_provMouseExited
 
     private void jbRegistrar_provActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_provActionPerformed
-        JFproveedor.forma = "registrar";
-        JFproveedor.cambiar_diseño();
-        JFproveedor.limpiar();
-        JFprov.setVisible(true);
+//        JFproveedor.forma = "registrar";
+//        JFproveedor.cambiar_diseño();
+//        JFproveedor.limpiar();
+//        JFprov.setVisible(true);
     }//GEN-LAST:event_jbRegistrar_provActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -4980,37 +4961,37 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbEnviar_cliMouseExited
 
     private void jbEnviar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviar_cliActionPerformed
-        if (!jlCedula_cli.getText().equals(" ")) {
-            if (fec_enc.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "¡Primero genere una fecha antes enviar clientes!");
-
-            } else {
-                base.abrir();
-                Cliente c = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
-                resultado = base.gettear(c);
-                if (!resultado.isEmpty()) {
-                    c = (Cliente) resultado.next();
-                    enc_cedula.setText(c.getCedula());
-                    enc_cedula.setBackground(Color.green);
-                    JBseleccionar_pro.setEnabled(true);
-                    enc_nombre_apellido.setText(c.getNombre() + " " + c.getApellido());
-                    enc_direccion.setText(c.getDireccion());
-                    enc_telefono.setText(c.getTelefono());
-                    enc_correo.setText(c.getCorreo());
-                    Descuento d = new Descuento(c.getDescuento(), 0);
-                    resultado = base.gettear(d);
-                    d = (Descuento) resultado.next();
-                    descuento = d.getPorcentaje();
-
-                    MENU.setSelectedIndex(0);
-                    INICIO.setSelectedIndex(0);
-                }
-                base.cerrar();
-            }
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlCedula_cli.getText().equals(" ")) {
+//            if (fec_enc.getText().equals("")) {
+//                JOptionPane.showMessageDialog(null, "¡Primero genere una fecha antes enviar clientes!");
+//
+//            } else {
+//                base.abrir();
+//                Cliente c = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
+//                resultado = base.gettear(c);
+//                if (!resultado.isEmpty()) {
+//                    c = (Cliente) resultado.next();
+//                    enc_cedula.setText(c.getCedula());
+//                    enc_cedula.setBackground(Color.green);
+//                    JBseleccionar_pro.setEnabled(true);
+//                    enc_nombre_apellido.setText(c.getNombre() + " " + c.getApellido());
+//                    enc_direccion.setText(c.getDireccion());
+//                    enc_telefono.setText(c.getTelefono());
+//                    enc_correo.setText(c.getCorreo());
+//                    Descuento d = new Descuento(c.getDescuento(), 0);
+//                    resultado = base.gettear(d);
+//                    d = (Descuento) resultado.next();
+//                    descuento = d.getPorcentaje();
+//
+//                    MENU.setSelectedIndex(0);
+//                    INICIO.setSelectedIndex(0);
+//                }
+//                base.cerrar();
+//            }
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbEnviar_cliActionPerformed
 
     private void jb_Eliminar_cliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Eliminar_cliMouseEntered
@@ -5147,14 +5128,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbModificar_desMouseExited
 
     private void jbModificar_desActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_desActionPerformed
-        if (!jlNombre_des.getText().equals(" ")) {
-            JFdescuento.forma = "modificar";
-            JFdescuento.cambiar_diseño();
-            JFdes.llenar(jlNombre_des.getText());
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlNombre_des.getText().equals(" ")) {
+//            JFdescuento.forma = "modificar";
+//            JFdescuento.cambiar_diseño();
+//            JFdes.llenar(jlNombre_des.getText());
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbModificar_desActionPerformed
 
     private void jbRegistrar_desMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_desMouseEntered
@@ -5166,10 +5147,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbRegistrar_desMouseExited
 
     private void jbRegistrar_desActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_desActionPerformed
-        JFdescuento.forma = "registrar";
-        JFdescuento.cambiar_diseño();
-        JFdescuento.limpiar();
-        JFdes.setVisible(true);
+//        JFdescuento.forma = "registrar";
+//        JFdescuento.cambiar_diseño();
+//        JFdescuento.limpiar();
+//        JFdes.setVisible(true);
     }//GEN-LAST:event_jbRegistrar_desActionPerformed
 
     private void jcBuscar_desItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_desItemStateChanged
@@ -5237,14 +5218,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbModificar_catMouseExited
 
     private void jbModificar_catActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_catActionPerformed
-        if (!jlNombre_cat.getText().equals(" ")) {
-            JFcategoria.forma = "modificar";
-            JFcategoria.cambiar_diseño();
-            JFcat.llenar(jlNombre_cat.getText());
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlNombre_cat.getText().equals(" ")) {
+//            JFcategoria.forma = "modificar";
+//            JFcategoria.cambiar_diseño();
+//            JFcat.llenar(jlNombre_cat.getText());
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbModificar_catActionPerformed
 
     private void jbRegistrar_catMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_catMouseEntered
@@ -5256,10 +5237,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbRegistrar_catMouseExited
 
     private void jbRegistrar_catActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_catActionPerformed
-        JFcategoria.forma = "registrar";
-        JFcategoria.cambiar_diseño();
-        JFcategoria.limpiar();
-        JFcat.setVisible(true);
+//        JFcategoria.forma = "registrar";
+//        JFcategoria.cambiar_diseño();
+//        JFcategoria.limpiar();
+//        JFcat.setVisible(true);
     }//GEN-LAST:event_jbRegistrar_catActionPerformed
 
     private void jcBuscar_catItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_catItemStateChanged
@@ -5302,14 +5283,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_lim_catMouseClicked
 
     private void jbEnviar_catActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviar_catActionPerformed
-        if (!jlNombre_cat.getText().equals(" ")) {
-            JFproducto.jt_categoria.setText(jlNombre_cat.getText());
-            SISTEMA.MENU.setSelectedIndex(6);
-            JFpro.setVisible(true);
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlNombre_cat.getText().equals(" ")) {
+//            JFproducto.jt_categoria.setText(jlNombre_cat.getText());
+//            SISTEMA.MENU.setSelectedIndex(6);
+//            JFpro.setVisible(true);
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbEnviar_catActionPerformed
 
     private void jbEnviar_catMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_catMouseExited
@@ -5333,16 +5314,16 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbEnviar_cli1MouseExited
 
     private void jbEnviar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviar_cli1ActionPerformed
-        if (!jlCedula_emp.getText().equals(" ")) {
-            JFpagos.jt_empleado.setText(jlCedula_emp.getText());
-            MENU.setSelectedIndex(0);
-            INICIO.setSelectedIndex(2);
-            JFpag.setVisible(true);
-
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlCedula_emp.getText().equals(" ")) {
+//            JFpagos.jt_empleado.setText(jlCedula_emp.getText());
+//            MENU.setSelectedIndex(0);
+//            INICIO.setSelectedIndex(2);
+//            JFpag.setVisible(true);
+//
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbEnviar_cli1ActionPerformed
 
     private void jb_Eliminar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Eliminar_cli1MouseEntered
@@ -5372,14 +5353,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jbModificar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_cli1ActionPerformed
 
-        if (!jlCedula_emp.getText().equals(" ")) {
-            JFempleado.forma = "modificar";
-            JFempleado.cambiar_diseño();
-            JFemp.llenar(jlCedula_emp.getText());
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlCedula_emp.getText().equals(" ")) {
+//            JFempleado.forma = "modificar";
+//            JFempleado.cambiar_diseño();
+//            JFemp.llenar(jlCedula_emp.getText());
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbModificar_cli1ActionPerformed
 
     private void jbRegistrar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_cli1MouseEntered
@@ -5392,10 +5373,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jbRegistrar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_cli1ActionPerformed
 
-        JFempleado.forma = "registrar";
-        JFempleado.cambiar_diseño();
-        JFempleado.limpiar();
-        JFemp.setVisible(true);
+//        JFempleado.forma = "registrar";
+//        JFempleado.cambiar_diseño();
+//        JFempleado.limpiar();
+//        JFemp.setVisible(true);
     }//GEN-LAST:event_jbRegistrar_cli1ActionPerformed
 
     private void jcBuscar_empItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_empItemStateChanged
@@ -5552,15 +5533,15 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbModificar_proMouseExited
 
     private void jbModificar_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_proActionPerformed
-        modo_prov = "producto";
-        if (!jlCodigo_pro.getText().equals(" ")) {JFproducto.forma = "modificar";
-            JFproducto.cambiar_diseño();
-            JFpro.llenar(Integer.parseInt(jlCodigo_pro.getText()));
-            reiniciar_factura(); //por precaución
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        modo_prov = "producto";
+//        if (!jlCodigo_pro.getText().equals(" ")) {JFproducto.forma = "modificar";
+//            JFproducto.cambiar_diseño();
+//            JFpro.llenar(Integer.parseInt(jlCodigo_pro.getText()));
+//            reiniciar_factura(); //por precaución
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbModificar_proActionPerformed
 
     private void jbRegistrar_proMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_proMouseEntered
@@ -5572,11 +5553,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbRegistrar_proMouseExited
 
     private void jbRegistrar_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_proActionPerformed
-        modo_prov = "producto";
-        JFproducto.forma = "registrar";
-        JFproducto.cambiar_diseño();
-        JFproducto.limpiar();
-        JFpro.setVisible(true);
+//        modo_prov = "producto";
+//        JFproducto.forma = "registrar";
+//        JFproducto.cambiar_diseño();
+//        JFproducto.limpiar();
+//        JFpro.setVisible(true);
     }//GEN-LAST:event_jbRegistrar_proActionPerformed
 
     private void jcBuscar_proItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_proItemStateChanged
@@ -5631,11 +5612,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbRegistrar_ciuMouseExited
 
     private void jbRegistrar_ciuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_ciuActionPerformed
-        JFciudad.forma = "registrar";
-        JFciudad.cambiar_diseño();
-        JFciudad.limpiar();
-        JFciudad.cargar_ciudades();
-        JFciu.setVisible(true);
+//        JFciudad.forma = "registrar";
+//        JFciudad.cambiar_diseño();
+//        JFciudad.limpiar();
+//        JFciudad.cargar_ciudades();
+//        JFciu.setVisible(true);
     }//GEN-LAST:event_jbRegistrar_ciuActionPerformed
 
     private void jbEnviar_ciuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_ciuMouseEntered
@@ -5647,14 +5628,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbEnviar_ciuMouseExited
 
     private void jbEnviar_ciuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviar_ciuActionPerformed
-        if (!jlCodigo_ciu.getText().equals(" ")) {
-            JFproveedor.jt_ciudad.setText(jlCodigo_ciu.getText());
-            SISTEMA.MENU.setSelectedIndex(7);
-            JFprov.setVisible(true);
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlCodigo_ciu.getText().equals(" ")) {
+//            JFproveedor.jt_ciudad.setText(jlCodigo_ciu.getText());
+//            SISTEMA.MENU.setSelectedIndex(7);
+//            JFprov.setVisible(true);
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbEnviar_ciuActionPerformed
 
     private void jbModificar_ciuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbModificar_ciuMouseEntered
@@ -5666,15 +5647,15 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbModificar_ciuMouseExited
 
     private void jbModificar_ciuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_ciuActionPerformed
-        if (!jlCodigo_ciu.getText().equals(" ")) {
-            JFciudad.forma = "modificar";
-            JFciudad.cambiar_diseño();
-            JFciudad.cargar_ciudades_mod(jlNombre_ciu.getText());
-            JFciu.llenar(Integer.parseInt(jlCodigo_ciu.getText()));
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlCodigo_ciu.getText().equals(" ")) {
+//            JFciudad.forma = "modificar";
+//            JFciudad.cambiar_diseño();
+//            JFciudad.cargar_ciudades_mod(jlNombre_ciu.getText());
+//            JFciu.llenar(Integer.parseInt(jlCodigo_ciu.getText()));
+//        } else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbModificar_ciuActionPerformed
 
     private void jbEliminar_ciuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEliminar_ciuMouseEntered
@@ -5929,15 +5910,15 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbModificar_pagMouseExited
 
     private void jbModificar_pagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_pagActionPerformed
-        if (!jlCodigo_pag.getText().equals(" ")) {
-            modo_prov = "pagos_prov";
-            JFpagos.forma = "modificar";
-            JFpagos.cambiar_diseño();
-            JFpag.llenar(Integer.parseInt(jlCodigo_pag.getText()));
-        }else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
+//        if (!jlCodigo_pag.getText().equals(" ")) {
+//            modo_prov = "pagos_prov";
+//            JFpagos.forma = "modificar";
+//            JFpagos.cambiar_diseño();
+//            JFpag.llenar(Integer.parseInt(jlCodigo_pag.getText()));
+//        }else {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+//        }
     }//GEN-LAST:event_jbModificar_pagActionPerformed
 
     private void jbRegistrar_pagMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_pagMouseEntered
@@ -5949,11 +5930,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jbRegistrar_pagMouseExited
 
     private void jbRegistrar_pagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_pagActionPerformed
-        modo_prov = "pagos_prov";
-        JFpagos.forma = "registrar";
-        JFpagos.cambiar_diseño();
-        JFpagos.limpiar();
-        JFpag.setVisible(true);
+//        modo_prov = "pagos_prov";
+//        JFpagos.forma = "registrar";
+//        JFpagos.cambiar_diseño();
+//        JFpagos.limpiar();
+//        JFpag.setVisible(true);
     }//GEN-LAST:event_jbRegistrar_pagActionPerformed
 
     private void jcBuscar_pagItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_pagItemStateChanged
@@ -6013,178 +5994,178 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     
     //método para dar click o doble click en las tablas:
     public void seleccionar() {
-        JTcategorias.addMouseListener(new MouseAdapter() { //categorias(1)
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    jlNombre_cat.setText(JTcategorias.getValueAt(JTcategorias.getSelectedRow(), 0).toString());
-                    jtaDescripcion_cat.setText(JTcategorias.getValueAt(JTcategorias.getSelectedRow(), 1).toString());
+//        JTcategorias.addMouseListener(new MouseAdapter() { //categorias(1)
+//            @Override
+//            public void mousePressed(MouseEvent Mouse_evt) {
+//                if (Mouse_evt.getClickCount() == 1) {
+//                    jlNombre_cat.setText(JTcategorias.getValueAt(JTcategorias.getSelectedRow(), 0).toString());
+//                    jtaDescripcion_cat.setText(JTcategorias.getValueAt(JTcategorias.getSelectedRow(), 1).toString());
+//
+//                }
+//                if (Mouse_evt.getClickCount() == 2) {
+//                    JFproducto.jt_categoria.setText(jlNombre_cat.getText());
+//                    SISTEMA.MENU.setSelectedIndex(6);
+//                    JFpro.setVisible(true);
+//
+//                }
+//            }
+//        });
+//        JTciudades.addMouseListener(new MouseAdapter() { //ciudades(2)
+//            @Override
+//            public void mousePressed(MouseEvent Mouse_evt) {
+//                if (Mouse_evt.getClickCount() == 1) {
+//                    jlCodigo_ciu.setText(JTciudades.getValueAt(JTciudades.getSelectedRow(), 0).toString());
+//                    jlNombre_ciu.setText(JTciudades.getValueAt(JTciudades.getSelectedRow(), 1).toString());
+//                    jlProvincia_ciu.setText(JTciudades.getValueAt(JTciudades.getSelectedRow(), 2).toString());
+//                }
+//                if (Mouse_evt.getClickCount() == 2) {
+//                    JFproveedor.jt_ciudad.setText(jlCodigo_ciu.getText());
+//                    SISTEMA.MENU.setSelectedIndex(7);
+//                    JFprov.setVisible(true);
+//                }
+//            }
+//        });
+//        JTclientes.addMouseListener(new MouseAdapter() { //clientes(3)
+//            @Override
+//            public void mousePressed(MouseEvent Mouse_evt) {
+//                if (Mouse_evt.getClickCount() == 1) {
+//                    jlCedula_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 0).toString());
+//                    jlNombre_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 1).toString());
+//                    jlApellido_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 2).toString());
+//                    jlNac_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 3).toString());
+//                    jlGenero_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 4).toString());
+//                    jlTelefono_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 5).toString());
+//                    jlCorreo_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 6).toString());
+//                    jlDireccion_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 7).toString());
+//                    jlDescuento_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 8).toString());
+//                    jlReg_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 9).toString());
+//                }
+//                if (Mouse_evt.getClickCount() == 2) {
+//                    if (fec_enc.getText().equals("")) {
+//                        JOptionPane.showMessageDialog(null, "¡Primero genere una fecha antes enviar clientes!");
+//
+//                    } else {
+//                        base.abrir();
+//                        Cliente c = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
+//                        resultado = base.gettear(c);
+//                        if (!resultado.isEmpty()) {
+//                            c = (Cliente) resultado.next();
+//                            enc_cedula.setText(c.getCedula());
+//                            enc_cedula.setBackground(Color.green);
+//                            JBseleccionar_pro.setEnabled(true);
+//                            enc_nombre_apellido.setText(c.getNombre() + " " + c.getApellido());
+//                            enc_direccion.setText(c.getDireccion());
+//                            enc_telefono.setText(c.getTelefono());
+//                            enc_correo.setText(c.getCorreo());
+//                            Descuento d = new Descuento(c.getDescuento(), 0);
+//                            resultado = base.gettear(d);
+//                            d = (Descuento) resultado.next();
+//                            descuento = d.getPorcentaje();
+//
+//                            MENU.setSelectedIndex(0);
+//                            INICIO.setSelectedIndex(0);
+//                        }
+//                        base.cerrar();
+//                    }
+//                }
+//            }
+//        });
+//        JTdescuentos.addMouseListener(new MouseAdapter() { //descuentos(4)
+//            @Override
+//            public void mousePressed(MouseEvent Mouse_evt) {
+//                if (Mouse_evt.getClickCount() == 1) {
+//                    jlNombre_des.setText(JTdescuentos.getValueAt(JTdescuentos.getSelectedRow(), 0).toString());
+//                    jlPorcentaje_des.setText(JTdescuentos.getValueAt(JTdescuentos.getSelectedRow(), 1).toString());
+//                }
+//                if (Mouse_evt.getClickCount() == 2) {
+//                    JFcliente.descuento.setText(jlNombre_des.getText());
+//                    SISTEMA.MENU.setSelectedIndex(3);
+//                    JFcli.setVisible(true);
+//                }
+//            }
+//        });
+//        JTempleados.addMouseListener(new MouseAdapter() { //empleados(6)
+//            @Override
+//            public void mousePressed(MouseEvent Mouse_evt) {
+//                if (Mouse_evt.getClickCount() == 1) {
+//                    jlCedula_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 0).toString());
+//                    jlNombre_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 1).toString());
+//                    jlApellido_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 2).toString());
+//                    jlNac_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 3).toString());
+//                    jlGenero_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 4).toString());
+//                    jlTelefono_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 5).toString());
+//                    jlCorreo_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 6).toString());
+//                    jlDireccion_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 7).toString());
+//                    jlSueldo_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 8).toString());
+//                    jlReg_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 9).toString());
+//                }
+//                if (Mouse_evt.getClickCount() == 2) {
+//                    JFpagos.jt_empleado.setText(jlCedula_emp.getText());
+//                    MENU.setSelectedIndex(0);
+//                    INICIO.setSelectedIndex(2);
+//                    JFpag.setVisible(true);
+//                }
+//            }
+//        });
 
-                }
-                if (Mouse_evt.getClickCount() == 2) {
-                    JFproducto.jt_categoria.setText(jlNombre_cat.getText());
-                    SISTEMA.MENU.setSelectedIndex(6);
-                    JFpro.setVisible(true);
+//        JTenc_fac.addMouseListener(new MouseAdapter() { //encabezados(7)
+//            @Override
+//            public void mousePressed(MouseEvent Mouse_evt) {
+//                if (Mouse_evt.getClickCount() == 1) {
+//                    VF_CODIGO.setText(JTenc_fac.getValueAt(JTenc_fac.getSelectedRow(), 0).toString());
+//                    VF_CEDULA.setText(JTenc_fac.getValueAt(JTenc_fac.getSelectedRow(), 1).toString());
+//                    VF_FECHA.setText(JTenc_fac.getValueAt(JTenc_fac.getSelectedRow(), 2).toString());
+//                    VF_TOTAL.setText("$" + JTenc_fac.getValueAt(JTenc_fac.getSelectedRow(), 3).toString());
+//                    base.abrir();
+//                    Cliente c = new Cliente(null, VF_CEDULA.getText(), null, null, null, null, null, null, null, null);
+//                    resultado = base.gettear(c);
+//                    c = (Cliente) resultado.next();
+//
+//                    VF_NOMBRE_APELLIDO.setText(c.getNombre() + " " + c.getApellido());
+//                    VF_DIRECCION.setText(c.getDireccion());
+//                    VF_TELEFONO.setText(c.getTelefono());
+//                    VF_CORREO.setText(c.getCorreo());
+//                    //cargar detalles pertenecientes a la factura
+//                    String[] colum_det = {"Código","C. Producto", "Cantidad", "Subtotal", "C. Factura"};
+//                    tabla = new DefaultTableModel(null, colum_det);
+//                    Detalle_fac DF = new Detalle_fac(0, 0, 0, 0, Integer.parseInt(VF_CODIGO.getText()));
+//                    resultado = base.gettear(DF);                  
+//                    for (int i = 0; i < resultado.size(); i++) {
+//                        
+//                        DF = (Detalle_fac) resultado.next();
+//                        
+//                      
+//                        
+//                        tabla.addRow(new Object[]{DF.getCodigo(), DF.getCodigo_pro(), DF.getCant(), DF.getSubtotal(), DF.getCodigo_fac()});
+//
+//                    }
+//                    VF_DETALLES.setModel(tabla);
+//                    base.cerrar();
+//                }
+//            }
+//        });
 
-                }
-            }
-        });
-        JTciudades.addMouseListener(new MouseAdapter() { //ciudades(2)
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    jlCodigo_ciu.setText(JTciudades.getValueAt(JTciudades.getSelectedRow(), 0).toString());
-                    jlNombre_ciu.setText(JTciudades.getValueAt(JTciudades.getSelectedRow(), 1).toString());
-                    jlProvincia_ciu.setText(JTciudades.getValueAt(JTciudades.getSelectedRow(), 2).toString());
-                }
-                if (Mouse_evt.getClickCount() == 2) {
-                    JFproveedor.jt_ciudad.setText(jlCodigo_ciu.getText());
-                    SISTEMA.MENU.setSelectedIndex(7);
-                    JFprov.setVisible(true);
-                }
-            }
-        });
-        JTclientes.addMouseListener(new MouseAdapter() { //clientes(3)
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    jlCedula_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 0).toString());
-                    jlNombre_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 1).toString());
-                    jlApellido_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 2).toString());
-                    jlNac_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 3).toString());
-                    jlGenero_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 4).toString());
-                    jlTelefono_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 5).toString());
-                    jlCorreo_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 6).toString());
-                    jlDireccion_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 7).toString());
-                    jlDescuento_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 8).toString());
-                    jlReg_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 9).toString());
-                }
-                if (Mouse_evt.getClickCount() == 2) {
-                    if (fec_enc.getText().equals("")) {
-                        JOptionPane.showMessageDialog(null, "¡Primero genere una fecha antes enviar clientes!");
-
-                    } else {
-                        base.abrir();
-                        Cliente c = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
-                        resultado = base.gettear(c);
-                        if (!resultado.isEmpty()) {
-                            c = (Cliente) resultado.next();
-                            enc_cedula.setText(c.getCedula());
-                            enc_cedula.setBackground(Color.green);
-                            JBseleccionar_pro.setEnabled(true);
-                            enc_nombre_apellido.setText(c.getNombre() + " " + c.getApellido());
-                            enc_direccion.setText(c.getDireccion());
-                            enc_telefono.setText(c.getTelefono());
-                            enc_correo.setText(c.getCorreo());
-                            Descuento d = new Descuento(c.getDescuento(), 0);
-                            resultado = base.gettear(d);
-                            d = (Descuento) resultado.next();
-                            descuento = d.getPorcentaje();
-
-                            MENU.setSelectedIndex(0);
-                            INICIO.setSelectedIndex(0);
-                        }
-                        base.cerrar();
-                    }
-                }
-            }
-        });
-        JTdescuentos.addMouseListener(new MouseAdapter() { //descuentos(4)
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    jlNombre_des.setText(JTdescuentos.getValueAt(JTdescuentos.getSelectedRow(), 0).toString());
-                    jlPorcentaje_des.setText(JTdescuentos.getValueAt(JTdescuentos.getSelectedRow(), 1).toString());
-                }
-                if (Mouse_evt.getClickCount() == 2) {
-                    JFcliente.descuento.setText(jlNombre_des.getText());
-                    SISTEMA.MENU.setSelectedIndex(3);
-                    JFcli.setVisible(true);
-                }
-            }
-        });
-        JTempleados.addMouseListener(new MouseAdapter() { //empleados(6)
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    jlCedula_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 0).toString());
-                    jlNombre_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 1).toString());
-                    jlApellido_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 2).toString());
-                    jlNac_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 3).toString());
-                    jlGenero_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 4).toString());
-                    jlTelefono_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 5).toString());
-                    jlCorreo_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 6).toString());
-                    jlDireccion_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 7).toString());
-                    jlSueldo_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 8).toString());
-                    jlReg_emp.setText(JTempleados.getValueAt(JTempleados.getSelectedRow(), 9).toString());
-                }
-                if (Mouse_evt.getClickCount() == 2) {
-                    JFpagos.jt_empleado.setText(jlCedula_emp.getText());
-                    MENU.setSelectedIndex(0);
-                    INICIO.setSelectedIndex(2);
-                    JFpag.setVisible(true);
-                }
-            }
-        });
-
-        JTenc_fac.addMouseListener(new MouseAdapter() { //encabezados(7)
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    VF_CODIGO.setText(JTenc_fac.getValueAt(JTenc_fac.getSelectedRow(), 0).toString());
-                    VF_CEDULA.setText(JTenc_fac.getValueAt(JTenc_fac.getSelectedRow(), 1).toString());
-                    VF_FECHA.setText(JTenc_fac.getValueAt(JTenc_fac.getSelectedRow(), 2).toString());
-                    VF_TOTAL.setText("$" + JTenc_fac.getValueAt(JTenc_fac.getSelectedRow(), 3).toString());
-                    base.abrir();
-                    Cliente c = new Cliente(null, VF_CEDULA.getText(), null, null, null, null, null, null, null, null);
-                    resultado = base.gettear(c);
-                    c = (Cliente) resultado.next();
-
-                    VF_NOMBRE_APELLIDO.setText(c.getNombre() + " " + c.getApellido());
-                    VF_DIRECCION.setText(c.getDireccion());
-                    VF_TELEFONO.setText(c.getTelefono());
-                    VF_CORREO.setText(c.getCorreo());
-                    //cargar detalles pertenecientes a la factura
-                    String[] colum_det = {"Código","C. Producto", "Cantidad", "Subtotal", "C. Factura"};
-                    tabla = new DefaultTableModel(null, colum_det);
-                    Detalle_fac DF = new Detalle_fac(0, 0, 0, 0, Integer.parseInt(VF_CODIGO.getText()));
-                    resultado = base.gettear(DF);                  
-                    for (int i = 0; i < resultado.size(); i++) {
-                        
-                        DF = (Detalle_fac) resultado.next();
-                        
-                      
-                        
-                        tabla.addRow(new Object[]{DF.getCodigo(), DF.getCodigo_pro(), DF.getCant(), DF.getSubtotal(), DF.getCodigo_fac()});
-
-                    }
-                    VF_DETALLES.setModel(tabla);
-                    base.cerrar();
-                }
-            }
-        });
-
-        JTpagos.addMouseListener(new MouseAdapter() { //pagos a prov(8)
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    jlCodigo_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 0).toString());
-                    jlPrecio_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 1).toString());
-                    jlceduempleado.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 2).toString());
-                    jlProveedor_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 3).toString());
-                    jtaDescripcion_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 4).toString());
-                    jlReg_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 5).toString());
-
-                    base.abrir();
-                    Empleado c = new Empleado(0, jlceduempleado.getText(), null, null, null, null, null, null, null, null);
-                    resultado = base.gettear(c);
-                    c = (Empleado) resultado.next();
-                    jlempleado_nom.setText(c.getNombre() + " " + c.getApellido());
-                    base.cerrar();
-                }
-
-            }
-        });
+//        JTpagos.addMouseListener(new MouseAdapter() { //pagos a prov(8)
+//            @Override
+//            public void mousePressed(MouseEvent Mouse_evt) {
+//                if (Mouse_evt.getClickCount() == 1) {
+//                    jlCodigo_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 0).toString());
+//                    jlPrecio_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 1).toString());
+//                    jlceduempleado.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 2).toString());
+//                    jlProveedor_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 3).toString());
+//                    jtaDescripcion_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 4).toString());
+//                    jlReg_pag.setText(JTpagos.getValueAt(JTpagos.getSelectedRow(), 5).toString());
+//
+//                    base.abrir();
+//                    Empleado c = new Empleado(0, jlceduempleado.getText(), null, null, null, null, null, null, null, null);
+//                    resultado = base.gettear(c);
+//                    c = (Empleado) resultado.next();
+//                    jlempleado_nom.setText(c.getNombre() + " " + c.getApellido());
+//                    base.cerrar();
+//                }
+//
+//            }
+//        });
 
         JTproductos.addMouseListener(new MouseAdapter() { //productos(9)
             @Override
@@ -6271,31 +6252,31 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 }
             }
         });
-        JTproveedores.addMouseListener(new MouseAdapter() { //10 proveedor
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-                if (Mouse_evt.getClickCount() == 1) {
-                    jlRUC.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 0).toString());
-                    jlNombre.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 1).toString());
-                    jlCiudad.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 2).toString());
-                    jlTelefono.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 3).toString());
-                    jlEmail.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 4).toString());
-                    jlFecha_reg.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 5).toString());
-                }
-                if (Mouse_evt.getClickCount() == 2) {
-                    if (modo_prov.equals("producto")) {
-                        JFproducto.jt_proveedor.setText(jlRUC.getText());
-                        SISTEMA.MENU.setSelectedIndex(6);
-                        JFpro.setVisible(true);
-                    } else {
-                        JFpagos.jt_proveedor.setText(jlRUC.getText());
-                        SISTEMA.MENU.setSelectedIndex(0);
-                        INICIO.setSelectedIndex(2);
-                        JFpag.setVisible(true);
-                    }
-                }
-            }
-        });
+//        JTproveedores.addMouseListener(new MouseAdapter() { //10 proveedor
+//            @Override
+//            public void mousePressed(MouseEvent Mouse_evt) {
+//                if (Mouse_evt.getClickCount() == 1) {
+//                    jlRUC.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 0).toString());
+//                    jlNombre.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 1).toString());
+//                    jlCiudad.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 2).toString());
+//                    jlTelefono.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 3).toString());
+//                    jlEmail.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 4).toString());
+//                    jlFecha_reg.setText(JTproveedores.getValueAt(JTproveedores.getSelectedRow(), 5).toString());
+//                }
+//                if (Mouse_evt.getClickCount() == 2) {
+//                    if (modo_prov.equals("producto")) {
+//                        JFproducto.jt_proveedor.setText(jlRUC.getText());
+//                        SISTEMA.MENU.setSelectedIndex(6);
+//                        JFpro.setVisible(true);
+//                    } else {
+//                        JFpagos.jt_proveedor.setText(jlRUC.getText());
+//                        SISTEMA.MENU.setSelectedIndex(0);
+//                        INICIO.setSelectedIndex(2);
+//                        JFpag.setVisible(true);
+//                    }
+//                }
+//            }
+//        });
 
     }
 
@@ -6443,192 +6424,192 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
      }
 
     public void resumen() {
-        limpiar_resumen();
+        //limpiar_resumen();
         int clientes_con_fac = 0;
         int clientes_sin_fac = 0;
         
         //CLIENTES CON MÁS COMPRAS:
-        ArrayList clientes_top = new ArrayList<>();
-        Cliente c = new Cliente(null, null, null, null, null, null, null, null, null, null);
-        resultado = base.gettear(c);
-        for (int i = 0; i < resultado.size(); i++) {
-            c = (Cliente) resultado.next();
-            Encabezado_fac fac_cli = new Encabezado_fac(0, c.getCedula(), null, 0, "ACTIVO");
-            ObjectSet res = base.gettear(fac_cli);
-            if (!res.isEmpty()) {
-                clientes_con_fac++;
-                clientes_top.add(new Clientes_Facturas((c.getCedula()), c.getNombre(), c.getApellido(), res.size()));
-            } else {
-                clientes_sin_fac++;
-            }
-        } //OREDENA DE MAYOR A MENOR DEPENDIENDO EL NÚMERO DE COMPRAS(FACTURAS "ACTIVAS")
-        Collections.sort(clientes_top, (Clientes_Facturas c1, Clientes_Facturas c2) -> Integer.valueOf(c2.getNum_fac()).compareTo(c1.getNum_fac()));
-        
-        for (int i = 1; i <= clientes_top.size(); i++) {
-            Clientes_Facturas x = (Clientes_Facturas) clientes_top.get(i - 1);
-            switch (i) {
-                case 1:
-                    R1_A1.setText(x.getCedula());
-                    R1_B1.setText(x.getNombre() + " " + x.getApellido());
-                    R1_C1.setText("" + x.getNum_fac());
-                    break;
-                case 2:
-                    R1_A2.setText(x.getCedula());
-                    R1_B2.setText(x.getNombre() + " " + x.getApellido());
-                    R1_C2.setText("" + x.getNum_fac());
-                    break;
-                case 3:
-                    R1_A3.setText(x.getCedula());
-                    R1_B3.setText(x.getNombre() + " " + x.getApellido());
-                    R1_C3.setText("" + x.getNum_fac());
-                    break;
-                case 4:
-                    R1_A4.setText(x.getCedula());
-                    R1_B4.setText(x.getNombre() + " " + x.getApellido());
-                    R1_C4.setText("" + x.getNum_fac());
-                    break;
-                case 5:
-                    R1_A5.setText(x.getCedula());
-                    R1_B5.setText(x.getNombre() + " " + x.getApellido());
-                    R1_C5.setText("" + x.getNum_fac());
-                    break;
-            }
-        }
-        
-        //PRODUCTOS MÁS VENDIDOS:
-        ArrayList productos_top = new ArrayList<>();
-        
-        Producto p = new Producto(0, null, 0, 0, null, null, null, null);
-        resultado = base.gettear(p);
-
-        for (int i = 0; i < resultado.size(); i++) {
-            int ventas = 0;
-            p = (Producto)resultado.next();
-            Encabezado_fac fac_act = new Encabezado_fac(0, null, null, 0, "ACTIVO");
-            ObjectSet res1 = base.gettear(fac_act);
-            for (int j = 0; j < res1.size(); j++) {
-                fac_act = (Encabezado_fac) res1.next();
-                Detalle_fac det_pro = new Detalle_fac(0, p.getCodigo(), 0, 0, fac_act.getCodigo());
-                ObjectSet res = base.gettear(det_pro);
-                if (!res.isEmpty()) {
-                   ventas++; 
-                }
-            }
-            if (ventas >0) {
-                productos_top.add(new Productos_Detalles(p.getCodigo(), p.getNombre(), ventas));
-            }
-            
-        }
-        
-        //OREDENA DE MAYOR A MENOR DEPENDIENDO EL NÚMERO DE VENTAS(DETALLES)
-        Collections.sort(productos_top, (Productos_Detalles p1, Productos_Detalles p2) -> Integer.valueOf(p2.getVentas()).compareTo(p1.getVentas()));
-        for (int i = 1; i <= productos_top.size(); i++) {
-            Productos_Detalles x = (Productos_Detalles) productos_top.get(i - 1);
-            switch (i) {
-                case 1:
-                    R2_A1.setText(""+x.getCodigo());
-                    R2_B1.setText(x.getNombre());
-                    R2_C1.setText("" + x.getVentas());
-                    break;
-                case 2:
-                    R2_A2.setText(""+x.getCodigo());
-                    R2_B2.setText(x.getNombre());
-                    R2_C2.setText("" + x.getVentas());
-                    break;
-                case 3:
-                    R2_A3.setText(""+x.getCodigo());
-                    R2_B3.setText(x.getNombre());
-                    R2_C3.setText("" + x.getVentas());
-                    break;
-                case 4:
-                    R2_A4.setText(""+x.getCodigo());
-                    R2_B4.setText(x.getNombre());
-                    R2_C4.setText("" + x.getVentas());
-                    break;
-                case 5:
-                    R2_A5.setText(""+x.getCodigo());
-                    R2_B5.setText(x.getNombre());
-                    R2_C5.setText("" + x.getVentas());
-                    break;
-            }
-        }
-
-        //ESTADÍSTICAS GENERALES
-        int facturas = 0;
-        double acum = 0;
-        double acum_total = 0;
-        R3_A1.setText("" + clientes_con_fac);
-        R3_B1.setText("" + clientes_sin_fac);
-        //$ total de facturas activas:
-        Encabezado_fac fac_act = new Encabezado_fac(0, null, null, 0, "ACTIVO");
-        resultado = base.gettear(fac_act);
-        for (int i = 0; i < resultado.size(); i++) {
-            fac_act = (Encabezado_fac) resultado.next();
-            acum += fac_act.getTotal();
-        }
-        acum = Math.round(acum * 100.0) / 100.0; //lo deja con 2 decimales
-
-        R3_T1.setText("$ de " + resultado.size() + " F. Activas");
-        R3_C1.setText("$" + acum);
-        facturas = resultado.size();
-        acum_total = acum;
-        //$ total de facturas incactivas:
-        acum = 0;
-        Encabezado_fac fac_inac = new Encabezado_fac(0, null, null, 0, "INACTIVO");
-        resultado = base.gettear(fac_inac);
-        for (int i = 0; i < resultado.size(); i++) {
-            fac_inac = (Encabezado_fac) resultado.next();
-            acum += fac_inac.getTotal();
-        }
-        acum = Math.round(acum * 100.0) / 100.0; //lo deja con 2 decimales
-        R3_T2.setText("$ de " + resultado.size() + " F. Inactivas");
-        R3_D1.setText("$" + acum);
-        facturas += resultado.size();
-        acum_total += acum;
-        acum_total = Math.round(acum_total * 100.0) / 100.0; //lo deja con 2 decimales
-        //$ total de facturas:
-        R3_T3.setText("$ de " + facturas + " Facturas");
-        R3_E1.setText("$" + acum_total);
-    }
-    
-    public void limpiar_resumen(){
-        //Tabla R1
-        R1_A1.setText(null);
-        R1_B1.setText(null);
-        R1_C1.setText(null);
-        R1_A2.setText(null);
-        R1_B2.setText(null);
-        R1_C2.setText(null);
-        R1_A3.setText(null);
-        R1_B3.setText(null);
-        R1_C3.setText(null);
-        R1_A4.setText(null);
-        R1_B4.setText(null);
-        R1_C4.setText(null);
-        R1_A5.setText(null);
-        R1_B5.setText(null);
-        R1_C5.setText(null);
-        //Tabla R2
-        R2_A1.setText(null);
-        R2_B1.setText(null);
-        R2_C1.setText(null);
-        R2_A2.setText(null);
-        R2_B2.setText(null);
-        R2_C2.setText(null);
-        R2_A3.setText(null);
-        R2_B3.setText(null);
-        R2_C3.setText(null);
-        R2_A4.setText(null);
-        R2_B4.setText(null);
-        R2_C4.setText(null);
-        R2_A5.setText(null);
-        R2_B5.setText(null);
-        R2_C5.setText(null);
-        //Tabla R3
-        R3_A1.setText(null);
-        R3_B1.setText(null);
-        R3_C1.setText(null);
-        R3_D1.setText(null);
+//        ArrayList clientes_top = new ArrayList<>();
+//        Cliente c = new Cliente(null, null, null, null, null, null, null, null, null, null);
+//        resultado = base.gettear(c);
+//        for (int i = 0; i < resultado.size(); i++) {
+//            c = (Cliente) resultado.next();
+//            Encabezado_fac fac_cli = new Encabezado_fac(0, c.getCedula(), null, 0, "ACTIVO");
+//            ObjectSet res = base.gettear(fac_cli);
+//            if (!res.isEmpty()) {
+//                clientes_con_fac++;
+//                clientes_top.add(new Clientes_Facturas((c.getCedula()), c.getNombre(), c.getApellido(), res.size()));
+//            } else {
+//                clientes_sin_fac++;
+//            }
+//        } //OREDENA DE MAYOR A MENOR DEPENDIENDO EL NÚMERO DE COMPRAS(FACTURAS "ACTIVAS")
+//        Collections.sort(clientes_top, (Clientes_Facturas c1, Clientes_Facturas c2) -> Integer.valueOf(c2.getNum_fac()).compareTo(c1.getNum_fac()));
+//        
+//        for (int i = 1; i <= clientes_top.size(); i++) {
+//            Clientes_Facturas x = (Clientes_Facturas) clientes_top.get(i - 1);
+//            switch (i) {
+//                case 1:
+//                    R1_A1.setText(x.getCedula());
+//                    R1_B1.setText(x.getNombre() + " " + x.getApellido());
+//                    R1_C1.setText("" + x.getNum_fac());
+//                    break;
+//                case 2:
+//                    R1_A2.setText(x.getCedula());
+//                    R1_B2.setText(x.getNombre() + " " + x.getApellido());
+//                    R1_C2.setText("" + x.getNum_fac());
+//                    break;
+//                case 3:
+//                    R1_A3.setText(x.getCedula());
+//                    R1_B3.setText(x.getNombre() + " " + x.getApellido());
+//                    R1_C3.setText("" + x.getNum_fac());
+//                    break;
+//                case 4:
+//                    R1_A4.setText(x.getCedula());
+//                    R1_B4.setText(x.getNombre() + " " + x.getApellido());
+//                    R1_C4.setText("" + x.getNum_fac());
+//                    break;
+//                case 5:
+//                    R1_A5.setText(x.getCedula());
+//                    R1_B5.setText(x.getNombre() + " " + x.getApellido());
+//                    R1_C5.setText("" + x.getNum_fac());
+//                    break;
+//            }
+//        }
+//        
+//        //PRODUCTOS MÁS VENDIDOS:
+//        ArrayList productos_top = new ArrayList<>();
+//        
+//        Producto p = new Producto(0, null, 0, 0, null, null, null, null);
+//        resultado = base.gettear(p);
+//
+//        for (int i = 0; i < resultado.size(); i++) {
+//            int ventas = 0;
+//            p = (Producto)resultado.next();
+//            Encabezado_fac fac_act = new Encabezado_fac(0, null, null, 0, "ACTIVO");
+//            ObjectSet res1 = base.gettear(fac_act);
+//            for (int j = 0; j < res1.size(); j++) {
+//                fac_act = (Encabezado_fac) res1.next();
+//                Detalle_fac det_pro = new Detalle_fac(0, p.getCodigo(), 0, 0, fac_act.getCodigo());
+//                ObjectSet res = base.gettear(det_pro);
+//                if (!res.isEmpty()) {
+//                   ventas++; 
+//                }
+//            }
+//            if (ventas >0) {
+//                productos_top.add(new Productos_Detalles(p.getCodigo(), p.getNombre(), ventas));
+//            }
+//            
+//        }
+//        
+//        //OREDENA DE MAYOR A MENOR DEPENDIENDO EL NÚMERO DE VENTAS(DETALLES)
+//        Collections.sort(productos_top, (Productos_Detalles p1, Productos_Detalles p2) -> Integer.valueOf(p2.getVentas()).compareTo(p1.getVentas()));
+//        for (int i = 1; i <= productos_top.size(); i++) {
+//            Productos_Detalles x = (Productos_Detalles) productos_top.get(i - 1);
+//            switch (i) {
+//                case 1:
+//                    R2_A1.setText(""+x.getCodigo());
+//                    R2_B1.setText(x.getNombre());
+//                    R2_C1.setText("" + x.getVentas());
+//                    break;
+//                case 2:
+//                    R2_A2.setText(""+x.getCodigo());
+//                    R2_B2.setText(x.getNombre());
+//                    R2_C2.setText("" + x.getVentas());
+//                    break;
+//                case 3:
+//                    R2_A3.setText(""+x.getCodigo());
+//                    R2_B3.setText(x.getNombre());
+//                    R2_C3.setText("" + x.getVentas());
+//                    break;
+//                case 4:
+//                    R2_A4.setText(""+x.getCodigo());
+//                    R2_B4.setText(x.getNombre());
+//                    R2_C4.setText("" + x.getVentas());
+//                    break;
+//                case 5:
+//                    R2_A5.setText(""+x.getCodigo());
+//                    R2_B5.setText(x.getNombre());
+//                    R2_C5.setText("" + x.getVentas());
+//                    break;
+//            }
+//        }
+//
+//        //ESTADÍSTICAS GENERALES
+//        int facturas = 0;
+//        double acum = 0;
+//        double acum_total = 0;
+//        R3_A1.setText("" + clientes_con_fac);
+//        R3_B1.setText("" + clientes_sin_fac);
+//        //$ total de facturas activas:
+//        Encabezado_fac fac_act = new Encabezado_fac(0, null, null, 0, "ACTIVO");
+//        resultado = base.gettear(fac_act);
+//        for (int i = 0; i < resultado.size(); i++) {
+//            fac_act = (Encabezado_fac) resultado.next();
+//            acum += fac_act.getTotal();
+//        }
+//        acum = Math.round(acum * 100.0) / 100.0; //lo deja con 2 decimales
+//
+//        R3_T1.setText("$ de " + resultado.size() + " F. Activas");
+//        R3_C1.setText("$" + acum);
+//        facturas = resultado.size();
+//        acum_total = acum;
+//        //$ total de facturas incactivas:
+//        acum = 0;
+//        Encabezado_fac fac_inac = new Encabezado_fac(0, null, null, 0, "INACTIVO");
+//        resultado = base.gettear(fac_inac);
+//        for (int i = 0; i < resultado.size(); i++) {
+//            fac_inac = (Encabezado_fac) resultado.next();
+//            acum += fac_inac.getTotal();
+//        }
+//        acum = Math.round(acum * 100.0) / 100.0; //lo deja con 2 decimales
+//        R3_T2.setText("$ de " + resultado.size() + " F. Inactivas");
+//        R3_D1.setText("$" + acum);
+//        facturas += resultado.size();
+//        acum_total += acum;
+//        acum_total = Math.round(acum_total * 100.0) / 100.0; //lo deja con 2 decimales
+//        //$ total de facturas:
+//        R3_T3.setText("$ de " + facturas + " Facturas");
+//        R3_E1.setText("$" + acum_total);
+//    }
+//    
+//    public void limpiar_resumen(){
+//        //Tabla R1
+//        R1_A1.setText(null);
+//        R1_B1.setText(null);
+//        R1_C1.setText(null);
+//        R1_A2.setText(null);
+//        R1_B2.setText(null);
+//        R1_C2.setText(null);
+//        R1_A3.setText(null);
+//        R1_B3.setText(null);
+//        R1_C3.setText(null);
+//        R1_A4.setText(null);
+//        R1_B4.setText(null);
+//        R1_C4.setText(null);
+//        R1_A5.setText(null);
+//        R1_B5.setText(null);
+//        R1_C5.setText(null);
+//        //Tabla R2
+//        R2_A1.setText(null);
+//        R2_B1.setText(null);
+//        R2_C1.setText(null);
+//        R2_A2.setText(null);
+//        R2_B2.setText(null);
+//        R2_C2.setText(null);
+//        R2_A3.setText(null);
+//        R2_B3.setText(null);
+//        R2_C3.setText(null);
+//        R2_A4.setText(null);
+//        R2_B4.setText(null);
+//        R2_C4.setText(null);
+//        R2_A5.setText(null);
+//        R2_B5.setText(null);
+//        R2_C5.setText(null);
+//        //Tabla R3
+//        R3_A1.setText(null);
+//        R3_B1.setText(null);
+//        R3_C1.setText(null);
+//        R3_D1.setText(null);
     }
 //    
 //    //PARA ELIMINAR FACTURAS Y DETALLES PARA SIEMPRE (inrrecuperable):
