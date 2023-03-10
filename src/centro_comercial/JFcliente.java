@@ -1,20 +1,25 @@
 package centro_comercial;
-import base_datos.base;
-import clases.Cliente;
-import com.db4o.ObjectSet;
 import java.awt.Color;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
-import otros.fechas;
 import otros.validar;
+import java.sql.*;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JFcliente extends javax.swing.JFrame {
     public static String forma = "registrar";
-    public ObjectSet resultado;
-    Date fecha_nac;
+    ResultSet rs;
+    Connection con = null;
+    PreparedStatement ps;
+    
+    long d;
+    
     
     public JFcliente() {
         initComponents();
@@ -141,43 +146,49 @@ public class JFcliente extends javax.swing.JFrame {
         }
         base.cerrar();
     }
+
     public void registrar() {
-        base.abrir();
-        Cliente c = new Cliente(null, cedula.getText(), null, null, null, null, null, null, null, null);
-        if (base.gettear(c).isEmpty()) {
-            c = new Cliente(descuento.getText(), cedula.getText(), nombre.getText().toUpperCase(), apellido.getText().toUpperCase(), direccion.getText().toUpperCase(), telefono.getText(), fecha_nac, fechas.obtener_fecha(), genero.getSelectedItem().toString(), correo.getText());
-            base.settear(c);
+        try {
+            ps = (PreparedStatement) con.prepareStatement("INSERT INTO cliente (cédula, nombre, apellido, teléfono, dirección, fecha_nac, fecha_reg, género) VALUES (?,?,?,?,?,?,?,?)");
+            ps.setString(1, cedula.getText());
+            ps.setString(2, nombre.getText());
+            ps.setString(3, apellido.getText());
+            ps.setString(4, telefono.getText());
+            ps.setString(5, direccion.getText());
+            java.sql.Date nac = new java.sql.Date(d);
+            ps.setDate(6, nac);
+            Date date = new Date();
+            long e = date.getTime();
+            java.sql.Date hoy = new java.sql.Date(e);
+            ps.setDate(7, hoy);
+            ps.setString(8, genero.getSelectedItem().toString());
+            ps.executeUpdate(); //ejecuta la consulta
             JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-            SISTEMA.actualizado = false;
-            this.dispose();
-        } else {
+        } catch (SQLException ex) {
             getToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "¡El cliente '"+cedula.getText()+"' ya existe!");
+            JOptionPane.showMessageDialog(null, "¡Error al registrar!");
         }
-        base.cerrar();
     }
     public void modificar() {
-        base.abrir();
-        Cliente c = new Cliente(null, cedula.getText(), null, null, null, null, null, null, null, null);
-        resultado = base.gettear(c);
-        if (!resultado.isEmpty()) {
-            c = (Cliente) resultado.next();
-            c.setNombre(nombre.getText().toUpperCase());
-            c.setApellido(apellido.getText().toUpperCase());
-            c.setFecha_nac(fecha_nac);
-            c.setGenero(genero.getSelectedItem().toString());
-            c.setDescuento(descuento.getText());
-            c.setTelefono(telefono.getText());
-            c.setCorreo(correo.getText());
-            c.setDireccion(direccion.getText().toUpperCase());
-            base.settear(c);
+        try {
+            ps = (PreparedStatement) con.prepareStatement("UPDATE cliente SET nombre=?, apellido=?, teléfono=?, dirección=?, fecha_nac=?, género=? WHERE cédula=?");
+            ps.setString(1, nombre.getText());
+            ps.setString(2, apellido.getText());
+            ps.setString(3, telefono.getText());
+            ps.setString(4, direccion.getText());
+            java.sql.Date nac = new java.sql.Date(d);
+            ps.setDate(5, nac);
+            ps.setString(6, genero.getSelectedItem().toString());
+            ps.setString(7, cedula.getText());
+            ps.executeUpdate(); //ejecuta la consulta
             JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
+            
+        } catch (SQLException ex) {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Error al modificar!");
         }
-        SISTEMA.actualizado = false;
-        this.dispose();
-        base.cerrar();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -417,8 +428,13 @@ public class JFcliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
+        
         try {
-            fecha_nac = nacimiento.getDate();
+            
+            Date fecha = nacimiento.getDate();
+            d = fecha.getTime();
+            
+            
             if (cedula.getText().equals("") || nombre.getText().equals("") || apellido.getText().equals("")
                     || genero.getSelectedIndex() == 0 || descuento.getText().equals("¡Click para seleccionar!")
                     || telefono.getText().equals("") || correo.getText().equals("") || direccion.getText().equals("")) {
