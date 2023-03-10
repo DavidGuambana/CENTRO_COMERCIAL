@@ -439,29 +439,7 @@ public class JFproducto extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_existenciasKeyTyped
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-        try {
-            xprecio = Double.parseDouble(jt_precio.getText());
-        } catch (NumberFormatException e) {
-            xprecio = 0;
-        }
-        if (jt_nombre.getText().equals("") || jt_precio.getText().equals("") || jt_existencias.getValue().equals(0)
-                ||jt_proveedor.getText().equals("¡Click para seleccionar!")||jt_categoria.getText().equals("¡Click para seleccionar!")) {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
-        } else {
-            if (xprecio > 0) {
-                if (forma.equals("registrar")) {
-                    registrar();
-                } else if(forma.equals("modificar")){
-                    modificar();
-                }
-                this.dispose();
-            } else {
-                getToolkit().beep();
-                JOptionPane.showMessageDialog(rootPane, "¡Precio inválido!");
-                jt_precio.setText("");
-            }
-        }
+        
         
     }//GEN-LAST:event_jb_EjecutarActionPerformed
 

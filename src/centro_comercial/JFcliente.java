@@ -1,4 +1,5 @@
 package centro_comercial;
+import base_datos.conexion;
 import java.awt.Color;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -9,15 +10,13 @@ import otros.validar;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class JFcliente extends javax.swing.JFrame {
     public static String forma = "registrar";
     ResultSet rs;
     Connection con = null;
     PreparedStatement ps;
-    
+    conexion base = new conexion();
     long d;
     
     
@@ -124,27 +123,32 @@ public class JFcliente extends javax.swing.JFrame {
         correo.setText("");
         direccion.setText("");
     }
-    public void llenar(String ced){
-        base.abrir();
-        Cliente c = new Cliente(null, ced, null, null, null, null, null, null, null, null);
-        resultado = base.gettear(c);
-        if (resultado.isEmpty()) {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "¡El cliente '"+ced+"' no existe!");
-        } else{
-            c = (Cliente) resultado.next();
-            cedula.setText(c.getCedula());
-            nombre.setText(c.getNombre());
-            apellido.setText(c.getApellido());
-            nacimiento.setDate(c.getFecha_nac());
-            genero.setSelectedItem(c.getGenero());
-            descuento.setText(c.getDescuento());
-            telefono.setText(c.getTelefono());
-            correo.setText(c.getCorreo());
-            direccion.setText(c.getDireccion());
-            this.setVisible(true);
+    public void llenar(String id){
+        con =  (Connection) base.conectar_base();
+        if (con != null) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM cliente WHERE cédula = '"+id+"'");
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    cedula.setText(rs.getString("cédula"));
+                    cedula.setEditable(false);
+                    nombre.setText(rs.getString("nombre"));
+                    apellido.setText(rs.getString("apellido"));
+                    telefono.setText(rs.getString("teléfono"));
+                    direccion.setText(rs.getString("dirección"));
+                    nacimiento.setDate(rs.getDate("fecha_nac"));
+                    genero.setSelectedItem(rs.getString("género"));
+                    this.setVisible(true);
+                } else{
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "¡El cliente "+id+" no existe!");
+                    SISTEMA.actualizado = false;
+                    SISTEMA.jpDatos_cli.setVisible(false);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
-        base.cerrar();
     }
 
     public void registrar() {
