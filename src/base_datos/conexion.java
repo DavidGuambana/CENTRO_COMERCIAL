@@ -9,7 +9,7 @@ public class conexion{
     public static String clave = "";
     public static String url = "jdbc:mysql://localhost:3306/centrocomercial";
     public static Connection con = null;
-    public static Connection conectar_base() {
+    public static Connection conectar() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = (Connection) DriverManager.getConnection(url, usuario, clave);

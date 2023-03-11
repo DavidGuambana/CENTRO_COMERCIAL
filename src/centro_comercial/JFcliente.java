@@ -129,7 +129,7 @@ public class JFcliente extends javax.swing.JFrame {
         descuento.setText(FK);
     }
     public void llenar(String xcedula){
-        con =  (Connection) conexion.conectar_base();
+        con =  (Connection) conexion.conectar();
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PERSONA WHERE CEDULA='" + xcedula + "'");
@@ -158,7 +158,7 @@ public class JFcliente extends javax.swing.JFrame {
     }
 
     public void registrar() {
-        con = (Connection) conexion.conectar_base();
+        con = (Connection) conexion.conectar();
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PERSONA WHERE CEDULA = '" + cedula.getText() + "'");
@@ -197,7 +197,7 @@ public class JFcliente extends javax.swing.JFrame {
     }
 
     public void modificar() {
-        con = (Connection) conexion.conectar_base();
+        con = (Connection) conexion.conectar();
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("UPDATE PERSONA SET NOMBRE=?,APELLIDO=?,FECHA_NAC=?,ID_SEXO=?,CELULAR=?,EMAIL=?,DIRECCION=?,ID_CIUDAD=? WHERE CEDULA=?");

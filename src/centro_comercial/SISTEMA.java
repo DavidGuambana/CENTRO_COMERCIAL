@@ -1,4 +1,5 @@
 package centro_comercial;
+import base_datos.conexion;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,13 +17,22 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import otros.BotonTabla;
-import otros.ImagenTabla;
 import otros.fechas;
+import java.sql.*;
+import com.mysql.jdbc.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SISTEMA extends javax.swing.JFrame implements Runnable {
-     
+    //variables para consultas SQL:
+    public static Connection con = null;
+    public static ResultSet rs;
+    public static PreparedStatement ps;
+    public static String consulta = "";
+    String[] colum_cat;
+    
     //variables que guardan el número de registros:
-    public static int cat, ciu, cli, des, det, emp, enc, pag, pro, prov;
+    public static int gen, cat, ciu, cli, des, det, emp, enc, pag, pro, prov;
 
     //otras variables útiles:
     public static boolean actualizado = false;
@@ -58,8 +68,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         iniciar();
     }
 
-    public final void iniciar() {   
-        
+    public final void iniciar() {
+
         //para la fecha y hora
         hilo = new Thread(this);
         hilo.start();
@@ -81,198 +91,75 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         //lim_gas.setVisible(false);
         lim_pro.setVisible(false);
         lim_prov.setVisible(false);
-        
+
         JBseleccionar_pro.setEnabled(false);
         JBcrear_factura.setEnabled(false);
-        
+
     }
 
     //método para cargar los datos en las tablas:
     public void visualizar() {
-        
-        
-//        resumen();
-//        for (int i = 1; i <= 10; i++) {
-//            switch (i) {
-//                case 1:
-//                    String[] colum_cat = {"Nombre", "Descipción"};
-//                    tabla = new DefaultTableModel(null, colum_cat);
-//                    Categoria cate = new Categoria(null, null);
-//                    resultado = base.gettear(cate);
-//                    for (int j = 0; j < resultado.size(); j++) {
-//                        cate = (Categoria) resultado.next();
-//                        tabla.addRow(new Object[]{cate.getNombre(), cate.getDescripcion()});
-//                    }
-//                    JTcategorias.setModel(tabla);
-//                    cat = resultado.size();
-//                    v1.setText(String.valueOf(cat));
-//                    res_num_cat.setText("Resultados: " + cat + " de " + cat);
-//                    break;
-//                case 2://ciudades
-//                    String[] colum_ciud = {"Código", "Nombre", "Provincia"};
-//                    tabla = new DefaultTableModel(null, colum_ciud);
-//                    Ciudad c = new Ciudad(0, null, null);
-//                    resultado = base.gettear(c);
-//                    if (!resultado.isEmpty()) {
-//                        for (int j = 0; j < resultado.size(); j++) {
-//                            c = (Ciudad) resultado.next();
-//                            tabla.addRow(new Object[]{c.getCodigo(), c.getNombre(), c.getProvincia()});
-//                        }
-//                    } else {
-//                        Codigos.reiniciar_codigo("Ciudad");
-//                    }
-//                    JTciudades.setModel(tabla);
-//                    ciu = resultado.size();
-//                    v2.setText(String.valueOf(ciu));
-//                    res_num_ciu.setText("Resultados: " + ciu + " de " + ciu);
-//                    break;
-//                case 3://clientes
-//                    String[] colum_cli = {"Cédula", "Nombre", "Apellido", "F. Nacimiento", "Género", "Teléfono", "Correo", "Dirección", "T. Descuento", "F. Registro"};
-//                    tabla = new DefaultTableModel(null, colum_cli);
-//                    Cliente cl = new Cliente(null, null, null, null, null, null, null, null, null, null);
-//                    resultado = base.gettear(cl);
-//                    for (int j = 0; j < resultado.size(); j++) {
-//                        cl = (Cliente) resultado.next();
-//                        tabla.addRow(new Object[]{cl.getCedula(), cl.getNombre(), cl.getApellido(), fechas.transformar_fecha(cl.getFecha_nac()), cl.getGenero(),
-//                            cl.getTelefono(), cl.getCorreo(), cl.getDireccion(), cl.getDescuento(), fechas.transformar_fecha(cl.getFecha_reg())});
-//                    }
-//                    JTclientes.setModel(tabla);
-//                    cli = resultado.size();
-//                    v3.setText(String.valueOf(cli));
-//                    res_num_cli.setText("Resultados: " + cli + " de " + cli);
-//
-//                    break;
-//                case 4://descuentos
-//                    String[] colum_des = {"Nombre", "Porcentaje (%)"};
-//                    tabla = new DefaultTableModel(null, colum_des);
-//                    Descuento d = new Descuento(null, 0);
-//                    resultado = base.gettear(d);
-//                    for (int j = 0; j < resultado.size(); j++) {
-//                        d = (Descuento) resultado.next();
-//                        tabla.addRow(new Object[]{d.getNombre(), d.getPorcentaje()});
-//                    }
-//                    JTdescuentos.setModel(tabla);
-//                    des = resultado.size();
-//                    v4.setText(String.valueOf(des));
-//                    res_num_des.setText("Resultados: " + des + " de " + des);
-//                    break;
-//                case 5: //detalles de facturas
-//                    String[] colum_det = {"Código", "C. Producto", "Cantidad", "Subtotal", "C. Factura"};
-//                    tabla = new DefaultTableModel(null, colum_det);
-//                    Detalle_fac de = new Detalle_fac(0, 0, 0, 0, 0);
-//                    resultado = base.gettear(de);
-//                    if (!resultado.isEmpty()) {
-//                        for (int j = 0; j < resultado.size(); j++) {
-//                            de = (Detalle_fac) resultado.next();
-//                            Encabezado_fac en = new Encabezado_fac(de.getCodigo_fac(), null, null, 0, "ACTIVO");
-//                            ObjectSet res = base.gettear(en);
-//                            if (!res.isEmpty()) {
-//                                tabla.addRow(new Object[]{de.getCodigo(), de.getCodigo_pro(), de.getCant(), de.getSubtotal(), de.getCodigo_fac()});
-//                            }
-//                        }
-//                    } else{
-//                        Codigos.reiniciar_codigo("Detalle_fac");
-//                    }
-//                    JTdet_fac.setModel(tabla);
-//                    det = tabla.getRowCount();
-//                    res_num_det.setText("Resultados: " + det + " de " + det);
-//                    
-//                    
-//                    break;
-//                case 6: //empleados
-//                    String[] colum_emp = {"Cédula", "Nombre", "Apellido", "F. Nacimiento", "Género", "Teléfono", "Correo", "Dirección", "Sueldo", "F. Registro"};
-//                    tabla = new DefaultTableModel(null, colum_emp);
-//                    Empleado em = new Empleado(0, null, null, null, null, null, null, null, null, null);
-//                    resultado = base.gettear(em);
-//                    for (int j = 0; j < resultado.size(); j++) {
-//                        em = (Empleado) resultado.next();
-//                        tabla.addRow(new Object[]{em.getCedula(), em.getNombre(), em.getApellido(), fechas.transformar_fecha(em.getFecha_nac()), em.getGenero(),
-//                            em.getTelefono(), em.getCorreo(), em.getDireccion(), em.getSueldo(), fechas.transformar_fecha(em.getFecha_reg())});
-//                    }
-//                    JTempleados.setModel(tabla);
-//                    emp = resultado.size();
-//                    v6.setText(String.valueOf(emp));
-//                    res_num_emp.setText("Resultados: " + emp + " de " + emp);
-//                    break;
-//                case 7: //encabezados de facturas
-//                    String[] colum_enc = {"Código", "C. Cliente", "F. Registro", "Total", "Estado"};
-//                    tabla = new DefaultTableModel(null, colum_enc);
-//                    Encabezado_fac en = new Encabezado_fac(0, null, null, 0, "ACTIVO");
-//                    resultado = base.gettear(en);
-//                    if (!resultado.isEmpty()) {
-//                        for (int j = 0; j < resultado.size(); j++) {
-//                            en = (Encabezado_fac) resultado.next();
-//                            tabla.addRow(new Object[]{en.getCodigo(), en.getCedula_cli(), fechas.transformar_fecha(en.getFecha()), en.getTotal(), en.getEstado()});
-//                        }
-//                    } else{
-//                        Codigos.reiniciar_codigo("Encabezado_fac");
-//                    }
-//                    
-//                    JTenc_fac.setModel(tabla);
-//                    enc = resultado.size();
-//                    res_num_enc.setText("Resultados: " + enc + " de " + enc);
-//                    
-//                    break;
-//                case 8: //pagos a proveedores
-//                    String[] colum_pag = {"Número", "Monto", "C. Empleado", "RUC proveedor", "Descripción", "F. Registro"};
-//                    tabla = new DefaultTableModel(null, colum_pag);
-//                    Pago_prov pago = new Pago_prov(0, 0, null, null, null, null);
-//                    resultado = base.gettear(pago);
-//                    if (!resultado.isEmpty()) {
-//                        for (int j = 0; j < resultado.size(); j++) {
-//                            pago = (Pago_prov) resultado.next();
-//                            tabla.addRow(new Object[]{pago.getCodigo(), pago.getValor(), pago.getCedula_emp(), pago.getRUC_prov(), pago.getDescripcion(),
-//                                fechas.transformar_fecha(pago.getFecha_reg())});
-//                        }
-//                    } else{
-//                        Codigos.reiniciar_codigo("Pago_prov");
-//                    }
-//                    
-//                    JTpagos.setModel(tabla);
-//                    pag = resultado.size();
-//                    res_num_pag.setText("Resultados: " + pag + " de " + pag);
-//                    break;
-//                case 9://productos
-//                    JTproductos.setDefaultRenderer(Object.class, new ImagenTabla());
-//                    String[] colum_pro = {"Código", "Nombre", "Precio", "Existencias", "Categoría", "Proveedor", "F. Registro", "Imagen"};
-//                    tabla = new DefaultTableModel(null, colum_pro);
-//                    Producto pr = new Producto(0, null, 0, 0, null, null, null, null);
-//                    resultado = base.gettear(pr);
-//                    if (!resultado.isEmpty()) {
-//                        for (int j = 0; j < resultado.size(); j++) {
-//                            pr = (Producto) resultado.next();
-//                            JLabel lb = new JLabel();
-//                            lb.setSize(125, 60);
-//                            rsscalelabel.RSScaleLabel.setScaleLabel(lb, pr.getUrl_imagen());
-//                            tabla.addRow(new Object[]{pr.getCodigo(), pr.getNombre(), pr.getPrecio(), pr.getExistencias(), pr.getNombre_cat(), pr.getRUC_prov(), fechas.transformar_fecha(pr.getFecha_reg()), lb});
-//                        }
-//                    } else {
-//                        Codigos.reiniciar_codigo("Producto");
-//                    }
-//                    JTproductos.setModel(tabla);
-//                    pro = resultado.size();
-//                    v9.setText(String.valueOf(pro));
-//                    res_num_pro.setText("Resultados: " + pro + " de " + pro);
-//                    break;
-//                case 10: //proveedores
-//                    String[] colum_prov = {"RUC", "Nombre", "Ciudad", "Teléfono", "Correo", "F. Registro"};
-//                    tabla = new DefaultTableModel(null, colum_prov);
-//                    Proveedor p = new Proveedor(null, null, null, null, null, null);
-//                    resultado = base.gettear(p);
-//                    for (int j = 0; j < resultado.size(); j++) {
-//                        p = (Proveedor) resultado.next();
-//                        tabla.addRow(new Object[]{p.getRUC(), p.getNombre_empresa(), p.getCodigo_ciu(), p.getTelefono(), p.getCorreo(), fechas.transformar_fecha(p.getFecha_reg())});
-//                    }
-//                    JTproveedores.setModel(tabla);
-//                    prov = resultado.size();
-//                    v10.setText(String.valueOf(prov));
-//                    res_num_prov.setText("Resultados: " + prov + " de " + prov);
-//                    break;
-//
-//            }
-//        }
+        con = conexion.conectar();
+        if (con != null) {
+            try {
+                consulta = "SELECT * FROM ";
+                for (int i = 1; i <= 20; i++) {
+                    switch (i) {
+                        case 1://GENERO
+                            String[] cn_gen = {"ID", "SEXO"};
+                            tabla = new DefaultTableModel(null, cn_gen);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "GENERO");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2)});
+                            }
+                            JTgeneros.setModel(tabla);
+                            break;
+                        case 2://PERSONA
+                            break;
+                        case 3://CLIENTE
+                            break;
+                        case 4://EMPLEADO
+                            break;
+                        case 5://DEPARTAMENTO
+                            break;
+                        case 6://PUESTO
+                            break;
+                        case 7://PROVINCIA
+                            break;
+                        case 8://CIUDAD
+                            break;
+                        case 9://DESCUENTO
+                            break;
+                        case 10://CATEGORIA
+                            break;
+                        case 11://MARCA
+                            break;
+                        case 12://PUESTO
+                            break;
+                        case 13://PAGO_EMPLEADO
+                            break;
+                        case 14://SUCURSAL
+                            break;
+                        case 15://PROVEEDOR
+                            break;
+                        case 16://ENCABEZADO_FAC
+                            break;
+                        case 17://DETALLE_FAC
+                            break;
+                        case 18://FORMA_PAGO
+                            break;
+                        case 19://IVA
+                            break;
+                        case 20://PAGO_FAC
+                            break;
+
+                    }
+                }
+            } catch (Exception e) {
+            }
+        }
     }
-    
 
     //método para buscar registros de cualquier tabla:
     public void buscar(JTable tab, JTextField tex, JLabel a, int b, JComboBox c) {
@@ -695,6 +582,27 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jsTabla_pro1 = new javax.swing.JScrollPane();
         JTpagos = new javax.swing.JTable();
         jl_titulo15 = new javax.swing.JLabel();
+        JPgeneros = new javax.swing.JPanel();
+        jl_titulo16 = new javax.swing.JLabel();
+        jpDatos_cat2 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jlR8 = new javax.swing.JLabel();
+        jlN8 = new javax.swing.JLabel();
+        jlNombre_cat1 = new javax.swing.JLabel();
+        jSeparator22 = new javax.swing.JSeparator();
+        jbEnviar_cat1 = new javax.swing.JButton();
+        jbEliminar_cat2 = new javax.swing.JButton();
+        jbModificar_cat1 = new javax.swing.JButton();
+        jbRegistrar_cat1 = new javax.swing.JButton();
+        jSeparator23 = new javax.swing.JSeparator();
+        jlNombre_cat2 = new javax.swing.JLabel();
+        jcBuscar_gen = new javax.swing.JComboBox<>();
+        jLabel62 = new javax.swing.JLabel();
+        jtBuscar_gen = new javax.swing.JTextField();
+        lim_cat1 = new javax.swing.JLabel();
+        jsTabla_cat1 = new javax.swing.JScrollPane();
+        JTgeneros = new javax.swing.JTable();
+        res_gen = new javax.swing.JLabel();
         JPcategorias = new javax.swing.JPanel();
         jl_titulo5 = new javax.swing.JLabel();
         jpDatos_cat = new javax.swing.JPanel();
@@ -901,15 +809,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         USUARIO = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         SALIR = new javax.swing.JLabel();
-        JPencabezado2 = new javax.swing.JPanel();
-        v10 = new javax.swing.JLabel();
-        v3 = new javax.swing.JLabel();
-        v6 = new javax.swing.JLabel();
-        v9 = new javax.swing.JLabel();
-        v1 = new javax.swing.JLabel();
-        v4 = new javax.swing.JLabel();
-        v2 = new javax.swing.JLabel();
-        V0 = new javax.swing.JLabel();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -927,12 +826,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         MENU.setBackground(new java.awt.Color(255, 255, 255));
-        MENU.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        MENU.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         MENU.setMinimumSize(new java.awt.Dimension(980, 600));
         MENU.setPreferredSize(new java.awt.Dimension(980, 600));
 
         INICIO.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
-        INICIO.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        INICIO.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         INICIO.setMinimumSize(new java.awt.Dimension(1075, 600));
         INICIO.setPreferredSize(new java.awt.Dimension(1075, 600));
 
@@ -2601,6 +2500,304 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         MENU.addTab("INICIO", INICIO);
 
+        JPgeneros.setBackground(new java.awt.Color(204, 255, 255));
+
+        jl_titulo16.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jl_titulo16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
+        jl_titulo16.setText("Lista de géneros");
+        jl_titulo16.setIconTextGap(10);
+        jl_titulo16.setVerifyInputWhenFocusTarget(false);
+
+        jpDatos_cat2.setBackground(new java.awt.Color(255, 255, 255));
+        jpDatos_cat2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        jpDatos_cat2.setPreferredSize(new java.awt.Dimension(317, 396));
+
+        jLabel21.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("Género seleccionado:");
+
+        jlR8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jlR8.setText("ID:");
+
+        jlN8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jlN8.setText("SEXO:");
+
+        jlNombre_cat1.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
+        jlNombre_cat1.setText(" ");
+
+        jSeparator22.setForeground(new java.awt.Color(0, 0, 0));
+
+        jbEnviar_cat1.setBackground(new java.awt.Color(255, 102, 51));
+        jbEnviar_cat1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jbEnviar_cat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/compartir.png"))); // NOI18N
+        jbEnviar_cat1.setText(" Enviar");
+        jbEnviar_cat1.setBorder(null);
+        jbEnviar_cat1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbEnviar_cat1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jbEnviar_cat1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jbEnviar_cat1MouseExited(evt);
+            }
+        });
+        jbEnviar_cat1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEnviar_cat1ActionPerformed(evt);
+            }
+        });
+
+        jbEliminar_cat2.setBackground(new java.awt.Color(255, 0, 51));
+        jbEliminar_cat2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jbEliminar_cat2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar.png"))); // NOI18N
+        jbEliminar_cat2.setText(" Eliminar");
+        jbEliminar_cat2.setBorder(null);
+        jbEliminar_cat2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbEliminar_cat2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jbEliminar_cat2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jbEliminar_cat2MouseExited(evt);
+            }
+        });
+        jbEliminar_cat2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminar_cat2ActionPerformed(evt);
+            }
+        });
+
+        jbModificar_cat1.setBackground(new java.awt.Color(0, 153, 255));
+        jbModificar_cat1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jbModificar_cat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
+        jbModificar_cat1.setText(" Modificar");
+        jbModificar_cat1.setBorder(null);
+        jbModificar_cat1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbModificar_cat1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jbModificar_cat1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jbModificar_cat1MouseExited(evt);
+            }
+        });
+        jbModificar_cat1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificar_cat1ActionPerformed(evt);
+            }
+        });
+
+        jbRegistrar_cat1.setBackground(new java.awt.Color(0, 204, 102));
+        jbRegistrar_cat1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jbRegistrar_cat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
+        jbRegistrar_cat1.setText("Agregar");
+        jbRegistrar_cat1.setBorder(null);
+        jbRegistrar_cat1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbRegistrar_cat1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jbRegistrar_cat1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jbRegistrar_cat1MouseExited(evt);
+            }
+        });
+        jbRegistrar_cat1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRegistrar_cat1ActionPerformed(evt);
+            }
+        });
+
+        jSeparator23.setForeground(new java.awt.Color(0, 0, 0));
+
+        jlNombre_cat2.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
+        jlNombre_cat2.setText(" ");
+
+        javax.swing.GroupLayout jpDatos_cat2Layout = new javax.swing.GroupLayout(jpDatos_cat2);
+        jpDatos_cat2.setLayout(jpDatos_cat2Layout);
+        jpDatos_cat2Layout.setHorizontalGroup(
+            jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jSeparator23, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jpDatos_cat2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpDatos_cat2Layout.createSequentialGroup()
+                            .addComponent(jlN8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jlNombre_cat2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpDatos_cat2Layout.createSequentialGroup()
+                            .addComponent(jlR8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jlNombre_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpDatos_cat2Layout.createSequentialGroup()
+                        .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jbModificar_cat1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                            .addComponent(jbRegistrar_cat1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpDatos_cat2Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jbEnviar_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatos_cat2Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jbEliminar_cat2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+        );
+        jpDatos_cat2Layout.setVerticalGroup(
+            jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpDatos_cat2Layout.createSequentialGroup()
+                .addComponent(jLabel21)
+                .addGap(6, 6, 6)
+                .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlR8)
+                    .addComponent(jlNombre_cat1))
+                .addGap(25, 25, 25)
+                .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlN8)
+                    .addComponent(jlNombre_cat2))
+                .addGap(44, 44, 44)
+                .addComponent(jSeparator23, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbRegistrar_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbEnviar_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbModificar_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbEliminar_cat2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jcBuscar_gen.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jcBuscar_gen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "SEXO" }));
+        jcBuscar_gen.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcBuscar_genItemStateChanged(evt);
+            }
+        });
+
+        jLabel62.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jLabel62.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel62.setText("Buscar género por");
+
+        jtBuscar_gen.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jtBuscar_gen.setText("Buscar");
+        jtBuscar_gen.setMinimumSize(new java.awt.Dimension(317, 31));
+        jtBuscar_gen.setPreferredSize(new java.awt.Dimension(317, 35));
+        jtBuscar_gen.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jtBuscar_gen.setSelectionColor(new java.awt.Color(153, 204, 255));
+        jtBuscar_gen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtBuscar_genMouseClicked(evt);
+            }
+        });
+        jtBuscar_gen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtBuscar_genKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtBuscar_genKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtBuscar_genKeyTyped(evt);
+            }
+        });
+
+        lim_cat1.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        lim_cat1.setForeground(new java.awt.Color(0, 102, 102));
+        lim_cat1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lim_cat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        lim_cat1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lim_cat1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lim_cat1MouseClicked(evt);
+            }
+        });
+
+        JTgeneros = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
+        JTgeneros.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        JTgeneros.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
+        JTgeneros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        JTgeneros.setFocusable(false);
+        JTgeneros.setGridColor(new java.awt.Color(255, 255, 255));
+        JTgeneros.setOpaque(false);
+        JTgeneros.setRowHeight(30);
+        JTgeneros.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        JTgeneros.getTableHeader().setResizingAllowed(false);
+        JTgeneros.getTableHeader().setReorderingAllowed(false);
+        jsTabla_cat1.setViewportView(JTgeneros);
+
+        res_gen.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_gen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        res_gen.setText("Resultados: 0 de 0");
+
+        javax.swing.GroupLayout JPgenerosLayout = new javax.swing.GroupLayout(JPgeneros);
+        JPgeneros.setLayout(JPgenerosLayout);
+        JPgenerosLayout.setHorizontalGroup(
+            JPgenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPgenerosLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(JPgenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(res_gen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPgenerosLayout.createSequentialGroup()
+                        .addComponent(jl_titulo16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(JPgenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(JPgenerosLayout.createSequentialGroup()
+                                .addComponent(jLabel62)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcBuscar_gen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jtBuscar_gen, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jsTabla_cat1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE))
+                .addGap(2, 2, 2)
+                .addComponent(lim_cat1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jpDatos_cat2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+        JPgenerosLayout.setVerticalGroup(
+            JPgenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPgenerosLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(JPgenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPgenerosLayout.createSequentialGroup()
+                        .addGroup(JPgenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jl_titulo16, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(JPgenerosLayout.createSequentialGroup()
+                                .addGroup(JPgenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcBuscar_gen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addComponent(jtBuscar_gen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(JPgenerosLayout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(lim_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jsTabla_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpDatos_cat2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addComponent(res_gen)
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+
+        MENU.addTab("GÉNEROS", JPgeneros);
+
         JPcategorias.setBackground(new java.awt.Color(204, 255, 255));
 
         jl_titulo5.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -2860,7 +3057,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addGap(6, 6, 6)
                         .addComponent(res_num_cat))
                     .addComponent(jpDatos_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         MENU.addTab("CATEGORÍAS", JPcategorias);
@@ -4659,7 +4856,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         MENU.addTab("PROVEEDORES", JPproveedores);
 
-        getContentPane().add(MENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 970, 490));
+        getContentPane().add(MENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 970, 490));
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
         jPanel1.setMinimumSize(new java.awt.Dimension(1020, 40));
@@ -4723,57 +4920,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
-
-        JPencabezado2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        v10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        v10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        v10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/-local-shipping_90041.png"))); // NOI18N
-        v10.setText("0000");
-        JPencabezado2.add(v10, new org.netbeans.lib.awtextra.AbsoluteConstraints(793, 0, 100, 40));
-
-        v3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        v3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        v3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/-person_90382.png"))); // NOI18N
-        v3.setText("0000");
-        JPencabezado2.add(v3, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 0, 100, 40));
-
-        v6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        v6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        v6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/employee_solid_icon_235377.png"))); // NOI18N
-        v6.setText("0000");
-        JPencabezado2.add(v6, new org.netbeans.lib.awtextra.AbsoluteConstraints(541, 0, 100, 40));
-
-        v9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        v9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        v9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/products_new_cube_product_design_icon_153845.png"))); // NOI18N
-        v9.setText("0000");
-        JPencabezado2.add(v9, new org.netbeans.lib.awtextra.AbsoluteConstraints(661, 0, 100, 40));
-
-        v1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        v1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        v1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/category_icon_214824.png"))); // NOI18N
-        v1.setText("0000");
-        JPencabezado2.add(v1, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 0, 100, 40));
-
-        v4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        v4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        v4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/badge_discount_icon_178995.png"))); // NOI18N
-        v4.setText("0000");
-        JPencabezado2.add(v4, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 0, 100, 40));
-
-        v2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        v2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        v2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/flag_icon-icons.com_50393.png"))); // NOI18N
-        v2.setText("0000");
-        JPencabezado2.add(v2, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 0, 100, 40));
-
-        V0.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        V0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        V0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/home-button_icon-icons.com_72700.png"))); // NOI18N
-        JPencabezado2.add(V0, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 0, -1, 40));
-
-        getContentPane().add(JPencabezado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 970, -1));
 
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FONDO.jpeg"))); // NOI18N
         FONDO.setMaximumSize(new java.awt.Dimension(1020, 625));
@@ -5986,6 +6132,78 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         sesión.setVisible(true);
     }//GEN-LAST:event_SALIRMouseClicked
 
+    private void jbEnviar_cat1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_cat1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEnviar_cat1MouseEntered
+
+    private void jbEnviar_cat1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_cat1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEnviar_cat1MouseExited
+
+    private void jbEnviar_cat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviar_cat1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEnviar_cat1ActionPerformed
+
+    private void jbEliminar_cat2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEliminar_cat2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEliminar_cat2MouseEntered
+
+    private void jbEliminar_cat2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEliminar_cat2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEliminar_cat2MouseExited
+
+    private void jbEliminar_cat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminar_cat2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEliminar_cat2ActionPerformed
+
+    private void jbModificar_cat1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbModificar_cat1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbModificar_cat1MouseEntered
+
+    private void jbModificar_cat1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbModificar_cat1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbModificar_cat1MouseExited
+
+    private void jbModificar_cat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_cat1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbModificar_cat1ActionPerformed
+
+    private void jbRegistrar_cat1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_cat1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbRegistrar_cat1MouseEntered
+
+    private void jbRegistrar_cat1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_cat1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbRegistrar_cat1MouseExited
+
+    private void jbRegistrar_cat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_cat1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbRegistrar_cat1ActionPerformed
+
+    private void jcBuscar_genItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_genItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcBuscar_genItemStateChanged
+
+    private void jtBuscar_genMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtBuscar_genMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_genMouseClicked
+
+    private void jtBuscar_genKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_genKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_genKeyPressed
+
+    private void jtBuscar_genKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_genKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_genKeyReleased
+
+    private void jtBuscar_genKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_genKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_genKeyTyped
+
+    private void lim_cat1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lim_cat1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lim_cat1MouseClicked
+
     
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
         bot.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta)));
@@ -6638,8 +6856,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel JPclientes;
     private javax.swing.JPanel JPdescuentos;
     private javax.swing.JPanel JPempleados;
-    private javax.swing.JPanel JPencabezado2;
     private javax.swing.JPanel JPfactura;
+    private javax.swing.JPanel JPgeneros;
     private javax.swing.JPanel JPpagos;
     private javax.swing.JPanel JPproductos;
     private javax.swing.JPanel JPproveedores;
@@ -6652,6 +6870,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public transient javax.swing.JTable JTdetalle;
     public static javax.swing.JTable JTempleados;
     private javax.swing.JTable JTenc_fac;
+    private javax.swing.JTable JTgeneros;
     public static javax.swing.JTable JTpagos;
     public static javax.swing.JTable JTproductos;
     public static javax.swing.JTable JTproveedores;
@@ -6699,7 +6918,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel R3_T3;
     private javax.swing.JLabel SALIR;
     public static javax.swing.JLabel USUARIO;
-    public static javax.swing.JLabel V0;
     private javax.swing.JLabel VF_CEDULA;
     private javax.swing.JLabel VF_CODIGO;
     private javax.swing.JLabel VF_CORREO;
@@ -6740,6 +6958,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel27;
@@ -6779,6 +6998,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -6815,6 +7035,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JSeparator jSeparator21;
+    private javax.swing.JSeparator jSeparator22;
+    private javax.swing.JSeparator jSeparator23;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -6823,9 +7045,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JButton jbEliminar_cat;
     private javax.swing.JButton jbEliminar_cat1;
+    private javax.swing.JButton jbEliminar_cat2;
     private javax.swing.JButton jbEliminar_ciu;
     private javax.swing.JButton jbEliminar_des;
     private javax.swing.JButton jbEnviar_cat;
+    private javax.swing.JButton jbEnviar_cat1;
     private javax.swing.JButton jbEnviar_ciu;
     private javax.swing.JButton jbEnviar_cli;
     private javax.swing.JButton jbEnviar_cli1;
@@ -6833,6 +7057,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton jbEnviar_pro;
     private javax.swing.JButton jbEnviar_prov;
     private javax.swing.JButton jbModificar_cat;
+    private javax.swing.JButton jbModificar_cat1;
     private javax.swing.JButton jbModificar_ciu;
     private javax.swing.JButton jbModificar_cli;
     private javax.swing.JButton jbModificar_cli1;
@@ -6841,6 +7066,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton jbModificar_pro;
     private javax.swing.JButton jbModificar_prov;
     private javax.swing.JButton jbRegistrar_cat;
+    private javax.swing.JButton jbRegistrar_cat1;
     private javax.swing.JButton jbRegistrar_ciu;
     private javax.swing.JButton jbRegistrar_cli;
     private javax.swing.JButton jbRegistrar_cli1;
@@ -6860,6 +7086,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JComboBox<String> jcBuscar_det;
     private javax.swing.JComboBox<String> jcBuscar_emp;
     private javax.swing.JComboBox<String> jcBuscar_enc;
+    private javax.swing.JComboBox<String> jcBuscar_gen;
     private javax.swing.JComboBox<String> jcBuscar_pag;
     private javax.swing.JComboBox<String> jcBuscar_pro;
     private javax.swing.JComboBox<String> jcBuscar_prov;
@@ -6919,10 +7146,13 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jlN5;
     private javax.swing.JLabel jlN6;
     private javax.swing.JLabel jlN7;
+    private javax.swing.JLabel jlN8;
     private javax.swing.JLabel jlNac_cli;
     private javax.swing.JLabel jlNac_emp;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlNombre_cat;
+    private javax.swing.JLabel jlNombre_cat1;
+    private javax.swing.JLabel jlNombre_cat2;
     private javax.swing.JLabel jlNombre_ciu;
     private javax.swing.JLabel jlNombre_cli;
     private javax.swing.JLabel jlNombre_des;
@@ -6942,6 +7172,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jlR5;
     private javax.swing.JLabel jlR6;
     private javax.swing.JLabel jlR7;
+    private javax.swing.JLabel jlR8;
     private javax.swing.JLabel jlRUC;
     private javax.swing.JLabel jlReg_cli;
     private javax.swing.JLabel jlReg_emp;
@@ -6966,6 +7197,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jl_titulo13;
     private javax.swing.JLabel jl_titulo14;
     private javax.swing.JLabel jl_titulo15;
+    private javax.swing.JLabel jl_titulo16;
     private javax.swing.JLabel jl_titulo5;
     private javax.swing.JLabel jl_titulo6;
     private javax.swing.JLabel jl_titulo7;
@@ -6977,6 +7209,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jlempleado_nom;
     public static javax.swing.JPanel jpDatos_cat;
     public static javax.swing.JPanel jpDatos_cat1;
+    public static javax.swing.JPanel jpDatos_cat2;
     public static javax.swing.JPanel jpDatos_cli;
     public static javax.swing.JPanel jpDatos_des;
     public static javax.swing.JPanel jpDatos_emp;
@@ -6984,6 +7217,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JPanel jpDatos_pro1;
     public static javax.swing.JPanel jpDatos_prov;
     private javax.swing.JScrollPane jsTabla_cat;
+    private javax.swing.JScrollPane jsTabla_cat1;
     private javax.swing.JScrollPane jsTabla_cat3;
     private javax.swing.JScrollPane jsTabla_cat6;
     private javax.swing.JScrollPane jsTabla_cat7;
@@ -7002,12 +7236,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JTextField jtBuscar_det;
     public static javax.swing.JTextField jtBuscar_emp;
     public static javax.swing.JTextField jtBuscar_enc;
+    public static javax.swing.JTextField jtBuscar_gen;
     public static javax.swing.JTextField jtBuscar_pag;
     public static javax.swing.JTextField jtBuscar_pro;
     public static javax.swing.JTextField jtBuscar_prov;
     public static javax.swing.JTextArea jtaDescripcion_cat;
     public static javax.swing.JTextArea jtaDescripcion_pag;
     private javax.swing.JLabel lim_cat;
+    private javax.swing.JLabel lim_cat1;
     private javax.swing.JLabel lim_ciu;
     private javax.swing.JLabel lim_cli;
     private javax.swing.JLabel lim_des;
@@ -7017,6 +7253,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lim_pag;
     private javax.swing.JLabel lim_pro;
     private javax.swing.JLabel lim_prov;
+    private javax.swing.JLabel res_gen;
     private javax.swing.JLabel res_num_cat;
     private javax.swing.JLabel res_num_ciu;
     private javax.swing.JLabel res_num_cli;
@@ -7034,12 +7271,5 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel t_facturas_activas13;
     private javax.swing.JLabel t_facturas_activas14;
     private javax.swing.JLabel t_facturas_activas15;
-    public static javax.swing.JLabel v1;
-    public static javax.swing.JLabel v10;
-    public static javax.swing.JLabel v2;
-    public static javax.swing.JLabel v3;
-    public static javax.swing.JLabel v4;
-    public static javax.swing.JLabel v6;
-    public static javax.swing.JLabel v9;
     // End of variables declaration//GEN-END:variables
 }
