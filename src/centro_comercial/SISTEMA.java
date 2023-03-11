@@ -66,7 +66,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }
 
     public final void iniciar() {
-
+        //JPcli.setVisible(false);
         //para la fecha y hora
         hilo = new Thread(this);
         hilo.start();
@@ -134,7 +134,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
                             }
-                            JTclientes.setModel(tabla);
+                            JTcli.setModel(tabla);
                             cli = tabla.getRowCount();
                             res_cli.setText("Resultados: "+cli+" de "+cli);
                             break;
@@ -182,7 +182,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(4),rs.getInt(5)});
                             }
-                            JTempleados.setModel(tabla);
+                            JTemp.setModel(tabla);
                             emp = tabla.getRowCount();
                             res_emp.setText("Resultados: "+emp+" de "+emp);
                             break;
@@ -279,9 +279,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                                 tabla.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), fechas.transformar(rs.getDate(4)), 
                                     rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9),fechas.transformar(rs.getDate(10))});
                             }
-                            //JTper.setModel(tabla);
+                            JTper.setModel(tabla);
                             per = tabla.getRowCount();
-                            //res_per.setText("Resultados: "+per+" de "+per);
+                            res_per.setText("Resultados: "+per+" de "+per);
                             break;
                         case 16://producto
                             JTproductos.setDefaultRenderer(Object.class, new ImagenTabla());
@@ -778,6 +778,97 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jsTabla_pro1 = new javax.swing.JScrollPane();
         JTpagos = new javax.swing.JTable();
         jl_titulo15 = new javax.swing.JLabel();
+        JSpersonas = new javax.swing.JScrollPane();
+        JPpersonas = new javax.swing.JPanel();
+        jsTabla_ciu4 = new javax.swing.JScrollPane();
+        JTcli = new javax.swing.JTable();
+        jcBuscar_enc1 = new javax.swing.JComboBox<>();
+        jLabel72 = new javax.swing.JLabel();
+        jtBuscar_enc1 = new javax.swing.JTextField();
+        lim_cli = new javax.swing.JLabel();
+        res_cli = new javax.swing.JLabel();
+        jl_titulo17 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel80 = new javax.swing.JLabel();
+        jsTabla_ciu5 = new javax.swing.JScrollPane();
+        JTemp = new javax.swing.JTable();
+        jl_titulo20 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        jcBuscar_enc3 = new javax.swing.JComboBox<>();
+        jtBuscar_enc3 = new javax.swing.JTextField();
+        lim_enc3 = new javax.swing.JLabel();
+        jsTabla_ciu6 = new javax.swing.JScrollPane();
+        JTper = new javax.swing.JTable();
+        res_per = new javax.swing.JLabel();
+        JPcli = new javax.swing.JPanel();
+        jLabel63 = new javax.swing.JLabel();
+        cedula_cli = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        id_cli = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        nombre_cli = new javax.swing.JLabel();
+        apellido_cli = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        celular_cli = new javax.swing.JLabel();
+        jLabel77 = new javax.swing.JLabel();
+        fecha_nac_cli = new javax.swing.JLabel();
+        jLabel79 = new javax.swing.JLabel();
+        sexo_cli = new javax.swing.JLabel();
+        jLabel83 = new javax.swing.JLabel();
+        descuento_cli = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        fecha_reg_cli = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
+        ciudad_cli = new javax.swing.JLabel();
+        jLabel89 = new javax.swing.JLabel();
+        direccion_cli = new javax.swing.JLabel();
+        jLabel91 = new javax.swing.JLabel();
+        email_cli = new javax.swing.JLabel();
+        eliminar_cli = new javax.swing.JButton();
+        registrar_cli = new javax.swing.JButton();
+        modificar_cli = new javax.swing.JButton();
+        jtBuscar_enc4 = new javax.swing.JTextField();
+        jcBuscar_enc4 = new javax.swing.JComboBox<>();
+        jLabel93 = new javax.swing.JLabel();
+        jl_titulo19 = new javax.swing.JLabel();
+        res_emp = new javax.swing.JLabel();
+        lim_emp = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel64 = new javax.swing.JLabel();
+        cedula_emp = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        id_emp = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        nombre_emp = new javax.swing.JLabel();
+        apellido_emp = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
+        celular_emp = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
+        fecha_nac_emp = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        sexo_emp = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        departamento_emp = new javax.swing.JLabel();
+        fecha_reg_emp = new javax.swing.JLabel();
+        jLabel88 = new javax.swing.JLabel();
+        ciudad_emp = new javax.swing.JLabel();
+        jLabel90 = new javax.swing.JLabel();
+        direccion_emp = new javax.swing.JLabel();
+        jLabel92 = new javax.swing.JLabel();
+        email_emp = new javax.swing.JLabel();
+        jLabel95 = new javax.swing.JLabel();
+        puesto_emp = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
+        jPanel24 = new javax.swing.JPanel();
+        jLabel94 = new javax.swing.JLabel();
+        eliminar_cli1 = new javax.swing.JButton();
+        modificar_cli1 = new javax.swing.JButton();
+        registrar_cli1 = new javax.swing.JButton();
+        jLabel86 = new javax.swing.JLabel();
+        jSeparator24 = new javax.swing.JSeparator();
         JPgeneros = new javax.swing.JPanel();
         jl_titulo16 = new javax.swing.JLabel();
         jpDatos_cat2 = new javax.swing.JPanel();
@@ -844,43 +935,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jbEliminar_ciu = new javax.swing.JButton();
         jbModificar_ciu = new javax.swing.JButton();
         jSeparator18 = new javax.swing.JSeparator();
-        JPclientes = new javax.swing.JPanel();
-        res_cli = new javax.swing.JLabel();
-        jpDatos_cli = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jlR2 = new javax.swing.JLabel();
-        jbEnviar_cli = new javax.swing.JButton();
-        jb_Eliminar_cli = new javax.swing.JButton();
-        jbModificar_cli = new javax.swing.JButton();
-        jlN2 = new javax.swing.JLabel();
-        jlC2 = new javax.swing.JLabel();
-        jlT1 = new javax.swing.JLabel();
-        jlF1 = new javax.swing.JLabel();
-        jlCedula_cli = new javax.swing.JLabel();
-        jlNombre_cli = new javax.swing.JLabel();
-        jlApellido_cli = new javax.swing.JLabel();
-        jlNac_cli = new javax.swing.JLabel();
-        jlReg_cli = new javax.swing.JLabel();
-        jSeparator8 = new javax.swing.JSeparator();
-        jbRegistrar_cli = new javax.swing.JButton();
-        jSeparator9 = new javax.swing.JSeparator();
-        jlE2 = new javax.swing.JLabel();
-        jlGenero_cli = new javax.swing.JLabel();
-        jlE4 = new javax.swing.JLabel();
-        jlDescuento_cli = new javax.swing.JLabel();
-        jlE5 = new javax.swing.JLabel();
-        jlTelefono_cli = new javax.swing.JLabel();
-        jlCorreo_cli = new javax.swing.JLabel();
-        jlE6 = new javax.swing.JLabel();
-        jlDireccion_cli = new javax.swing.JLabel();
-        jlE7 = new javax.swing.JLabel();
-        jcBuscar_cli = new javax.swing.JComboBox<>();
-        jLabel36 = new javax.swing.JLabel();
-        jtBuscar_cli = new javax.swing.JTextField();
-        lim_cli = new javax.swing.JLabel();
-        jsTabla_cat7 = new javax.swing.JScrollPane();
-        JTclientes = new javax.swing.JTable();
-        jl_titulo10 = new javax.swing.JLabel();
         JPdescuentos = new javax.swing.JPanel();
         res_des = new javax.swing.JLabel();
         jpDatos_des = new javax.swing.JPanel();
@@ -902,43 +956,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jsTabla_des = new javax.swing.JScrollPane();
         JTdescuentos = new javax.swing.JTable();
         jl_titulo14 = new javax.swing.JLabel();
-        JPempleados = new javax.swing.JPanel();
-        res_emp = new javax.swing.JLabel();
-        jpDatos_emp = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jlR5 = new javax.swing.JLabel();
-        jbEnviar_cli1 = new javax.swing.JButton();
-        jb_Eliminar_cli1 = new javax.swing.JButton();
-        jbModificar_cli1 = new javax.swing.JButton();
-        jlN5 = new javax.swing.JLabel();
-        jlC3 = new javax.swing.JLabel();
-        jlT2 = new javax.swing.JLabel();
-        jlF2 = new javax.swing.JLabel();
-        jlCedula_emp = new javax.swing.JLabel();
-        jlNombre_emp = new javax.swing.JLabel();
-        jlApellido_emp = new javax.swing.JLabel();
-        jlNac_emp = new javax.swing.JLabel();
-        jlReg_emp = new javax.swing.JLabel();
-        jSeparator14 = new javax.swing.JSeparator();
-        jbRegistrar_cli1 = new javax.swing.JButton();
-        jSeparator15 = new javax.swing.JSeparator();
-        jlGen_emp = new javax.swing.JLabel();
-        jlGenero_emp = new javax.swing.JLabel();
-        jlE10 = new javax.swing.JLabel();
-        jlSueldo_emp = new javax.swing.JLabel();
-        jlE11 = new javax.swing.JLabel();
-        jlTelefono_emp = new javax.swing.JLabel();
-        jlCorreo_emp = new javax.swing.JLabel();
-        jlE12 = new javax.swing.JLabel();
-        jlDireccion_emp = new javax.swing.JLabel();
-        jlE13 = new javax.swing.JLabel();
-        jcBuscar_emp = new javax.swing.JComboBox<>();
-        jLabel39 = new javax.swing.JLabel();
-        jtBuscar_emp = new javax.swing.JTextField();
-        lim_emp = new javax.swing.JLabel();
-        jsTabla_cat8 = new javax.swing.JScrollPane();
-        JTempleados = new javax.swing.JTable();
-        jl_titulo11 = new javax.swing.JLabel();
         JPproductos = new javax.swing.JPanel();
         res_pro = new javax.swing.JLabel();
         jpDatos_pro = new javax.swing.JPanel();
@@ -2696,6 +2713,869 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         MENU.addTab("INICIO", INICIO);
 
+        JSpersonas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JSpersonas.setPreferredSize(new java.awt.Dimension(1149, 702));
+
+        JPpersonas.setBackground(new java.awt.Color(252, 240, 219));
+        JPpersonas.setMaximumSize(new java.awt.Dimension(980, 1050));
+        JPpersonas.setMinimumSize(new java.awt.Dimension(980, 1050));
+        JPpersonas.setPreferredSize(new java.awt.Dimension(980, 1050));
+        JPpersonas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jsTabla_ciu4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        JTcli = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
+        JTcli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        JTcli.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTcli.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        JTcli.setFocusable(false);
+        JTcli.setGridColor(new java.awt.Color(255, 255, 255));
+        JTcli.setOpaque(false);
+        JTcli.setRowHeight(30);
+        JTcli.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        JTcli.getTableHeader().setResizingAllowed(false);
+        JTcli.getTableHeader().setReorderingAllowed(false);
+        jsTabla_ciu4.setViewportView(JTcli);
+
+        JPpersonas.add(jsTabla_ciu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 378, 420, 170));
+
+        jcBuscar_enc1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jcBuscar_enc1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        jcBuscar_enc1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcBuscar_enc1ItemStateChanged(evt);
+            }
+        });
+        JPpersonas.add(jcBuscar_enc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 331, 142, 35));
+
+        jLabel72.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel72.setText("Buscar por");
+        JPpersonas.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 331, -1, 34));
+
+        jtBuscar_enc1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jtBuscar_enc1.setText("Buscar");
+        jtBuscar_enc1.setMinimumSize(new java.awt.Dimension(317, 31));
+        jtBuscar_enc1.setPreferredSize(new java.awt.Dimension(317, 35));
+        jtBuscar_enc1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jtBuscar_enc1.setSelectionColor(new java.awt.Color(153, 204, 255));
+        jtBuscar_enc1.setSelectionEnd(0);
+        jtBuscar_enc1.setSelectionStart(0);
+        jtBuscar_enc1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtBuscar_enc1MouseClicked(evt);
+            }
+        });
+        jtBuscar_enc1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc1KeyTyped(evt);
+            }
+        });
+        JPpersonas.add(jtBuscar_enc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 331, 195, -1));
+
+        lim_cli.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        lim_cli.setForeground(new java.awt.Color(0, 102, 102));
+        lim_cli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lim_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        lim_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lim_cli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lim_cliMouseClicked(evt);
+            }
+        });
+        JPpersonas.add(lim_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 331, -1, 35));
+
+        res_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_cli.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        res_cli.setText("Resultados: 0 de 0");
+        JPpersonas.add(res_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 287, 204, 32));
+
+        jl_titulo17.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jl_titulo17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
+        jl_titulo17.setText("Clientes");
+        jl_titulo17.setIconTextGap(10);
+        jl_titulo17.setVerifyInputWhenFocusTarget(false);
+        JPpersonas.add(jl_titulo17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 287, 204, -1));
+
+        jSeparator7.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JPpersonas.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 257, 899, 12));
+
+        jPanel23.setBackground(new java.awt.Color(153, 0, 51));
+        jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel23.setPreferredSize(new java.awt.Dimension(2, 100));
+
+        jLabel80.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel80.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel80.setText("CLIENTE SELECCIONADO");
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel80, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel80, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+        );
+
+        JPpersonas.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 569, 420, 47));
+
+        jsTabla_ciu5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        JTemp = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
+        JTemp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        JTemp.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTemp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        JTemp.setFocusable(false);
+        JTemp.setGridColor(new java.awt.Color(255, 255, 255));
+        JTemp.setOpaque(false);
+        JTemp.setRowHeight(30);
+        JTemp.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        JTemp.getTableHeader().setResizingAllowed(false);
+        JTemp.getTableHeader().setReorderingAllowed(false);
+        jsTabla_ciu5.setViewportView(JTemp);
+
+        JPpersonas.add(jsTabla_ciu5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 378, 422, 170));
+
+        jl_titulo20.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jl_titulo20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
+        jl_titulo20.setText("PERSONAS");
+        jl_titulo20.setIconTextGap(10);
+        jl_titulo20.setVerifyInputWhenFocusTarget(false);
+        JPpersonas.add(jl_titulo20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 200, 35));
+
+        jLabel74.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jLabel74.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel74.setText("Buscar por");
+        JPpersonas.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 20, -1, 35));
+
+        jcBuscar_enc3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jcBuscar_enc3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        jcBuscar_enc3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcBuscar_enc3ItemStateChanged(evt);
+            }
+        });
+        JPpersonas.add(jcBuscar_enc3, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 20, 142, 35));
+
+        jtBuscar_enc3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jtBuscar_enc3.setText("Buscar");
+        jtBuscar_enc3.setMinimumSize(new java.awt.Dimension(317, 31));
+        jtBuscar_enc3.setPreferredSize(new java.awt.Dimension(317, 35));
+        jtBuscar_enc3.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jtBuscar_enc3.setSelectionColor(new java.awt.Color(153, 204, 255));
+        jtBuscar_enc3.setSelectionEnd(0);
+        jtBuscar_enc3.setSelectionStart(0);
+        jtBuscar_enc3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtBuscar_enc3MouseClicked(evt);
+            }
+        });
+        jtBuscar_enc3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc3KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc3KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc3KeyTyped(evt);
+            }
+        });
+        JPpersonas.add(jtBuscar_enc3, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 20, 185, -1));
+
+        lim_enc3.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        lim_enc3.setForeground(new java.awt.Color(0, 102, 102));
+        lim_enc3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lim_enc3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        lim_enc3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lim_enc3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lim_enc3MouseClicked(evt);
+            }
+        });
+        JPpersonas.add(lim_enc3, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 20, -1, 35));
+
+        jsTabla_ciu6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        JTper = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
+        JTper.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        JTper.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTper.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        JTper.setFocusable(false);
+        JTper.setGridColor(new java.awt.Color(255, 255, 255));
+        JTper.setOpaque(false);
+        JTper.setRowHeight(30);
+        JTper.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        JTper.getTableHeader().setResizingAllowed(false);
+        JTper.getTableHeader().setReorderingAllowed(false);
+        jsTabla_ciu6.setViewportView(JTper);
+
+        JPpersonas.add(jsTabla_ciu6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 67, 899, 170));
+
+        res_per.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_per.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        res_per.setText("Resultados: 0 de 0");
+        JPpersonas.add(res_per, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 20, 212, 35));
+
+        JPcli.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel63.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel63.setText("Cédula:");
+
+        cedula_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        cedula_cli.setText("0");
+
+        jLabel66.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel66.setText("ID:");
+
+        id_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        id_cli.setText("0");
+
+        jLabel68.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel68.setText("Nombre:");
+
+        nombre_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        nombre_cli.setText("0");
+
+        apellido_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        apellido_cli.setText("0");
+
+        jLabel71.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel71.setText("Apellido:");
+
+        jLabel75.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel75.setText("Celular:");
+
+        celular_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        celular_cli.setText("0");
+
+        jLabel77.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel77.setText("Fecha de nacimiento:");
+
+        fecha_nac_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        fecha_nac_cli.setText("0");
+
+        jLabel79.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel79.setText("Sexo:");
+
+        sexo_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        sexo_cli.setText("0");
+
+        jLabel83.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel83.setText("Descuento:");
+
+        descuento_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        descuento_cli.setText("0");
+
+        jLabel85.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel85.setText("Fecha de registro:");
+
+        fecha_reg_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        fecha_reg_cli.setText("0");
+
+        jLabel87.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel87.setText("Ciudad:");
+
+        ciudad_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        ciudad_cli.setText("0");
+
+        jLabel89.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel89.setText("Dirección:");
+
+        direccion_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        direccion_cli.setText("0");
+
+        jLabel91.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel91.setText("Email:");
+
+        email_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        email_cli.setText("0");
+
+        javax.swing.GroupLayout JPcliLayout = new javax.swing.GroupLayout(JPcli);
+        JPcli.setLayout(JPcliLayout);
+        JPcliLayout.setHorizontalGroup(
+            JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPcliLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel68)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombre_cli))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel66)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(id_cli))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel87)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ciudad_cli))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel89)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(direccion_cli))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel77)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fecha_nac_cli))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel75)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(celular_cli)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(JPcliLayout.createSequentialGroup()
+                            .addComponent(jLabel63)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cedula_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(JPcliLayout.createSequentialGroup()
+                            .addComponent(jLabel71)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(apellido_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel91)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(email_cli))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel79)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sexo_cli))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel83)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(descuento_cli))
+                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel85)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fecha_reg_cli)))
+                .addGap(20, 20, 20))
+        );
+        JPcliLayout.setVerticalGroup(
+            JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPcliLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel63)
+                    .addComponent(cedula_cli)
+                    .addComponent(jLabel66)
+                    .addComponent(id_cli))
+                .addGap(15, 15, 15)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel68)
+                    .addComponent(nombre_cli)
+                    .addComponent(jLabel71)
+                    .addComponent(apellido_cli))
+                .addGap(15, 15, 15)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel77)
+                    .addComponent(fecha_nac_cli)
+                    .addComponent(jLabel79)
+                    .addComponent(sexo_cli))
+                .addGap(15, 15, 15)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel75)
+                    .addComponent(celular_cli)
+                    .addComponent(jLabel91)
+                    .addComponent(email_cli))
+                .addGap(15, 15, 15)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel89)
+                    .addComponent(direccion_cli)
+                    .addComponent(jLabel83)
+                    .addComponent(descuento_cli))
+                .addGap(15, 15, 15)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel85)
+                        .addComponent(fecha_reg_cli))
+                    .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel87)
+                        .addComponent(ciudad_cli)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        JPpersonas.add(JPcli, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 616, 420, -1));
+
+        eliminar_cli.setBackground(new java.awt.Color(255, 0, 51));
+        eliminar_cli.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        eliminar_cli.setForeground(new java.awt.Color(255, 255, 255));
+        eliminar_cli.setText("x    Eliminar");
+        eliminar_cli.setBorder(null);
+        eliminar_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        eliminar_cli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eliminar_cliMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eliminar_cliMouseExited(evt);
+            }
+        });
+        eliminar_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminar_cliActionPerformed(evt);
+            }
+        });
+        JPpersonas.add(eliminar_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 851, 130, 40));
+
+        registrar_cli.setBackground(new java.awt.Color(0, 204, 102));
+        registrar_cli.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        registrar_cli.setForeground(new java.awt.Color(255, 255, 255));
+        registrar_cli.setText("+    Registrar");
+        registrar_cli.setBorder(null);
+        registrar_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registrar_cli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                registrar_cliMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                registrar_cliMouseExited(evt);
+            }
+        });
+        registrar_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrar_cliActionPerformed(evt);
+            }
+        });
+        JPpersonas.add(registrar_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 851, 130, 40));
+
+        modificar_cli.setBackground(new java.awt.Color(51, 204, 255));
+        modificar_cli.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        modificar_cli.setForeground(new java.awt.Color(255, 255, 255));
+        modificar_cli.setText("¡    Modificar");
+        modificar_cli.setBorder(null);
+        modificar_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        modificar_cli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                modificar_cliMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                modificar_cliMouseExited(evt);
+            }
+        });
+        modificar_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificar_cliActionPerformed(evt);
+            }
+        });
+        JPpersonas.add(modificar_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 851, 136, 40));
+
+        jtBuscar_enc4.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jtBuscar_enc4.setText("Buscar");
+        jtBuscar_enc4.setMinimumSize(new java.awt.Dimension(317, 31));
+        jtBuscar_enc4.setPreferredSize(new java.awt.Dimension(317, 35));
+        jtBuscar_enc4.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jtBuscar_enc4.setSelectionColor(new java.awt.Color(153, 204, 255));
+        jtBuscar_enc4.setSelectionEnd(0);
+        jtBuscar_enc4.setSelectionStart(0);
+        jtBuscar_enc4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtBuscar_enc4MouseClicked(evt);
+            }
+        });
+        jtBuscar_enc4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc4KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc4KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtBuscar_enc4KeyTyped(evt);
+            }
+        });
+        JPpersonas.add(jtBuscar_enc4, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 330, 197, -1));
+
+        jcBuscar_enc4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jcBuscar_enc4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        jcBuscar_enc4.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcBuscar_enc4ItemStateChanged(evt);
+            }
+        });
+        JPpersonas.add(jcBuscar_enc4, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 331, 142, 35));
+
+        jLabel93.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jLabel93.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel93.setText("Buscar por");
+        JPpersonas.add(jLabel93, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, -1, 34));
+
+        jl_titulo19.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jl_titulo19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
+        jl_titulo19.setText("Empleados");
+        jl_titulo19.setIconTextGap(10);
+        jl_titulo19.setVerifyInputWhenFocusTarget(false);
+        JPpersonas.add(jl_titulo19, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 287, 181, -1));
+
+        res_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_emp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        res_emp.setText("Resultados: 0 de 0");
+        JPpersonas.add(res_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(718, 291, 204, -1));
+
+        lim_emp.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        lim_emp.setForeground(new java.awt.Color(0, 102, 102));
+        lim_emp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lim_emp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        lim_emp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lim_emp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lim_empMouseClicked(evt);
+            }
+        });
+        JPpersonas.add(lim_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(925, 330, -1, 36));
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel64.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel64.setText("Cédula:");
+
+        cedula_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        cedula_emp.setText("0");
+
+        jLabel67.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel67.setText("ID:");
+
+        id_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        id_emp.setText("0");
+
+        jLabel69.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel69.setText("Nombre:");
+
+        nombre_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        nombre_emp.setText("0");
+
+        apellido_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        apellido_emp.setText("0");
+
+        jLabel73.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel73.setText("Apellido:");
+
+        jLabel76.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel76.setText("Celular:");
+
+        celular_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        celular_emp.setText("0");
+
+        jLabel78.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel78.setText("Fecha de nacimiento:");
+
+        fecha_nac_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        fecha_nac_emp.setText("0");
+
+        jLabel82.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel82.setText("Sexo:");
+
+        sexo_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        sexo_emp.setText("0");
+
+        jLabel84.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel84.setText("Departamento:");
+
+        departamento_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        departamento_emp.setText("0");
+
+        fecha_reg_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        fecha_reg_emp.setText("0");
+
+        jLabel88.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel88.setText("Ciudad:");
+
+        ciudad_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        ciudad_emp.setText("0");
+
+        jLabel90.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel90.setText("Dirección:");
+
+        direccion_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        direccion_emp.setText("0");
+
+        jLabel92.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel92.setText("Email:");
+
+        email_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        email_emp.setText("0");
+
+        jLabel95.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel95.setText("Puesto:");
+
+        puesto_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        puesto_emp.setText("0");
+
+        jLabel96.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel96.setText("Fecha de registro:");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel69)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombre_emp))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel67)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(id_emp))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel88)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ciudad_emp))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel90)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(direccion_emp))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel78)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fecha_nac_emp))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel76)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(celular_emp)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addComponent(jLabel64)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cedula_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addComponent(jLabel73)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(apellido_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel92)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(email_emp))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel82)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sexo_emp))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel84)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(departamento_emp))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel96)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fecha_reg_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel95)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(puesto_emp)))
+                .addGap(20, 20, 20))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel64)
+                    .addComponent(cedula_emp)
+                    .addComponent(jLabel67)
+                    .addComponent(id_emp))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel69)
+                    .addComponent(nombre_emp)
+                    .addComponent(jLabel73)
+                    .addComponent(apellido_emp))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel78)
+                    .addComponent(fecha_nac_emp)
+                    .addComponent(jLabel82)
+                    .addComponent(sexo_emp))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel76)
+                    .addComponent(celular_emp)
+                    .addComponent(jLabel92)
+                    .addComponent(email_emp))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel90)
+                    .addComponent(direccion_emp)
+                    .addComponent(jLabel84)
+                    .addComponent(departamento_emp))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel88)
+                    .addComponent(ciudad_emp)
+                    .addComponent(jLabel95)
+                    .addComponent(puesto_emp))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(fecha_reg_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel96, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        JPpersonas.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 617, -1, -1));
+
+        jPanel24.setBackground(new java.awt.Color(153, 0, 51));
+        jPanel24.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel24.setPreferredSize(new java.awt.Dimension(2, 100));
+
+        jLabel94.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel94.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel94.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel94.setText("EMPLEADO SELECCIONADO");
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel94, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel94, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+        );
+
+        JPpersonas.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 570, 422, 47));
+
+        eliminar_cli1.setBackground(new java.awt.Color(255, 0, 51));
+        eliminar_cli1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        eliminar_cli1.setForeground(new java.awt.Color(255, 255, 255));
+        eliminar_cli1.setText("x    Eliminar");
+        eliminar_cli1.setBorder(null);
+        eliminar_cli1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        eliminar_cli1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eliminar_cli1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eliminar_cli1MouseExited(evt);
+            }
+        });
+        eliminar_cli1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminar_cli1ActionPerformed(evt);
+            }
+        });
+        JPpersonas.add(eliminar_cli1, new org.netbeans.lib.awtextra.AbsoluteConstraints(792, 887, 130, 40));
+
+        modificar_cli1.setBackground(new java.awt.Color(51, 204, 255));
+        modificar_cli1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        modificar_cli1.setForeground(new java.awt.Color(255, 255, 255));
+        modificar_cli1.setText("¡    Modificar");
+        modificar_cli1.setBorder(null);
+        modificar_cli1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        modificar_cli1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                modificar_cli1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                modificar_cli1MouseExited(evt);
+            }
+        });
+        modificar_cli1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificar_cli1ActionPerformed(evt);
+            }
+        });
+        JPpersonas.add(modificar_cli1, new org.netbeans.lib.awtextra.AbsoluteConstraints(644, 887, 136, 40));
+
+        registrar_cli1.setBackground(new java.awt.Color(0, 204, 102));
+        registrar_cli1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        registrar_cli1.setForeground(new java.awt.Color(255, 255, 255));
+        registrar_cli1.setText("+    Registrar");
+        registrar_cli1.setBorder(null);
+        registrar_cli1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registrar_cli1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                registrar_cli1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                registrar_cli1MouseExited(evt);
+            }
+        });
+        registrar_cli1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrar_cli1ActionPerformed(evt);
+            }
+        });
+        JPpersonas.add(registrar_cli1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 887, 132, 40));
+
+        jLabel86.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel86.setText("subir");
+        jLabel86.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel86.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel86MouseClicked(evt);
+            }
+        });
+        JPpersonas.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 965, 59, -1));
+
+        jSeparator24.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator24.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator24.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator24.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JPpersonas.add(jSeparator24, new org.netbeans.lib.awtextra.AbsoluteConstraints(471, 287, -1, 640));
+
+        JSpersonas.setViewportView(JPpersonas);
+
+        MENU.addTab("PERSONAS", JSpersonas);
+        JSpersonas.getVerticalScrollBar().setUnitIncrement(16);
+
         JPgeneros.setBackground(new java.awt.Color(204, 255, 255));
 
         jl_titulo16.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -3519,333 +4399,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         MENU.addTab("CIUDADES", JPciudades);
 
-        JPclientes.setBackground(new java.awt.Color(204, 255, 255));
-
-        res_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_cli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_cli.setText("Resultados: 0 de 0");
-
-        jpDatos_cli.setBackground(new java.awt.Color(255, 255, 255));
-        jpDatos_cli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
-        jpDatos_cli.setMaximumSize(new java.awt.Dimension(980, 185));
-        jpDatos_cli.setMinimumSize(new java.awt.Dimension(980, 185));
-        jpDatos_cli.setPreferredSize(new java.awt.Dimension(980, 185));
-        jpDatos_cli.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Cliente seleccionado:");
-        jpDatos_cli.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 920, 30));
-
-        jlR2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlR2.setForeground(new java.awt.Color(51, 51, 51));
-        jlR2.setText("Cédula:");
-        jpDatos_cli.add(jlR2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 42, -1, -1));
-
-        jbEnviar_cli.setBackground(new java.awt.Color(255, 102, 51));
-        jbEnviar_cli.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jbEnviar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/compartir.png"))); // NOI18N
-        jbEnviar_cli.setText(" Enviar");
-        jbEnviar_cli.setBorder(null);
-        jbEnviar_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbEnviar_cli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbEnviar_cliMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbEnviar_cliMouseExited(evt);
-            }
-        });
-        jbEnviar_cli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEnviar_cliActionPerformed(evt);
-            }
-        });
-        jpDatos_cli.add(jbEnviar_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 190, 44));
-
-        jb_Eliminar_cli.setBackground(new java.awt.Color(255, 0, 51));
-        jb_Eliminar_cli.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jb_Eliminar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar.png"))); // NOI18N
-        jb_Eliminar_cli.setText(" Eliminar");
-        jb_Eliminar_cli.setBorder(null);
-        jb_Eliminar_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_Eliminar_cli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jb_Eliminar_cliMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jb_Eliminar_cliMouseExited(evt);
-            }
-        });
-        jb_Eliminar_cli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_Eliminar_cliActionPerformed(evt);
-            }
-        });
-        jpDatos_cli.add(jb_Eliminar_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 190, 44));
-
-        jbModificar_cli.setBackground(new java.awt.Color(0, 153, 255));
-        jbModificar_cli.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jbModificar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
-        jbModificar_cli.setText(" Modificar");
-        jbModificar_cli.setBorder(null);
-        jbModificar_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbModificar_cli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbModificar_cliMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbModificar_cliMouseExited(evt);
-            }
-        });
-        jbModificar_cli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificar_cliActionPerformed(evt);
-            }
-        });
-        jpDatos_cli.add(jbModificar_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 140, 190, 44));
-
-        jlN2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlN2.setForeground(new java.awt.Color(51, 51, 51));
-        jlN2.setText("Nombre:");
-        jpDatos_cli.add(jlN2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 64, -1, -1));
-
-        jlC2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlC2.setForeground(new java.awt.Color(51, 51, 51));
-        jlC2.setText("Apellido:");
-        jpDatos_cli.add(jlC2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 86, -1, -1));
-
-        jlT1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlT1.setForeground(new java.awt.Color(51, 51, 51));
-        jlT1.setText("Fecha de nacimiento:");
-        jpDatos_cli.add(jlT1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 108, -1, -1));
-
-        jlF1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlF1.setForeground(new java.awt.Color(51, 51, 51));
-        jlF1.setText("Fecha de registro:");
-        jpDatos_cli.add(jlF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 64, -1, -1));
-
-        jlCedula_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlCedula_cli.setText(" ");
-        jpDatos_cli.add(jlCedula_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 42, 161, -1));
-
-        jlNombre_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlNombre_cli.setText(" ");
-        jpDatos_cli.add(jlNombre_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 64, 152, -1));
-
-        jlApellido_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlApellido_cli.setText(" ");
-        jpDatos_cli.add(jlApellido_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 86, 154, -1));
-
-        jlNac_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlNac_cli.setText(" ");
-        jpDatos_cli.add(jlNac_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 108, 110, -1));
-
-        jlReg_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlReg_cli.setText(" ");
-        jpDatos_cli.add(jlReg_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 64, 101, -1));
-
-        jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
-        jpDatos_cli.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 32, 927, 10));
-
-        jbRegistrar_cli.setBackground(new java.awt.Color(0, 204, 102));
-        jbRegistrar_cli.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jbRegistrar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
-        jbRegistrar_cli.setText("Agregar");
-        jbRegistrar_cli.setBorder(null);
-        jbRegistrar_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbRegistrar_cli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbRegistrar_cliMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbRegistrar_cliMouseExited(evt);
-            }
-        });
-        jbRegistrar_cli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRegistrar_cliActionPerformed(evt);
-            }
-        });
-        jpDatos_cli.add(jbRegistrar_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 140, 190, 44));
-
-        jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
-        jpDatos_cli.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 130, 1170, 4));
-
-        jlE2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE2.setForeground(new java.awt.Color(51, 51, 51));
-        jlE2.setText("Género:");
-        jpDatos_cli.add(jlE2, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 42, -1, -1));
-
-        jlGenero_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlGenero_cli.setText(" ");
-        jpDatos_cli.add(jlGenero_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 42, 184, -1));
-
-        jlE4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE4.setForeground(new java.awt.Color(51, 51, 51));
-        jlE4.setText("Tipo de descuento:");
-        jpDatos_cli.add(jlE4, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 42, -1, -1));
-
-        jlDescuento_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlDescuento_cli.setText(" ");
-        jpDatos_cli.add(jlDescuento_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(778, 42, 130, -1));
-
-        jlE5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE5.setForeground(new java.awt.Color(51, 51, 51));
-        jlE5.setText("Teléfono:");
-        jpDatos_cli.add(jlE5, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 64, -1, -1));
-
-        jlTelefono_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlTelefono_cli.setText(" ");
-        jpDatos_cli.add(jlTelefono_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 64, 176, -1));
-
-        jlCorreo_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlCorreo_cli.setText(" ");
-        jpDatos_cli.add(jlCorreo_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 86, 250, -1));
-
-        jlE6.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE6.setForeground(new java.awt.Color(51, 51, 51));
-        jlE6.setText("Correo:");
-        jpDatos_cli.add(jlE6, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 86, 55, -1));
-
-        jlDireccion_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlDireccion_cli.setText(" ");
-        jpDatos_cli.add(jlDireccion_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 108, 240, -1));
-
-        jlE7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE7.setForeground(new java.awt.Color(51, 51, 51));
-        jlE7.setText("Dirección:");
-        jpDatos_cli.add(jlE7, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 108, 67, -1));
-
-        jcBuscar_cli.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jcBuscar_cli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cédula", "Nombre", "Apellido", "F. Nacimiento", "Género", "Teléfono", "Correo", "Dirección", "T. Descuento", "F. Registro" }));
-        jcBuscar_cli.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jcBuscar_cliItemStateChanged(evt);
-            }
-        });
-
-        jLabel36.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel36.setText("Buscar cliente por");
-
-        jtBuscar_cli.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jtBuscar_cli.setText("Buscar");
-        jtBuscar_cli.setMinimumSize(new java.awt.Dimension(317, 31));
-        jtBuscar_cli.setPreferredSize(new java.awt.Dimension(317, 35));
-        jtBuscar_cli.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        jtBuscar_cli.setSelectionColor(new java.awt.Color(153, 204, 255));
-        jtBuscar_cli.setSelectionEnd(0);
-        jtBuscar_cli.setSelectionStart(0);
-        jtBuscar_cli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtBuscar_cliMouseClicked(evt);
-            }
-        });
-        jtBuscar_cli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtBuscar_cliActionPerformed(evt);
-            }
-        });
-        jtBuscar_cli.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtBuscar_cliKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jtBuscar_cliKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtBuscar_cliKeyTyped(evt);
-            }
-        });
-
-        lim_cli.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-        lim_cli.setForeground(new java.awt.Color(0, 102, 102));
-        lim_cli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lim_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
-        lim_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lim_cli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lim_cliMouseClicked(evt);
-            }
-        });
-
-        JTclientes = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex){
-                return false;
-            }
-        };
-        JTclientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTclientes.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
-        JTclientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        JTclientes.setFocusable(false);
-        JTclientes.setGridColor(new java.awt.Color(255, 255, 255));
-        JTclientes.setOpaque(false);
-        JTclientes.setRowHeight(30);
-        JTclientes.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        JTclientes.getTableHeader().setResizingAllowed(false);
-        JTclientes.getTableHeader().setReorderingAllowed(false);
-        jsTabla_cat7.setViewportView(JTclientes);
-
-        jl_titulo10.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jl_titulo10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
-        jl_titulo10.setText("Lista de clientes");
-        jl_titulo10.setIconTextGap(10);
-        jl_titulo10.setVerifyInputWhenFocusTarget(false);
-
-        javax.swing.GroupLayout JPclientesLayout = new javax.swing.GroupLayout(JPclientes);
-        JPclientes.setLayout(JPclientesLayout);
-        JPclientesLayout.setHorizontalGroup(
-            JPclientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPclientesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPclientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(JPclientesLayout.createSequentialGroup()
-                        .addComponent(jl_titulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
-                        .addGap(83, 83, 83)
-                        .addComponent(jLabel36)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcBuscar_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(jtBuscar_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(res_cli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpDatos_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 928, Short.MAX_VALUE)
-                    .addComponent(jsTabla_cat7))
-                .addGap(0, 0, 0)
-                .addComponent(lim_cli)
-                .addContainerGap())
-        );
-        JPclientesLayout.setVerticalGroup(
-            JPclientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPclientesLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(JPclientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jtBuscar_cli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcBuscar_cli, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(jl_titulo10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lim_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
-                .addComponent(jsTabla_cat7, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(res_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpDatos_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-        );
-
-        MENU.addTab("CLIENTES", JPclientes);
-
         JPdescuentos.setBackground(new java.awt.Color(204, 255, 255));
 
         res_des.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
@@ -4106,338 +4659,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         );
 
         MENU.addTab("DESCUENTOS", JPdescuentos);
-
-        JPempleados.setBackground(new java.awt.Color(204, 255, 255));
-
-        res_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_emp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_emp.setText("Resultados: 0 de 0");
-
-        jpDatos_emp.setBackground(new java.awt.Color(255, 255, 255));
-        jpDatos_emp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
-        jpDatos_emp.setMaximumSize(new java.awt.Dimension(980, 185));
-        jpDatos_emp.setMinimumSize(new java.awt.Dimension(980, 185));
-        jpDatos_emp.setPreferredSize(new java.awt.Dimension(980, 185));
-        jpDatos_emp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Empleado seleccionado:");
-        jpDatos_emp.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 920, 30));
-
-        jlR5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlR5.setForeground(new java.awt.Color(51, 51, 51));
-        jlR5.setText("Cédula:");
-        jpDatos_emp.add(jlR5, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 42, -1, -1));
-
-        jbEnviar_cli1.setBackground(new java.awt.Color(255, 102, 51));
-        jbEnviar_cli1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jbEnviar_cli1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/compartir.png"))); // NOI18N
-        jbEnviar_cli1.setText(" Enviar");
-        jbEnviar_cli1.setBorder(null);
-        jbEnviar_cli1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbEnviar_cli1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbEnviar_cli1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbEnviar_cli1MouseExited(evt);
-            }
-        });
-        jbEnviar_cli1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEnviar_cli1ActionPerformed(evt);
-            }
-        });
-        jpDatos_emp.add(jbEnviar_cli1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 190, 44));
-
-        jb_Eliminar_cli1.setBackground(new java.awt.Color(255, 0, 51));
-        jb_Eliminar_cli1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jb_Eliminar_cli1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar.png"))); // NOI18N
-        jb_Eliminar_cli1.setText(" Eliminar");
-        jb_Eliminar_cli1.setBorder(null);
-        jb_Eliminar_cli1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_Eliminar_cli1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jb_Eliminar_cli1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jb_Eliminar_cli1MouseExited(evt);
-            }
-        });
-        jb_Eliminar_cli1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_Eliminar_cli1ActionPerformed(evt);
-            }
-        });
-        jpDatos_emp.add(jb_Eliminar_cli1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 190, 44));
-
-        jbModificar_cli1.setBackground(new java.awt.Color(0, 153, 255));
-        jbModificar_cli1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jbModificar_cli1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
-        jbModificar_cli1.setText(" Modificar");
-        jbModificar_cli1.setBorder(null);
-        jbModificar_cli1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbModificar_cli1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbModificar_cli1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbModificar_cli1MouseExited(evt);
-            }
-        });
-        jbModificar_cli1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificar_cli1ActionPerformed(evt);
-            }
-        });
-        jpDatos_emp.add(jbModificar_cli1, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 140, 190, 44));
-
-        jlN5.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlN5.setForeground(new java.awt.Color(51, 51, 51));
-        jlN5.setText("Nombre:");
-        jpDatos_emp.add(jlN5, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 64, -1, -1));
-
-        jlC3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlC3.setForeground(new java.awt.Color(51, 51, 51));
-        jlC3.setText("Apellido:");
-        jpDatos_emp.add(jlC3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 86, -1, -1));
-
-        jlT2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlT2.setForeground(new java.awt.Color(51, 51, 51));
-        jlT2.setText("Fecha de nacimiento:");
-        jpDatos_emp.add(jlT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 108, -1, -1));
-
-        jlF2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlF2.setForeground(new java.awt.Color(51, 51, 51));
-        jlF2.setText("Fecha de registro:");
-        jpDatos_emp.add(jlF2, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 64, -1, -1));
-
-        jlCedula_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlCedula_emp.setText(" ");
-        jpDatos_emp.add(jlCedula_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 42, 161, -1));
-
-        jlNombre_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlNombre_emp.setText(" ");
-        jpDatos_emp.add(jlNombre_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 64, 152, -1));
-
-        jlApellido_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlApellido_emp.setText(" ");
-        jpDatos_emp.add(jlApellido_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 86, 154, -1));
-
-        jlNac_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlNac_emp.setText(" ");
-        jpDatos_emp.add(jlNac_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 108, 110, -1));
-
-        jlReg_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlReg_emp.setText(" ");
-        jpDatos_emp.add(jlReg_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 64, 101, -1));
-
-        jSeparator14.setForeground(new java.awt.Color(0, 0, 0));
-        jpDatos_emp.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 32, 926, 10));
-
-        jbRegistrar_cli1.setBackground(new java.awt.Color(0, 204, 102));
-        jbRegistrar_cli1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jbRegistrar_cli1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
-        jbRegistrar_cli1.setText("Agregar");
-        jbRegistrar_cli1.setBorder(null);
-        jbRegistrar_cli1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbRegistrar_cli1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbRegistrar_cli1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbRegistrar_cli1MouseExited(evt);
-            }
-        });
-        jbRegistrar_cli1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRegistrar_cli1ActionPerformed(evt);
-            }
-        });
-        jpDatos_emp.add(jbRegistrar_cli1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 140, 190, 44));
-
-        jSeparator15.setForeground(new java.awt.Color(0, 0, 0));
-        jpDatos_emp.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 130, 1170, 4));
-
-        jlGen_emp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlGen_emp.setForeground(new java.awt.Color(51, 51, 51));
-        jlGen_emp.setText("Género:");
-        jpDatos_emp.add(jlGen_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 42, -1, -1));
-
-        jlGenero_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlGenero_emp.setText(" ");
-        jpDatos_emp.add(jlGenero_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 42, 184, -1));
-
-        jlE10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE10.setForeground(new java.awt.Color(51, 51, 51));
-        jlE10.setText("Sueldo:");
-        jpDatos_emp.add(jlE10, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 42, -1, -1));
-
-        jlSueldo_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlSueldo_emp.setText(" ");
-        jpDatos_emp.add(jlSueldo_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 42, 171, -1));
-
-        jlE11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE11.setForeground(new java.awt.Color(51, 51, 51));
-        jlE11.setText("Teléfono:");
-        jpDatos_emp.add(jlE11, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 64, -1, -1));
-
-        jlTelefono_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlTelefono_emp.setText(" ");
-        jpDatos_emp.add(jlTelefono_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 64, 176, -1));
-
-        jlCorreo_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlCorreo_emp.setText(" ");
-        jpDatos_emp.add(jlCorreo_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 86, 270, -1));
-
-        jlE12.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE12.setForeground(new java.awt.Color(51, 51, 51));
-        jlE12.setText("Correo:");
-        jpDatos_emp.add(jlE12, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 86, -1, -1));
-
-        jlDireccion_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
-        jlDireccion_emp.setText(" ");
-        jpDatos_emp.add(jlDireccion_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 108, 250, -1));
-
-        jlE13.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jlE13.setForeground(new java.awt.Color(51, 51, 51));
-        jlE13.setText("Dirección:");
-        jpDatos_emp.add(jlE13, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 108, -1, -1));
-
-        jcBuscar_emp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jcBuscar_emp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cédula", "Nombre", "Apellido", "F. Nacimiento", "Género", "Teléfono", "Correo", "Dirección", "Sueldo", "F. Registro" }));
-        jcBuscar_emp.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jcBuscar_empItemStateChanged(evt);
-            }
-        });
-
-        jLabel39.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel39.setText("Buscar empleado por");
-
-        jtBuscar_emp.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jtBuscar_emp.setText("Buscar");
-        jtBuscar_emp.setMinimumSize(new java.awt.Dimension(317, 31));
-        jtBuscar_emp.setPreferredSize(new java.awt.Dimension(317, 35));
-        jtBuscar_emp.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        jtBuscar_emp.setSelectionColor(new java.awt.Color(153, 204, 255));
-        jtBuscar_emp.setSelectionEnd(0);
-        jtBuscar_emp.setSelectionStart(0);
-        jtBuscar_emp.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtBuscar_empMouseClicked(evt);
-            }
-        });
-        jtBuscar_emp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtBuscar_empActionPerformed(evt);
-            }
-        });
-        jtBuscar_emp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtBuscar_empKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jtBuscar_empKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtBuscar_empKeyTyped(evt);
-            }
-        });
-
-        lim_emp.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-        lim_emp.setForeground(new java.awt.Color(0, 102, 102));
-        lim_emp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lim_emp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
-        lim_emp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lim_emp.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lim_empMouseClicked(evt);
-            }
-        });
-
-        JTempleados = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex){
-                return false;
-            }
-        };
-        JTempleados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTempleados.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
-        JTempleados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        JTempleados.setFocusable(false);
-        JTempleados.setGridColor(new java.awt.Color(255, 255, 255));
-        JTempleados.setOpaque(false);
-        JTempleados.setRowHeight(30);
-        JTempleados.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        JTempleados.getTableHeader().setResizingAllowed(false);
-        JTempleados.getTableHeader().setReorderingAllowed(false);
-        jsTabla_cat8.setViewportView(JTempleados);
-
-        jl_titulo11.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jl_titulo11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
-        jl_titulo11.setText("Lista de empleados");
-        jl_titulo11.setIconTextGap(10);
-        jl_titulo11.setPreferredSize(new java.awt.Dimension(226, 32));
-        jl_titulo11.setVerifyInputWhenFocusTarget(false);
-
-        javax.swing.GroupLayout JPempleadosLayout = new javax.swing.GroupLayout(JPempleados);
-        JPempleados.setLayout(JPempleadosLayout);
-        JPempleadosLayout.setHorizontalGroup(
-            JPempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPempleadosLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPempleadosLayout.createSequentialGroup()
-                        .addComponent(jl_titulo11, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel39)
-                        .addGap(6, 6, 6)
-                        .addComponent(jcBuscar_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
-                        .addComponent(jtBuscar_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(lim_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPempleadosLayout.createSequentialGroup()
-                            .addGap(738, 738, 738)
-                            .addComponent(res_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jpDatos_emp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jsTabla_cat8, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap())
-        );
-        JPempleadosLayout.setVerticalGroup(
-            JPempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPempleadosLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(JPempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jl_titulo11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jcBuscar_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtBuscar_emp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lim_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
-                .addComponent(jsTabla_cat8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(res_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpDatos_emp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        MENU.addTab("EMPLEADOS", JPempleados);
 
         JPproductos.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -5049,9 +5270,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         MENU.addTab("PROVEEDORES", JPproveedores);
 
-        getContentPane().add(MENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 970, 490));
+        getContentPane().add(MENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 980, 530));
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(153, 0, 51));
         jPanel1.setMinimumSize(new java.awt.Dimension(1020, 40));
         jPanel1.setPreferredSize(new java.awt.Dimension(1020, 40));
 
@@ -5088,9 +5309,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(32, 32, 32)
                 .addComponent(sistema_titulo)
-                .addGap(190, 190, 190)
+                .addGap(170, 170, 170)
                 .addComponent(FECHA_HORA, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -5114,7 +5335,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
-        FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FONDO.jpeg"))); // NOI18N
+        FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abstracto_rojo.jpeg"))); // NOI18N
         FONDO.setMaximumSize(new java.awt.Dimension(1020, 625));
         FONDO.setMinimumSize(new java.awt.Dimension(1020, 625));
         FONDO.setPreferredSize(new java.awt.Dimension(1020, 625));
@@ -5290,137 +5511,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             jtBuscar_ciu.select(0, 0);
         }
     }//GEN-LAST:event_jtBuscar_ciuMouseClicked
-
-    private void jbEnviar_cliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_cliMouseEntered
-        jbEnviar_cli.setForeground(Color.white);
-    }//GEN-LAST:event_jbEnviar_cliMouseEntered
-
-    private void jbEnviar_cliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_cliMouseExited
-        jbEnviar_cli.setForeground(Color.black);
-    }//GEN-LAST:event_jbEnviar_cliMouseExited
-
-    private void jbEnviar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviar_cliActionPerformed
-//        if (!jlCedula_cli.getText().equals(" ")) {
-//            if (fec_enc.getText().equals("")) {
-//                JOptionPane.showMessageDialog(null, "¡Primero genere una fecha antes enviar clientes!");
-//
-//            } else {
-//                base.abrir();
-//                Cliente c = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
-//                resultado = base.gettear(c);
-//                if (!resultado.isEmpty()) {
-//                    c = (Cliente) resultado.next();
-//                    enc_cedula.setText(c.getCedula());
-//                    enc_cedula.setBackground(Color.green);
-//                    JBseleccionar_pro.setEnabled(true);
-//                    enc_nombre_apellido.setText(c.getNombre() + " " + c.getApellido());
-//                    enc_direccion.setText(c.getDireccion());
-//                    enc_telefono.setText(c.getTelefono());
-//                    enc_correo.setText(c.getCorreo());
-//                    Descuento d = new Descuento(c.getDescuento(), 0);
-//                    resultado = base.gettear(d);
-//                    d = (Descuento) resultado.next();
-//                    descuento = d.getPorcentaje();
-//
-//                    MENU.setSelectedIndex(0);
-//                    INICIO.setSelectedIndex(0);
-//                }
-//                base.cerrar();
-//            }
-//        } else {
-//            getToolkit().beep();
-//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-//        }
-    }//GEN-LAST:event_jbEnviar_cliActionPerformed
-
-    private void jb_Eliminar_cliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Eliminar_cliMouseEntered
-        jb_Eliminar_cli.setForeground(Color.white);
-    }//GEN-LAST:event_jb_Eliminar_cliMouseEntered
-
-    private void jb_Eliminar_cliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Eliminar_cliMouseExited
-        jb_Eliminar_cli.setForeground(Color.black);
-    }//GEN-LAST:event_jb_Eliminar_cliMouseExited
-
-    private void jb_Eliminar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Eliminar_cliActionPerformed
-        if (!jlCedula_cli.getText().equals(" ")) {
-            eliminar(3);
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
-    }//GEN-LAST:event_jb_Eliminar_cliActionPerformed
-
-    private void jbModificar_cliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbModificar_cliMouseEntered
-        jbModificar_cli.setForeground(Color.white);
-    }//GEN-LAST:event_jbModificar_cliMouseEntered
-
-    private void jbModificar_cliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbModificar_cliMouseExited
-        jbModificar_cli.setForeground(Color.black);
-    }//GEN-LAST:event_jbModificar_cliMouseExited
-
-    private void jbModificar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_cliActionPerformed
-        if (!jlCedula_cli.getText().equals(" ")) {
-            JFcliente.forma = "modificar";
-            JFcliente.cambiar_diseño();
-            JFcli.llenar(jlCedula_cli.getText());
-            reiniciar_factura(); //por precaución
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
-
-    }//GEN-LAST:event_jbModificar_cliActionPerformed
-
-    private void jbRegistrar_cliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_cliMouseEntered
-        jbRegistrar_cli.setForeground(Color.white);
-    }//GEN-LAST:event_jbRegistrar_cliMouseEntered
-
-    private void jbRegistrar_cliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_cliMouseExited
-        jbRegistrar_cli.setForeground(Color.black);
-    }//GEN-LAST:event_jbRegistrar_cliMouseExited
-
-    private void jbRegistrar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_cliActionPerformed
-        JFcliente.forma = "registrar";
-        JFcliente.cambiar_diseño();
-        JFcliente.limpiar();
-        JFcli.setVisible(true);
-    }//GEN-LAST:event_jbRegistrar_cliActionPerformed
-
-    private void jcBuscar_cliItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_cliItemStateChanged
-
-    }//GEN-LAST:event_jcBuscar_cliItemStateChanged
-
-    private void jtBuscar_cliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtBuscar_cliMouseClicked
-        if (jtBuscar_cli.getText().equals("Buscar")) {
-            jtBuscar_cli.select(0, 0);
-        }
-    }//GEN-LAST:event_jtBuscar_cliMouseClicked
-
-    private void jtBuscar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtBuscar_cliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtBuscar_cliActionPerformed
-
-    private void jtBuscar_cliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_cliKeyPressed
-        if (jtBuscar_cli.getText().equals("Buscar")) {
-            jtBuscar_cli.setText("");
-            lim_cli.setVisible(true);
-        }
-    }//GEN-LAST:event_jtBuscar_cliKeyPressed
-
-    private void jtBuscar_cliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_cliKeyReleased
-        if (!jtBuscar_cli.getText().equals("")) {
-            buscar(JTclientes, jtBuscar_cli, res_cli, cli, jcBuscar_cli);
-        } else {
-            lim_cli.setVisible(false);
-            jtBuscar_cli.setText("Buscar");
-            jtBuscar_cli.select(0, 0);
-            visualizar();
-        }
-    }//GEN-LAST:event_jtBuscar_cliKeyReleased
-
-    private void jtBuscar_cliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_cliKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtBuscar_cliKeyTyped
 
     private void jbEnviar_desMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_desMouseEntered
         // TODO add your handling code here:
@@ -5643,123 +5733,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private void enc_cedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enc_cedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_enc_cedulaActionPerformed
-
-    private void jbEnviar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_cli1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbEnviar_cli1MouseEntered
-
-    private void jbEnviar_cli1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_cli1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbEnviar_cli1MouseExited
-
-    private void jbEnviar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnviar_cli1ActionPerformed
-//        if (!jlCedula_emp.getText().equals(" ")) {
-//            JFpagos.jt_empleado.setText(jlCedula_emp.getText());
-//            MENU.setSelectedIndex(0);
-//            INICIO.setSelectedIndex(2);
-//            JFpag.setVisible(true);
-//
-//        } else {
-//            getToolkit().beep();
-//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-//        }
-    }//GEN-LAST:event_jbEnviar_cli1ActionPerformed
-
-    private void jb_Eliminar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Eliminar_cli1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jb_Eliminar_cli1MouseEntered
-
-    private void jb_Eliminar_cli1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Eliminar_cli1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jb_Eliminar_cli1MouseExited
-
-    private void jb_Eliminar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Eliminar_cli1ActionPerformed
-        if (!jlCedula_emp.getText().equals(" ")) {
-            eliminar(6);
-        } else {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-        }
-    }//GEN-LAST:event_jb_Eliminar_cli1ActionPerformed
-
-    private void jbModificar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbModificar_cli1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbModificar_cli1MouseEntered
-
-    private void jbModificar_cli1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbModificar_cli1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbModificar_cli1MouseExited
-
-    private void jbModificar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificar_cli1ActionPerformed
-
-//        if (!jlCedula_emp.getText().equals(" ")) {
-//            JFempleado.forma = "modificar";
-//            JFempleado.cambiar_diseño();
-//            JFemp.llenar(jlCedula_emp.getText());
-//        } else {
-//            getToolkit().beep();
-//            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
-//        }
-    }//GEN-LAST:event_jbModificar_cli1ActionPerformed
-
-    private void jbRegistrar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_cli1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbRegistrar_cli1MouseEntered
-
-    private void jbRegistrar_cli1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRegistrar_cli1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbRegistrar_cli1MouseExited
-
-    private void jbRegistrar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrar_cli1ActionPerformed
-
-//        JFempleado.forma = "registrar";
-//        JFempleado.cambiar_diseño();
-//        JFempleado.limpiar();
-//        JFemp.setVisible(true);
-    }//GEN-LAST:event_jbRegistrar_cli1ActionPerformed
-
-    private void jcBuscar_empItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_empItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcBuscar_empItemStateChanged
-
-    private void jtBuscar_empMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtBuscar_empMouseClicked
-        if (jtBuscar_emp.getText().equals("Buscar")) {
-            jtBuscar_emp.select(0, 0);
-        }
-    }//GEN-LAST:event_jtBuscar_empMouseClicked
-
-    private void jtBuscar_empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtBuscar_empActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtBuscar_empActionPerformed
-
-    private void jtBuscar_empKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_empKeyPressed
-        if (jtBuscar_emp.getText().equals("Buscar")) {
-            jtBuscar_emp.setText("");
-            lim_emp.setVisible(true);
-        }
-    }//GEN-LAST:event_jtBuscar_empKeyPressed
-
-    private void jtBuscar_empKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_empKeyReleased
-        if (!jtBuscar_emp.getText().equals("")) {
-            buscar(JTempleados, jtBuscar_emp, res_emp, emp, jcBuscar_emp);
-        } else {
-            lim_emp.setVisible(false);
-            jtBuscar_emp.setText("Buscar");
-            jtBuscar_emp.select(0, 0);
-            visualizar();
-        }
-    }//GEN-LAST:event_jtBuscar_empKeyReleased
-
-    private void jtBuscar_empKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_empKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtBuscar_empKeyTyped
-
-    private void lim_empMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lim_empMouseClicked
-        lim_emp.setVisible(false);
-        jtBuscar_emp.setText("Buscar");
-        jtBuscar_emp.select(0, 0);
-        visualizar();
-    }//GEN-LAST:event_lim_empMouseClicked
 
     private void jbEnviar_proMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEnviar_proMouseEntered
         // TODO add your handling code here:
@@ -6038,13 +6011,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         }
     }//GEN-LAST:event_JBcrear_facturaActionPerformed
-
-    private void lim_cliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lim_cliMouseClicked
-        lim_cli.setVisible(false);
-        jtBuscar_cli.setText("Buscar");
-        jtBuscar_cli.select(0, 0);
-        visualizar();
-    }//GEN-LAST:event_lim_cliMouseClicked
 
     private void JTdetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTdetalleMouseClicked
         xcolum = JTdetalle.getColumnModel().getColumnIndexAtX(evt.getX());
@@ -6397,6 +6363,170 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_lim_cat1MouseClicked
 
+    private void jcBuscar_enc1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_enc1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcBuscar_enc1ItemStateChanged
+
+    private void jtBuscar_enc1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtBuscar_enc1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc1MouseClicked
+
+    private void jtBuscar_enc1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc1KeyPressed
+
+    private void jtBuscar_enc1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc1KeyReleased
+
+    private void jtBuscar_enc1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc1KeyTyped
+
+    private void lim_cliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lim_cliMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lim_cliMouseClicked
+
+    private void jcBuscar_enc3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_enc3ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcBuscar_enc3ItemStateChanged
+
+    private void jtBuscar_enc3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtBuscar_enc3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc3MouseClicked
+
+    private void jtBuscar_enc3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc3KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc3KeyPressed
+
+    private void jtBuscar_enc3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc3KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc3KeyReleased
+
+    private void jtBuscar_enc3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc3KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc3KeyTyped
+
+    private void lim_enc3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lim_enc3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lim_enc3MouseClicked
+
+    private void eliminar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_cliActionPerformed
+        if (JPcli.isVisible()) {
+            eliminar(3);
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+        }
+    }//GEN-LAST:event_eliminar_cliActionPerformed
+
+    private void eliminar_cliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminar_cliMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminar_cliMouseExited
+
+    private void eliminar_cliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminar_cliMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminar_cliMouseEntered
+
+    private void registrar_cliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrar_cliMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrar_cliMouseEntered
+
+    private void registrar_cliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrar_cliMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrar_cliMouseExited
+
+    private void registrar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrar_cliActionPerformed
+        JFcliente.forma = "registrar";
+        JFcliente.cambiar_diseño();
+        JFcliente.limpiar();
+        JFcli.setVisible(true);
+    }//GEN-LAST:event_registrar_cliActionPerformed
+
+    private void modificar_cliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificar_cliMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modificar_cliMouseEntered
+
+    private void modificar_cliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificar_cliMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modificar_cliMouseExited
+
+    private void modificar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar_cliActionPerformed
+        if (JPcli.isVisible()) {
+            JFcliente.forma = "modificar";
+            JFcliente.cambiar_diseño();
+            JFcli.llenar(cedula_cli.getText());
+            reiniciar_factura(); //por precaución
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+        }
+    }//GEN-LAST:event_modificar_cliActionPerformed
+
+    private void jtBuscar_enc4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtBuscar_enc4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc4MouseClicked
+
+    private void jtBuscar_enc4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc4KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc4KeyPressed
+
+    private void jtBuscar_enc4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc4KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc4KeyReleased
+
+    private void jtBuscar_enc4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_enc4KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscar_enc4KeyTyped
+
+    private void jcBuscar_enc4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcBuscar_enc4ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcBuscar_enc4ItemStateChanged
+
+    private void lim_empMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lim_empMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lim_empMouseClicked
+
+    private void eliminar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminar_cli1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminar_cli1MouseEntered
+
+    private void eliminar_cli1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminar_cli1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminar_cli1MouseExited
+
+    private void eliminar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_cli1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminar_cli1ActionPerformed
+
+    private void modificar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificar_cli1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modificar_cli1MouseEntered
+
+    private void modificar_cli1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificar_cli1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modificar_cli1MouseExited
+
+    private void modificar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar_cli1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modificar_cli1ActionPerformed
+
+    private void registrar_cli1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrar_cli1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrar_cli1MouseEntered
+
+    private void registrar_cli1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrar_cli1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrar_cli1MouseExited
+
+    private void registrar_cli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrar_cli1ActionPerformed
+        
+    }//GEN-LAST:event_registrar_cli1ActionPerformed
+
+    private void jLabel86MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel86MouseClicked
+        JSpersonas.getVerticalScrollBar().setValue(0);
+    }//GEN-LAST:event_jLabel86MouseClicked
+
     
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
         bot.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta)));
@@ -6747,92 +6877,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         });
       
     }
-       public  void limpiar(int num){
-      switch(num){
-          case 1://categoria
-              jlNombre_cat.setText(" ");
-              jtaDescripcion_cat.setText(" ");
-              break;
-          case 2://CIUDAD
-              jlCodigo_ciu.setText(" ");
-              jlNombre_ciu.setText(" ");
-              jlProvincia_ciu.setText(" "); 
-          break;
-           case 3 ://CLIENTE
-               jlCedula_cli.setText(" ");
-               jlNombre_cli.setText(" ");
-               jlApellido_cli.setText(" ");
-               jlGenero_cli.setText(" ");
-               jlTelefono_cli.setText(" ");
-               jlCorreo_cli.setText(" ");
-               jlDireccion_cli.setText(" ");
-               jlDescuento_cli.setText(" ");
-               jlReg_cli.setText(" ");
-          break;
-           case 4 ://DESCUENTO
-               jlNombre_des.setText(" ");
-               jlPorcentaje_des.setText(" ");
-          break;
-           case 6 ://EMPLEADO
-               jlCedula_emp.setText(" ");
-               jlNombre_emp.setText(" ");
-               jlApellido_emp.setText(" ");
-               jlNac_emp.setText(" ");
-               jlGenero_emp.setText(" ");
-               jlTelefono_emp.setText(" ");
-               jlCorreo_emp.setText(" ");
-               jlDireccion_emp.setText(" ");
-               jlSueldo_emp.setText(" ");
-               jlReg_emp.setText(" ");
-               
-          break;
-           case 7 ://ENCABEZADO
-               VF_CODIGO.setText(" ");
-               VF_FECHA.setText(" ");
-               VF_CEDULA.setText(" ");
-               VF_NOMBRE_APELLIDO.setText(" ");
-               VF_TELEFONO.setText(" ");
-               VF_DIRECCION.setText(" ");
-               VF_CORREO.setText(" ");
-               VF_TOTAL.setText(" ");
-               DefaultTableModel modelo_vista_det = new DefaultTableModel();
-               VF_DETALLES.setModel(modelo_vista_det);
-               for (int i = modelo_vista_det.getRowCount(); i > 0; i--) {
-                   modelo_vista_det.removeRow(i - 1);
-               }
-               
-          break;
-           case 8 ://PAGO_PROVEEDOR
-               jlCodigo_pag.setText(" ");
-               jlProveedor_pag.setText(" ");
-               jlempleado_nom.setText(" ");
-               jlceduempleado.setText(" ");
-               jlPrecio_pag.setText(" ");
-               jlReg_pag.setText(" ");
-               jtaDescripcion_pag.setText(" ");
-          break;
-           case 9 ://PRODUCTO
-               jlCodigo_pro.setText(" ");
-               jlNombre_pro.setText(" ");
-               jlPrecio_pro.setText(" ");
-               jlExistencias_pro.setText(" ");
-               jlCategoria_pro.setText(" ");
-               jlProveedor_pro.setText(" ");
-               jlReg_pro.setText(" ");
-          break;
-           case 10 ://PROVEEDOR
-               jlRUC.setText(" ");
-               jlNombre.setText(" ");
-               jlCiudad.setText(" ");
-               jlTelefono.setText(" ");
-               jlEmail.setText(" ");
-               jlFecha_reg.setText(" "); 
-               
-          break;
-          
-              
-      }   
-     }
+     public void ocultar(int num, boolean visible) {
+        switch (num) {
+            case 1: JPcli.setVisible(visible);break;
+        }
+    }
 
     public void resumen() {
         //limpiar_resumen();
@@ -7046,25 +7095,27 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public transient javax.swing.JButton JBseleccionar_pro;
     private javax.swing.JPanel JPcategorias;
     private javax.swing.JPanel JPciudades;
-    private javax.swing.JPanel JPclientes;
+    private javax.swing.JPanel JPcli;
     private javax.swing.JPanel JPdescuentos;
-    private javax.swing.JPanel JPempleados;
     private javax.swing.JPanel JPfactura;
     private javax.swing.JPanel JPgeneros;
     private javax.swing.JPanel JPpagos;
+    private javax.swing.JPanel JPpersonas;
     private javax.swing.JPanel JPproductos;
     private javax.swing.JPanel JPproveedores;
     private javax.swing.JPanel JPventas;
+    private javax.swing.JScrollPane JSpersonas;
     private javax.swing.JTable JTcategorias;
     private javax.swing.JTable JTciudades;
-    public static javax.swing.JTable JTclientes;
+    private javax.swing.JTable JTcli;
     private javax.swing.JTable JTdescuentos;
     private javax.swing.JTable JTdet_fac;
     public transient javax.swing.JTable JTdetalle;
-    public static javax.swing.JTable JTempleados;
+    private javax.swing.JTable JTemp;
     private javax.swing.JTable JTenc_fac;
     private javax.swing.JTable JTgeneros;
     public static javax.swing.JTable JTpagos;
+    private javax.swing.JTable JTper;
     public static javax.swing.JTable JTproductos;
     public static javax.swing.JTable JTproveedores;
     public static javax.swing.JTabbedPane MENU;
@@ -7121,6 +7172,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel VF_TELEFONO;
     private javax.swing.JLabel VF_TOTAL;
     private javax.swing.JPanel VISTA_FACTURA;
+    private javax.swing.JLabel apellido_cli;
+    private javax.swing.JLabel apellido_emp;
+    private javax.swing.JLabel cedula_cli;
+    private javax.swing.JLabel cedula_emp;
+    private javax.swing.JLabel celular_cli;
+    private javax.swing.JLabel celular_emp;
+    private javax.swing.JLabel ciudad_cli;
+    private javax.swing.JLabel ciudad_emp;
     private javax.swing.JLabel clientes_con_factura11;
     private javax.swing.JLabel clientes_con_factura12;
     private javax.swing.JLabel clientes_con_factura13;
@@ -7131,6 +7190,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel clientes_sin_factura13;
     private javax.swing.JLabel clientes_sin_factura14;
     private javax.swing.JLabel clientes_sin_factura15;
+    private javax.swing.JLabel departamento_emp;
+    private javax.swing.JLabel descuento_cli;
+    private javax.swing.JLabel direccion_cli;
+    private javax.swing.JLabel direccion_emp;
+    private javax.swing.JButton eliminar_cli;
+    private javax.swing.JButton eliminar_cli1;
+    private javax.swing.JLabel email_cli;
+    private javax.swing.JLabel email_emp;
     private javax.swing.JTextField enc_cedula;
     private javax.swing.JTextField enc_codigo;
     private javax.swing.JTextField enc_correo;
@@ -7138,8 +7205,13 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTextField enc_nombre_apellido;
     private javax.swing.JTextField enc_telefono;
     private javax.swing.JTextField fec_enc;
+    private javax.swing.JLabel fecha_nac_cli;
+    private javax.swing.JLabel fecha_nac_emp;
+    private javax.swing.JLabel fecha_reg_cli;
+    private javax.swing.JLabel fecha_reg_emp;
+    private javax.swing.JLabel id_cli;
+    private javax.swing.JLabel id_emp;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -7162,10 +7234,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
@@ -7192,18 +7262,51 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabel92;
+    private javax.swing.JLabel jLabel93;
+    private javax.swing.JLabel jLabel94;
+    private javax.swing.JLabel jLabel95;
+    private javax.swing.JLabel jLabel96;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -7219,8 +7322,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator14;
-    private javax.swing.JSeparator jSeparator15;
     private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator17;
     private javax.swing.JSeparator jSeparator18;
@@ -7230,12 +7331,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator jSeparator21;
     private javax.swing.JSeparator jSeparator22;
     private javax.swing.JSeparator jSeparator23;
+    private javax.swing.JSeparator jSeparator24;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JButton jbEliminar_cat;
     private javax.swing.JButton jbEliminar_cat1;
     private javax.swing.JButton jbEliminar_cat2;
@@ -7244,16 +7345,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton jbEnviar_cat;
     private javax.swing.JButton jbEnviar_cat1;
     private javax.swing.JButton jbEnviar_ciu;
-    private javax.swing.JButton jbEnviar_cli;
-    private javax.swing.JButton jbEnviar_cli1;
     private javax.swing.JButton jbEnviar_des;
     private javax.swing.JButton jbEnviar_pro;
     private javax.swing.JButton jbEnviar_prov;
     private javax.swing.JButton jbModificar_cat;
     private javax.swing.JButton jbModificar_cat1;
     private javax.swing.JButton jbModificar_ciu;
-    private javax.swing.JButton jbModificar_cli;
-    private javax.swing.JButton jbModificar_cli1;
     private javax.swing.JButton jbModificar_des;
     private javax.swing.JButton jbModificar_pag;
     private javax.swing.JButton jbModificar_pro;
@@ -7261,95 +7358,61 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton jbRegistrar_cat;
     private javax.swing.JButton jbRegistrar_cat1;
     private javax.swing.JButton jbRegistrar_ciu;
-    private javax.swing.JButton jbRegistrar_cli;
-    private javax.swing.JButton jbRegistrar_cli1;
     private javax.swing.JButton jbRegistrar_des;
     private javax.swing.JButton jbRegistrar_pag;
     private javax.swing.JButton jbRegistrar_pro;
     private javax.swing.JButton jbRegistrar_prov;
-    private javax.swing.JButton jb_Eliminar_cli;
-    private javax.swing.JButton jb_Eliminar_cli1;
     private javax.swing.JButton jb_Eliminar_pag;
     private javax.swing.JButton jb_Eliminar_pro;
     private javax.swing.JButton jb_Eliminar_prov;
     private javax.swing.JComboBox<String> jcBuscar_cat;
     private javax.swing.JComboBox<String> jcBuscar_ciu;
-    private javax.swing.JComboBox<String> jcBuscar_cli;
     private javax.swing.JComboBox<String> jcBuscar_des;
     private javax.swing.JComboBox<String> jcBuscar_det;
-    private javax.swing.JComboBox<String> jcBuscar_emp;
     private javax.swing.JComboBox<String> jcBuscar_enc;
+    private javax.swing.JComboBox<String> jcBuscar_enc1;
+    private javax.swing.JComboBox<String> jcBuscar_enc3;
+    private javax.swing.JComboBox<String> jcBuscar_enc4;
     private javax.swing.JComboBox<String> jcBuscar_gen;
     private javax.swing.JComboBox<String> jcBuscar_pag;
     private javax.swing.JComboBox<String> jcBuscar_pro;
     private javax.swing.JComboBox<String> jcBuscar_prov;
     private javax.swing.JLabel jlAgregar_fac;
-    private javax.swing.JLabel jlApellido_cli;
-    private javax.swing.JLabel jlApellido_emp;
     private javax.swing.JLabel jlC;
     private javax.swing.JLabel jlC1;
-    private javax.swing.JLabel jlC2;
-    private javax.swing.JLabel jlC3;
     private javax.swing.JLabel jlC4;
     private javax.swing.JLabel jlC5;
     private javax.swing.JLabel jlCategoria_pro;
-    private javax.swing.JLabel jlCedula_cli;
-    private javax.swing.JLabel jlCedula_emp;
     private javax.swing.JLabel jlCiudad;
     private javax.swing.JLabel jlCodigo_ciu;
     private javax.swing.JLabel jlCodigo_pag;
     private javax.swing.JLabel jlCodigo_pro;
-    private javax.swing.JLabel jlCorreo_cli;
-    private javax.swing.JLabel jlCorreo_emp;
-    private javax.swing.JLabel jlDescuento_cli;
-    private javax.swing.JLabel jlDireccion_cli;
-    private javax.swing.JLabel jlDireccion_emp;
     private javax.swing.JLabel jlE;
-    private javax.swing.JLabel jlE10;
-    private javax.swing.JLabel jlE11;
-    private javax.swing.JLabel jlE12;
-    private javax.swing.JLabel jlE13;
     private javax.swing.JLabel jlE15;
     private javax.swing.JLabel jlE16;
     private javax.swing.JLabel jlE18;
     private javax.swing.JLabel jlE19;
-    private javax.swing.JLabel jlE2;
     private javax.swing.JLabel jlE20;
-    private javax.swing.JLabel jlE4;
-    private javax.swing.JLabel jlE5;
-    private javax.swing.JLabel jlE6;
-    private javax.swing.JLabel jlE7;
     private javax.swing.JLabel jlEmail;
     private javax.swing.JLabel jlExistencias_pro;
     private javax.swing.JLabel jlF;
-    private javax.swing.JLabel jlF1;
-    private javax.swing.JLabel jlF2;
     private javax.swing.JLabel jlF3;
     private javax.swing.JLabel jlF4;
     private javax.swing.JLabel jlFecha_reg;
-    private javax.swing.JLabel jlGen_emp;
     private javax.swing.JLabel jlGen_emp1;
-    private javax.swing.JLabel jlGenero_cli;
-    private javax.swing.JLabel jlGenero_emp;
     private javax.swing.JLabel jlN;
     private javax.swing.JLabel jlN1;
-    private javax.swing.JLabel jlN2;
     private javax.swing.JLabel jlN3;
     private javax.swing.JLabel jlN4;
-    private javax.swing.JLabel jlN5;
     private javax.swing.JLabel jlN6;
     private javax.swing.JLabel jlN7;
     private javax.swing.JLabel jlN8;
-    private javax.swing.JLabel jlNac_cli;
-    private javax.swing.JLabel jlNac_emp;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlNombre_cat;
     private javax.swing.JLabel jlNombre_cat1;
     private javax.swing.JLabel jlNombre_cat2;
     private javax.swing.JLabel jlNombre_ciu;
-    private javax.swing.JLabel jlNombre_cli;
     private javax.swing.JLabel jlNombre_des;
-    private javax.swing.JLabel jlNombre_emp;
     private javax.swing.JLabel jlNombre_pro;
     private javax.swing.JLabel jlPorcentaje_des;
     private javax.swing.JLabel jlPrecio_pag;
@@ -7359,38 +7422,30 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jlProvincia_ciu;
     private javax.swing.JLabel jlR;
     private javax.swing.JLabel jlR1;
-    private javax.swing.JLabel jlR2;
     private javax.swing.JLabel jlR3;
     private javax.swing.JLabel jlR4;
-    private javax.swing.JLabel jlR5;
     private javax.swing.JLabel jlR6;
     private javax.swing.JLabel jlR7;
     private javax.swing.JLabel jlR8;
     private javax.swing.JLabel jlRUC;
-    private javax.swing.JLabel jlReg_cli;
-    private javax.swing.JLabel jlReg_emp;
     private javax.swing.JLabel jlReg_pag;
     private javax.swing.JLabel jlReg_pro;
     private javax.swing.JLabel jlSubtotal;
-    private javax.swing.JLabel jlSueldo_emp;
     private javax.swing.JLabel jlT;
-    private javax.swing.JLabel jlT1;
-    private javax.swing.JLabel jlT2;
     private javax.swing.JLabel jlTelefono;
-    private javax.swing.JLabel jlTelefono_cli;
-    private javax.swing.JLabel jlTelefono_emp;
     private javax.swing.JLabel jlTotal;
     private javax.swing.JLabel jlTotal_descuento;
     private javax.swing.JLabel jl_num_det;
     private javax.swing.JLabel jl_num_det1;
     private javax.swing.JLabel jl_num_det2;
-    private javax.swing.JLabel jl_titulo10;
-    private javax.swing.JLabel jl_titulo11;
     private javax.swing.JLabel jl_titulo12;
     private javax.swing.JLabel jl_titulo13;
     private javax.swing.JLabel jl_titulo14;
     private javax.swing.JLabel jl_titulo15;
     private javax.swing.JLabel jl_titulo16;
+    private javax.swing.JLabel jl_titulo17;
+    private javax.swing.JLabel jl_titulo19;
+    private javax.swing.JLabel jl_titulo20;
     private javax.swing.JLabel jl_titulo5;
     private javax.swing.JLabel jl_titulo6;
     private javax.swing.JLabel jl_titulo7;
@@ -7403,9 +7458,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JPanel jpDatos_cat;
     public static javax.swing.JPanel jpDatos_cat1;
     public static javax.swing.JPanel jpDatos_cat2;
-    public static javax.swing.JPanel jpDatos_cli;
     public static javax.swing.JPanel jpDatos_des;
-    public static javax.swing.JPanel jpDatos_emp;
     public static javax.swing.JPanel jpDatos_pro;
     public static javax.swing.JPanel jpDatos_pro1;
     public static javax.swing.JPanel jpDatos_prov;
@@ -7413,22 +7466,24 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JScrollPane jsTabla_cat1;
     private javax.swing.JScrollPane jsTabla_cat3;
     private javax.swing.JScrollPane jsTabla_cat6;
-    private javax.swing.JScrollPane jsTabla_cat7;
-    private javax.swing.JScrollPane jsTabla_cat8;
     private javax.swing.JScrollPane jsTabla_ciu;
     private javax.swing.JScrollPane jsTabla_ciu1;
     private javax.swing.JScrollPane jsTabla_ciu2;
     private javax.swing.JScrollPane jsTabla_ciu3;
+    private javax.swing.JScrollPane jsTabla_ciu4;
+    private javax.swing.JScrollPane jsTabla_ciu5;
+    private javax.swing.JScrollPane jsTabla_ciu6;
     private javax.swing.JScrollPane jsTabla_des;
     private javax.swing.JScrollPane jsTabla_pro;
     private javax.swing.JScrollPane jsTabla_pro1;
     public static javax.swing.JTextField jtBuscar_cat;
     public static javax.swing.JTextField jtBuscar_ciu;
-    public static javax.swing.JTextField jtBuscar_cli;
     public static javax.swing.JTextField jtBuscar_des;
     public static javax.swing.JTextField jtBuscar_det;
-    public static javax.swing.JTextField jtBuscar_emp;
     public static javax.swing.JTextField jtBuscar_enc;
+    public static javax.swing.JTextField jtBuscar_enc1;
+    public static javax.swing.JTextField jtBuscar_enc3;
+    public static javax.swing.JTextField jtBuscar_enc4;
     public static javax.swing.JTextField jtBuscar_gen;
     public static javax.swing.JTextField jtBuscar_pag;
     public static javax.swing.JTextField jtBuscar_pro;
@@ -7443,9 +7498,17 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lim_det;
     private javax.swing.JLabel lim_emp;
     private javax.swing.JLabel lim_enc;
+    private javax.swing.JLabel lim_enc3;
     private javax.swing.JLabel lim_pag;
     private javax.swing.JLabel lim_pro;
     private javax.swing.JLabel lim_prov;
+    private javax.swing.JButton modificar_cli;
+    private javax.swing.JButton modificar_cli1;
+    private javax.swing.JLabel nombre_cli;
+    private javax.swing.JLabel nombre_emp;
+    private javax.swing.JLabel puesto_emp;
+    private javax.swing.JButton registrar_cli;
+    private javax.swing.JButton registrar_cli1;
     private javax.swing.JLabel res_cat;
     private javax.swing.JLabel res_ciu;
     private javax.swing.JLabel res_cli;
@@ -7455,8 +7518,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel res_enc;
     private javax.swing.JLabel res_gen;
     private javax.swing.JLabel res_num_pag;
+    private javax.swing.JLabel res_per;
     private javax.swing.JLabel res_pro;
     private javax.swing.JLabel res_prov;
+    private javax.swing.JLabel sexo_cli;
+    private javax.swing.JLabel sexo_emp;
     public static javax.swing.JLabel sistema_titulo;
     private javax.swing.JLabel subir_1;
     private javax.swing.JLabel t_facturas_activas11;
