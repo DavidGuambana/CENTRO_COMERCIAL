@@ -1,5 +1,5 @@
 package centro_comercial;
-import base_datos.conexion;
+import base_datos.Conexion;
 import java.awt.Color;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -16,7 +16,7 @@ public class JFcliente extends javax.swing.JFrame {
     ResultSet rs;
     Connection con = null;
     PreparedStatement ps;
-    conexion base = new conexion();
+    Conexion base = new Conexion();
     long d;
     public static final String FK = "Click para seleccionar...";
     
