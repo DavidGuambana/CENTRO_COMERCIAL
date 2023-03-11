@@ -103,7 +103,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 for (int i = 1; i <= 20; i++) {
                     switch (i) {
                         case 1://categoria
-                            String[] c_cat = {"ID, NOMBRE, DESCRIPCIÓN"};
+                            String[] c_cat = {"ID", "NOMBRE", "DESCRIPCIÓN"};
                             tabla = new DefaultTableModel(null, c_cat);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "categoria");
                             rs = ps.executeQuery();
@@ -115,7 +115,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_cat.setText("Resultados: "+cat+" de "+cat);
                             break;
                         case 2://ciudad
-                            String[] c_ciu = {"ID, NOMBRE, ID_PROVI"};
+                            String[] c_ciu = {"ID", "NOMBRE", "ID_PROVI"};
                             tabla = new DefaultTableModel(null, c_ciu);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "ciudad");
                             rs = ps.executeQuery();
@@ -127,7 +127,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_ciu.setText("Resultados: "+ciu+" de "+ciu);
                             break;
                         case 3://cliente
-                            String[] c_cli = {"ID, CÉDULA_PER, ID_DES"};
+                            String[] c_cli = {"ID", "CÉDULA_PER", "ID_DES"};
                             tabla = new DefaultTableModel(null, c_cli);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "cliente");
                             rs = ps.executeQuery();
@@ -139,7 +139,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_cli.setText("Resultados: "+cli+" de "+cli);
                             break;
                         case 4://departamento
-                            String[] c_dep = {"ID, NOMBRE, DESCRIPCIÓN"};
+                            String[] c_dep = {"ID", "NOMBRE", "DESCRIPCIÓN"};
                             tabla = new DefaultTableModel(null, c_dep);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "departamento");
                             rs = ps.executeQuery();
@@ -151,7 +151,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             //res_dep.setText("Resultados: "+dep+" de "+dep);
                             break;
                         case 5://descuento
-                            String[] c_des = {"ID, NOMBRE, PORCENTAJE"};
+                            String[] c_des = {"ID", "NOMBRE", "PORCENTAJE"};
                             tabla = new DefaultTableModel(null, c_des);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "descuento");
                             rs = ps.executeQuery();
@@ -163,7 +163,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_des.setText("Resultados: "+des+" de "+des);
                             break;
                         case 6://detalle_fac
-                            String[] c_det = {"CÓDIGO, CÓDIGO_PRO, CANTIDAD, SUBTOTAL, CÓDIGO_ENC"};
+                            String[] c_det = {"CÓDIGO", "CÓDIGO_PRO", "CANTIDAD", "SUBTOTAL", "CÓDIGO_ENC"};
                             tabla = new DefaultTableModel(null, c_det);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "detalle_fac JOIN encabezado_fac WHERE encabezado_fac.ESTADO = 'ACTIVO'");
                             rs = ps.executeQuery();
@@ -175,7 +175,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_det.setText("Resultados: "+det+" de "+det);
                             break;
                         case 7://empleado
-                            String[] c_emp = {"ID, CÉDULA_PER, ID_DEP,ID_PUE"};
+                            String[] c_emp = {"ID", "CÉDULA_PER", "ID_DEP","ID_PUE"};
                             tabla = new DefaultTableModel(null, c_emp);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "EMPLEADO");
                             rs = ps.executeQuery();
@@ -187,7 +187,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_emp.setText("Resultados: "+emp+" de "+emp);
                             break;
                         case 8://encabezado_fac
-                            String[] c_enc = {"CODIGO, ID_SUC, ID_EMP, ID_CLI, FECHA_REG, ESTADO"};
+                            String[] c_enc = {"CODIGO", "ID_SUC", "ID_EMP", "ID_CLI", "FECHA_REG", "ESTADO"};
                             tabla = new DefaultTableModel(null, c_enc);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "encabezado_fac WHERE ESTADO = 'ACTIVO'");
                             rs = ps.executeQuery();
@@ -199,7 +199,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_enc.setText("Resultados: "+enc+" de "+enc);
                             break;
                         case 9://forma_pago
-                            String[] c_fp = {"ID, NOMBRE"};
+                            String[] c_fp = {"ID", "NOMBRE"};
                             tabla = new DefaultTableModel(null, c_fp);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "FORMA_PAGO");
                             rs = ps.executeQuery();
@@ -223,7 +223,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_gen.setText("Resultados: "+gen+" de "+gen);
                             break;
                         case 11://iva
-                            String[] c_iva = {"ID, IMPUESTO"};
+                            String[] c_iva = {"ID", "IMPUESTO"};
                             tabla = new DefaultTableModel(null, c_iva);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "iva");
                             rs = ps.executeQuery();
@@ -235,7 +235,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             //res_iva.setText("Resultados: "+iva+" de "+iva);
                             break;
                         case 12://marca
-                            String[] c_mar = {"ID, NOMBRE"};
+                            String[] c_mar = {"ID", "NOMBRE"};
                             tabla = new DefaultTableModel(null, c_mar);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "marca");
                             rs = ps.executeQuery();
@@ -247,7 +247,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             //res_mar.setText("Resultados: "+mar+" de "+mar);
                             break;
                         case 13://pago_empleado
-                            String[] c_pe = {"NUMERO, ID_REMITENTE, ID_DESTINATARIO, TOTAL, FECHA_REG"};
+                            String[] c_pe = {"NUMERO", "ID_REMITENTE", "ID_DESTINATARIO", "TOTAL", "FECHA_REG"};
                             tabla = new DefaultTableModel(null, c_pe);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "pago_empleado");
                             rs = ps.executeQuery();
@@ -259,7 +259,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             //res_pe.setText("Resultados: "+pe+" de "+pe);
                             break;
                         case 14://pago_fac
-                            String[] c_pf = {"NUMERO, TOTAL_SIN_IVA, ID_FOR, ID_IVA, TOTAL_MAS_IVA, CODIGO_ENC"};
+                            String[] c_pf = {"NUMERO", "TOTAL_SIN_IVA", "ID_FOR", "ID_IVA", "TOTAL_MAS_IVA", "CODIGO_ENC"};
                             tabla = new DefaultTableModel(null, c_pf);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "pago_fac");
                             rs = ps.executeQuery();
@@ -271,7 +271,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             //res_pf.setText("Resultados: "+pf+" de "+pf);
                             break;
                         case 15://persona
-                            String[] c_per = {"CEDULA, NOMBRE, APELLIDO, FECHA_NAC, ID_SEXO, CELULAR, EMAIL, DIRECCION, ID_CIUDAD, FECHA_REG"};
+                            String[] c_per = {"CEDULA", "NOMBRE", "APELLIDO", "FECHA_NAC", "ID_SEXO", "CELULAR", "EMAIL", "DIRECCION", "ID_CIUDAD", "FECHA_REG"};
                             tabla = new DefaultTableModel(null, c_per);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "persona");
                             rs = ps.executeQuery();
@@ -285,7 +285,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             break;
                         case 16://producto
                             JTproductos.setDefaultRenderer(Object.class, new ImagenTabla());
-                            String[] c_pro = {"CODIGO, NOMBRE, URL_IMG, ID_MAR, PRECIO, EXIS_MAX, EXIS_MIN, STOK, ID_CAT, FECHA_REG, RUC_PROV"};
+                            String[] c_pro = {"CODIGO", "NOMBRE", "URL_IMG", "ID_MAR", "PRECIO", "EXIS_MAX", "EXIS_MIN", "STOK", "ID_CAT", "FECHA_REG", "RUC_PROV"};
                             tabla = new DefaultTableModel(null, c_pro);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "producto");
                             rs = ps.executeQuery();
@@ -301,7 +301,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_pro.setText("Resultados: "+pro+" de "+pro);
                             break;
                         case 17://proveedor
-                            String[] c_prov = {"RUC, NOMBRE_EMPRESA, CELULAR, EMAIL, ID_CIU, FECHA_REG"};
+                            String[] c_prov = {"RUC", "NOMBRE_EMPRESA", "CELULAR", "EMAIL", "ID_CIU", "FECHA_REG"};
                             tabla = new DefaultTableModel(null, c_prov);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "proveedor");
                             rs = ps.executeQuery();
@@ -313,7 +313,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             res_prov.setText("Resultados: "+prov+" de "+prov);
                             break;
                         case 18://provincia
-                            String[] c_provi = {"ID, NOMBRE"};
+                            String[] c_provi = {"ID", "NOMBRE"};
                             tabla = new DefaultTableModel(null, c_provi);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "provincia");
                             rs = ps.executeQuery();
@@ -325,7 +325,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             //res_provi.setText("Resultados: "+provi+" de "+provi);
                             break;
                         case 19://puesto
-                            String[] c_pue = {"ID, NOMBRE, SUELDO"};
+                            String[] c_pue = {"ID", "NOMBRE", "SUELDO"};
                             tabla = new DefaultTableModel(null, c_pue);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "puesto");
                             rs = ps.executeQuery();
@@ -337,7 +337,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             //res_pue.setText("Resultados: "+pue+" de "+pue);
                             break;
                         case 20://sucursal
-                            String[] c_suc = {"ID, NOMBRE, ID_CIU"};
+                            String[] c_suc = {"ID", "NOMBRE", "ID_CIU"};
                             tabla = new DefaultTableModel(null, c_suc);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "sucursal");
                             rs = ps.executeQuery();
