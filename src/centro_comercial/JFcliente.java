@@ -1,5 +1,5 @@
 package centro_comercial;
-import base_datos.Conexion;
+import base_datos.conexion;
 import java.awt.Color;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -13,10 +13,9 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class JFcliente extends javax.swing.JFrame {
     public static String forma = "registrar";
-    ResultSet rs;
-    Connection con = null;
-    PreparedStatement ps;
-    Conexion base = new Conexion();
+    public static ResultSet rs;
+    public static Connection con = null;
+    public static PreparedStatement ps;
     long d;
     public static final String FK = "Click para seleccionar...";
     
@@ -130,7 +129,7 @@ public class JFcliente extends javax.swing.JFrame {
         descuento.setText(FK);
     }
     public void llenar(String xcedula){
-        con =  (Connection) base.conectar_base();
+        con =  (Connection) conexion.conectar_base();
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PERSONA WHERE CEDULA='" + xcedula + "'");
@@ -159,7 +158,7 @@ public class JFcliente extends javax.swing.JFrame {
     }
 
     public void registrar() {
-        con = (Connection) base.conectar_base();
+        con = (Connection) conexion.conectar_base();
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PERSONA WHERE CEDULA = '" + cedula.getText() + "'");
@@ -198,7 +197,7 @@ public class JFcliente extends javax.swing.JFrame {
     }
 
     public void modificar() {
-        con = (Connection) base.conectar_base();
+        con = (Connection) conexion.conectar_base();
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("UPDATE PERSONA SET NOMBRE=?,APELLIDO=?,FECHA_NAC=?,ID_SEXO=?,CELULAR=?,EMAIL=?,DIRECCION=?,ID_CIUDAD=? WHERE CEDULA=?");

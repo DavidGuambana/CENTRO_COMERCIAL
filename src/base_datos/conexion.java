@@ -1,22 +1,19 @@
-
 package base_datos;
 
-import java.sql.*;
-import com.sun.jdi.connect.spi.Connection;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import javax.swing.JOptionPane;
-
-public class conexion {
-    String usuario = "root";
-    String clave = "";
-    String url = "jdbc:mysql://localhost:3306/centrocomercial";
-
-    public Connection conectar_base() {
-        Connection con = null;
+public class conexion{
+    public static String usuario = "root";
+    public static String clave = "";
+    public static String url = "jdbc:mysql://localhost:3306/centrocomercial";
+    public static Connection con = null;
+    public static Connection conectar_base() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = (Connection) DriverManager.getConnection(url, usuario, clave);
-            
+            JOptionPane.showMessageDialog(null, "¡Conexión exitosa!", null, JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡No se pudo conectar a la base de datos!", "Error de conexión", JOptionPane.ERROR_MESSAGE);
@@ -24,3 +21,6 @@ public class conexion {
         return con;
     }
 }
+
+
+
