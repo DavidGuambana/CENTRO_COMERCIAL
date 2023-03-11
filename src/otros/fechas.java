@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class fechas {
-    public static Date obtener_fecha(){
+    public static Date obtener(){
         Date hoy = new Date();
         return hoy;
     }
-    public static String transformar_fecha(Date fecha){
+    public static String transformar(Date fecha){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String nueva_fecha = sdf.format(fecha);
         return nueva_fecha;

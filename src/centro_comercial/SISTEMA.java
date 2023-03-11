@@ -20,8 +20,7 @@ import otros.BotonTabla;
 import otros.fechas;
 import java.sql.*;
 import com.mysql.jdbc.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import otros.ImagenTabla;
 
 public class SISTEMA extends javax.swing.JFrame implements Runnable {
     //variables para consultas SQL:
@@ -29,10 +28,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static ResultSet rs;
     public static PreparedStatement ps;
     public static String consulta = "";
-    String[] colum_cat;
-    
     //variables que guardan el número de registros:
-    public static int gen, cat, ciu, cli, des, det, emp, enc, pag, pro, prov;
+    public static int cat, ciu, cli, dep, des, det, emp, enc, fp, gen, iva, mar, pe, p_f, per, pro, prov, provi, pue, suc;
 
     //otras variables útiles:
     public static boolean actualizado = false;
@@ -105,58 +102,257 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 consulta = "SELECT * FROM ";
                 for (int i = 1; i <= 20; i++) {
                     switch (i) {
-                        case 1://GENERO
-                            String[] cn_gen = {"ID", "SEXO"};
-                            tabla = new DefaultTableModel(null, cn_gen);
+                        case 1://categoria
+                            String[] c_cat = {"ID, NOMBRE, DESCRIPCIÓN"};
+                            tabla = new DefaultTableModel(null, c_cat);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "categoria");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getString(3)});
+                            }
+                            JTcategorias.setModel(tabla);
+                            cat = tabla.getRowCount();
+                            res_cat.setText("Resultados: "+cat+" de "+cat);
+                            break;
+                        case 2://ciudad
+                            String[] c_ciu = {"ID, NOMBRE, ID_PROVI"};
+                            tabla = new DefaultTableModel(null, c_ciu);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "ciudad");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
+                            }
+                            JTciudades.setModel(tabla);
+                            ciu = tabla.getRowCount();
+                            res_ciu.setText("Resultados: "+ciu+" de "+ciu);
+                            break;
+                        case 3://cliente
+                            String[] c_cli = {"ID, CÉDULA_PER, ID_DES"};
+                            tabla = new DefaultTableModel(null, c_cli);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "cliente");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
+                            }
+                            JTclientes.setModel(tabla);
+                            cli = tabla.getRowCount();
+                            res_cli.setText("Resultados: "+cli+" de "+cli);
+                            break;
+                        case 4://departamento
+                            String[] c_dep = {"ID, NOMBRE, DESCRIPCIÓN"};
+                            tabla = new DefaultTableModel(null, c_dep);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "departamento");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getString(3)});
+                            }
+                            //JTdepartamentos.setModel(tabla);
+                            dep = tabla.getRowCount();
+                            //res_dep.setText("Resultados: "+dep+" de "+dep);
+                            break;
+                        case 5://descuento
+                            String[] c_des = {"ID, NOMBRE, PORCENTAJE"};
+                            tabla = new DefaultTableModel(null, c_des);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "descuento");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
+                            }
+                            JTdescuentos.setModel(tabla);
+                            des = tabla.getRowCount();
+                            res_des.setText("Resultados: "+des+" de "+des);
+                            break;
+                        case 6://detalle_fac
+                            String[] c_det = {"CÓDIGO, CÓDIGO_PRO, CANTIDAD, SUBTOTAL, CÓDIGO_ENC"};
+                            tabla = new DefaultTableModel(null, c_det);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "detalle_fac JOIN encabezado_fac WHERE encabezado_fac.ESTADO = 'ACTIVO'");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2),rs.getInt(3),rs.getDouble(4),rs.getInt(5)});
+                            }
+                            JTdet_fac.setModel(tabla);
+                            det = tabla.getRowCount();
+                            res_det.setText("Resultados: "+det+" de "+det);
+                            break;
+                        case 7://empleado
+                            String[] c_emp = {"ID, CÉDULA_PER, ID_DEP,ID_PUE"};
+                            tabla = new DefaultTableModel(null, c_emp);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "EMPLEADO");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(4),rs.getInt(5)});
+                            }
+                            JTempleados.setModel(tabla);
+                            emp = tabla.getRowCount();
+                            res_emp.setText("Resultados: "+emp+" de "+emp);
+                            break;
+                        case 8://encabezado_fac
+                            String[] c_enc = {"CODIGO, ID_SUC, ID_EMP, ID_CLI, FECHA_REG, ESTADO"};
+                            tabla = new DefaultTableModel(null, c_enc);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "encabezado_fac WHERE ESTADO = 'ACTIVO'");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2),rs.getInt(3),rs.getInt(4),fechas.transformar(rs.getDate(5)), rs.getString(6)});
+                            }
+                            JTenc_fac.setModel(tabla);
+                            enc = tabla.getRowCount();
+                            res_enc.setText("Resultados: "+enc+" de "+enc);
+                            break;
+                        case 9://forma_pago
+                            String[] c_fp = {"ID, NOMBRE"};
+                            tabla = new DefaultTableModel(null, c_fp);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "FORMA_PAGO");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2)});
+                            }
+                            //JTfp.setModel(tabla);
+                            fp = tabla.getRowCount();
+                            //res_fp.setText("Resultados: "+fp+" de "+fp);
+                            break;
+                        case 10://genero
+                            String[] c_gen = {"ID", "SEXO"};
+                            tabla = new DefaultTableModel(null, c_gen);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "GENERO");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2)});
                             }
                             JTgeneros.setModel(tabla);
+                            gen = tabla.getRowCount();
+                            res_gen.setText("Resultados: "+gen+" de "+gen);
                             break;
-                        case 2://PERSONA
+                        case 11://iva
+                            String[] c_iva = {"ID, IMPUESTO"};
+                            tabla = new DefaultTableModel(null, c_iva);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "iva");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2)});
+                            }
+                            //JTiva.setModel(tabla);
+                            iva = tabla.getRowCount();
+                            //res_iva.setText("Resultados: "+iva+" de "+iva);
                             break;
-                        case 3://CLIENTE
+                        case 12://marca
+                            String[] c_mar = {"ID, NOMBRE"};
+                            tabla = new DefaultTableModel(null, c_mar);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "marca");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2)});
+                            }
+                            //JTmarcas.setModel(tabla);
+                            mar = tabla.getRowCount();
+                            //res_mar.setText("Resultados: "+mar+" de "+mar);
                             break;
-                        case 4://EMPLEADO
+                        case 13://pago_empleado
+                            String[] c_pe = {"NUMERO, ID_REMITENTE, ID_DESTINATARIO, TOTAL, FECHA_REG"};
+                            tabla = new DefaultTableModel(null, c_pe);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "pago_empleado");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4), fechas.transformar(rs.getDate(5))});
+                            }
+                            //JTpe.setModel(tabla);
+                            pe = tabla.getRowCount();
+                            //res_pe.setText("Resultados: "+pe+" de "+pe);
                             break;
-                        case 5://DEPARTAMENTO
+                        case 14://pago_fac
+                            String[] c_pf = {"NUMERO, TOTAL_SIN_IVA, ID_FOR, ID_IVA, TOTAL_MAS_IVA, CODIGO_ENC"};
+                            tabla = new DefaultTableModel(null, c_pf);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "pago_fac");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getDouble(2), rs.getInt(3), rs.getInt(4), rs.getDouble(5), rs.getInt(6)});
+                            }
+                            //JTpf.setModel(tabla);
+                            pe = tabla.getRowCount();
+                            //res_pf.setText("Resultados: "+pf+" de "+pf);
                             break;
-                        case 6://PUESTO
+                        case 15://persona
+                            String[] c_per = {"CEDULA, NOMBRE, APELLIDO, FECHA_NAC, ID_SEXO, CELULAR, EMAIL, DIRECCION, ID_CIUDAD, FECHA_REG"};
+                            tabla = new DefaultTableModel(null, c_per);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "persona");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), fechas.transformar(rs.getDate(4)), 
+                                    rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9),fechas.transformar(rs.getDate(10))});
+                            }
+                            //JTper.setModel(tabla);
+                            per = tabla.getRowCount();
+                            //res_per.setText("Resultados: "+per+" de "+per);
                             break;
-                        case 7://PROVINCIA
+                        case 16://producto
+                            JTproductos.setDefaultRenderer(Object.class, new ImagenTabla());
+                            String[] c_pro = {"CODIGO, NOMBRE, URL_IMG, ID_MAR, PRECIO, EXIS_MAX, EXIS_MIN, STOK, ID_CAT, FECHA_REG, RUC_PROV"};
+                            tabla = new DefaultTableModel(null, c_pro);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "producto");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                JLabel lb = new JLabel();
+                                lb.setSize(125, 60);
+                                rsscalelabel.RSScaleLabel.setScaleLabel(lb, rs.getString(3));
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), lb, rs.getInt(4),rs.getDouble(5),rs.getInt(6),
+                                    rs.getInt(7),rs.getInt(8),rs.getInt(9),fechas.transformar(rs.getDate(10)),rs.getInt(11)});
+                            }
+                            JTproductos.setModel(tabla);
+                            pro = tabla.getRowCount();
+                            res_pro.setText("Resultados: "+pro+" de "+pro);
                             break;
-                        case 8://CIUDAD
+                        case 17://proveedor
+                            String[] c_prov = {"RUC, NOMBRE_EMPRESA, CELULAR, EMAIL, ID_CIU, FECHA_REG"};
+                            tabla = new DefaultTableModel(null, c_prov);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "proveedor");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),fechas.transformar(rs.getDate(6))});
+                            }
+                            JTproveedores.setModel(tabla);
+                            prov = tabla.getRowCount();
+                            res_prov.setText("Resultados: "+prov+" de "+prov);
                             break;
-                        case 9://DESCUENTO
+                        case 18://provincia
+                            String[] c_provi = {"ID, NOMBRE"};
+                            tabla = new DefaultTableModel(null, c_provi);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "provincia");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2)});
+                            }
+                            //JTprovi.setModel(tabla);
+                            provi = tabla.getRowCount();
+                            //res_provi.setText("Resultados: "+provi+" de "+provi);
                             break;
-                        case 10://CATEGORIA
+                        case 19://puesto
+                            String[] c_pue = {"ID, NOMBRE, SUELDO"};
+                            tabla = new DefaultTableModel(null, c_pue);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "puesto");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getDouble(3)});
+                            }
+                            //JTpue.setModel(tabla);
+                            pue = tabla.getRowCount();
+                            //res_pue.setText("Resultados: "+pue+" de "+pue);
                             break;
-                        case 11://MARCA
+                        case 20://sucursal
+                            String[] c_suc = {"ID, NOMBRE, ID_CIU"};
+                            tabla = new DefaultTableModel(null, c_suc);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "sucursal");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
+                            }
+                            //JTsuc.setModel(tabla);
+                            suc = tabla.getRowCount();
+                            //res_suc.setText("Resultados: "+suc+" de "+suc);
                             break;
-                        case 12://PUESTO
-                            break;
-                        case 13://PAGO_EMPLEADO
-                            break;
-                        case 14://SUCURSAL
-                            break;
-                        case 15://PROVEEDOR
-                            break;
-                        case 16://ENCABEZADO_FAC
-                            break;
-                        case 17://DETALLE_FAC
-                            break;
-                        case 18://FORMA_PAGO
-                            break;
-                        case 19://IVA
-                            break;
-                        case 20://PAGO_FAC
-                            break;
-
                     }
                 }
+                
             } catch (Exception e) {
+                System.out.println(e);
             }
         }
     }
@@ -462,12 +658,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jLabel43 = new javax.swing.JLabel();
         jtBuscar_enc = new javax.swing.JTextField();
         lim_enc = new javax.swing.JLabel();
-        res_num_enc = new javax.swing.JLabel();
+        res_enc = new javax.swing.JLabel();
         jl_titulo6 = new javax.swing.JLabel();
         jl_titulo8 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel45 = new javax.swing.JLabel();
-        res_num_det = new javax.swing.JLabel();
+        res_det = new javax.swing.JLabel();
         jcBuscar_det = new javax.swing.JComboBox<>();
         jtBuscar_det = new javax.swing.JTextField();
         lim_det = new javax.swing.JLabel();
@@ -624,9 +820,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         lim_cat = new javax.swing.JLabel();
         jsTabla_cat = new javax.swing.JScrollPane();
         JTcategorias = new javax.swing.JTable();
-        res_num_cat = new javax.swing.JLabel();
+        res_cat = new javax.swing.JLabel();
         JPciudades = new javax.swing.JPanel();
-        res_num_ciu = new javax.swing.JLabel();
+        res_ciu = new javax.swing.JLabel();
         jcBuscar_ciu = new javax.swing.JComboBox<>();
         jLabel35 = new javax.swing.JLabel();
         jtBuscar_ciu = new javax.swing.JTextField();
@@ -649,7 +845,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jbModificar_ciu = new javax.swing.JButton();
         jSeparator18 = new javax.swing.JSeparator();
         JPclientes = new javax.swing.JPanel();
-        res_num_cli = new javax.swing.JLabel();
+        res_cli = new javax.swing.JLabel();
         jpDatos_cli = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jlR2 = new javax.swing.JLabel();
@@ -686,7 +882,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTclientes = new javax.swing.JTable();
         jl_titulo10 = new javax.swing.JLabel();
         JPdescuentos = new javax.swing.JPanel();
-        res_num_des = new javax.swing.JLabel();
+        res_des = new javax.swing.JLabel();
         jpDatos_des = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jlR3 = new javax.swing.JLabel();
@@ -707,7 +903,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTdescuentos = new javax.swing.JTable();
         jl_titulo14 = new javax.swing.JLabel();
         JPempleados = new javax.swing.JPanel();
-        res_num_emp = new javax.swing.JLabel();
+        res_emp = new javax.swing.JLabel();
         jpDatos_emp = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jlR5 = new javax.swing.JLabel();
@@ -744,7 +940,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTempleados = new javax.swing.JTable();
         jl_titulo11 = new javax.swing.JLabel();
         JPproductos = new javax.swing.JPanel();
-        res_num_pro = new javax.swing.JLabel();
+        res_pro = new javax.swing.JLabel();
         jpDatos_pro = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jlR6 = new javax.swing.JLabel();
@@ -775,7 +971,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTproductos = new javax.swing.JTable();
         jl_titulo12 = new javax.swing.JLabel();
         JPproveedores = new javax.swing.JPanel();
-        res_num_prov = new javax.swing.JLabel();
+        res_prov = new javax.swing.JLabel();
         jpDatos_prov = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jlR = new javax.swing.JLabel();
@@ -1543,9 +1739,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         });
         JPventas.add(lim_enc, new org.netbeans.lib.awtextra.AbsoluteConstraints(912, 73, -1, 34));
 
-        res_num_enc.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_enc.setText("Resultados: 0 de 0");
-        JPventas.add(res_num_enc, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 121, 207, -1));
+        res_enc.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_enc.setText("Resultados: 0 de 0");
+        JPventas.add(res_enc, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 121, 207, -1));
 
         jl_titulo6.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
@@ -1571,9 +1767,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jLabel45.setText("Buscar por");
         JPventas.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 412, -1, 34));
 
-        res_num_det.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_det.setText("Resultados: 0 de 0");
-        JPventas.add(res_num_det, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 460, 207, -1));
+        res_det.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_det.setText("Resultados: 0 de 0");
+        JPventas.add(res_det, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 460, 207, -1));
 
         jcBuscar_det.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jcBuscar_det.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Producto", "Cantidad", "Subtotal", "C. Factura" }));
@@ -2635,13 +2831,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jbModificar_cat1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                             .addComponent(jbRegistrar_cat1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(15, 15, 15)
                         .addGroup(jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpDatos_cat2Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jbEnviar_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatos_cat2Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jbEliminar_cat2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addComponent(jbEnviar_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbEliminar_cat2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         jpDatos_cat2Layout.setVerticalGroup(
             jpDatos_cat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2767,7 +2960,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                     .addComponent(jsTabla_cat1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE))
                 .addGap(2, 2, 2)
                 .addComponent(lim_cat1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jpDatos_cat2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -2793,7 +2986,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                     .addComponent(jpDatos_cat2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(res_gen)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         MENU.addTab("GÉNEROS", JPgeneros);
@@ -3007,9 +3200,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTcategorias.getTableHeader().setReorderingAllowed(false);
         jsTabla_cat.setViewportView(JTcategorias);
 
-        res_num_cat.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_cat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_num_cat.setText("Resultados: 0 de 0");
+        res_cat.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_cat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        res_cat.setText("Resultados: 0 de 0");
 
         javax.swing.GroupLayout JPcategoriasLayout = new javax.swing.GroupLayout(JPcategorias);
         JPcategorias.setLayout(JPcategoriasLayout);
@@ -3018,7 +3211,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             .addGroup(JPcategoriasLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(JPcategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(res_num_cat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(res_cat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(JPcategoriasLayout.createSequentialGroup()
                         .addComponent(jl_titulo5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
@@ -3055,18 +3248,18 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jsTabla_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(res_num_cat))
+                        .addComponent(res_cat))
                     .addComponent(jpDatos_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         MENU.addTab("CATEGORÍAS", JPcategorias);
 
         JPciudades.setBackground(new java.awt.Color(204, 255, 255));
 
-        res_num_ciu.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_ciu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_num_ciu.setText("Resultados: 0 de 0");
+        res_ciu.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_ciu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        res_ciu.setText("Resultados: 0 de 0");
 
         jcBuscar_ciu.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jcBuscar_ciu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Nombre", "Provincia" }));
@@ -3292,7 +3485,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jcBuscar_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtBuscar_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(res_num_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(res_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jsTabla_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(lim_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3320,7 +3513,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addComponent(jsTabla_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jpDatos_cat1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(res_num_ciu)
+                .addComponent(res_ciu)
                 .addGap(85, 85, 85))
         );
 
@@ -3328,9 +3521,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         JPclientes.setBackground(new java.awt.Color(204, 255, 255));
 
-        res_num_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_cli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_num_cli.setText("Resultados: 0 de 0");
+        res_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_cli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        res_cli.setText("Resultados: 0 de 0");
 
         jpDatos_cli.setBackground(new java.awt.Color(255, 255, 255));
         jpDatos_cli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
@@ -3625,7 +3818,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addComponent(jcBuscar_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
                         .addComponent(jtBuscar_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(res_num_cli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(res_cli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpDatos_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 928, Short.MAX_VALUE)
                     .addComponent(jsTabla_cat7))
                 .addGap(0, 0, 0)
@@ -3645,7 +3838,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 .addGap(10, 10, 10)
                 .addComponent(jsTabla_cat7, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(res_num_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(res_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jpDatos_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
@@ -3655,9 +3848,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         JPdescuentos.setBackground(new java.awt.Color(204, 255, 255));
 
-        res_num_des.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_des.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_num_des.setText("Resultados: 0 de 0");
+        res_des.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_des.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        res_des.setText("Resultados: 0 de 0");
 
         jpDatos_des.setBackground(new java.awt.Color(255, 255, 255));
         jpDatos_des.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
@@ -3866,7 +4059,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 .addGap(20, 20, 20)
                 .addGroup(JPdescuentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPdescuentosLayout.createSequentialGroup()
-                        .addComponent(res_num_des, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(res_des, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(JPdescuentosLayout.createSequentialGroup()
                         .addGroup(JPdescuentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3909,16 +4102,16 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addComponent(jsTabla_des, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jpDatos_des, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
-                .addComponent(res_num_des))
+                .addComponent(res_des))
         );
 
         MENU.addTab("DESCUENTOS", JPdescuentos);
 
         JPempleados.setBackground(new java.awt.Color(204, 255, 255));
 
-        res_num_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_emp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_num_emp.setText("Resultados: 0 de 0");
+        res_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_emp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        res_emp.setText("Resultados: 0 de 0");
 
         jpDatos_emp.setBackground(new java.awt.Color(255, 255, 255));
         jpDatos_emp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
@@ -4219,7 +4412,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                     .addGroup(JPempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPempleadosLayout.createSequentialGroup()
                             .addGap(738, 738, 738)
-                            .addComponent(res_num_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(res_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jpDatos_emp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jsTabla_cat8, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap())
@@ -4238,7 +4431,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 .addGap(10, 10, 10)
                 .addComponent(jsTabla_cat8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(res_num_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(res_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpDatos_emp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -4248,9 +4441,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         JPproductos.setBackground(new java.awt.Color(204, 255, 255));
 
-        res_num_pro.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_pro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_num_pro.setText("Resultados: 0 de 0");
+        res_pro.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_pro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        res_pro.setText("Resultados: 0 de 0");
 
         jpDatos_pro.setBackground(new java.awt.Color(255, 255, 255));
         jpDatos_pro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
@@ -4511,7 +4704,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 .addGap(20, 20, 20)
                 .addGroup(JPproductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(JPproductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(res_num_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(res_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jsTabla_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JPproductosLayout.createSequentialGroup()
                         .addComponent(jl_titulo12, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4547,18 +4740,18 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jsTabla_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jpDatos_pro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(res_num_pro)
-                .addGap(127, 127, 127))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(res_pro)
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         MENU.addTab("PRODUCTOS", JPproductos);
 
         JPproveedores.setBackground(new java.awt.Color(204, 255, 255));
 
-        res_num_prov.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_num_prov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        res_num_prov.setText("Resultados: 0 de 0");
+        res_prov.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_prov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        res_prov.setText("Resultados: 0 de 0");
 
         jpDatos_prov.setBackground(new java.awt.Color(255, 255, 255));
         jpDatos_prov.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
@@ -4808,7 +5001,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 .addGap(20, 20, 20)
                 .addGroup(JPproveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPproveedoresLayout.createSequentialGroup()
-                        .addComponent(res_num_prov, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(res_prov, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(JPproveedoresLayout.createSequentialGroup()
                         .addGroup(JPproveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4851,7 +5044,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addComponent(jsTabla_cat6, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jpDatos_prov, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
-                .addComponent(res_num_prov))
+                .addComponent(res_prov))
         );
 
         MENU.addTab("PROVEEDORES", JPproveedores);
@@ -4989,7 +5182,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_provKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_provKeyReleased
         if (!jtBuscar_prov.getText().equals("")) {
-            buscar(JTproveedores, jtBuscar_prov, res_num_prov, prov, jcBuscar_prov);
+            buscar(JTproveedores, jtBuscar_prov, res_prov, prov, jcBuscar_prov);
         } else {
             lim_prov.setVisible(false);
             jtBuscar_prov.setText("Buscar");
@@ -5076,7 +5269,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_ciuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_ciuKeyReleased
         if (!jtBuscar_ciu.getText().equals("")) {
-            buscar(JTciudades, jtBuscar_ciu, res_num_ciu, ciu, jcBuscar_ciu);
+            buscar(JTciudades, jtBuscar_ciu, res_ciu, ciu, jcBuscar_ciu);
         } else {
             lim_ciu.setVisible(false);
             jtBuscar_ciu.setText("Buscar");
@@ -5216,7 +5409,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_cliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_cliKeyReleased
         if (!jtBuscar_cli.getText().equals("")) {
-            buscar(JTclientes, jtBuscar_cli, res_num_cli, cli, jcBuscar_cli);
+            buscar(JTclientes, jtBuscar_cli, res_cli, cli, jcBuscar_cli);
         } else {
             lim_cli.setVisible(false);
             jtBuscar_cli.setText("Buscar");
@@ -5318,7 +5511,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_desKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_desKeyReleased
         if (!jtBuscar_des.getText().equals("")) {
-            buscar(JTdescuentos, jtBuscar_des, res_num_des, des, jcBuscar_des);
+            buscar(JTdescuentos, jtBuscar_des, res_des, des, jcBuscar_des);
         } else {
             lim_des.setVisible(false);
             jtBuscar_des.setText("Buscar");
@@ -5408,7 +5601,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_catKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_catKeyReleased
         if (!jtBuscar_cat.getText().equals("")) {
-            buscar(JTcategorias, jtBuscar_cat, res_num_cat, cat, jcBuscar_cat);
+            buscar(JTcategorias, jtBuscar_cat, res_cat, cat, jcBuscar_cat);
         } else {
             lim_cat.setVisible(false);
             jtBuscar_cat.setText("Buscar");
@@ -5548,7 +5741,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_empKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_empKeyReleased
         if (!jtBuscar_emp.getText().equals("")) {
-            buscar(JTempleados, jtBuscar_emp, res_num_emp, emp, jcBuscar_emp);
+            buscar(JTempleados, jtBuscar_emp, res_emp, emp, jcBuscar_emp);
         } else {
             lim_emp.setVisible(false);
             jtBuscar_emp.setText("Buscar");
@@ -5729,7 +5922,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_proKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_proKeyReleased
         if (!jtBuscar_pro.getText().equals("")) {
-            buscar(JTproductos, jtBuscar_pro, res_num_pro, pro, jcBuscar_pro);
+            buscar(JTproductos, jtBuscar_pro, res_pro, pro, jcBuscar_pro);
         } else {
             lim_pro.setVisible(false);
             jtBuscar_pro.setText("Buscar");
@@ -5912,7 +6105,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JBcrear_factura1ActionPerformed
 
     private void fec_encMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fec_encMouseClicked
-        fec_enc.setText(fechas.transformar_fecha(fechas.obtener_fecha()));
+        fec_enc.setText(fechas.transformar(fechas.obtener()));
         fec_enc.setBackground(Color.green);
         enc_cedula.setEnabled(true);
     }//GEN-LAST:event_fec_encMouseClicked
@@ -5940,7 +6133,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_encKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_encKeyReleased
         if (!jtBuscar_enc.getText().equals("")) {
-            buscar(JTenc_fac, jtBuscar_enc, res_num_enc, enc, jcBuscar_enc);
+            buscar(JTenc_fac, jtBuscar_enc, res_enc, enc, jcBuscar_enc);
         } else {
             lim_enc.setVisible(false);
             jtBuscar_enc.setText("Buscar");
@@ -5988,7 +6181,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     private void jtBuscar_detKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_detKeyReleased
         if (!jtBuscar_det.getText().equals("")) {
-            buscar(JTdet_fac, jtBuscar_det, res_num_det, det, jcBuscar_det);
+            buscar(JTdet_fac, jtBuscar_det, res_det, det, jcBuscar_det);
         } else {
             lim_det.setVisible(false);
             jtBuscar_det.setText("Buscar");
@@ -6105,14 +6298,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jtBuscar_pagKeyPressed
 
     private void jtBuscar_pagKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_pagKeyReleased
-        if (!jtBuscar_pag.getText().equals("")) {
-            buscar(JTpagos, jtBuscar_pag, res_num_pag, pag, jcBuscar_pag);
-        } else {
-            lim_pag.setVisible(false);
-            jtBuscar_pag.setText("Buscar");
-            jtBuscar_pag.select(0, 0);
-            visualizar();
-        }
+//        if (!jtBuscar_pag.getText().equals("")) {
+//            buscar(JTpagos, jtBuscar_pag, res_num_pag, pag, jcBuscar_pag);
+//        } else {
+//            lim_pag.setVisible(false);
+//            jtBuscar_pag.setText("Buscar");
+//            jtBuscar_pag.select(0, 0);
+//            visualizar();
+//        }
     }//GEN-LAST:event_jtBuscar_pagKeyReleased
 
     private void jtBuscar_pagKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscar_pagKeyTyped
@@ -6511,7 +6704,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         Thread current = Thread.currentThread();
         while (current == hilo) {
             hora();
-            FECHA_HORA.setText("Ecuador, " + fechas.transformar_fecha(fechas.obtener_fecha()) + " - " + hora + ":" + minutos + ":" + segundos);
+            FECHA_HORA.setText("Ecuador, " + fechas.transformar(fechas.obtener()) + " - " + hora + ":" + minutos + ":" + segundos);
         }
     }
     
@@ -7253,17 +7446,17 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lim_pag;
     private javax.swing.JLabel lim_pro;
     private javax.swing.JLabel lim_prov;
+    private javax.swing.JLabel res_cat;
+    private javax.swing.JLabel res_ciu;
+    private javax.swing.JLabel res_cli;
+    private javax.swing.JLabel res_des;
+    private javax.swing.JLabel res_det;
+    private javax.swing.JLabel res_emp;
+    private javax.swing.JLabel res_enc;
     private javax.swing.JLabel res_gen;
-    private javax.swing.JLabel res_num_cat;
-    private javax.swing.JLabel res_num_ciu;
-    private javax.swing.JLabel res_num_cli;
-    private javax.swing.JLabel res_num_des;
-    private javax.swing.JLabel res_num_det;
-    private javax.swing.JLabel res_num_emp;
-    private javax.swing.JLabel res_num_enc;
     private javax.swing.JLabel res_num_pag;
-    private javax.swing.JLabel res_num_pro;
-    private javax.swing.JLabel res_num_prov;
+    private javax.swing.JLabel res_pro;
+    private javax.swing.JLabel res_prov;
     public static javax.swing.JLabel sistema_titulo;
     private javax.swing.JLabel subir_1;
     private javax.swing.JLabel t_facturas_activas11;

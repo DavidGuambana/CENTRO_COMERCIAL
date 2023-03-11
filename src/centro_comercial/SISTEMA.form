@@ -1547,7 +1547,7 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="res_num_enc">
+                    <Component class="javax.swing.JLabel" name="res_enc">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -1628,7 +1628,7 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="res_num_det">
+                    <Component class="javax.swing.JLabel" name="res_det">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -4151,7 +4151,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Component id="lim_cat1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                       <Component id="jpDatos_cat2" min="-2" pref="287" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
@@ -4185,7 +4185,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="res_gen" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="51" max="32767" attributes="0"/>
+                      <EmptySpace pref="161" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4250,15 +4250,10 @@
                                       <Component id="jbModificar_cat1" pref="119" max="32767" attributes="0"/>
                                       <Component id="jbRegistrar_cat1" max="32767" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                          <Component id="jbEnviar_cat1" min="-2" pref="125" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                          <Component id="jbEliminar_cat2" min="-2" pref="125" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jbEnviar_cat1" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                                      <Component id="jbEliminar_cat2" alignment="1" min="-2" pref="125" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -4608,7 +4603,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="res_num_cat" max="32767" attributes="0"/>
+                          <Component id="res_cat" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jl_titulo5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="48" max="32767" attributes="0"/>
@@ -4655,11 +4650,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jsTabla_cat" min="-2" pref="280" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="res_num_cat" min="-2" max="-2" attributes="0"/>
+                              <Component id="res_cat" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jpDatos_cat" min="-2" pref="406" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="38" max="32767" attributes="0"/>
+                      <EmptySpace pref="148" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -5066,7 +5061,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="res_num_cat">
+            <Component class="javax.swing.JLabel" name="res_cat">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -5109,7 +5104,7 @@
                                   <Component id="jtBuscar_ciu" alignment="0" min="-2" pref="297" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="res_num_ciu" min="-2" pref="565" max="-2" attributes="0"/>
+                          <Component id="res_ciu" min="-2" pref="565" max="-2" attributes="0"/>
                           <Component id="jsTabla_ciu" alignment="0" min="-2" pref="565" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -5146,14 +5141,14 @@
                           <Component id="jpDatos_cat1" min="-2" pref="357" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="res_num_ciu" min="-2" max="-2" attributes="0"/>
+                      <Component id="res_ciu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="res_num_ciu">
+            <Component class="javax.swing.JLabel" name="res_ciu">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -5601,7 +5596,7 @@
                               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                               <Component id="jtBuscar_cli" min="-2" pref="240" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="res_num_cli" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="res_cli" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
                           <Component id="jpDatos_cli" alignment="0" pref="928" max="32767" attributes="0"/>
                           <Component id="jsTabla_cat7" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -5625,7 +5620,7 @@
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="jsTabla_cat7" min="-2" pref="146" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Component id="res_num_cli" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="res_cli" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jpDatos_cli" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -5634,7 +5629,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="res_num_cli">
+            <Component class="javax.swing.JLabel" name="res_cli">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -6292,7 +6287,7 @@
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="res_num_des" min="-2" pref="568" max="-2" attributes="0"/>
+                              <Component id="res_des" min="-2" pref="568" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -6352,13 +6347,13 @@
                           <Component id="jpDatos_des" min="-2" pref="359" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Component id="res_num_des" min="-2" max="-2" attributes="0"/>
+                      <Component id="res_des" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="res_num_des">
+            <Component class="javax.swing.JLabel" name="res_des">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -6781,7 +6776,7 @@
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="738" max="-2" attributes="0"/>
-                                  <Component id="res_num_emp" min="-2" pref="190" max="-2" attributes="0"/>
+                                  <Component id="res_emp" min="-2" pref="190" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jpDatos_emp" alignment="0" pref="0" max="32767" attributes="0"/>
                               <Component id="jsTabla_cat8" alignment="0" max="32767" attributes="0"/>
@@ -6807,7 +6802,7 @@
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="jsTabla_cat8" min="-2" pref="146" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Component id="res_num_emp" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="res_emp" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jpDatos_emp" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -6816,7 +6811,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="res_num_emp">
+            <Component class="javax.swing.JLabel" name="res_emp">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -7474,7 +7469,7 @@
                       <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="res_num_pro" min="-2" pref="641" max="-2" attributes="0"/>
+                              <Component id="res_pro" min="-2" pref="641" max="-2" attributes="0"/>
                               <Component id="jsTabla_pro" min="-2" pref="641" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -7523,15 +7518,15 @@
                           </Group>
                           <Component id="jpDatos_pro" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="res_num_pro" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="res_pro" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="135" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="res_num_pro">
+            <Component class="javax.swing.JLabel" name="res_pro">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -8096,7 +8091,7 @@
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="res_num_prov" min="-2" pref="595" max="-2" attributes="0"/>
+                              <Component id="res_prov" min="-2" pref="595" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -8156,13 +8151,13 @@
                           <Component id="jpDatos_prov" alignment="1" min="-2" pref="363" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Component id="res_num_prov" min="-2" max="-2" attributes="0"/>
+                      <Component id="res_prov" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="res_num_prov">
+            <Component class="javax.swing.JLabel" name="res_prov">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="18" style="1"/>
