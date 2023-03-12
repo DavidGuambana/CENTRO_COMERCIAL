@@ -4,6 +4,7 @@ public class JFVistaFactura extends javax.swing.JFrame {
 
     public JFVistaFactura() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -34,8 +35,10 @@ public class JFVistaFactura extends javax.swing.JFrame {
         VF_TOTAL = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
         jlAgregar_fac = new javax.swing.JLabel();
+        elim_iva = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         VISTA_FACTURA.setBackground(new java.awt.Color(255, 255, 255));
         VISTA_FACTURA.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -216,26 +219,39 @@ public class JFVistaFactura extends javax.swing.JFrame {
             }
         });
 
+        elim_iva.setBackground(new java.awt.Color(255, 0, 51));
+        elim_iva.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        elim_iva.setForeground(new java.awt.Color(255, 255, 255));
+        elim_iva.setText("x    Eliminar");
+        elim_iva.setBorder(null);
+        elim_iva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout VISTA_FACTURALayout = new javax.swing.GroupLayout(VISTA_FACTURA);
         VISTA_FACTURA.setLayout(VISTA_FACTURALayout);
         VISTA_FACTURALayout.setHorizontalGroup(
             VISTA_FACTURALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VISTA_FACTURALayout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addGroup(VISTA_FACTURALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(VISTA_FACTURALayout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jlAgregar_fac, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jsTabla_cat3, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(jlAgregar_fac, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(VISTA_FACTURALayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(VISTA_FACTURALayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jsTabla_cat3, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(VISTA_FACTURALayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(VISTA_FACTURALayout.createSequentialGroup()
+                .addGap(179, 179, 179)
+                .addComponent(elim_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         VISTA_FACTURALayout.setVerticalGroup(
             VISTA_FACTURALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VISTA_FACTURALayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(20, 20, 20)
                 .addGroup(VISTA_FACTURALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlAgregar_fac, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -245,7 +261,8 @@ public class JFVistaFactura extends javax.swing.JFrame {
                 .addComponent(jsTabla_cat3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(elim_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,6 +334,7 @@ public class JFVistaFactura extends javax.swing.JFrame {
     private javax.swing.JLabel VF_TELEFONO;
     private javax.swing.JLabel VF_TOTAL;
     private javax.swing.JPanel VISTA_FACTURA;
+    private javax.swing.JButton elim_iva;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel44;
