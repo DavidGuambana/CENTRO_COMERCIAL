@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="undecorated" type="boolean" value="true"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jp_1" pref="404" max="32767" attributes="0"/>
+                  <Component id="jp_2" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jp_1" min="-2" pref="46" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jp_2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jp_1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="66" green="cc" red="0" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder/>
+          </Border>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[560, 40]"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="jl_titulo" min="-2" pref="250" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jl_cerrar" min="-2" pref="32" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jl_titulo" alignment="3" max="32767" attributes="0"/>
+                      <Component id="jl_cerrar" alignment="3" pref="38" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jl_cerrar">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI" size="24" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="&#xd7;"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jl_cerrarMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jl_titulo">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI" size="16" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Registrar ciudad"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jp_2">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jlid" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="id" min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jb_Ejecutar" min="-2" pref="144" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jt_provincia" alignment="1" min="-2" pref="362" max="-2" attributes="0"/>
+                              <Component id="jc_ciudad" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="jc_ciudad" min="-2" pref="75" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="jt_provincia" min="-2" pref="75" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="id" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlid" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jb_Ejecutar" min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="jb_Ejecutar">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="cc" red="0" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Impact" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#xa1;Registrar!"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_EjecutarActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jc_ciudad">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Light" size="18" style="1"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="222">
+                <StringItem index="0" value="Seleccione..."/>
+                <StringItem index="1" value="Alamor"/>
+                <StringItem index="2" value="Alaus&#xed;"/>
+                <StringItem index="3" value="Alfredo Baquerizo Moreno"/>
+                <StringItem index="4" value="Amaluza"/>
+                <StringItem index="5" value="Ambato"/>
+                <StringItem index="6" value="Arajuno"/>
+                <StringItem index="7" value="Archidona"/>
+                <StringItem index="8" value="Arenillas"/>
+                <StringItem index="9" value="Atacames"/>
+                <StringItem index="10" value="Atuntaqui"/>
+                <StringItem index="11" value="Azogues"/>
+                <StringItem index="12" value="Baba"/>
+                <StringItem index="13" value="Babahoyo"/>
+                <StringItem index="14" value="Baeza"/>
+                <StringItem index="15" value="Bah&#xed;a de Car&#xe1;quez"/>
+                <StringItem index="16" value="Balao"/>
+                <StringItem index="17" value="Balsas"/>
+                <StringItem index="18" value="Balzar"/>
+                <StringItem index="19" value="Ba&#xf1;os de Agua Santa"/>
+                <StringItem index="20" value="Bibli&#xe1;n"/>
+                <StringItem index="21" value="Bol&#xed;var"/>
+                <StringItem index="22" value="Buena Fe"/>
+                <StringItem index="23" value="Calceta"/>
+                <StringItem index="24" value="Caluma"/>
+                <StringItem index="25" value="Camilo Ponce Enr&#xed;quez"/>
+                <StringItem index="26" value="Canton Guano"/>
+                <StringItem index="27" value="Ca&#xf1;ar"/>
+                <StringItem index="28" value="Cariamanga"/>
+                <StringItem index="29" value="Carlos Julio Arosemena Tola"/>
+                <StringItem index="30" value="Catacocha"/>
+                <StringItem index="31" value="Catamayo"/>
+                <StringItem index="32" value="Catarama"/>
+                <StringItem index="33" value="Cayambe"/>
+                <StringItem index="34" value="Celica"/>
+                <StringItem index="35" value="Cevallos"/>
+                <StringItem index="36" value="Chaguarpamba"/>
+                <StringItem index="37" value="Chambo"/>
+                <StringItem index="38" value="Chilla"/>
+                <StringItem index="39" value="Chillanes"/>
+                <StringItem index="40" value="Chimbo"/>
+                <StringItem index="41" value="Chone"/>
+                <StringItem index="42" value="Chordeleg"/>
+                <StringItem index="43" value="Chunchi"/>
+                <StringItem index="44" value="Cnel. Marcelino Maridue&#xf1;a"/>
+                <StringItem index="45" value="Colimes"/>
+                <StringItem index="46" value="Cotacachi"/>
+                <StringItem index="47" value="Cuenca"/>
+                <StringItem index="48" value="Cumand&#xe1;"/>
+                <StringItem index="49" value="Daule"/>
+                <StringItem index="50" value="D&#xe9;leg"/>
+                <StringItem index="51" value="Dur&#xe1;n"/>
+                <StringItem index="52" value="Echeand&#xed;a"/>
+                <StringItem index="53" value="El &#xc1;ngel"/>
+                <StringItem index="54" value="El Carmen"/>
+                <StringItem index="55" value="El Chaco"/>
+                <StringItem index="56" value="El Coraz&#xf3;n"/>
+                <StringItem index="57" value="El Dorado de Cascales"/>
+                <StringItem index="58" value="El Guabo"/>
+                <StringItem index="59" value="El Pan"/>
+                <StringItem index="60" value="El Pangui"/>
+                <StringItem index="61" value="El Tambo"/>
+                <StringItem index="62" value="El Triunfo"/>
+                <StringItem index="63" value="Esmeraldas"/>
+                <StringItem index="64" value="Flavio Alfaro"/>
+                <StringItem index="65" value="General Villamil"/>
+                <StringItem index="66" value="Gir&#xf3;n"/>
+                <StringItem index="67" value="Gonzanam&#xe1;"/>
+                <StringItem index="68" value="Gral. Antonio Elizalde (Bucay)"/>
+                <StringItem index="69" value="Gral. Leonidas Plaza Guti&#xe9;rrez (Lim&#xf3;n)"/>
+                <StringItem index="70" value="Guachapala"/>
+                <StringItem index="71" value="Gualaceo"/>
+                <StringItem index="72" value="Gualaquiza"/>
+                <StringItem index="73" value="Guamote"/>
+                <StringItem index="74" value="Guaranda"/>
+                <StringItem index="75" value="Guayaquil"/>
+                <StringItem index="76" value="Guayzimi"/>
+                <StringItem index="77" value="Huaca"/>
+                <StringItem index="78" value="Huamboya"/>
+                <StringItem index="79" value="Huaquillas"/>
+                <StringItem index="80" value="Ibarra"/>
+                <StringItem index="81" value="Isidro Ayora"/>
+                <StringItem index="82" value="Jama"/>
+                <StringItem index="83" value="Jaramij&#xf3;"/>
+                <StringItem index="84" value="Jipijapa"/>
+                <StringItem index="85" value="Jun&#xed;n"/>
+                <StringItem index="86" value="La Bonita"/>
+                <StringItem index="87" value="La Concordia"/>
+                <StringItem index="88" value="La Joya de los Sachas"/>
+                <StringItem index="89" value="La Libertad"/>
+                <StringItem index="90" value="La Man&#xe1;"/>
+                <StringItem index="91" value="La Troncal"/>
+                <StringItem index="92" value="La Victoria"/>
+                <StringItem index="93" value="Las Naves"/>
+                <StringItem index="94" value="Latacunga"/>
+                <StringItem index="95" value="Logro&#xf1;o"/>
+                <StringItem index="96" value="Loja"/>
+                <StringItem index="97" value="Lomas de Sargentillo"/>
+                <StringItem index="98" value="Loreto"/>
+                <StringItem index="99" value="Lumbaqui"/>
+                <StringItem index="100" value="Macar&#xe1;"/>
+                <StringItem index="101" value="Macas"/>
+                <StringItem index="102" value="Machachi"/>
+                <StringItem index="103" value="Machala"/>
+                <StringItem index="104" value="Manta"/>
+                <StringItem index="105" value="Marcabel&#xed;"/>
+                <StringItem index="106" value="Mera"/>
+                <StringItem index="107" value="Milagro"/>
+                <StringItem index="108" value="Mira"/>
+                <StringItem index="109" value="Mocache"/>
+                <StringItem index="110" value="Mocha"/>
+                <StringItem index="111" value="Montalvo"/>
+                <StringItem index="112" value="Montecristi"/>
+                <StringItem index="113" value="Muisne"/>
+                <StringItem index="114" value="Nab&#xf3;n"/>
+                <StringItem index="115" value="Naranjal"/>
+                <StringItem index="116" value="Naranjito"/>
+                <StringItem index="117" value="Nobol"/>
+                <StringItem index="118" value="Nueva Loja"/>
+                <StringItem index="119" value="Olmedo"/>
+                <StringItem index="120" value="Olmedo"/>
+                <StringItem index="121" value="O&#xf1;a"/>
+                <StringItem index="122" value="Otavalo"/>
+                <StringItem index="123" value="Pablo Sexto"/>
+                <StringItem index="124" value="Paccha"/>
+                <StringItem index="125" value="Paj&#xe1;n"/>
+                <StringItem index="126" value="Palanda"/>
+                <StringItem index="127" value="Palenque"/>
+                <StringItem index="128" value="Palestina"/>
+                <StringItem index="129" value="Pallatanga"/>
+                <StringItem index="130" value="Palora"/>
+                <StringItem index="131" value="Paquisha"/>
+                <StringItem index="132" value="Pasaje"/>
+                <StringItem index="133" value="Patate"/>
+                <StringItem index="134" value="Paute"/>
+                <StringItem index="135" value="Pedernales"/>
+                <StringItem index="136" value="Pedro Carbo"/>
+                <StringItem index="137" value="Pedro Vicente Maldonado"/>
+                <StringItem index="138" value="Pelileo"/>
+                <StringItem index="139" value="Penipe"/>
+                <StringItem index="140" value="Pichincha"/>
+                <StringItem index="141" value="P&#xed;llaro"/>
+                <StringItem index="142" value="Pimampiro"/>
+                <StringItem index="143" value="Pindal"/>
+                <StringItem index="144" value="Pi&#xf1;as"/>
+                <StringItem index="145" value="Portovelo"/>
+                <StringItem index="146" value="Portoviejo"/>
+                <StringItem index="147" value="Pucar&#xe1;"/>
+                <StringItem index="148" value="Puebloviejo"/>
+                <StringItem index="149" value="Puerto Ayora"/>
+                <StringItem index="150" value="Puerto Baquerizo Moreno"/>
+                <StringItem index="151" value="Puerto El Carmen de Putumayo"/>
+                <StringItem index="152" value="Puerto Francisco de Orellana"/>
+                <StringItem index="153" value="Puerto L&#xf3;pez"/>
+                <StringItem index="154" value="Puerto Quito"/>
+                <StringItem index="155" value="Puerto Villamil"/>
+                <StringItem index="156" value="Pujil&#xed;"/>
+                <StringItem index="157" value="Puyo"/>
+                <StringItem index="158" value="Quero"/>
+                <StringItem index="159" value="Quevedo"/>
+                <StringItem index="160" value="Quilanga"/>
+                <StringItem index="161" value="Quinsaloma"/>
+                <StringItem index="162" value="Quito"/>
+                <StringItem index="163" value="Riobamba"/>
+                <StringItem index="164" value="Rioverde"/>
+                <StringItem index="165" value="Rocafuerte"/>
+                <StringItem index="166" value="Rosa Z&#xe1;rate"/>
+                <StringItem index="167" value="Salinas"/>
+                <StringItem index="168" value="Salitre"/>
+                <StringItem index="169" value="Samborond&#xf3;n"/>
+                <StringItem index="170" value="San Fernando"/>
+                <StringItem index="171" value="San Gabriel"/>
+                <StringItem index="172" value="San Juan Bosco"/>
+                <StringItem index="173" value="San Lorenzo"/>
+                <StringItem index="174" value="San Miguel"/>
+                <StringItem index="175" value="San Miguel de Los Bancos"/>
+                <StringItem index="176" value="San Miguel de Salcedo"/>
+                <StringItem index="177" value="San Vicente"/>
+                <StringItem index="178" value="Sangolqu&#xed;"/>
+                <StringItem index="179" value="Santa Ana"/>
+                <StringItem index="180" value="Santa Clara"/>
+                <StringItem index="181" value="Santa Elena"/>
+                <StringItem index="182" value="Santa Isabel"/>
+                <StringItem index="183" value="Santa Luc&#xed;a"/>
+                <StringItem index="184" value="Santa Rosa"/>
+                <StringItem index="185" value="Santiago"/>
+                <StringItem index="186" value="Santiago de M&#xe9;ndez"/>
+                <StringItem index="187" value="Santo Domingo"/>
+                <StringItem index="188" value="Saquisil&#xed;"/>
+                <StringItem index="189" value="Saraguro"/>
+                <StringItem index="190" value="Sevilla de Oro"/>
+                <StringItem index="191" value="Shushufindi"/>
+                <StringItem index="192" value="Sigchos"/>
+                <StringItem index="193" value="S&#xed;gsig"/>
+                <StringItem index="194" value="Sim&#xf3;n Bol&#xed;var"/>
+                <StringItem index="195" value="Sozoranga"/>
+                <StringItem index="196" value="Sucre"/>
+                <StringItem index="197" value="Suc&#xfa;a"/>
+                <StringItem index="198" value="Suscal"/>
+                <StringItem index="199" value="Tabacundo"/>
+                <StringItem index="200" value="Taisha"/>
+                <StringItem index="201" value="Tarapoa"/>
+                <StringItem index="202" value="Tena"/>
+                <StringItem index="203" value="Tiputini"/>
+                <StringItem index="204" value="Tisaleo"/>
+                <StringItem index="205" value="Tosagua"/>
+                <StringItem index="206" value="Tulc&#xe1;n"/>
+                <StringItem index="207" value="Urcuqu&#xed;"/>
+                <StringItem index="208" value="Valdez (Limones)"/>
+                <StringItem index="209" value="Valencia"/>
+                <StringItem index="210" value="Velasco Ibarra"/>
+                <StringItem index="211" value="Ventanas"/>
+                <StringItem index="212" value="Villa La Uni&#xf3;n (Cajabamba)"/>
+                <StringItem index="213" value="Vinces"/>
+                <StringItem index="214" value="Yacuambi"/>
+                <StringItem index="215" value="Yaguachi"/>
+                <StringItem index="216" value="Yantzaza"/>
+                <StringItem index="217" value="Zamora"/>
+                <StringItem index="218" value="Zapotillo"/>
+                <StringItem index="219" value="Zaruma"/>
+                <StringItem index="220" value="Zumba"/>
+                <StringItem index="221" value="Zumbi"/>
+              </StringArray>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Ciudad:">
+                  <Font PropertyName="font" name="Yu Gothic UI Light" size="14" style="0"/>
+                  <Color PropertyName="color" blue="66" green="cc" red="0" type="rgb"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jlid">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Light" size="14" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="cc" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="id">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Light" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="000"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jt_provincia">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Light" size="18" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="99" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Seleccionar..."/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="ID provincia:">
+                  <Font PropertyName="font" name="Yu Gothic UI Light" size="14" style="0"/>
+                  <Color PropertyName="color" blue="66" green="cc" red="0" type="rgb"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jt_provinciaKeyPressed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

@@ -57,14 +57,15 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static int xcolum,xrow;
     
     //instancias de los frames:
-//    public static JFcategoria JFcat = new JFcategoria();//fr1
-//    public static JFciudad JFciu = new JFciudad();//fr2
-    public static JFcliente JFcli = new JFcliente(); //fr3
-//    public static JFdescuento JFdes = new JFdescuento();//fr4
-//    public static JFempleado JFemp = new JFempleado();//fr6
-//    public static JFpagos JFpag = new JFpagos();//8
-//    public static JFproducto JFpro = new JFproducto();//fr9
-//    public static JFproveedor JFprov = new JFproveedor(); //fr10
+//    public static JFcategoria JFcat = new JFcategoria();
+    public static JFciudad JFciu = new JFciudad();
+    public static JFcliente JFcli = new JFcliente();
+//    public static JFdescuento JFdes = new JFdescuento();
+//    public static JFempleado JFemp = new JFempleado();
+//    public static JFpagos JFpag = new JFpagos();
+//    public static JFproducto JFpro = new JFproducto();
+//    public static JFproveedor JFprov = new JFproveedor();
+    public static JFprovincia JFprovi = new JFprovincia();
 
     public SISTEMA() {
         initComponents();
@@ -398,7 +399,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                     if (eliminado) {
                         JOptionPane.showMessageDialog(null, "¡Eliminado correctamente!");
                     }
-                    ocultar(clase, false);
+                    ver_panel(clase, false);
                     conexion.desconectar();
                     visualizar();
                 }
@@ -2938,7 +2939,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                     .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mod_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(elim_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         INICIO.addTab("Pagos a empleados", JPpago_empleado);
@@ -3511,7 +3512,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTcli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTcli.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTcli.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTcli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -3633,7 +3634,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTemp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTemp.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTemp.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTemp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -3723,7 +3724,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTper.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTper.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTper.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         JTper.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -7008,7 +7009,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addComponent(mod_prov, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(elim_prov, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPprov, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(JPprov, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(Lprov)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -7100,6 +7101,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JPciu_provi.setBackground(new java.awt.Color(252, 240, 219));
         JPciu_provi.setMaximumSize(new java.awt.Dimension(980, 500));
         JPciu_provi.setMinimumSize(new java.awt.Dimension(980, 500));
+        JPciu_provi.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jsTabla_ciu14.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -7109,7 +7111,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTciu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTciu.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTciu.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTciu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -7130,6 +7132,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTciu.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu14.setViewportView(JTciu);
 
+        JPciu_provi.add(jsTabla_ciu14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 111, 420, 150));
+
         JCciu.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCciu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
         JCciu.addItemListener(new java.awt.event.ItemListener() {
@@ -7137,10 +7141,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 JCciuItemStateChanged(evt);
             }
         });
+        JPciu_provi.add(JCciu, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 64, 142, 35));
 
         jLabel134.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel134.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel134.setText("Buscar por");
+        JPciu_provi.add(jLabel134, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 64, -1, 34));
 
         Bciu.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bciu.setText("Buscar");
@@ -7166,6 +7172,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 BciuKeyTyped(evt);
             }
         });
+        JPciu_provi.add(Bciu, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 64, 195, -1));
 
         Lciu.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         Lciu.setForeground(new java.awt.Color(0, 102, 102));
@@ -7177,16 +7184,19 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 LciuMouseClicked(evt);
             }
         });
+        JPciu_provi.add(Lciu, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 64, -1, 35));
 
         res_ciu.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         res_ciu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         res_ciu.setText("Resultados: 0 de 0");
+        JPciu_provi.add(res_ciu, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 20, 204, 32));
 
         jl_titulo27.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo27.setText("Ciudades");
         jl_titulo27.setIconTextGap(10);
         jl_titulo27.setVerifyInputWhenFocusTarget(false);
+        JPciu_provi.add(jl_titulo27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 204, -1));
 
         jPanel32.setBackground(new java.awt.Color(153, 0, 51));
         jPanel32.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -7208,6 +7218,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             .addComponent(jLabel135, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
+        JPciu_provi.add(jPanel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 283, 420, 47));
+
         jsTabla_ciu15.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         JTprovi = new javax.swing.JTable(){
@@ -7216,7 +7228,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTprovi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTprovi.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTprovi.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTprovi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -7236,6 +7248,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTprovi.getTableHeader().setResizingAllowed(false);
         JTprovi.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu15.setViewportView(JTprovi);
+
+        JPciu_provi.add(jsTabla_ciu15, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 111, 422, 150));
 
         JPciu.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -7296,6 +7310,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        JPciu_provi.add(JPciu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 420, -1));
+
         elim_ciu.setBackground(new java.awt.Color(255, 0, 51));
         elim_ciu.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         elim_ciu.setForeground(new java.awt.Color(255, 255, 255));
@@ -7315,6 +7331,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 elim_ciuActionPerformed(evt);
             }
         });
+        JPciu_provi.add(elim_ciu, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 455, 130, 40));
 
         reg_ciu.setBackground(new java.awt.Color(0, 204, 102));
         reg_ciu.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -7335,6 +7352,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 reg_ciuActionPerformed(evt);
             }
         });
+        JPciu_provi.add(reg_ciu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 455, 130, 40));
 
         mod_ciu.setBackground(new java.awt.Color(51, 204, 255));
         mod_ciu.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -7355,6 +7373,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 mod_ciuActionPerformed(evt);
             }
         });
+        JPciu_provi.add(mod_ciu, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 455, 136, 40));
 
         Bprovi.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bprovi.setText("Buscar");
@@ -7380,6 +7399,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 BproviKeyTyped(evt);
             }
         });
+        JPciu_provi.add(Bprovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 63, 197, -1));
 
         JCprovi.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCprovi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
@@ -7388,20 +7408,24 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 JCproviItemStateChanged(evt);
             }
         });
+        JPciu_provi.add(JCprovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 64, 142, 35));
 
         jLabel150.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel150.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel150.setText("Buscar por");
+        JPciu_provi.add(jLabel150, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 63, -1, 34));
 
         jl_titulo28.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo28.setText("Provincias");
         jl_titulo28.setIconTextGap(10);
         jl_titulo28.setVerifyInputWhenFocusTarget(false);
+        JPciu_provi.add(jl_titulo28, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
 
         res_provi.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         res_provi.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         res_provi.setText("Resultados: 0 de 0");
+        JPciu_provi.add(res_provi, new org.netbeans.lib.awtextra.AbsoluteConstraints(718, 24, 204, -1));
 
         Lprovi.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         Lprovi.setForeground(new java.awt.Color(0, 102, 102));
@@ -7413,11 +7437,13 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 LproviMouseClicked(evt);
             }
         });
+        JPciu_provi.add(Lprovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(925, 63, -1, 36));
 
         jSeparator28.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator28.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator28.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator28.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JPciu_provi.add(jSeparator28, new org.netbeans.lib.awtextra.AbsoluteConstraints(471, 20, -1, 475));
 
         jPanel35.setBackground(new java.awt.Color(153, 0, 51));
         jPanel35.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -7438,6 +7464,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel151, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
+
+        JPciu_provi.add(jPanel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 283, 422, 47));
 
         JPprovi.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -7484,6 +7512,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
+        JPciu_provi.add(JPprovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 422, -1));
+
         reg_provi.setBackground(new java.awt.Color(0, 204, 102));
         reg_provi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         reg_provi.setForeground(new java.awt.Color(255, 255, 255));
@@ -7503,6 +7533,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 reg_proviActionPerformed(evt);
             }
         });
+        JPciu_provi.add(reg_provi, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 455, 130, 40));
 
         mod_provi.setBackground(new java.awt.Color(51, 204, 255));
         mod_provi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -7523,6 +7554,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 mod_proviActionPerformed(evt);
             }
         });
+        JPciu_provi.add(mod_provi, new org.netbeans.lib.awtextra.AbsoluteConstraints(643, 455, 136, 40));
 
         elim_provi.setBackground(new java.awt.Color(255, 0, 51));
         elim_provi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -7543,118 +7575,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 elim_proviActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout JPciu_proviLayout = new javax.swing.GroupLayout(JPciu_provi);
-        JPciu_provi.setLayout(JPciu_proviLayout);
-        JPciu_proviLayout.setHorizontalGroup(
-            JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPciu_proviLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addComponent(jl_titulo27, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(res_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addComponent(jLabel134)
-                        .addGap(6, 6, 6)
-                        .addComponent(JCciu, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(Bciu, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jsTabla_ciu14, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addComponent(reg_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(mod_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(elim_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPciu, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-                .addGap(3, 3, 3)
-                .addComponent(Lciu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator28, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addComponent(reg_provi, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(mod_provi, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(elim_provi, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(JPprovi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel35, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPciu_proviLayout.createSequentialGroup()
-                                .addComponent(jl_titulo28)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(res_provi, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPciu_proviLayout.createSequentialGroup()
-                                .addComponent(jLabel150)
-                                .addGap(6, 6, 6)
-                                .addComponent(JCprovi, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(Bprovi, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jsTabla_ciu15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(3, 3, 3)
-                        .addComponent(Lprovi)))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-        JPciu_proviLayout.setVerticalGroup(
-            JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPciu_proviLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator28)
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_titulo27)
-                            .addComponent(res_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JCciu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bciu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addComponent(jsTabla_ciu14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(JPciu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reg_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mod_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(elim_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(Lciu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jl_titulo28)
-                            .addComponent(res_provi))
-                        .addGap(11, 11, 11)
-                        .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel150, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(JPciu_proviLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(JCprovi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Bprovi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addComponent(jsTabla_ciu15, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(JPprovi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(JPciu_proviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reg_provi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mod_provi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(elim_provi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(JPciu_proviLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(Lprovi, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+        JPciu_provi.add(elim_provi, new org.netbeans.lib.awtextra.AbsoluteConstraints(792, 455, 130, 40));
 
         MENU.addTab("Ciudades y Provincias", JPciu_provi);
 
@@ -8561,7 +8482,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_ciuMouseExited
 
     private void reg_ciuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_ciuActionPerformed
-        // TODO add your handling code here:
+        JFciudad.forma = "registrar";
+        JFciudad.cambiar_diseño();
+        JFciudad.limpiar();
+        JFciudad.cargar_ciudades();
+        JFciu.setVisible(true);
     }//GEN-LAST:event_reg_ciuActionPerformed
 
     private void mod_ciuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_ciuMouseEntered
@@ -8573,7 +8498,15 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_ciuMouseExited
 
     private void mod_ciuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_ciuActionPerformed
-        // TODO add your handling code here:
+        if (JPciu.isVisible()) {
+            JFciudad.forma = "modificar";
+            JFciudad.cambiar_diseño();
+            JFciudad.cargar_ciudades_mod(nombre_ciu.getText());
+            JFciu.llenar(Integer.parseInt(id_ciu.getText()));
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_mod_ciuActionPerformed
 
     private void BproviMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BproviMouseClicked
@@ -8609,7 +8542,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_proviMouseExited
 
     private void reg_proviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_proviActionPerformed
-        // TODO add your handling code here:
+        JFprovincia.forma = "registrar";
+        JFprovincia.cambiar_diseño();
+        JFprovincia.limpiar();
+        JFprovincia.cargar_provincias();
+        JFprovi.setVisible(true);
     }//GEN-LAST:event_reg_proviActionPerformed
 
     private void mod_proviMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_proviMouseEntered
@@ -8621,7 +8558,15 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_proviMouseExited
 
     private void mod_proviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_proviActionPerformed
-        // TODO add your handling code here:
+        if (JPprovi.isVisible()) {
+            JFprovincia.forma = "modificar";
+            JFprovincia.cambiar_diseño();
+            JFprovincia.cargar_provincias_mod(nombre_provi.getText());
+            JFprovi.llenar(Integer.parseInt(id_provi.getText()));
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_mod_proviActionPerformed
 
     private void elim_proviMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_proviMouseEntered
@@ -8970,6 +8915,31 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public void seleccionar() {
         con = conexion.conectar();
         if (con != null) {
+            JTciu.addMouseListener(new MouseAdapter() { //ciudad - 2
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTciu.getValueAt(JTciu.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"CIUDAD WHERE ID="+pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            id_ciu.setText(""+rs.getInt(1));
+                            nombre_ciu.setText(rs.getString(2));
+                            id_provi_ciu.setText(""+rs.getInt(3));
+                            ver_panel(2,true);
+                        } catch (SQLException ex) {
+                        }
+                    }
+                    if (Mouse_evt.getClickCount() == 2) {
+                        JFcliente.ciudad.setText(id_ciu.getText());
+                        MENU.setSelectedIndex(1);
+                        PERSONAS.setSelectedIndex(0);
+                        JFcli.setVisible(true);
+                    }
+                }
+            });
+            
             JTcli.addMouseListener(new MouseAdapter() { //clientes - 3
                 @Override
                 public void mousePressed(MouseEvent Mouse_evt) {
@@ -9006,13 +8976,33 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             rs = ps.executeQuery();
                             rs.next();
                             ciudad_cli.setText(rs.getString(2));
+                            ver_panel(3,true);
                         } catch (SQLException ex) {
-                            System.out.println(ex);
                         }
                     }
-
+                    
                 }
             });
+            
+            JTprovi.addMouseListener(new MouseAdapter() { //provincia - 18
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTprovi.getValueAt(JTprovi.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"PROVINCIA WHERE ID="+pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            id_provi.setText(""+rs.getInt(1));
+                            nombre_provi.setText(rs.getString(2));
+                            ver_panel(18,true);
+                        } catch (SQLException ex) {
+                        }
+                    }
+                    
+                }
+            });
+            
         }
 //        JTcategorias.addMouseListener(new MouseAdapter() { //categorias(1)
 //            @Override
@@ -9312,17 +9302,28 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         });
       
     }
-     public void ocultar(int num, boolean visible) {
+     public void ver_panel(int num, boolean visible) {
         switch (num) {
-            case 3: JPcli.setVisible(visible);
+            case 1: JPcat.setVisible(visible);
                 break;
-        }
+            case 2: JPciu.setVisible(visible);
+                 break;
+             case 3: JPcli.setVisible(visible);
+                 break;
+             case 18:JPprovi.setVisible(visible);
+                 break;
+         }
     }
 
     public void ocultar_paneles() {
         JPcat.setVisible(false);
         JPciu.setVisible(false);
         JPcli.setVisible(false);
+        
+        
+        
+        
+        JPprovi.setVisible(false);
     }
 
     public void resumen() {

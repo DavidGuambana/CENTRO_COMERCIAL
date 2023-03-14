@@ -17,11 +17,11 @@ public class JFcliente extends javax.swing.JFrame {
     public static Connection con = null;
     public static PreparedStatement ps;
     long d;
-    public static final String FK = "Seleccione...";
+    public static final String FK = "Seleccionar...";
     
     public JFcliente() {
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);;
     }
     
     public static void cambiar_diseño() {
@@ -58,7 +58,7 @@ public class JFcliente extends javax.swing.JFrame {
                     titulo = "Fecha de nacimiento:";
                     break;
                 case 5:
-                    titulo = "Género:";
+                    titulo = "ID género:";
                     break;
                 case 6:
                     titulo = "N°. Celular:";
@@ -70,10 +70,10 @@ public class JFcliente extends javax.swing.JFrame {
                     titulo = "Dirección:";
                     break;
                 case 9:
-                    titulo = "Ciudad:";
+                    titulo = "ID ciudad:";
                     break;
                 case 10:
-                    titulo = "Descuento:";
+                    titulo = "ID descuento:";
                     break;
             }
             tb = new TitledBorder(titulo);
@@ -341,30 +341,44 @@ public class JFcliente extends javax.swing.JFrame {
             }
         });
 
+        ciudad.setEditable(false);
+        ciudad.setBackground(new java.awt.Color(255, 255, 255));
         ciudad.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         ciudad.setForeground(new java.awt.Color(0, 153, 153));
-        ciudad.setText("Click para seleccionar...");
-        ciudad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ciudad:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        ciudad.setText("Seleccionar...");
+        ciudad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID ciudad:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        ciudad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ciudad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ciudadMouseClicked(evt);
+            }
+        });
         ciudad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 ciudadKeyPressed(evt);
             }
         });
 
+        descuento.setEditable(false);
+        descuento.setBackground(new java.awt.Color(255, 255, 255));
         descuento.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         descuento.setForeground(new java.awt.Color(0, 153, 153));
-        descuento.setText("Click para seleccionar...");
-        descuento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descuento:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        descuento.setText("Seleccionar...");
+        descuento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID descuento:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        descuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         descuento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 descuentoKeyPressed(evt);
             }
         });
 
+        genero.setEditable(false);
+        genero.setBackground(new java.awt.Color(255, 255, 255));
         genero.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         genero.setForeground(new java.awt.Color(0, 153, 153));
-        genero.setText("Click para seleccionar...");
-        genero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Género:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        genero.setText("Seleccionar...");
+        genero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID género:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        genero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         genero.setMinimumSize(new java.awt.Dimension(201, 52));
         genero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -562,6 +576,11 @@ public class JFcliente extends javax.swing.JFrame {
     private void generoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_generoKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_generoKeyPressed
+
+    private void ciudadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ciudadMouseClicked
+        SISTEMA.MENU.setSelectedIndex(6);
+        this.setVisible(false);
+    }//GEN-LAST:event_ciudadMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
