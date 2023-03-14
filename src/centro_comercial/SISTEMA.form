@@ -5260,129 +5260,112 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel68" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="nombre_cli" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <Component id="jLabel66" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="id_cli" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
+                                          <Component id="id_cli" min="-2" pref="188" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="ciudad_cli" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cedula_cli" min="-2" pref="123" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel89" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel68" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="direccion_cli" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nombre_cli" min="-2" pref="154" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jLabel71" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="apellido_cli" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="fecha_nac_cli" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fecha_nac_cli" min="-2" pref="81" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="sexo_cli" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="celular_cli" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cedula_cli" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel71" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="apellido_cli" min="-2" pref="99" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" attributes="0">
+                                          <Component id="celular_cli" min="-2" pref="161" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jLabel91" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="email_cli" min="-2" max="-2" attributes="0"/>
+                                          <Component id="email_cli" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel89" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="sexo_cli" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
+                                          <Component id="direccion_cli" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jLabel83" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="descuento_cli" min="-2" max="-2" attributes="0"/>
+                                          <Component id="descuento_cli" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
+                                          <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="ciudad_cli" min="-2" pref="162" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jLabel85" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="fecha_reg_cli" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fecha_reg_cli" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel63" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cedula_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel66" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="id_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel68" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="nombre_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel71" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="apellido_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel77" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fecha_nac_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel79" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="sexo_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel75" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="celular_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel91" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="email_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel89" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="direccion_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel83" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="descuento_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel85" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="fecha_reg_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel87" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="ciudad_cli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel66" min="-2" max="-2" attributes="0"/>
+                                      <Component id="id_cli" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cedula_cli" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel68" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nombre_cli" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel71" min="-2" max="-2" attributes="0"/>
+                                      <Component id="apellido_cli" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fecha_nac_cli" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
+                                      <Component id="sexo_cli" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
+                                      <Component id="celular_cli" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel91" min="-2" max="-2" attributes="0"/>
+                                      <Component id="email_cli" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel89" min="-2" max="-2" attributes="0"/>
+                                      <Component id="direccion_cli" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel83" min="-2" max="-2" attributes="0"/>
+                                      <Component id="descuento_cli" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ciudad_cli" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel85" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fecha_reg_cli" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -5391,7 +5374,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel63">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
                           </Properties>
@@ -5399,7 +5382,7 @@
                         <Component class="javax.swing.JLabel" name="cedula_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5407,7 +5390,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel66">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="ID:"/>
                           </Properties>
@@ -5415,7 +5398,7 @@
                         <Component class="javax.swing.JLabel" name="id_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5423,7 +5406,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel68">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Nombre:"/>
                           </Properties>
@@ -5431,7 +5414,7 @@
                         <Component class="javax.swing.JLabel" name="nombre_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5439,7 +5422,7 @@
                         <Component class="javax.swing.JLabel" name="apellido_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5447,7 +5430,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel71">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Apellido:"/>
                           </Properties>
@@ -5455,7 +5438,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel75">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Celular:"/>
                           </Properties>
@@ -5463,7 +5446,7 @@
                         <Component class="javax.swing.JLabel" name="celular_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5471,7 +5454,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel77">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Fecha de nacimiento:"/>
                           </Properties>
@@ -5479,7 +5462,7 @@
                         <Component class="javax.swing.JLabel" name="fecha_nac_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5487,7 +5470,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel79">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Sexo:"/>
                           </Properties>
@@ -5495,7 +5478,7 @@
                         <Component class="javax.swing.JLabel" name="sexo_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5503,7 +5486,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel83">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Descuento:"/>
                           </Properties>
@@ -5511,7 +5494,7 @@
                         <Component class="javax.swing.JLabel" name="descuento_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5519,7 +5502,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel85">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Fecha de registro:"/>
                           </Properties>
@@ -5527,7 +5510,7 @@
                         <Component class="javax.swing.JLabel" name="fecha_reg_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5535,7 +5518,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel87">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Ciudad:"/>
                           </Properties>
@@ -5543,7 +5526,7 @@
                         <Component class="javax.swing.JLabel" name="ciudad_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5551,7 +5534,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel89">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
                           </Properties>
@@ -5559,7 +5542,7 @@
                         <Component class="javax.swing.JLabel" name="direccion_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5567,7 +5550,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel91">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Email:"/>
                           </Properties>
@@ -5575,7 +5558,7 @@
                         <Component class="javax.swing.JLabel" name="email_cli">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5813,7 +5796,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="500" y="617" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="500" y="617" width="420" height="-1"/>
                         </Constraint>
                       </Constraints>
 
@@ -5821,80 +5804,79 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel69" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="nombre_emp" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel67" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="id_emp" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="ciudad_emp" min="-2" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="direccion_emp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="direccion_emp" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="fecha_nac_emp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fecha_nac_emp" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel76" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="celular_emp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="celular_emp" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel69" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="nombre_emp" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel67" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="id_emp" min="-2" pref="188" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="ciudad_emp" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="60" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cedula_emp" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel73" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="apellido_emp" min="-2" pref="99" max="-2" attributes="0"/>
-                                          </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel73" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="apellido_emp" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel92" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="email_emp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="email_emp" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel82" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="sexo_emp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="sexo_emp" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel84" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="departamento_emp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="departamento_emp" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel96" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="fecha_reg_emp" min="-2" pref="8" max="-2" attributes="0"/>
+                                          <Component id="fecha_reg_emp" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel95" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="puesto_emp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="puesto_emp" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cedula_emp" min="-2" pref="122" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -5957,7 +5939,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel64">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
                           </Properties>
@@ -5965,7 +5947,7 @@
                         <Component class="javax.swing.JLabel" name="cedula_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5973,7 +5955,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel67">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="ID:"/>
                           </Properties>
@@ -5981,7 +5963,7 @@
                         <Component class="javax.swing.JLabel" name="id_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -5989,7 +5971,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel69">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Nombre:"/>
                           </Properties>
@@ -5997,7 +5979,7 @@
                         <Component class="javax.swing.JLabel" name="nombre_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6005,7 +5987,7 @@
                         <Component class="javax.swing.JLabel" name="apellido_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6013,7 +5995,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel73">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Apellido:"/>
                           </Properties>
@@ -6021,7 +6003,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel76">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Celular:"/>
                           </Properties>
@@ -6029,7 +6011,7 @@
                         <Component class="javax.swing.JLabel" name="celular_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6037,7 +6019,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel78">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Fecha de nacimiento:"/>
                           </Properties>
@@ -6045,7 +6027,7 @@
                         <Component class="javax.swing.JLabel" name="fecha_nac_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6053,7 +6035,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel82">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Sexo:"/>
                           </Properties>
@@ -6061,7 +6043,7 @@
                         <Component class="javax.swing.JLabel" name="sexo_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6069,7 +6051,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel84">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Departamento:"/>
                           </Properties>
@@ -6077,7 +6059,7 @@
                         <Component class="javax.swing.JLabel" name="departamento_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6085,7 +6067,7 @@
                         <Component class="javax.swing.JLabel" name="fecha_reg_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6093,7 +6075,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel88">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Ciudad:"/>
                           </Properties>
@@ -6101,7 +6083,7 @@
                         <Component class="javax.swing.JLabel" name="ciudad_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6109,7 +6091,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel90">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
                           </Properties>
@@ -6117,7 +6099,7 @@
                         <Component class="javax.swing.JLabel" name="direccion_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6125,7 +6107,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel92">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Email:"/>
                           </Properties>
@@ -6133,7 +6115,7 @@
                         <Component class="javax.swing.JLabel" name="email_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6141,7 +6123,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel95">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Puesto:"/>
                           </Properties>
@@ -6149,7 +6131,7 @@
                         <Component class="javax.swing.JLabel" name="puesto_emp">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="0"/>
+                              <Font name="Calibri" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -6157,7 +6139,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel96">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Calibri" size="16" style="1"/>
+                              <Font name="Calibri" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Fecha de registro:"/>
                           </Properties>

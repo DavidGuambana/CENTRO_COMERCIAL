@@ -20,6 +20,8 @@ import otros.BotonTabla;
 import otros.fechas;
 import java.sql.*;
 import com.mysql.jdbc.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import otros.ImagenTabla;
 
 public class SISTEMA extends javax.swing.JFrame implements Runnable {
@@ -28,6 +30,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     //variables para consultas SQL:
     public static Connection con = null;
     public static ResultSet rs;
+    public static ResultSet rs2;
     public static PreparedStatement ps;
     public static String consulta = "";
     public static String consulta2 = "";
@@ -36,6 +39,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     //otras variables útiles:
     public static boolean actualizado = false;
+    public static String pk = "";
     
     DefaultTableModel tabla = null, tabla_detalle = null;
     TableRowSorter sorter;
@@ -69,6 +73,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }
 
     public final void iniciar() {
+        ocultar_paneles();
         //para la fecha y hora
         hilo = new Thread(this);
         hilo.start();
@@ -96,7 +101,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     }
 
-    //método para cargar los datos en las tablas:
+    //cargar los datos en las tablas:
     public void visualizar() {
         con = conexion.conectar();
         if (con != null) {
@@ -350,14 +355,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 }
             } catch (Exception e) {
                 System.out.println(e);
-                System.out.println("a");
-            } finally {
-                conexion.desconectar();
             }
         }
     }
 
-    //método para buscar registros de cualquier tabla:
+    //buscar registros de cualquier tabla:
     public void buscar(JTable tab, JTextField tex, JLabel a, int b, JComboBox c) {
         DefaultTableModel modelo = (DefaultTableModel) tab.getModel();
         sorter = new TableRowSorter<>(modelo);
@@ -3751,76 +3753,76 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         JPcli.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel63.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel63.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel63.setText("Cédula:");
 
-        cedula_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        cedula_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cedula_cli.setText("0");
 
-        jLabel66.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel66.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel66.setText("ID:");
 
-        id_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        id_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         id_cli.setText("0");
 
-        jLabel68.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel68.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel68.setText("Nombre:");
 
-        nombre_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        nombre_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         nombre_cli.setText("0");
 
-        apellido_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        apellido_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         apellido_cli.setText("0");
 
-        jLabel71.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel71.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel71.setText("Apellido:");
 
-        jLabel75.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel75.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel75.setText("Celular:");
 
-        celular_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        celular_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         celular_cli.setText("0");
 
-        jLabel77.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel77.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel77.setText("Fecha de nacimiento:");
 
-        fecha_nac_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        fecha_nac_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_nac_cli.setText("0");
 
-        jLabel79.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel79.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel79.setText("Sexo:");
 
-        sexo_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        sexo_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         sexo_cli.setText("0");
 
-        jLabel83.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel83.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel83.setText("Descuento:");
 
-        descuento_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        descuento_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         descuento_cli.setText("0");
 
-        jLabel85.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel85.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel85.setText("Fecha de registro:");
 
-        fecha_reg_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        fecha_reg_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_reg_cli.setText("0");
 
-        jLabel87.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel87.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel87.setText("Ciudad:");
 
-        ciudad_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        ciudad_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         ciudad_cli.setText("0");
 
-        jLabel89.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel89.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel89.setText("Dirección:");
 
-        direccion_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        direccion_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         direccion_cli.setText("0");
 
-        jLabel91.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel91.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel91.setText("Email:");
 
-        email_cli.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        email_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         email_cli.setText("0");
 
         javax.swing.GroupLayout JPcliLayout = new javax.swing.GroupLayout(JPcli);
@@ -3828,103 +3830,96 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JPcliLayout.setHorizontalGroup(
             JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPcliLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel68)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombre_cli))
+                .addGap(10, 10, 10)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(JPcliLayout.createSequentialGroup()
                         .addComponent(jLabel66)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(id_cli))
-                    .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel87)
+                        .addComponent(id_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel63)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ciudad_cli))
+                        .addComponent(cedula_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel89)
+                        .addComponent(jLabel68)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(direccion_cli))
+                        .addComponent(nombre_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel71)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(apellido_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(JPcliLayout.createSequentialGroup()
                         .addComponent(jLabel77)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha_nac_cli))
+                        .addComponent(fecha_nac_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel79)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sexo_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(JPcliLayout.createSequentialGroup()
                         .addComponent(jLabel75)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(celular_cli)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(JPcliLayout.createSequentialGroup()
-                            .addComponent(jLabel63)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cedula_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(JPcliLayout.createSequentialGroup()
-                            .addComponent(jLabel71)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(apellido_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(celular_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel91)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(email_cli))
+                        .addComponent(email_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel79)
+                        .addComponent(jLabel89)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sexo_cli))
-                    .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(direccion_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel83)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(descuento_cli))
+                        .addComponent(descuento_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(JPcliLayout.createSequentialGroup()
+                        .addComponent(jLabel87)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ciudad_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel85)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha_reg_cli)))
-                .addGap(20, 20, 20))
+                        .addComponent(fecha_reg_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         JPcliLayout.setVerticalGroup(
             JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPcliLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel63)
-                    .addComponent(cedula_cli)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel66)
-                    .addComponent(id_cli))
+                    .addComponent(id_cli)
+                    .addComponent(jLabel63)
+                    .addComponent(cedula_cli))
                 .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel68)
                     .addComponent(nombre_cli)
                     .addComponent(jLabel71)
                     .addComponent(apellido_cli))
                 .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel77)
                     .addComponent(fecha_nac_cli)
                     .addComponent(jLabel79)
                     .addComponent(sexo_cli))
                 .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel75)
                     .addComponent(celular_cli)
                     .addComponent(jLabel91)
                     .addComponent(email_cli))
                 .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel89)
                     .addComponent(direccion_cli)
                     .addComponent(jLabel83)
                     .addComponent(descuento_cli))
                 .addGap(15, 15, 15)
                 .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel85)
-                        .addComponent(fecha_reg_cli))
-                    .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel87)
-                        .addComponent(ciudad_cli)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jLabel87)
+                    .addComponent(ciudad_cli)
+                    .addComponent(jLabel85)
+                    .addComponent(fecha_reg_cli)))
         );
 
         JPcli_emp.add(JPcli, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 616, 420, -1));
@@ -4058,82 +4053,82 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel64.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel64.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel64.setText("Cédula:");
 
-        cedula_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        cedula_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cedula_emp.setText("0");
 
-        jLabel67.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel67.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel67.setText("ID:");
 
-        id_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        id_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         id_emp.setText("0");
 
-        jLabel69.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel69.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel69.setText("Nombre:");
 
-        nombre_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        nombre_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         nombre_emp.setText("0");
 
-        apellido_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        apellido_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         apellido_emp.setText("0");
 
-        jLabel73.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel73.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel73.setText("Apellido:");
 
-        jLabel76.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel76.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel76.setText("Celular:");
 
-        celular_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        celular_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         celular_emp.setText("0");
 
-        jLabel78.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel78.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel78.setText("Fecha de nacimiento:");
 
-        fecha_nac_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        fecha_nac_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_nac_emp.setText("0");
 
-        jLabel82.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel82.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel82.setText("Sexo:");
 
-        sexo_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        sexo_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         sexo_emp.setText("0");
 
-        jLabel84.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel84.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel84.setText("Departamento:");
 
-        departamento_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        departamento_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         departamento_emp.setText("0");
 
-        fecha_reg_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        fecha_reg_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_reg_emp.setText("0");
 
-        jLabel88.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel88.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel88.setText("Ciudad:");
 
-        ciudad_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        ciudad_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         ciudad_emp.setText("0");
 
-        jLabel90.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel90.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel90.setText("Dirección:");
 
-        direccion_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        direccion_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         direccion_emp.setText("0");
 
-        jLabel92.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel92.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel92.setText("Email:");
 
-        email_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        email_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         email_emp.setText("0");
 
-        jLabel95.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel95.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel95.setText("Puesto:");
 
-        puesto_emp.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        puesto_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         puesto_emp.setText("0");
 
-        jLabel96.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel96.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel96.setText("Fecha de registro:");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -4141,64 +4136,64 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel69)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombre_emp))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel67)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(id_emp))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel88)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ciudad_emp))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel90)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(direccion_emp))
+                        .addComponent(direccion_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel78)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha_nac_emp))
+                        .addComponent(fecha_nac_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel76)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(celular_emp)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel12Layout.createSequentialGroup()
-                            .addComponent(jLabel64)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cedula_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel12Layout.createSequentialGroup()
-                            .addComponent(jLabel73)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(apellido_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(celular_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel69)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombre_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel67)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(id_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel88)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ciudad_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel73)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(apellido_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel92)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(email_emp))
+                        .addComponent(email_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel82)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sexo_emp))
+                        .addComponent(sexo_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel84)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(departamento_emp))
+                        .addComponent(departamento_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel96)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha_reg_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fecha_reg_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel95)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(puesto_emp)))
-                .addGap(20, 20, 20))
+                        .addComponent(puesto_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel64)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cedula_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4246,7 +4241,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        JPcli_emp.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 617, -1, -1));
+        JPcli_emp.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 617, 420, -1));
 
         jPanel24.setBackground(new java.awt.Color(153, 0, 51));
         jPanel24.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -7013,7 +7008,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addComponent(mod_prov, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(elim_prov, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPprov, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(JPprov, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(Lprov)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -7574,7 +7569,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addComponent(mod_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(elim_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPciu, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(JPciu, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(Lciu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -8973,6 +8968,52 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     
     //método para dar click o doble click en las tablas:
     public void seleccionar() {
+        con = conexion.conectar();
+        if (con != null) {
+            JTcli.addMouseListener(new MouseAdapter() { //clientes - 3
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTcli.getValueAt(JTcli.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"CLIENTE WHERE ID="+pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            id_cli.setText(""+rs.getInt(1));
+                            cedula_cli.setText(rs.getString(2));
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"DESCUENTO WHERE ID="+rs.getInt(3));
+                            rs = ps.executeQuery();
+                            rs.next();
+                            descuento_cli.setText(rs.getString(2)+" ("+rs.getInt(3)+"%)");
+                            
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "PERSONA WHERE CEDULA='"+cedula_cli.getText()+"'");
+                            rs = ps.executeQuery();
+                            rs.next();
+                            
+                            nombre_cli.setText(rs.getString(2));
+                            apellido_cli.setText(rs.getString(3));
+                            fecha_nac_cli.setText(rs.getDate(4).toString());
+                            celular_cli.setText(rs.getString(6));
+                            email_cli.setText(rs.getString(7));
+                            direccion_cli.setText(rs.getString(8));
+                            fecha_reg_cli.setText(rs.getDate(10).toString());
+                           
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "GENERO WHERE ID="+rs.getInt(5));
+                            rs2 = ps.executeQuery();
+                            rs2.next();
+                            sexo_cli.setText(rs2.getString(2));
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "CIUDAD WHERE ID="+rs.getInt(9));
+                            rs = ps.executeQuery();
+                            rs.next();
+                            ciudad_cli.setText(rs.getString(2));
+                        } catch (SQLException ex) {
+                            System.out.println(ex);
+                        }
+                    }
+
+                }
+            });
+        }
 //        JTcategorias.addMouseListener(new MouseAdapter() { //categorias(1)
 //            @Override
 //            public void mousePressed(MouseEvent Mouse_evt) {
@@ -9004,51 +9045,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 //                }
 //            }
 //        });
-//        JTclientes.addMouseListener(new MouseAdapter() { //clientes(3)
-//            @Override
-//            public void mousePressed(MouseEvent Mouse_evt) {
-//                if (Mouse_evt.getClickCount() == 1) {
-//                    jlCedula_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 0).toString());
-//                    jlNombre_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 1).toString());
-//                    jlApellido_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 2).toString());
-//                    jlNac_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 3).toString());
-//                    jlGenero_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 4).toString());
-//                    jlTelefono_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 5).toString());
-//                    jlCorreo_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 6).toString());
-//                    jlDireccion_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 7).toString());
-//                    jlDescuento_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 8).toString());
-//                    jlReg_cli.setText(JTclientes.getValueAt(JTclientes.getSelectedRow(), 9).toString());
-//                }
-//                if (Mouse_evt.getClickCount() == 2) {
-//                    if (fec_enc.getText().equals("")) {
-//                        JOptionPane.showMessageDialog(null, "¡Primero genere una fecha antes enviar clientes!");
-//
-//                    } else {
-//                        base.abrir();
-//                        Cliente c = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
-//                        resultado = base.gettear(c);
-//                        if (!resultado.isEmpty()) {
-//                            c = (Cliente) resultado.next();
-//                            enc_cedula.setText(c.getCedula());
-//                            enc_cedula.setBackground(Color.green);
-//                            JBseleccionar_pro.setEnabled(true);
-//                            enc_nombre_apellido.setText(c.getNombre() + " " + c.getApellido());
-//                            enc_direccion.setText(c.getDireccion());
-//                            enc_telefono.setText(c.getTelefono());
-//                            enc_correo.setText(c.getCorreo());
-//                            Descuento d = new Descuento(c.getDescuento(), 0);
-//                            resultado = base.gettear(d);
-//                            d = (Descuento) resultado.next();
-//                            descuento = d.getPorcentaje();
-//
-//                            MENU.setSelectedIndex(0);
-//                            INICIO.setSelectedIndex(0);
-//                        }
-//                        base.cerrar();
-//                    }
-//                }
-//            }
-//        });
+        
 //        JTdescuentos.addMouseListener(new MouseAdapter() { //descuentos(4)
 //            @Override
 //            public void mousePressed(MouseEvent Mouse_evt) {
@@ -9317,8 +9314,15 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }
      public void ocultar(int num, boolean visible) {
         switch (num) {
-            case 1: JPcli.setVisible(visible);break;
+            case 3: JPcli.setVisible(visible);
+                break;
         }
+    }
+
+    public void ocultar_paneles() {
+        JPcat.setVisible(false);
+        JPciu.setVisible(false);
+        JPcli.setVisible(false);
     }
 
     public void resumen() {
