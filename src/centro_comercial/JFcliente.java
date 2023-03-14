@@ -249,10 +249,8 @@ public class JFcliente extends javax.swing.JFrame {
         jl_titulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(658, 437));
         setMinimumSize(new java.awt.Dimension(658, 437));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(658, 437));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -380,6 +378,11 @@ public class JFcliente extends javax.swing.JFrame {
         genero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID género:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
         genero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         genero.setMinimumSize(new java.awt.Dimension(201, 52));
+        genero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                generoMouseClicked(evt);
+            }
+        });
         genero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 generoKeyPressed(evt);
@@ -581,6 +584,12 @@ public class JFcliente extends javax.swing.JFrame {
         SISTEMA.MENU.setSelectedIndex(6);
         this.setVisible(false);
     }//GEN-LAST:event_ciudadMouseClicked
+
+    private void generoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generoMouseClicked
+        SISTEMA.MENU.setSelectedIndex(1);
+        SISTEMA.PERSONAS.setSelectedIndex(1);
+        this.setVisible(false);
+    }//GEN-LAST:event_generoMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

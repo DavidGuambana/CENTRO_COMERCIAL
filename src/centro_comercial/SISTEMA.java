@@ -57,15 +57,16 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static int xcolum,xrow;
     
     //instancias de los frames:
-//    public static JFcategoria JFcat = new JFcategoria();
-    public static JFciudad JFciu = new JFciudad();
-    public static JFcliente JFcli = new JFcliente();
+//    public static JFcategoria JFcat = new JFcategoria();//1
+    public static JFciudad JFciu = new JFciudad();//2
+    public static JFcliente JFcli = new JFcliente();//3
+    public static JFgenero JFgen = new JFgenero();//10
 //    public static JFdescuento JFdes = new JFdescuento();
 //    public static JFempleado JFemp = new JFempleado();
 //    public static JFpagos JFpag = new JFpagos();
 //    public static JFproducto JFpro = new JFproducto();
 //    public static JFproveedor JFprov = new JFproveedor();
-    public static JFprovincia JFprovi = new JFprovincia();
+    public static JFprovincia JFprovi = new JFprovincia();//18
 
     public SISTEMA() {
         initComponents();
@@ -4363,7 +4364,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTgen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTgen.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTgen.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTgen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -4470,7 +4471,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTdes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTdes.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTdes.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTdes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -8626,7 +8627,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_genMouseExited
 
     private void reg_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_genActionPerformed
-        // TODO add your handling code here:
+        JFgenero.forma = "registrar";
+        JFgenero.cambiar_diseño();
+        JFgenero.limpiar();
+        JFgen.setVisible(true);
     }//GEN-LAST:event_reg_genActionPerformed
 
     private void mod_genMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_genMouseEntered
@@ -8638,7 +8642,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_genMouseExited
 
     private void mod_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_genActionPerformed
-        // TODO add your handling code here:
+        if (JPgen.isVisible()) {
+            JFgenero.forma = "modificar";
+            JFgenero.cambiar_diseño();
+            JFgen.llenar(Integer.parseInt(id_gen.getText()));
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_mod_genActionPerformed
 
     private void BdesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BdesMouseClicked
@@ -8984,6 +8995,30 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 }
             });
             
+            JTgen.addMouseListener(new MouseAdapter() { //género - 10
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTgen.getValueAt(JTgen.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"GENERO WHERE ID="+pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            id_gen.setText(""+rs.getInt(1));
+                            sexo_gen.setText(rs.getString(2));
+                            ver_panel(10,true);
+                        } catch (SQLException ex) {
+                        }
+                    }
+                    if (Mouse_evt.getClickCount() == 2) {
+                        JFcliente.genero.setText(id_gen.getText());
+                        MENU.setSelectedIndex(1);
+                        PERSONAS.setSelectedIndex(0);
+                        JFcli.setVisible(true);
+                    }
+                }
+            });
+            
             JTprovi.addMouseListener(new MouseAdapter() { //provincia - 18
                 @Override
                 public void mousePressed(MouseEvent Mouse_evt) {
@@ -9310,6 +9345,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                  break;
              case 3: JPcli.setVisible(visible);
                  break;
+             case 10:JPgen.setVisible(visible);
+                 break;
              case 18:JPprovi.setVisible(visible);
                  break;
          }
@@ -9321,7 +9358,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JPcli.setVisible(false);
         
         
-        
+        JPgen.setVisible(false);
         
         JPprovi.setVisible(false);
     }
@@ -9647,7 +9684,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel Lpue;
     private javax.swing.JLabel Lsuc;
     public static javax.swing.JTabbedPane MENU;
-    private javax.swing.JTabbedPane PERSONAS;
+    public static javax.swing.JTabbedPane PERSONAS;
     private javax.swing.JPanel R1;
     private javax.swing.JLabel R1_A1;
     private javax.swing.JLabel R1_A2;

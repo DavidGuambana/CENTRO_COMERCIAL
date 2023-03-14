@@ -195,7 +195,7 @@ public class JFciudad extends javax.swing.JFrame {
                 this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();
-                JOptionPane.showMessageDialog(null, "¡Error al registrar!");
+                JOptionPane.showMessageDialog(null, "¡Error al modificar!");
             }
         }
     }

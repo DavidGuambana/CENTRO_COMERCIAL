@@ -7,91 +7,20 @@ import javax.swing.border.TitledBorder;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import otros.validar;
 
-
-
-public class JFprovincia extends javax.swing.JFrame {
-    
-    public static ArrayList <String> provincias = new ArrayList();
-    public static boolean copiado = false;
+public class JFgenero extends javax.swing.JFrame {
     
     public static String forma;
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
     public static final String FK = "Seleccionar...";
-    public JFprovincia() {
+
+    public static String sexo_propio;
+    public JFgenero() {
         initComponents();
         setLocationRelativeTo(null);
-        cargar_provincias();
-    }
-
-    public static void cargar_provincias() {
-        if (!copiado) {
-            for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                provincias.add(jc_provincia.getItemAt(i));
-            }
-            copiado = true;
-        } else {
-            jc_provincia.removeAllItems();
-            for (int i = 0; i < provincias.size(); i++) {
-                jc_provincia.addItem(provincias.get(i));
-            }
-            con = (Connection) conexion.conectar();
-            if (con != null) {
-                try {
-                    ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA");
-                    rs = ps.executeQuery();
-                    while (rs.next()) {
-                        for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                            if (rs.getString(2).equals(jc_provincia.getItemAt(i))) {
-                                jc_provincia.removeItemAt(i);
-                            }
-                        }
-
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(JFprovincia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-    }
-
-    public static void cargar_provincias_mod(String provincia) {
-        if (!copiado) {
-            for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                provincias.add(jc_provincia.getItemAt(i));
-            }
-            copiado = true;
-        } else {
-            jc_provincia.removeAllItems();
-            for (int i = 0; i < provincias.size(); i++) {
-                jc_provincia.addItem(provincias.get(i));
-            }
-
-            con = (Connection) conexion.conectar();
-            if (con != null) {
-                try {
-                    ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA");
-                    rs = ps.executeQuery();
-                    while (rs.next()) {
-                        for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                            if (rs.getString(2).equals(jc_provincia.getItemAt(i)) && !jc_provincia.getItemAt(i).equals(provincia)) {
-                                jc_provincia.removeItemAt(i);
-                            }
-                        }
-
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(JFprovincia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
     }
 
     public static void cambiar_diseño() {
@@ -103,13 +32,13 @@ public class JFprovincia extends javax.swing.JFrame {
             id.setVisible(false);
             jlid.setVisible(false);
             color = new Color(51,51,51);
-            jl_titulo.setText("Registrar provincia");
+            jl_titulo.setText("Registrar género");
             jb_Ejecutar.setText("¡Registrar!");
         } else if(forma.equals("modificar")){
             id.setVisible(true);
             jlid.setVisible(true);
             color = new Color(0, 153, 255);
-            jl_titulo.setText("Modificar provincia");
+            jl_titulo.setText("Modificar género");
             jb_Ejecutar.setText("¡Modificar!");
         }
         jb_Ejecutar.setBackground(color);
@@ -118,7 +47,7 @@ public class JFprovincia extends javax.swing.JFrame {
         for (int i = 1; i <= 1; i++) {
             switch (i) {
                 case 1:
-                    titulo = "Provincia:";
+                    titulo = "Sexo:";
                     break;
             }
             tb = new TitledBorder(titulo);
@@ -128,28 +57,29 @@ public class JFprovincia extends javax.swing.JFrame {
             tb.setTitleFont(font);
             switch (i) {
                 case 1:
-                    jc_provincia.setBorder(tb);
+                    sexo.setBorder(tb);
                     break;
             }
         }
     }
     public static void limpiar(){
-        jc_provincia.setSelectedIndex(0);
+        sexo.setText("");
     }
 
     public void llenar(int PK) {
         con =  (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA WHERE ID=" + PK);
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE ID=" + PK);
                 rs = ps.executeQuery();
                 rs.next();
-                jc_provincia.setSelectedItem(rs.getString(2));
+                sexo.setText(rs.getString(2).toUpperCase());
+                sexo_propio = rs.getString(2).toUpperCase();
                 id.setText(String.valueOf(""+rs.getInt(1)));
                 this.setVisible(true);
             } catch (SQLException e) {
                 getToolkit().beep();
-                JOptionPane.showMessageDialog(rootPane, "¡La provincia '" + PK + "' no existe!");
+                JOptionPane.showMessageDialog(rootPane, "¡El género '" + PK + "' no existe!");
             }
         }
     }
@@ -158,12 +88,18 @@ public class JFprovincia extends javax.swing.JFrame {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("INSERT INTO PROVINCIA (NOMBRE) VALUES (?)");
-                ps.setString(1, jc_provincia.getSelectedItem().toString());
-                ps.executeUpdate(); //Ejecuta la consulta
-                JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                SISTEMA.actualizado = false;
-                this.dispose();
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE SEXO='" + sexo.getText().toUpperCase()+"'");
+                if (ps.executeQuery().next()) {
+                    JOptionPane.showMessageDialog(null, "¡El sexo '"+sexo.getText().toUpperCase()+"' ya esta en uso!");
+                } else {
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO GENERO (SEXO) VALUES (?)");
+                    ps.setString(1, sexo.getText().toUpperCase());
+                    ps.executeUpdate(); //Ejecuta la consulta
+                    JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
+                    SISTEMA.actualizado = false;
+                    this.dispose();
+                }
+                
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al registrar!");
@@ -175,13 +111,18 @@ public class JFprovincia extends javax.swing.JFrame {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("UPDATE PROVINCIA SET NOMBRE=? WHERE ID=?");
-                ps.setString(1, jc_provincia.getSelectedItem().toString());
-                ps.setInt(2, Integer.parseInt(id.getText()));
-                ps.executeUpdate(); //ejecuta la consulta
-                JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                SISTEMA.actualizado = false;
-                this.dispose();
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE SEXO='" + sexo.getText().toUpperCase()+"'");
+                if (ps.executeQuery().next() && !sexo.getText().toUpperCase().equals(sexo_propio)) {
+                    JOptionPane.showMessageDialog(null, "¡El sexo '" + sexo.getText().toUpperCase() + "' ya esta en uso!");
+                } else {
+                    ps = (PreparedStatement) con.prepareStatement("UPDATE GENERO SET SEXO=? WHERE ID=?");
+                    ps.setString(1, sexo.getText().toUpperCase());
+                    ps.setInt(2, Integer.parseInt(id.getText()));
+                    ps.executeUpdate(); //ejecuta la consulta
+                    JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
+                    SISTEMA.actualizado = false;
+                    this.dispose();
+                }
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al modificar!");
@@ -199,9 +140,9 @@ public class JFprovincia extends javax.swing.JFrame {
         jl_titulo = new javax.swing.JLabel();
         jp_2 = new javax.swing.JPanel();
         jb_Ejecutar = new javax.swing.JButton();
-        jc_provincia = new javax.swing.JComboBox<>();
         jlid = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
+        sexo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -223,7 +164,7 @@ public class JFprovincia extends javax.swing.JFrame {
 
         jl_titulo.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         jl_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        jl_titulo.setText("Registrar provincia");
+        jl_titulo.setText("Registrar género");
 
         javax.swing.GroupLayout jp_1Layout = new javax.swing.GroupLayout(jp_1);
         jp_1.setLayout(jp_1Layout);
@@ -259,10 +200,6 @@ public class JFprovincia extends javax.swing.JFrame {
             }
         });
 
-        jc_provincia.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jc_provincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Azuay", "Bolívar", "Cañar", "Carchi", "Chimborazo", "Cotopaxi", "El Oro", "Esmeraldas", "Galápagos", "Guayas", "Imbabura", "Loja", "Los Rios", "Manabí ", "Morona Santiago", "Napo", "Orellana", "Pastaza", "Pichincha", "Santa Elena", "Santo Domingo de los Tsáchilas", "Sucumbíos", "Tungurahua", "Zamora Chinchipe" }));
-        jc_provincia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Provincia:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-
         jlid.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jlid.setForeground(new java.awt.Color(0, 204, 102));
         jlid.setText("Código:");
@@ -270,30 +207,37 @@ public class JFprovincia extends javax.swing.JFrame {
         id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         id.setText("000");
 
+        sexo.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        sexo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sexo:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        sexo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sexoKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jp_2Layout = new javax.swing.GroupLayout(jp_2);
         jp_2.setLayout(jp_2Layout);
         jp_2Layout.setHorizontalGroup(
             jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_2Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
-                        .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jp_2Layout.createSequentialGroup()
-                                .addComponent(jlid)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(126, 126, 126))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
-                        .addComponent(jc_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                .addContainerGap(132, Short.MAX_VALUE)
+                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jp_2Layout.createSequentialGroup()
+                        .addComponent(jlid)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(126, 126, 126))
+            .addGroup(jp_2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jp_2Layout.setVerticalGroup(
             jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jc_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(id)
@@ -329,7 +273,7 @@ public class JFprovincia extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-        if (jc_provincia.getSelectedIndex() == 0) {
+        if (sexo.getText().equals("")) {
             getToolkit().beep();
             JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
@@ -341,6 +285,10 @@ public class JFprovincia extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
+
+    private void sexoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sexoKeyPressed
+        validar.V_letras(sexo,20);
+    }//GEN-LAST:event_sexoKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -356,14 +304,142 @@ public class JFprovincia extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFgenero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFgenero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFgenero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFgenero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -497,7 +573,7 @@ public class JFprovincia extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             
             public void run() {
-                new JFprovincia().setVisible(true);
+                new JFgenero().setVisible(true);
             }
         });
     }
@@ -505,11 +581,11 @@ public class JFprovincia extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel id;
     public static javax.swing.JButton jb_Ejecutar;
-    public static javax.swing.JComboBox<String> jc_provincia;
     private javax.swing.JLabel jl_cerrar;
     public static javax.swing.JLabel jl_titulo;
     private static javax.swing.JLabel jlid;
     public static javax.swing.JPanel jp_1;
     private javax.swing.JPanel jp_2;
+    public static javax.swing.JTextField sexo;
     // End of variables declaration//GEN-END:variables
 }
