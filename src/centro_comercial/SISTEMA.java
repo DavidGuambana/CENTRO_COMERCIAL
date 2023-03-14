@@ -30,6 +30,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static ResultSet rs;
     public static PreparedStatement ps;
     public static String consulta = "";
+    public static String consulta2 = "";
     //variables que guardan el número de registros:
     public static int cat, ciu, cli, dep, des, det, emp, enc, fp, gen, iva, mar, pe, pag, per, pro, prov, provi, pue, suc;
 
@@ -109,11 +110,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "categoria");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getString(3)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3)});
                             }
                             JTcat.setModel(tabla);
                             cat = tabla.getRowCount();
-                            res_cat.setText("Resultados: "+cat+" de "+cat);
+                            res_cat.setText("Resultados: " + cat + " de " + cat);
                             break;
                         case 2://ciudad
                             String[] c_ciu = {"ID", "NOMBRE", "ID_PROVI"};
@@ -121,11 +122,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "ciudad");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3)});
                             }
                             JTciu.setModel(tabla);
                             ciu = tabla.getRowCount();
-                            res_ciu.setText("Resultados: "+ciu+" de "+ciu);
+                            res_ciu.setText("Resultados: " + ciu + " de " + ciu);
                             break;
                         case 3://cliente
                             String[] c_cli = {"ID", "CÉDULA_PER", "ID_DES"};
@@ -133,11 +134,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "cliente");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3)});
                             }
                             JTcli.setModel(tabla);
                             cli = tabla.getRowCount();
-                            res_cli.setText("Resultados: "+cli+" de "+cli);
+                            res_cli.setText("Resultados: " + cli + " de " + cli);
                             break;
                         case 4://departamento
                             String[] c_dep = {"ID", "NOMBRE", "DESCRIPCIÓN"};
@@ -145,11 +146,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "departamento");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getString(3)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3)});
                             }
                             JTdep.setModel(tabla);
                             dep = tabla.getRowCount();
-                            res_dep.setText("Resultados: "+dep+" de "+dep);
+                            res_dep.setText("Resultados: " + dep + " de " + dep);
                             break;
                         case 5://descuento
                             String[] c_des = {"ID", "NOMBRE", "PORCENTAJE"};
@@ -157,11 +158,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "descuento");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3)});
                             }
                             JTdes.setModel(tabla);
                             des = tabla.getRowCount();
-                            res_des.setText("Resultados: "+des+" de "+des);
+                            res_des.setText("Resultados: " + des + " de " + des);
                             break;
                         case 6://detalle_fac
                             String[] c_det = {"CÓDIGO", "CÓDIGO_PRO", "CANTIDAD", "SUBTOTAL", "CÓDIGO_ENC"};
@@ -169,23 +170,23 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "detalle_fac JOIN encabezado_fac WHERE encabezado_fac.ESTADO = 'ACTIVO'");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2),rs.getInt(3),rs.getDouble(4),rs.getInt(5)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4), rs.getInt(5)});
                             }
                             JTdet.setModel(tabla);
                             det = tabla.getRowCount();
-                            res_det.setText("Resultados: "+det+" de "+det);
+                            res_det.setText("Resultados: " + det + " de " + det);
                             break;
                         case 7://empleado
-                            String[] c_emp = {"ID", "CÉDULA_PER", "ID_DEP","ID_PUE"};
+                            String[] c_emp = {"ID", "CÉDULA_PER", "ID_DEP", "ID_PUE"};
                             tabla = new DefaultTableModel(null, c_emp);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "EMPLEADO");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(4),rs.getInt(5)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5)});
                             }
                             JTemp.setModel(tabla);
                             emp = tabla.getRowCount();
-                            res_emp.setText("Resultados: "+emp+" de "+emp);
+                            res_emp.setText("Resultados: " + emp + " de " + emp);
                             break;
                         case 8://encabezado_fac
                             String[] c_enc = {"CODIGO", "ID_SUC", "ID_EMP", "ID_CLI", "FECHA_REG", "ESTADO"};
@@ -193,11 +194,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "encabezado_fac WHERE ESTADO = 'ACTIVO'");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2),rs.getInt(3),rs.getInt(4),fechas.transformar(rs.getDate(5)), rs.getString(6)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), fechas.transformar(rs.getDate(5)), rs.getString(6)});
                             }
                             JTenc.setModel(tabla);
                             enc = tabla.getRowCount();
-                            res_enc.setText("Resultados: "+enc+" de "+enc);
+                            res_enc.setText("Resultados: " + enc + " de " + enc);
                             break;
                         case 9://forma_pago
                             String[] c_fp = {"ID", "NOMBRE"};
@@ -209,7 +210,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             }
                             JTfp.setModel(tabla);
                             fp = tabla.getRowCount();
-                            res_fp.setText("Resultados: "+fp+" de "+fp);
+                            res_fp.setText("Resultados: " + fp + " de " + fp);
                             break;
                         case 10://genero
                             String[] c_gen = {"ID", "SEXO"};
@@ -221,7 +222,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             }
                             JTgen.setModel(tabla);
                             gen = tabla.getRowCount();
-                            res_gen.setText("Resultados: "+gen+" de "+gen);
+                            res_gen.setText("Resultados: " + gen + " de " + gen);
                             break;
                         case 11://iva
                             String[] c_iva = {"ID", "IMPUESTO"};
@@ -233,7 +234,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             }
                             JTiva.setModel(tabla);
                             iva = tabla.getRowCount();
-                            res_iva.setText("Resultados: "+iva+" de "+iva);
+                            res_iva.setText("Resultados: " + iva + " de " + iva);
                             break;
                         case 12://marca
                             String[] c_mar = {"ID", "NOMBRE"};
@@ -245,7 +246,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             }
                             JTmar.setModel(tabla);
                             mar = tabla.getRowCount();
-                            res_mar.setText("Resultados: "+mar+" de "+mar);
+                            res_mar.setText("Resultados: " + mar + " de " + mar);
                             break;
                         case 13://pago_empleado
                             String[] c_pe = {"NUMERO", "ID_REMITENTE", "ID_DESTINATARIO", "TOTAL", "FECHA_REG"};
@@ -257,7 +258,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             }
                             JTpe.setModel(tabla);
                             pe = tabla.getRowCount();
-                            res_pe.setText("Resultados: "+pe+" de "+pe);
+                            res_pe.setText("Resultados: " + pe + " de " + pe);
                             break;
                         case 14://pago_fac
                             String[] c_pf = {"NUMERO", "TOTAL_SIN_IVA", "ID_FOR", "ID_IVA", "TOTAL_MAS_IVA", "CODIGO_ENC"};
@@ -269,7 +270,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             }
                             JTpag.setModel(tabla);
                             pag = tabla.getRowCount();
-                            res_pag.setText("Resultados: "+pag+" de "+pag);
+                            res_pag.setText("Resultados: " + pag + " de " + pag);
                             break;
                         case 15://persona
                             String[] c_per = {"CEDULA", "NOMBRE", "APELLIDO", "FECHA_NAC", "ID_SEXO", "CELULAR", "EMAIL", "DIRECCION", "ID_CIUDAD", "FECHA_REG"};
@@ -277,12 +278,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "persona");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), fechas.transformar(rs.getDate(4)), 
-                                    rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9),fechas.transformar(rs.getDate(10))});
+                                tabla.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), fechas.transformar(rs.getDate(4)),
+                                    rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9), fechas.transformar(rs.getDate(10))});
                             }
                             JTper.setModel(tabla);
                             per = tabla.getRowCount();
-                            res_per.setText("Resultados: "+per+" de "+per);
+                            res_per.setText("Resultados: " + per + " de " + per);
                             break;
                         case 16://producto
                             String[] c_pro = {"CODIGO", "NOMBRE", "ID_MAR", "PRECIO", "EXIS_MAX", "EXIS_MIN", "STOK", "ID_CAT", "FECHA_REG", "RUC_PROV"};
@@ -290,12 +291,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "producto");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(4),rs.getDouble(5),rs.getInt(6),
-                                    rs.getInt(7),rs.getInt(8),rs.getInt(9),fechas.transformar(rs.getDate(10)),rs.getInt(11)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDouble(5), rs.getInt(6),
+                                    rs.getInt(7), rs.getInt(8), rs.getInt(9), fechas.transformar(rs.getDate(10)), rs.getInt(11)});
                             }
                             JTpro.setModel(tabla);
                             pro = tabla.getRowCount();
-                            res_pro.setText("Resultados: "+pro+" de "+pro);
+                            res_pro.setText("Resultados: " + pro + " de " + pro);
                             break;
                         case 17://proveedor
                             String[] c_prov = {"RUC", "NOMBRE_EMPRESA", "CELULAR", "EMAIL", "ID_CIU", "FECHA_REG"};
@@ -303,11 +304,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "proveedor");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),fechas.transformar(rs.getDate(6))});
+                                tabla.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), fechas.transformar(rs.getDate(6))});
                             }
                             JTprov.setModel(tabla);
                             prov = tabla.getRowCount();
-                            res_prov.setText("Resultados: "+prov+" de "+prov);
+                            res_prov.setText("Resultados: " + prov + " de " + prov);
                             break;
                         case 18://provincia
                             String[] c_provi = {"ID", "NOMBRE"};
@@ -319,7 +320,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             }
                             JTprovi.setModel(tabla);
                             provi = tabla.getRowCount();
-                            res_provi.setText("Resultados: "+provi+" de "+provi);
+                            res_provi.setText("Resultados: " + provi + " de " + provi);
                             break;
                         case 19://puesto
                             String[] c_pue = {"ID", "NOMBRE", "SUELDO"};
@@ -327,11 +328,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "puesto");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getDouble(3)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getDouble(3)});
                             }
                             JTpue.setModel(tabla);
                             pue = tabla.getRowCount();
-                            res_pue.setText("Resultados: "+pue+" de "+pue);
+                            res_pue.setText("Resultados: " + pue + " de " + pue);
                             break;
                         case 20://sucursal
                             String[] c_suc = {"ID", "NOMBRE", "ID_CIU"};
@@ -339,17 +340,19 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta + "sucursal");
                             rs = ps.executeQuery();
                             while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2),rs.getInt(3)});
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3)});
                             }
                             JTsuc.setModel(tabla);
                             suc = tabla.getRowCount();
-                            res_suc.setText("Resultados: "+suc+" de "+suc);
+                            res_suc.setText("Resultados: " + suc + " de " + suc);
                             break;
                     }
                 }
-                
             } catch (Exception e) {
                 System.out.println(e);
+                System.out.println("a");
+            } finally {
+                conexion.desconectar();
             }
         }
     }
@@ -366,8 +369,40 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
 
     //método para eliminar registros de la base de datos:
     public void eliminar(int clase) {
-//        if (JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea continuar con esta acción?", "Eliminar registro", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
-//            boolean eliminado = true;
+        if (JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea continuar con esta acción?", "Eliminar registro", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+            if (conexion.conectar() != null) {
+                boolean eliminado = true;
+                boolean fk = true;
+                consulta = "SELECT * FROM ";
+                consulta2 = "DELETE FROM ";
+                try {
+                    switch (clase) {
+                        case 1://categoria
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"producto WHERE ID_CAT = "+id_cat.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar la categoría ya que se encuentra asignado a un producto!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2+"categoria WHERE ID = "+Integer.valueOf(id_cat.getText()));
+                                ps.executeQuery();
+                            }
+                            break;
+                    }
+                } catch (Exception e) {
+                    eliminado = false;
+                    getToolkit().beep();
+                    JOptionPane.showMessageDialog(rootPane, "¡Registro no existente!", null, JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    if (eliminado) {
+                        JOptionPane.showMessageDialog(null, "¡Eliminado correctamente!");
+                    }
+                    ocultar(clase, false);
+                    conexion.desconectar();
+                    visualizar();
+                }
+            }
+        }
+
 //            try {
 //                base.abrir();
 //                switch (clase) {
@@ -7990,7 +8025,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             reiniciar_factura(); //por precaución
         } else {
             getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
     }//GEN-LAST:event_mod_cliActionPerformed
 
