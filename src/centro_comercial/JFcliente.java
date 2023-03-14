@@ -351,6 +351,11 @@ public class JFcliente extends javax.swing.JFrame {
                 ciudadMouseClicked(evt);
             }
         });
+        ciudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ciudadActionPerformed(evt);
+            }
+        });
         ciudad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 ciudadKeyPressed(evt);
@@ -590,6 +595,10 @@ public class JFcliente extends javax.swing.JFrame {
         SISTEMA.PERSONAS.setSelectedIndex(1);
         this.setVisible(false);
     }//GEN-LAST:event_generoMouseClicked
+
+    private void ciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ciudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ciudadActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

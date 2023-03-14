@@ -9034,7 +9034,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         } catch (SQLException ex) {
                         }
                     }
-                    
+                    if (Mouse_evt.getClickCount() == 2) {
+                        JFciudad.jt_provincia.setText(id_provi.getText());
+                        JFciu.setVisible(true);
+                    }
                 }
             });
             
