@@ -369,6 +369,16 @@ public class JFcliente extends javax.swing.JFrame {
         descuento.setText("Seleccionar...");
         descuento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID descuento:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
         descuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        descuento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                descuentoMouseClicked(evt);
+            }
+        });
+        descuento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descuentoActionPerformed(evt);
+            }
+        });
         descuento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 descuentoKeyPressed(evt);
@@ -599,6 +609,16 @@ public class JFcliente extends javax.swing.JFrame {
     private void ciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ciudadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ciudadActionPerformed
+
+    private void descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descuentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descuentoActionPerformed
+
+    private void descuentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_descuentoMouseClicked
+        SISTEMA.MENU.setSelectedIndex(1);
+        SISTEMA.PERSONAS.setSelectedIndex(1);
+        this.setVisible(false);
+    }//GEN-LAST:event_descuentoMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

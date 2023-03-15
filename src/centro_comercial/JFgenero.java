@@ -15,7 +15,6 @@ public class JFgenero extends javax.swing.JFrame {
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
-    public static final String FK = "Seleccionar...";
 
     public static String sexo_propio;
     public JFgenero() {
@@ -24,17 +23,16 @@ public class JFgenero extends javax.swing.JFrame {
     }
 
     public static void cambiar_diseño() {
-        String titulo = "";
         Color color = null;
         Font font = new Font("Yu Gothic UI Light", 0, 14);
         TitledBorder tb;
         if (forma.equals("registrar")) {
             id.setVisible(false);
             jlid.setVisible(false);
-            color = new Color(51,51,51);
+            color = new Color(51, 51, 51);
             jl_titulo.setText("Registrar género");
             jb_Ejecutar.setText("¡Registrar!");
-        } else if(forma.equals("modificar")){
+        } else if (forma.equals("modificar")) {
             id.setVisible(true);
             jlid.setVisible(true);
             color = new Color(0, 153, 255);
@@ -43,24 +41,13 @@ public class JFgenero extends javax.swing.JFrame {
         }
         jb_Ejecutar.setBackground(color);
         jp_1.setBackground(color);
+        tb = new TitledBorder("Sexo:");
+        tb.setTitleJustification(0);
+        tb.setTitlePosition(1);
+        tb.setTitleColor(color);
+        tb.setTitleFont(font);
+        sexo.setBorder(tb);
 
-        for (int i = 1; i <= 1; i++) {
-            switch (i) {
-                case 1:
-                    titulo = "Sexo:";
-                    break;
-            }
-            tb = new TitledBorder(titulo);
-            tb.setTitleJustification(0);
-            tb.setTitlePosition(1);
-            tb.setTitleColor(color);
-            tb.setTitleFont(font);
-            switch (i) {
-                case 1:
-                    sexo.setBorder(tb);
-                    break;
-            }
-        }
     }
     public static void limpiar(){
         sexo.setText("");
@@ -75,7 +62,7 @@ public class JFgenero extends javax.swing.JFrame {
                 rs.next();
                 sexo.setText(rs.getString(2).toUpperCase());
                 sexo_propio = rs.getString(2).toUpperCase();
-                id.setText(String.valueOf(""+rs.getInt(1)));
+                id.setText(""+rs.getInt(1));
                 this.setVisible(true);
             } catch (SQLException e) {
                 getToolkit().beep();
@@ -90,7 +77,7 @@ public class JFgenero extends javax.swing.JFrame {
             try {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE SEXO='" + sexo.getText().toUpperCase()+"'");
                 if (ps.executeQuery().next()) {
-                    JOptionPane.showMessageDialog(null, "¡El sexo '"+sexo.getText().toUpperCase()+"' ya esta en uso!");
+                    JOptionPane.showMessageDialog(null, "¡El sexo '"+sexo.getText().toUpperCase()+"' ya está en uso!");
                 } else {
                     ps = (PreparedStatement) con.prepareStatement("INSERT INTO GENERO (SEXO) VALUES (?)");
                     ps.setString(1, sexo.getText().toUpperCase());
@@ -113,7 +100,7 @@ public class JFgenero extends javax.swing.JFrame {
             try {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE SEXO='" + sexo.getText().toUpperCase()+"'");
                 if (ps.executeQuery().next() && !sexo.getText().toUpperCase().equals(sexo_propio)) {
-                    JOptionPane.showMessageDialog(null, "¡El sexo '" + sexo.getText().toUpperCase() + "' ya esta en uso!");
+                    JOptionPane.showMessageDialog(null, "¡El sexo '" + sexo.getText().toUpperCase() + "' ya está en uso!");
                 } else {
                     ps = (PreparedStatement) con.prepareStatement("UPDATE GENERO SET SEXO=? WHERE ID=?");
                     ps.setString(1, sexo.getText().toUpperCase());
@@ -148,7 +135,6 @@ public class JFgenero extends javax.swing.JFrame {
         setUndecorated(true);
 
         jp_1.setBackground(new java.awt.Color(0, 204, 102));
-        jp_1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jp_1.setPreferredSize(new java.awt.Dimension(560, 40));
 
         jl_cerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
@@ -186,7 +172,6 @@ public class JFgenero extends javax.swing.JFrame {
         );
 
         jp_2.setBackground(new java.awt.Color(255, 255, 255));
-        jp_2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jp_2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jb_Ejecutar.setBackground(new java.awt.Color(0, 204, 102));

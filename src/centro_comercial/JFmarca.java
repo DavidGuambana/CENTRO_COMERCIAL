@@ -4,97 +4,25 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
+import otros.validar;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+public class JFmarca extends javax.swing.JFrame {
 
-
-public class JFprovincia extends javax.swing.JFrame {
-    
-    public static ArrayList <String> provincias = new ArrayList();
-    public static boolean copiado = false;
-    
     public static String forma;
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
-    public JFprovincia() {
+    
+    public static String nombre_propio;
+    public JFmarca() {
         initComponents();
         setLocationRelativeTo(null);
-        cargar_provincias();
     }
-
-    public static void cargar_provincias() {
-        if (!copiado) {
-            for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                provincias.add(jc_provincia.getItemAt(i));
-            }
-            copiado = true;
-        } else {
-            jc_provincia.removeAllItems();
-            for (int i = 0; i < provincias.size(); i++) {
-                jc_provincia.addItem(provincias.get(i));
-            }
-            con = (Connection) conexion.conectar();
-            if (con != null) {
-                try {
-                    ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA");
-                    rs = ps.executeQuery();
-                    while (rs.next()) {
-                        for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                            if (rs.getString(2).equals(jc_provincia.getItemAt(i))) {
-                                jc_provincia.removeItemAt(i);
-                            }
-                        }
-
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(JFprovincia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-    }
-
-    public static void cargar_provincias_mod(String provincia) {
-        if (!copiado) {
-            for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                provincias.add(jc_provincia.getItemAt(i));
-            }
-            copiado = true;
-        } else {
-            jc_provincia.removeAllItems();
-            for (int i = 0; i < provincias.size(); i++) {
-                jc_provincia.addItem(provincias.get(i));
-            }
-
-            con = (Connection) conexion.conectar();
-            if (con != null) {
-                try {
-                    ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA");
-                    rs = ps.executeQuery();
-                    while (rs.next()) {
-                        for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                            if (rs.getString(2).equals(jc_provincia.getItemAt(i)) && !jc_provincia.getItemAt(i).equals(provincia)) {
-                                jc_provincia.removeItemAt(i);
-                            }
-                        }
-
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(JFprovincia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-    }
-
+    
     public static void cambiar_diseño() {
-        String titulo = "";
         Color color = null;
         Font font = new Font("Yu Gothic UI Light", 0, 14);
         TitledBorder tb;
@@ -102,53 +30,46 @@ public class JFprovincia extends javax.swing.JFrame {
             id.setVisible(false);
             jlid.setVisible(false);
             color = new Color(51,51,51);
-            jl_titulo.setText("Registrar provincia");
+            jl_titulo.setText("Registrar Marca");
             jb_Ejecutar.setText("¡Registrar!");
         } else if(forma.equals("modificar")){
             id.setVisible(true);
             jlid.setVisible(true);
             color = new Color(0, 153, 255);
-            jl_titulo.setText("Modificar provincia");
+            jl_titulo.setText("Modificar Marca");
             jb_Ejecutar.setText("¡Modificar!");
         }
         jb_Ejecutar.setBackground(color);
         jp_1.setBackground(color);
+        tb = new TitledBorder("Nombre:");
+        tb.setTitleJustification(0);
+        tb.setTitlePosition(1);
+        tb.setTitleColor(color);
+        tb.setTitleFont(font);
+        jt_nombre.setBorder(tb);
 
-        for (int i = 1; i <= 1; i++) {
-            switch (i) {
-                case 1:
-                    titulo = "Provincia:";
-                    break;
-            }
-            tb = new TitledBorder(titulo);
-            tb.setTitleJustification(0);
-            tb.setTitlePosition(1);
-            tb.setTitleColor(color);
-            tb.setTitleFont(font);
-            switch (i) {
-                case 1:
-                    jc_provincia.setBorder(tb);
-                    break;
-            }
-        }
     }
     public static void limpiar(){
-        jc_provincia.setSelectedIndex(0);
+        jt_nombre.setText("");
+        
+        id.setText("000");
+        
     }
 
     public void llenar(int PK) {
         con =  (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA WHERE ID=" + PK);
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM MARCA WHERE ID=" + PK);
                 rs = ps.executeQuery();
                 rs.next();
-                jc_provincia.setSelectedItem(rs.getString(2));
-                id.setText(String.valueOf(""+rs.getInt(1)));
+                id.setText(""+rs.getInt(1));
+                jt_nombre.setText(rs.getString(2).toUpperCase());
+                nombre_propio = rs.getString(2).toUpperCase();
                 this.setVisible(true);
             } catch (SQLException e) {
                 getToolkit().beep();
-                JOptionPane.showMessageDialog(rootPane, "¡La provincia '" + PK + "' no existe!");
+                JOptionPane.showMessageDialog(rootPane, "¡La marca '" + PK + "' no existe!");
             }
         }
     }
@@ -157,38 +78,46 @@ public class JFprovincia extends javax.swing.JFrame {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("INSERT INTO PROVINCIA (NOMBRE) VALUES (?)");
-                ps.setString(1, jc_provincia.getSelectedItem().toString());
-                ps.executeUpdate(); //Ejecuta la consulta
-                JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                SISTEMA.actualizado = false;
-                this.dispose();
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM MARCA WHERE NOMBRE='" + jt_nombre.getText().toUpperCase() + "'");
+                if (ps.executeQuery().next()) {
+                    JOptionPane.showMessageDialog(null, "¡La marca '" + jt_nombre.getText().toUpperCase() + "' ya está en uso!");
+                } else {
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO MARCA (NOMBRE) VALUES (?)");
+                    ps.setString(1, jt_nombre.getText().toUpperCase());
+                    ps.executeUpdate(); //Ejecuta la consulta
+                    JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
+                    SISTEMA.actualizado = false;
+                    this.dispose();
+                }
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al registrar!");
             }
         }
-
     }
     public void modificar(){
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("UPDATE PROVINCIA SET NOMBRE=? WHERE ID=?");
-                ps.setString(1, jc_provincia.getSelectedItem().toString());
-                ps.setInt(2, Integer.parseInt(id.getText()));
-                ps.executeUpdate(); //ejecuta la consulta
-                JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                SISTEMA.actualizado = false;
-                this.dispose();
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM MARCA WHERE NOMBRE='" + jt_nombre.getText().toUpperCase()+"'");
+                if (ps.executeQuery().next() && !jt_nombre.getText().toUpperCase().equals(nombre_propio)) {
+                    JOptionPane.showMessageDialog(null, "¡La marca '" + jt_nombre.getText().toUpperCase() + "' ya está en uso!");
+                } else {
+                    ps = (PreparedStatement) con.prepareStatement("UPDATE MARCA SET NOMBRE=? WHERE ID=?");
+                    ps.setString(1, jt_nombre.getText().toUpperCase());
+                    ps.setInt(2, Integer.parseInt(id.getText()));
+                    ps.executeUpdate(); //Ejecuta la consulta
+                    JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
+                    SISTEMA.actualizado = false;
+                    this.dispose();
+                }
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al modificar!");
             }
         }
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -198,9 +127,9 @@ public class JFprovincia extends javax.swing.JFrame {
         jl_titulo = new javax.swing.JLabel();
         jp_2 = new javax.swing.JPanel();
         jb_Ejecutar = new javax.swing.JButton();
-        jc_provincia = new javax.swing.JComboBox<>();
         jlid = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
+        jt_nombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -221,7 +150,7 @@ public class JFprovincia extends javax.swing.JFrame {
 
         jl_titulo.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         jl_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        jl_titulo.setText("Registrar provincia");
+        jl_titulo.setText("Registrar marca");
 
         javax.swing.GroupLayout jp_1Layout = new javax.swing.GroupLayout(jp_1);
         jp_1.setLayout(jp_1Layout);
@@ -256,31 +185,37 @@ public class JFprovincia extends javax.swing.JFrame {
                 jb_EjecutarActionPerformed(evt);
             }
         });
-        jp_2.add(jb_Ejecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 173, 144, 42));
-
-        jc_provincia.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jc_provincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Azuay", "Bolívar", "Cañar", "Carchi", "Chimborazo", "Cotopaxi", "El Oro", "Esmeraldas", "Galápagos", "Guayas", "Imbabura", "Loja", "Los Rios", "Manabí ", "Morona Santiago", "Napo", "Orellana", "Pastaza", "Pichincha", "Santa Elena", "Santo Domingo de los Tsáchilas", "Sucumbíos", "Tungurahua", "Zamora Chinchipe" }));
-        jc_provincia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Provincia:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        jp_2.add(jc_provincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 21, 362, 75));
+        jp_2.add(jb_Ejecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 174, 144, 42));
 
         jlid.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jlid.setForeground(new java.awt.Color(0, 204, 102));
         jlid.setText("Código:");
-        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 114, -1, 29));
+        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 115, -1, 29));
 
         id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         id.setText("000");
-        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 114, 70, -1));
+        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 115, 70, -1));
+
+        jt_nombre.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jt_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        jt_nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jt_nombreActionPerformed(evt);
+            }
+        });
+        jt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jt_nombreKeyPressed(evt);
+            }
+        });
+        jp_2.add(jt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 300, 75));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                    .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(jp_2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,18 +233,26 @@ public class JFprovincia extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-        if (jc_provincia.getSelectedIndex() == 0) {
+        if (jt_nombre.getText().equals("")) {
             getToolkit().beep();
             JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
             if (forma.equals("registrar")) {
                 registrar();
-            } else if (forma.equals("modificar")) {
+            } else if(forma.equals("modificar")){
                 modificar();
             }
         }
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
+
+    private void jt_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyPressed
+        validar.V_letras(jt_nombre,30);
+    }//GEN-LAST:event_jt_nombreKeyPressed
+
+    private void jt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_nombreActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -325,13 +268,13 @@ public class JFprovincia extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFmarca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFmarca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFmarca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFmarca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -464,9 +407,8 @@ public class JFprovincia extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
             public void run() {
-                new JFprovincia().setVisible(true);
+                new JFmarca().setVisible(true);
             }
         });
     }
@@ -474,11 +416,11 @@ public class JFprovincia extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel id;
     public static javax.swing.JButton jb_Ejecutar;
-    public static javax.swing.JComboBox<String> jc_provincia;
     private javax.swing.JLabel jl_cerrar;
     public static javax.swing.JLabel jl_titulo;
     private static javax.swing.JLabel jlid;
     public static javax.swing.JPanel jp_1;
     private javax.swing.JPanel jp_2;
+    public static javax.swing.JTextField jt_nombre;
     // End of variables declaration//GEN-END:variables
 }

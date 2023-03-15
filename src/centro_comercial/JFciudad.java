@@ -219,7 +219,6 @@ public class JFciudad extends javax.swing.JFrame {
         setUndecorated(true);
 
         jp_1.setBackground(new java.awt.Color(0, 204, 102));
-        jp_1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jp_1.setPreferredSize(new java.awt.Dimension(560, 40));
 
         jl_cerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
@@ -257,7 +256,6 @@ public class JFciudad extends javax.swing.JFrame {
         );
 
         jp_2.setBackground(new java.awt.Color(255, 255, 255));
-        jp_2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jp_2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jb_Ejecutar.setBackground(new java.awt.Color(0, 204, 102));

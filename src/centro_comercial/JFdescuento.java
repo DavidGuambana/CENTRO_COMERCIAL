@@ -7,90 +7,23 @@ import javax.swing.border.TitledBorder;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JSpinner;
+import otros.validar;
 
 
 
-public class JFprovincia extends javax.swing.JFrame {
-    
-    public static ArrayList <String> provincias = new ArrayList();
-    public static boolean copiado = false;
+public class JFdescuento extends javax.swing.JFrame {
     
     public static String forma;
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
-    public JFprovincia() {
+    
+    public static String nombre_propio;
+    public JFdescuento() {
         initComponents();
         setLocationRelativeTo(null);
-        cargar_provincias();
-    }
-
-    public static void cargar_provincias() {
-        if (!copiado) {
-            for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                provincias.add(jc_provincia.getItemAt(i));
-            }
-            copiado = true;
-        } else {
-            jc_provincia.removeAllItems();
-            for (int i = 0; i < provincias.size(); i++) {
-                jc_provincia.addItem(provincias.get(i));
-            }
-            con = (Connection) conexion.conectar();
-            if (con != null) {
-                try {
-                    ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA");
-                    rs = ps.executeQuery();
-                    while (rs.next()) {
-                        for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                            if (rs.getString(2).equals(jc_provincia.getItemAt(i))) {
-                                jc_provincia.removeItemAt(i);
-                            }
-                        }
-
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(JFprovincia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-    }
-
-    public static void cargar_provincias_mod(String provincia) {
-        if (!copiado) {
-            for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                provincias.add(jc_provincia.getItemAt(i));
-            }
-            copiado = true;
-        } else {
-            jc_provincia.removeAllItems();
-            for (int i = 0; i < provincias.size(); i++) {
-                jc_provincia.addItem(provincias.get(i));
-            }
-
-            con = (Connection) conexion.conectar();
-            if (con != null) {
-                try {
-                    ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA");
-                    rs = ps.executeQuery();
-                    while (rs.next()) {
-                        for (int i = 0; i < jc_provincia.getItemCount(); i++) {
-                            if (rs.getString(2).equals(jc_provincia.getItemAt(i)) && !jc_provincia.getItemAt(i).equals(provincia)) {
-                                jc_provincia.removeItemAt(i);
-                            }
-                        }
-
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(JFprovincia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
+        ((JSpinner.DefaultEditor) porcentaje.getEditor()).getTextField().setEditable(false);
     }
 
     public static void cambiar_diseño() {
@@ -102,22 +35,25 @@ public class JFprovincia extends javax.swing.JFrame {
             id.setVisible(false);
             jlid.setVisible(false);
             color = new Color(51,51,51);
-            jl_titulo.setText("Registrar provincia");
+            jl_titulo.setText("Registrar descuento");
             jb_Ejecutar.setText("¡Registrar!");
         } else if(forma.equals("modificar")){
             id.setVisible(true);
             jlid.setVisible(true);
             color = new Color(0, 153, 255);
-            jl_titulo.setText("Modificar provincia");
+            jl_titulo.setText("Modificar descuento");
             jb_Ejecutar.setText("¡Modificar!");
         }
         jb_Ejecutar.setBackground(color);
         jp_1.setBackground(color);
 
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= 2; i++) {
             switch (i) {
                 case 1:
-                    titulo = "Provincia:";
+                    titulo = "Nombre:";
+                    break;
+                case 2:
+                    titulo = "Porcentaje (%):";
                     break;
             }
             tb = new TitledBorder(titulo);
@@ -127,60 +63,77 @@ public class JFprovincia extends javax.swing.JFrame {
             tb.setTitleFont(font);
             switch (i) {
                 case 1:
-                    jc_provincia.setBorder(tb);
+                    nombre.setBorder(tb);
+                    break;
+                case 2:
+                    porcentaje.setBorder(tb);
                     break;
             }
         }
     }
     public static void limpiar(){
-        jc_provincia.setSelectedIndex(0);
+        nombre.setText("");
+        porcentaje.setValue(0);
     }
 
     public void llenar(int PK) {
         con =  (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVINCIA WHERE ID=" + PK);
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM DESCUENTO WHERE ID=" + PK);
                 rs = ps.executeQuery();
                 rs.next();
-                jc_provincia.setSelectedItem(rs.getString(2));
                 id.setText(String.valueOf(""+rs.getInt(1)));
+                nombre.setText(rs.getString(2).toUpperCase());
+                nombre_propio = rs.getString(2).toUpperCase();
+                porcentaje.setValue(rs.getInt(3));
                 this.setVisible(true);
             } catch (SQLException e) {
                 getToolkit().beep();
-                JOptionPane.showMessageDialog(rootPane, "¡La provincia '" + PK + "' no existe!");
+                JOptionPane.showMessageDialog(rootPane, "¡El descuento '" + PK + "' no existe!");
             }
         }
     }
-    
+
     public void registrar() {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("INSERT INTO PROVINCIA (NOMBRE) VALUES (?)");
-                ps.setString(1, jc_provincia.getSelectedItem().toString());
-                ps.executeUpdate(); //Ejecuta la consulta
-                JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                SISTEMA.actualizado = false;
-                this.dispose();
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM DESCUENTO WHERE NOMBRE='" + nombre.getText().toUpperCase()+"'");
+                if (ps.executeQuery().next()) {
+                    JOptionPane.showMessageDialog(null, "¡El descuento '"+nombre.getText().toUpperCase()+"' ya está en uso!");
+                } else {
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO DESCUENTO (NOMBRE, PORCENTAJE) VALUES (?,?)");
+                    ps.setString(1, nombre.getText().toUpperCase());
+                    ps.setInt(2, (int) porcentaje.getValue());
+                    ps.executeUpdate(); //Ejecuta la consulta
+                    JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
+                    SISTEMA.actualizado = false;
+                    this.dispose();
+                }
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al registrar!");
             }
         }
-
     }
     public void modificar(){
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("UPDATE PROVINCIA SET NOMBRE=? WHERE ID=?");
-                ps.setString(1, jc_provincia.getSelectedItem().toString());
-                ps.setInt(2, Integer.parseInt(id.getText()));
-                ps.executeUpdate(); //ejecuta la consulta
-                JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                SISTEMA.actualizado = false;
-                this.dispose();
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM DESCUENTO WHERE NOMBRE='" + nombre.getText().toUpperCase()+"'");
+                if (ps.executeQuery().next() && !nombre.getText().toUpperCase().equals(nombre_propio)) {
+                    JOptionPane.showMessageDialog(null, "¡El descuento '" + nombre.getText().toUpperCase() + "' ya está en uso!");
+                } else {
+                    ps = (PreparedStatement) con.prepareStatement("UPDATE DESCUENTO SET NOMBRE=?, PORCENTAJE=? WHERE ID=?");
+                    ps.setString(1, nombre.getText().toUpperCase());
+                    ps.setInt(2, (int) porcentaje.getValue());
+                    ps.setInt(3, Integer.parseInt(id.getText()));
+                    ps.executeUpdate(); //ejecuta la consulta
+                    JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
+                    SISTEMA.actualizado = false;
+                    this.dispose();
+                }
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al modificar!");
@@ -198,7 +151,8 @@ public class JFprovincia extends javax.swing.JFrame {
         jl_titulo = new javax.swing.JLabel();
         jp_2 = new javax.swing.JPanel();
         jb_Ejecutar = new javax.swing.JButton();
-        jc_provincia = new javax.swing.JComboBox<>();
+        nombre = new javax.swing.JTextField();
+        porcentaje = new javax.swing.JSpinner();
         jlid = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
 
@@ -221,7 +175,7 @@ public class JFprovincia extends javax.swing.JFrame {
 
         jl_titulo.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         jl_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        jl_titulo.setText("Registrar provincia");
+        jl_titulo.setText("Registrar descuento");
 
         javax.swing.GroupLayout jp_1Layout = new javax.swing.GroupLayout(jp_1);
         jp_1.setLayout(jp_1Layout);
@@ -229,8 +183,8 @@ public class JFprovincia extends javax.swing.JFrame {
             jp_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jl_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jp_1Layout.setVerticalGroup(
@@ -256,38 +210,68 @@ public class JFprovincia extends javax.swing.JFrame {
                 jb_EjecutarActionPerformed(evt);
             }
         });
-        jp_2.add(jb_Ejecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 173, 144, 42));
+        jp_2.add(jb_Ejecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 267, 144, 42));
 
-        jc_provincia.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jc_provincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Azuay", "Bolívar", "Cañar", "Carchi", "Chimborazo", "Cotopaxi", "El Oro", "Esmeraldas", "Galápagos", "Guayas", "Imbabura", "Loja", "Los Rios", "Manabí ", "Morona Santiago", "Napo", "Orellana", "Pastaza", "Pichincha", "Santa Elena", "Santo Domingo de los Tsáchilas", "Sucumbíos", "Tungurahua", "Zamora Chinchipe" }));
-        jc_provincia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Provincia:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        jp_2.add(jc_provincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 21, 362, 75));
+        nombre.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        nombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre:", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreActionPerformed(evt);
+            }
+        });
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nombreKeyPressed(evt);
+            }
+        });
+        jp_2.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 254, 75));
+
+        porcentaje.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        porcentaje.setModel(new javax.swing.SpinnerNumberModel(0, 0, 15, 1));
+        porcentaje.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Porcentaje (%):", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        porcentaje.setEditor(new javax.swing.JSpinner.NumberEditor(porcentaje, ""));
+        porcentaje.setPreferredSize(new java.awt.Dimension(64, 52));
+        porcentaje.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                porcentajeStateChanged(evt);
+            }
+        });
+        porcentaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                porcentajeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                porcentajeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                porcentajeKeyTyped(evt);
+            }
+        });
+        jp_2.add(porcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, 254, 75));
 
         jlid.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jlid.setForeground(new java.awt.Color(0, 204, 102));
         jlid.setText("Código:");
-        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 114, -1, 29));
+        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 208, -1, 29));
 
         id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         id.setText("000");
-        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 114, 70, -1));
+        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 208, 70, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                    .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+            .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jp_1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
         );
 
         pack();
@@ -298,7 +282,7 @@ public class JFprovincia extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-        if (jc_provincia.getSelectedIndex() == 0) {
+        if (nombre.getText().equals("")) {
             getToolkit().beep();
             JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
@@ -310,6 +294,30 @@ public class JFprovincia extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
+
+    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
+        validar.V_letras_sin_tilde(nombre,30);
+    }//GEN-LAST:event_nombreKeyPressed
+
+    private void porcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_porcentajeStateChanged
+
+    }//GEN-LAST:event_porcentajeStateChanged
+
+    private void porcentajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porcentajeKeyPressed
+
+    }//GEN-LAST:event_porcentajeKeyPressed
+
+    private void porcentajeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porcentajeKeyReleased
+
+    }//GEN-LAST:event_porcentajeKeyReleased
+
+    private void porcentajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porcentajeKeyTyped
+
+    }//GEN-LAST:event_porcentajeKeyTyped
+
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -325,13 +333,13 @@ public class JFprovincia extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFdescuento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFdescuento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFdescuento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFprovincia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFdescuento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -464,9 +472,8 @@ public class JFprovincia extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
             public void run() {
-                new JFprovincia().setVisible(true);
+                new JFdescuento().setVisible(true);
             }
         });
     }
@@ -474,11 +481,12 @@ public class JFprovincia extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel id;
     public static javax.swing.JButton jb_Ejecutar;
-    public static javax.swing.JComboBox<String> jc_provincia;
     private javax.swing.JLabel jl_cerrar;
     public static javax.swing.JLabel jl_titulo;
     private static javax.swing.JLabel jlid;
     public static javax.swing.JPanel jp_1;
     private javax.swing.JPanel jp_2;
+    public static javax.swing.JTextField nombre;
+    public static javax.swing.JSpinner porcentaje;
     // End of variables declaration//GEN-END:variables
 }
