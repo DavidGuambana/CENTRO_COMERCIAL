@@ -41,6 +41,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static boolean actualizado = false;
     public static String pk = "";
     String [] arreglo = {"Cliente", "Empleado", "Proveedor", "Sucursal"};
+    String [] arreglo2 = {"Cliente", "Empleado"};
     DefaultTableModel tabla = null, tabla_detalle = null;
     TableRowSorter sorter;
     public static String modo_prov = "producto";
@@ -388,10 +389,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                                 JOptionPane.showMessageDialog(null, "¡Imposible eliminar la categoría ya que se encuentra asignado a un producto!");
                                 eliminado = false;
                             } else {
-                                ps = (PreparedStatement) con.prepareStatement(consulta2+"categoria WHERE ID = "+Integer.valueOf(id_cat.getText()));
-                                ps.executeQuery();
+                                ps = (PreparedStatement) con.prepareStatement(consulta2+"categoria WHERE ID = "+id_cat.getText());
+                                ps.executeUpdate();
                             }
                             break;
+                            
                     }
                 } catch (Exception e) {
                     eliminado = false;
@@ -1189,6 +1191,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 formWindowGainedFocus(evt);
             }
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -8265,7 +8268,13 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_catMouseExited
 
     private void elim_catActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_catActionPerformed
-        // TODO add your handling code here:
+        if (JPcat.isVisible()) {
+           eliminar(1); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
+        
     }//GEN-LAST:event_elim_catActionPerformed
 
     private void mod_catMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_catMouseEntered
@@ -8964,6 +8973,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_descripcion_depKeyPressed
 
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        actualizado = false;
+    }//GEN-LAST:event_formWindowLostFocus
+
     
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
         bot.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta)));
@@ -9018,13 +9031,18 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         int opcion = JOptionPane.showOptionDialog(null, "¿A dónde desea enviar esta ciudad?", "Enviar ciudad", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo, "Cliente");
                         switch(opcion) {
                             case 0://cliente
-                                JFcliente.ciudad.setText(id_ciu.getText());
+                                JFcliente.FK_ciu = Integer.parseInt(pk);
+                                JFcliente.ciudad.setText(""+pk+" - "+nombre_ciu.getText());
                                 MENU.setSelectedIndex(1);
                                 PERSONAS.setSelectedIndex(0);
                                 JFcli.setVisible(true);
                                 break;
                             case 1://empleado
-
+//                                JFempleado.FK_ciu = Integer.parseInt(pk);
+//                                JFempleado.ciudad.setText(""+pk+" - "+nombre_ciu.getText());
+//                                MENU.setSelectedIndex(1);
+//                                PERSONAS.setSelectedIndex(0);
+//                                JFemp.setVisible(true);
                                 break;
 
                             case 2://proveedor
@@ -9102,7 +9120,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         }
                     }
                     if (Mouse_evt.getClickCount() == 2) {
-                        JFcliente.descuento.setText(id_des.getText());
+                        JFcliente.FK_des = Integer.parseInt(pk);
+                        JFcliente.descuento.setText("" + pk + " - " + nombre_des.getText());
                         MENU.setSelectedIndex(1);
                         PERSONAS.setSelectedIndex(0);
                         JFcli.setVisible(true);
@@ -9126,10 +9145,24 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         }
                     }
                     if (Mouse_evt.getClickCount() == 2) {
-                        JFcliente.genero.setText(id_gen.getText());
-                        MENU.setSelectedIndex(1);
-                        PERSONAS.setSelectedIndex(0);
-                        JFcli.setVisible(true);
+                        int opcion = JOptionPane.showOptionDialog(null, "¿A dónde desea enviar esta género?", "Enviar género", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo2, "Cliente");
+                        switch(opcion) {
+                            case 0://cliente;
+                                JFcliente.FK_gen = Integer.parseInt(pk);
+                                JFcliente.genero.setText(""+pk+" - "+sexo_gen.getText());
+                                MENU.setSelectedIndex(1);
+                                PERSONAS.setSelectedIndex(0);
+                                JFcli.setVisible(true);
+                                break;
+                            case 1://empleado
+//                                JFempleado.FK_gen = Integer.parseInt(pk);
+//                                JFempleado.genero.setText(""+pk+" - "+sexo_gen.getText());
+//                                MENU.setSelectedIndex(1);
+//                                PERSONAS.setSelectedIndex(0);
+//                                JFcli.setVisible(true);
+//                                break;
+
+                        }
                     }
                 }
             });
@@ -9365,207 +9398,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }
 
     public void resumen() {
-        //limpiar_resumen();
-        int clientes_con_fac = 0;
-        int clientes_sin_fac = 0;
         
-        //CLIENTES CON MÁS COMPRAS:
-//        ArrayList clientes_top = new ArrayList<>();
-//        Cliente c = new Cliente(null, null, null, null, null, null, null, null, null, null);
-//        resultado = base.gettear(c);
-//        for (int i = 0; i < resultado.size(); i++) {
-//            c = (Cliente) resultado.next();
-//            Encabezado_fac fac_cli = new Encabezado_fac(0, c.getCedula(), null, 0, "ACTIVO");
-//            ObjectSet res = base.gettear(fac_cli);
-//            if (!res.isEmpty()) {
-//                clientes_con_fac++;
-//                clientes_top.add(new Clientes_Facturas((c.getCedula()), c.getNombre(), c.getApellido(), res.size()));
-//            } else {
-//                clientes_sin_fac++;
-//            }
-//        } //OREDENA DE MAYOR A MENOR DEPENDIENDO EL NÚMERO DE COMPRAS(FACTURAS "ACTIVAS")
-//        Collections.sort(clientes_top, (Clientes_Facturas c1, Clientes_Facturas c2) -> Integer.valueOf(c2.getNum_fac()).compareTo(c1.getNum_fac()));
-//        
-//        for (int i = 1; i <= clientes_top.size(); i++) {
-//            Clientes_Facturas x = (Clientes_Facturas) clientes_top.get(i - 1);
-//            switch (i) {
-//                case 1:
-//                    R1_A1.setText(x.getCedula());
-//                    R1_B1.setText(x.getNombre() + " " + x.getApellido());
-//                    R1_C1.setText("" + x.getNum_fac());
-//                    break;
-//                case 2:
-//                    R1_A2.setText(x.getCedula());
-//                    R1_B2.setText(x.getNombre() + " " + x.getApellido());
-//                    R1_C2.setText("" + x.getNum_fac());
-//                    break;
-//                case 3:
-//                    R1_A3.setText(x.getCedula());
-//                    R1_B3.setText(x.getNombre() + " " + x.getApellido());
-//                    R1_C3.setText("" + x.getNum_fac());
-//                    break;
-//                case 4:
-//                    R1_A4.setText(x.getCedula());
-//                    R1_B4.setText(x.getNombre() + " " + x.getApellido());
-//                    R1_C4.setText("" + x.getNum_fac());
-//                    break;
-//                case 5:
-//                    R1_A5.setText(x.getCedula());
-//                    R1_B5.setText(x.getNombre() + " " + x.getApellido());
-//                    R1_C5.setText("" + x.getNum_fac());
-//                    break;
-//            }
-//        }
-//        
-//        //PRODUCTOS MÁS VENDIDOS:
-//        ArrayList productos_top = new ArrayList<>();
-//        
-//        Producto p = new Producto(0, null, 0, 0, null, null, null, null);
-//        resultado = base.gettear(p);
-//
-//        for (int i = 0; i < resultado.size(); i++) {
-//            int ventas = 0;
-//            p = (Producto)resultado.next();
-//            Encabezado_fac fac_act = new Encabezado_fac(0, null, null, 0, "ACTIVO");
-//            ObjectSet res1 = base.gettear(fac_act);
-//            for (int j = 0; j < res1.size(); j++) {
-//                fac_act = (Encabezado_fac) res1.next();
-//                Detalle_fac det_pro = new Detalle_fac(0, p.getCodigo(), 0, 0, fac_act.getCodigo());
-//                ObjectSet res = base.gettear(det_pro);
-//                if (!res.isEmpty()) {
-//                   ventas++; 
-//                }
-//            }
-//            if (ventas >0) {
-//                productos_top.add(new Productos_Detalles(p.getCodigo(), p.getNombre(), ventas));
-//            }
-//            
-//        }
-//        
-//        //OREDENA DE MAYOR A MENOR DEPENDIENDO EL NÚMERO DE VENTAS(DETALLES)
-//        Collections.sort(productos_top, (Productos_Detalles p1, Productos_Detalles p2) -> Integer.valueOf(p2.getVentas()).compareTo(p1.getVentas()));
-//        for (int i = 1; i <= productos_top.size(); i++) {
-//            Productos_Detalles x = (Productos_Detalles) productos_top.get(i - 1);
-//            switch (i) {
-//                case 1:
-//                    R2_A1.setText(""+x.getCodigo());
-//                    R2_B1.setText(x.getNombre());
-//                    R2_C1.setText("" + x.getVentas());
-//                    break;
-//                case 2:
-//                    R2_A2.setText(""+x.getCodigo());
-//                    R2_B2.setText(x.getNombre());
-//                    R2_C2.setText("" + x.getVentas());
-//                    break;
-//                case 3:
-//                    R2_A3.setText(""+x.getCodigo());
-//                    R2_B3.setText(x.getNombre());
-//                    R2_C3.setText("" + x.getVentas());
-//                    break;
-//                case 4:
-//                    R2_A4.setText(""+x.getCodigo());
-//                    R2_B4.setText(x.getNombre());
-//                    R2_C4.setText("" + x.getVentas());
-//                    break;
-//                case 5:
-//                    R2_A5.setText(""+x.getCodigo());
-//                    R2_B5.setText(x.getNombre());
-//                    R2_C5.setText("" + x.getVentas());
-//                    break;
-//            }
-//        }
-//
-//        //ESTADÍSTICAS GENERALES
-//        int facturas = 0;
-//        double acum = 0;
-//        double acum_total = 0;
-//        R3_A1.setText("" + clientes_con_fac);
-//        R3_B1.setText("" + clientes_sin_fac);
-//        //$ total de facturas activas:
-//        Encabezado_fac fac_act = new Encabezado_fac(0, null, null, 0, "ACTIVO");
-//        resultado = base.gettear(fac_act);
-//        for (int i = 0; i < resultado.size(); i++) {
-//            fac_act = (Encabezado_fac) resultado.next();
-//            acum += fac_act.getTotal();
-//        }
-//        acum = Math.round(acum * 100.0) / 100.0; //lo deja con 2 decimales
-//
-//        R3_T1.setText("$ de " + resultado.size() + " F. Activas");
-//        R3_C1.setText("$" + acum);
-//        facturas = resultado.size();
-//        acum_total = acum;
-//        //$ total de facturas incactivas:
-//        acum = 0;
-//        Encabezado_fac fac_inac = new Encabezado_fac(0, null, null, 0, "INACTIVO");
-//        resultado = base.gettear(fac_inac);
-//        for (int i = 0; i < resultado.size(); i++) {
-//            fac_inac = (Encabezado_fac) resultado.next();
-//            acum += fac_inac.getTotal();
-//        }
-//        acum = Math.round(acum * 100.0) / 100.0; //lo deja con 2 decimales
-//        R3_T2.setText("$ de " + resultado.size() + " F. Inactivas");
-//        R3_D1.setText("$" + acum);
-//        facturas += resultado.size();
-//        acum_total += acum;
-//        acum_total = Math.round(acum_total * 100.0) / 100.0; //lo deja con 2 decimales
-//        //$ total de facturas:
-//        R3_T3.setText("$ de " + facturas + " Facturas");
-//        R3_E1.setText("$" + acum_total);
-//    }
-//    
-//    public void limpiar_resumen(){
-//        //Tabla R1
-//        R1_A1.setText(null);
-//        R1_B1.setText(null);
-//        R1_C1.setText(null);
-//        R1_A2.setText(null);
-//        R1_B2.setText(null);
-//        R1_C2.setText(null);
-//        R1_A3.setText(null);
-//        R1_B3.setText(null);
-//        R1_C3.setText(null);
-//        R1_A4.setText(null);
-//        R1_B4.setText(null);
-//        R1_C4.setText(null);
-//        R1_A5.setText(null);
-//        R1_B5.setText(null);
-//        R1_C5.setText(null);
-//        //Tabla R2
-//        R2_A1.setText(null);
-//        R2_B1.setText(null);
-//        R2_C1.setText(null);
-//        R2_A2.setText(null);
-//        R2_B2.setText(null);
-//        R2_C2.setText(null);
-//        R2_A3.setText(null);
-//        R2_B3.setText(null);
-//        R2_C3.setText(null);
-//        R2_A4.setText(null);
-//        R2_B4.setText(null);
-//        R2_C4.setText(null);
-//        R2_A5.setText(null);
-//        R2_B5.setText(null);
-//        R2_C5.setText(null);
-//        //Tabla R3
-//        R3_A1.setText(null);
-//        R3_B1.setText(null);
-//        R3_C1.setText(null);
-//        R3_D1.setText(null);
     }
-//    
-//    //PARA ELIMINAR FACTURAS Y DETALLES PARA SIEMPRE (inrrecuperable):
-//    Encabezado_fac enca = new Encabezado_fac(0, null, null, 0, null);
-//        resultado = base.gettear(enca);
-//        for (int i = 0; i < resultado.size(); i++) {
-//            enca = (Encabezado_fac) resultado.next();
-//            base.eliminar(enca);
-//            Detalle_fac dtf = new Detalle_fac(0, 0, 0, 0,enca.getCodigo());
-//            ObjectSet rdf = base.gettear(dtf);
-//            for (int j = 0; j < rdf.size(); j++) {
-//                dtf = (Detalle_fac)rdf.next();
-//                base.eliminar(dtf);
-//            }
-//        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField Bcat;

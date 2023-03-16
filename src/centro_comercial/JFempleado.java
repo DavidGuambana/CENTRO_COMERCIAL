@@ -11,7 +11,7 @@ import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class JFcliente extends javax.swing.JFrame {
+public class JFempleado extends javax.swing.JFrame {
     public static String forma = "registrar";
     public static ResultSet rs;
     public static Connection con = null;
@@ -22,7 +22,7 @@ public class JFcliente extends javax.swing.JFrame {
     public static int FK_gen, FK_ciu, FK_des;
     String [] arreglo = {"Registrar con los datos ya existentes", "Registrar con los nuevos datos"};
     
-    public JFcliente() {
+    public JFempleado() {
         initComponents();
         cambiar_diseño();
         setLocationRelativeTo(null);
@@ -36,12 +36,12 @@ public class JFcliente extends javax.swing.JFrame {
         if (forma.equals("registrar")) {
             cedula.setEditable(true);
             color = new Color(51,51,51);
-            jl_titulo.setText("Registrar cliente");
+            jl_titulo.setText("Registrar empleado");
             jb_Ejecutar.setText("¡Registrar!");
         } else if (forma.equals("modificar")) {
             cedula.setEditable(false);
             color = new Color(0, 153, 255);
-            jl_titulo.setText("Modificar cliente");
+            jl_titulo.setText("Modificar empleado");
             jb_Ejecutar.setText("¡Modificar!");
         }
         jb_Ejecutar.setBackground(color);
@@ -679,14 +679,30 @@ public class JFcliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFcliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFempleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFcliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFempleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFcliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFempleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFcliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFempleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -707,7 +723,7 @@ public class JFcliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFcliente().setVisible(true);
+                new JFempleado().setVisible(true);
             }
         });
     }

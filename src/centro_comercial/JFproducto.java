@@ -151,8 +151,8 @@ public class JFproducto extends javax.swing.JFrame {
                 id.setText(""+rs.getInt(1));
                 jt_nombre.setText(rs.getString(2));
                 url =rs.getString(3);
-                FK_mar = rs.getInt(4);
                 rsscalelabel.RSScaleLabel.setScaleLabel(jl_imagen,url);
+                FK_mar = rs.getInt(4);
                 jt_precio.setText(""+rs.getDouble(5));
                 jt_existenciasmax.setValue(rs.getInt(6));
                 jt_existenciasmin.setValue(rs.getInt(7));
@@ -194,7 +194,7 @@ public class JFproducto extends javax.swing.JFrame {
                 ps.setInt(5, (int) jt_existenciasmax.getValue());
                 ps.setInt(6, (int) jt_existenciasmin.getValue());
                 ps.setInt(7, (int) jt_existencias.getValue());
-                ps.setInt(8, FK_mar);
+                ps.setInt(8, FK_cat);
                 ps.setString(9, FK_prov);
                 ps.executeUpdate(); //Ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
