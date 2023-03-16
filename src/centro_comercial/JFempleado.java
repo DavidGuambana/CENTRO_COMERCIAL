@@ -525,7 +525,7 @@ public class JFempleado extends javax.swing.JFrame {
 
         jl_titulo.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         jl_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        jl_titulo.setText("Registrar cliente");
+        jl_titulo.setText("Registrar empleado");
 
         javax.swing.GroupLayout jp_1Layout = new javax.swing.GroupLayout(jp_1);
         jp_1.setLayout(jp_1Layout);

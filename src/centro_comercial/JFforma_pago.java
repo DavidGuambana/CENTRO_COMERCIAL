@@ -1,23 +1,25 @@
 package centro_comercial;
+
 import base_datos.conexion;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
+import otros.validar;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import otros.validar;
 
-public class JFgenero extends javax.swing.JFrame {
-    
-    public static String forma;
+public class JFforma_pago extends javax.swing.JFrame {
+
+    public static String forma = "registrar";
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
+    long d;
+    public static final String FK = "Seleccionar...";
 
-    public static String sexo_propio;
-    public JFgenero() {
+    public JFforma_pago() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -29,95 +31,91 @@ public class JFgenero extends javax.swing.JFrame {
         if (forma.equals("registrar")) {
             id.setVisible(false);
             jlid.setVisible(false);
-            color = new Color(51, 51, 51);
-            jl_titulo.setText("Registrar género");
+            color = new Color(0, 204, 102);
+            jl_titulo.setText("Registrar forma de pago");
             jb_Ejecutar.setText("¡Registrar!");
         } else if (forma.equals("modificar")) {
             id.setVisible(true);
             jlid.setVisible(true);
             color = new Color(0, 153, 255);
-            jl_titulo.setText("Modificar género");
+            jl_titulo.setText("Modificar forma de pago");
             jb_Ejecutar.setText("¡Modificar!");
         }
         jb_Ejecutar.setBackground(color);
         jp_1.setBackground(color);
-        tb = new TitledBorder("Sexo:");
+        tb = new TitledBorder("Nombre:");
         tb.setTitleJustification(0);
         tb.setTitlePosition(1);
         tb.setTitleColor(color);
         tb.setTitleFont(font);
-        sexo.setBorder(tb);
-
-    }
-    public static void limpiar(){
-        sexo.setText("");
+        nombre.setBorder(tb);
     }
 
-    public void llenar(int PK) {
-        con =  (Connection) conexion.conectar();
+    public static void limpiar() {
+        nombre.setText("");
+    }
+
+    public void llenar(String PK) {
+        con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE ID=" + PK);
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE ID=" + PK);
                 rs = ps.executeQuery();
                 rs.next();
-                sexo.setText(rs.getString(2).toUpperCase());
-                sexo_propio = rs.getString(2).toUpperCase();
                 id.setText(""+rs.getInt(1));
+                nombre.setText(rs.getString(2));
                 this.setVisible(true);
             } catch (SQLException e) {
                 getToolkit().beep();
-                JOptionPane.showMessageDialog(rootPane, "¡El género '" + PK + "' no existe!");
+                JOptionPane.showMessageDialog(rootPane, "¡La fortma de pago '" + PK + "' no existe!");
             }
         }
-    }
     
+
+    }
     public void registrar() {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE SEXO='" + sexo.getText().toUpperCase()+"'");
-                if (ps.executeQuery().next()) {
-                    JOptionPane.showMessageDialog(null, "¡El sexo '"+sexo.getText().toUpperCase()+"' ya está en uso!");
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE NOMBRE = '" + nombre.getText() + "'");
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    getToolkit().beep();
+                    JOptionPane.showMessageDialog(rootPane, "¡La forma de pago '" + nombre.getText() + "' ya existe!");
                 } else {
-                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO GENERO (SEXO) VALUES (?)");
-                    ps.setString(1, sexo.getText().toUpperCase());
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO FORMA_PAGO (NOMBRE) VALUES (?)");
+                    ps.setString(1, nombre.getText().toUpperCase());
                     ps.executeUpdate(); //Ejecuta la consulta
+                    
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
                     SISTEMA.actualizado = false;
                     this.dispose();
                 }
-                
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al registrar!");
             }
         }
-
     }
-    public void modificar(){
+
+    public void modificar() {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE SEXO='" + sexo.getText().toUpperCase()+"'");
-                if (ps.executeQuery().next() && !sexo.getText().toUpperCase().equals(sexo_propio)) {
-                    JOptionPane.showMessageDialog(null, "¡El sexo '" + sexo.getText().toUpperCase() + "' ya está en uso!");
-                } else {
-                    ps = (PreparedStatement) con.prepareStatement("UPDATE GENERO SET SEXO=? WHERE ID=?");
-                    ps.setString(1, sexo.getText().toUpperCase());
-                    ps.setInt(2, Integer.parseInt(id.getText()));
-                    ps.executeUpdate(); //ejecuta la consulta
-                    JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                    SISTEMA.actualizado = false;
-                    this.dispose();
-                }
+                ps = (PreparedStatement) con.prepareStatement("UPDATE FORMA_PAGO SET NOMBRE=? WHERE NOMBRE=?");
+                ps.setString(1, nombre.getText().toUpperCase());
+                ps.executeUpdate(); //Ejecuta la consulta
+
+                JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
+                SISTEMA.actualizado = false;
+                this.dispose();
+
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al modificar!");
             }
         }
     }
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -127,9 +125,9 @@ public class JFgenero extends javax.swing.JFrame {
         jl_titulo = new javax.swing.JLabel();
         jp_2 = new javax.swing.JPanel();
         jb_Ejecutar = new javax.swing.JButton();
+        nombre = new javax.swing.JTextField();
         jlid = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
-        sexo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -150,7 +148,7 @@ public class JFgenero extends javax.swing.JFrame {
 
         jl_titulo.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         jl_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        jl_titulo.setText("Registrar género");
+        jl_titulo.setText("Registrar forma de pago");
 
         javax.swing.GroupLayout jp_1Layout = new javax.swing.GroupLayout(jp_1);
         jp_1.setLayout(jp_1Layout);
@@ -185,42 +183,40 @@ public class JFgenero extends javax.swing.JFrame {
                 jb_EjecutarActionPerformed(evt);
             }
         });
-        jp_2.add(jb_Ejecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 173, 144, 42));
+        jp_2.add(jb_Ejecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 172, 144, 42));
+
+        nombre.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        nombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre:", javax.swing.border.TitledBorder.LEADING, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nombreKeyPressed(evt);
+            }
+        });
+        jp_2.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 304, 75));
 
         jlid.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jlid.setForeground(new java.awt.Color(0, 204, 102));
         jlid.setText("Código:");
-        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 114, -1, 29));
+        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, -1, 29));
 
         id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         id.setText("000");
-        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 114, 70, -1));
-
-        sexo.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        sexo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sexo:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        sexo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                sexoKeyPressed(evt);
-            }
-        });
-        jp_2.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 21, 362, 75));
+        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 70, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                    .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+            .addComponent(jp_2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jp_1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
         );
 
         pack();
@@ -231,9 +227,10 @@ public class JFgenero extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-        if (sexo.getText().equals("")) {
+   
+        if (nombre.getText().equals("")) {
             getToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
+        JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
             if (forma.equals("registrar")) {
                 registrar();
@@ -244,9 +241,9 @@ public class JFgenero extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
 
-    private void sexoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sexoKeyPressed
-        validar.V_letras(sexo,20);
-    }//GEN-LAST:event_sexoKeyPressed
+    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
+        validar.V_letras_sin_tilde(nombre, 20);
+    }//GEN-LAST:event_nombreKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -262,206 +259,14 @@ public class JFgenero extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFgenero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFforma_pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFgenero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFforma_pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFgenero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFforma_pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFgenero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFforma_pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -529,9 +334,8 @@ public class JFgenero extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
             public void run() {
-                new JFgenero().setVisible(true);
+                new JFforma_pago().setVisible(true);
             }
         });
     }
@@ -544,6 +348,6 @@ public class JFgenero extends javax.swing.JFrame {
     private static javax.swing.JLabel jlid;
     public static javax.swing.JPanel jp_1;
     private javax.swing.JPanel jp_2;
-    public static javax.swing.JTextField sexo;
+    public static javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

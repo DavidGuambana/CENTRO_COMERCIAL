@@ -378,22 +378,54 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         if (JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea continuar con esta acción?", "Eliminar registro", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
             if (conexion.conectar() != null) {
                 boolean eliminado = true;
-                boolean fk = true;
                 consulta = "SELECT * FROM ";
                 consulta2 = "DELETE FROM ";
                 try {
                     switch (clase) {
                         case 1://categoria
-                            ps = (PreparedStatement) con.prepareStatement(consulta+"producto WHERE ID_CAT = "+id_cat.getText());
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "producto WHERE ID_CAT = " + id_cat.getText());
                             if (ps.executeQuery().next()) {
                                 JOptionPane.showMessageDialog(null, "¡Imposible eliminar la categoría ya que se encuentra asignado a un producto!");
                                 eliminado = false;
                             } else {
-                                ps = (PreparedStatement) con.prepareStatement(consulta2+"categoria WHERE ID = "+id_cat.getText());
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "categoria WHERE ID = " + id_cat.getText());
                                 ps.executeUpdate();
                             }
                             break;
-                            
+                        case 2://ciudad
+                            break;
+                        case 3://cliente
+                            break;
+                        case 4://departamento
+                            break;
+                        case 5://descuento
+                            break;
+                        case 8://empleado
+                            break;
+                        case 9://encabezado_fac (modificar el estado de "ACTIVO" a "INACTIVO")
+                            break;
+                        case 11://forma_pago
+                            break;
+                        case 12://genero
+                            break;
+                        case 13://iva
+                            break;
+                        case 14://marca
+                            break;
+                        case 15://pago_empleado
+                            break;
+                        case 16://pago_fac
+                            break;
+                        case 18://producto
+                            break;
+                        case 19://proveedor
+                            break;
+                        case 20://provincia
+                            break;
+                        case 21://puesto
+                            break;
+                        case 22://sucursal
+                            break;
                     }
                 } catch (Exception e) {
                     eliminado = false;
