@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 import otros.ImagenTabla;
 
 public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
-//    rsscalelabel.RSScaleLabel.setScaleLabel(imagen_pro, rs.getString(3));
     
     //variables para consultas SQL:
     public static Connection con = null;
@@ -517,6 +516,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel8 = new javax.swing.JLabel();
         MENU = new javax.swing.JTabbedPane();
         INICIO = new javax.swing.JTabbedPane();
         JSfacturar = new javax.swing.JScrollPane();
@@ -1084,13 +1084,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         reg_provi = new javax.swing.JButton();
         mod_provi = new javax.swing.JButton();
         elim_provi = new javax.swing.JButton();
-        encabezado = new javax.swing.JPanel();
-        sistema_titulo = new javax.swing.JLabel();
         FECHA_HORA = new javax.swing.JLabel();
-        USUARIO = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        SALIR = new javax.swing.JLabel();
-        FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proyecto Final");
@@ -1105,7 +1099,13 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 formWindowLostFocus(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
+
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("fecha_hora");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(737, 556, 250, 30);
 
         MENU.setBackground(new java.awt.Color(255, 255, 255));
         MENU.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
@@ -1576,7 +1576,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JBseleccionar_pro)
                             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(f_num_det, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1590,7 +1590,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                     .addComponent(JBcrear_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(JBlimpiar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(110, 110, 110)))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5430,7 +5430,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                 .addComponent(reg_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(mod_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(elim_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         MENU.addTab("Puestos y Departamentos", JPpue_dep);
@@ -7392,76 +7392,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
         MENU.addTab("Ciudades y Provincias", JPciu_provi);
 
-        getContentPane().add(MENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 980, 540));
+        getContentPane().add(MENU);
+        MENU.setBounds(10, 0, 980, 540);
 
-        encabezado.setBackground(new java.awt.Color(153, 0, 51));
-        encabezado.setMinimumSize(new java.awt.Dimension(1020, 40));
-        encabezado.setPreferredSize(new java.awt.Dimension(1020, 40));
-
-        sistema_titulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        sistema_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        sistema_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        sistema_titulo.setText("Centro Comercial");
-
-        FECHA_HORA.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        FECHA_HORA.setForeground(new java.awt.Color(255, 255, 255));
-        FECHA_HORA.setText("FECHA_HORA");
-
-        USUARIO.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        USUARIO.setForeground(new java.awt.Color(255, 255, 255));
-        USUARIO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario-de-perfil.png"))); // NOI18N
-        USUARIO.setText("USUARIO");
-        USUARIO.setIconTextGap(10);
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-
-        SALIR.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        SALIR.setForeground(new java.awt.Color(255, 255, 255));
-        SALIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion (1).png"))); // NOI18N
-        SALIR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SALIR.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SALIRMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout encabezadoLayout = new javax.swing.GroupLayout(encabezado);
-        encabezado.setLayout(encabezadoLayout);
-        encabezadoLayout.setHorizontalGroup(
-            encabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(encabezadoLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(sistema_titulo)
-                .addGap(170, 170, 170)
-                .addComponent(FECHA_HORA, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(USUARIO, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(SALIR)
-                .addContainerGap())
-        );
-        encabezadoLayout.setVerticalGroup(
-            encabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sistema_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(encabezadoLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addGroup(encabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(FECHA_HORA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
-                    .addComponent(USUARIO, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(SALIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        getContentPane().add(encabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
-
-        FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abstracto_rojo.jpeg"))); // NOI18N
-        FONDO.setMaximumSize(new java.awt.Dimension(1020, 625));
-        FONDO.setMinimumSize(new java.awt.Dimension(1020, 625));
-        FONDO.setPreferredSize(new java.awt.Dimension(1020, 625));
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
+        FECHA_HORA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abstracto_rojo.jpeg"))); // NOI18N
+        getContentPane().add(FECHA_HORA);
+        FECHA_HORA.setBounds(0, 0, 1020, 610);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -7649,12 +7585,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private void subir_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subir_1MouseClicked
         JSventas.getVerticalScrollBar().setValue(0);
     }//GEN-LAST:event_subir_1MouseClicked
-
-    private void SALIRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SALIRMouseClicked
-//        this.dispose();
-//        JFlogin sesión = new JFlogin();
-//        sesión.setVisible(true);
-    }//GEN-LAST:event_SALIRMouseClicked
 
     private void JCcliItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCcliItemStateChanged
         // TODO add your handling code here:
@@ -9425,7 +9355,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JTextField Bpue;
     public static javax.swing.JTextField Bsuc;
     private javax.swing.JLabel FECHA_HORA;
-    private javax.swing.JLabel FONDO;
     private javax.swing.JTabbedPane INICIO;
     private javax.swing.JButton JBcrear_factura;
     private javax.swing.JButton JBlimpiar_factura;
@@ -9564,8 +9493,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel R3_T1;
     private javax.swing.JLabel R3_T2;
     private javax.swing.JLabel R3_T3;
-    private javax.swing.JLabel SALIR;
-    public static javax.swing.JLabel USUARIO;
     private javax.swing.JLabel apellido_cli;
     private javax.swing.JLabel apellido_emp;
     private javax.swing.JLabel categoria_pro;
@@ -9615,7 +9542,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel email_cli;
     private javax.swing.JLabel email_emp;
     private javax.swing.JLabel email_prov;
-    private javax.swing.JPanel encabezado;
     private javax.swing.JTextField f_ced;
     private javax.swing.JTextField f_codigo;
     private javax.swing.JTextField f_des;
@@ -9783,6 +9709,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
@@ -9831,7 +9758,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator24;
     private javax.swing.JSeparator jSeparator25;
@@ -9968,7 +9894,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel sexo_cli;
     private javax.swing.JLabel sexo_emp;
     private javax.swing.JLabel sexo_gen;
-    public static javax.swing.JLabel sistema_titulo;
     private javax.swing.JLabel stock_pro;
     private javax.swing.JLabel subir_1;
     private javax.swing.JLabel sueldo_pue;
