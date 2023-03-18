@@ -516,7 +516,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel8 = new javax.swing.JLabel();
+        fecha_hora = new javax.swing.JLabel();
         MENU = new javax.swing.JTabbedPane();
         INICIO = new javax.swing.JTabbedPane();
         JSfacturar = new javax.swing.JScrollPane();
@@ -1084,7 +1084,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         reg_provi = new javax.swing.JButton();
         mod_provi = new javax.swing.JButton();
         elim_provi = new javax.swing.JButton();
-        FECHA_HORA = new javax.swing.JLabel();
+        fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proyecto Final");
@@ -1101,11 +1101,11 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         });
         getContentPane().setLayout(null);
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("fecha_hora");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(737, 556, 250, 30);
+        fecha_hora.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        fecha_hora.setForeground(new java.awt.Color(255, 255, 255));
+        fecha_hora.setText("fecha_hora");
+        getContentPane().add(fecha_hora);
+        fecha_hora.setBounds(637, 556, 350, 30);
 
         MENU.setBackground(new java.awt.Color(255, 255, 255));
         MENU.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
@@ -7395,9 +7395,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         getContentPane().add(MENU);
         MENU.setBounds(10, 0, 980, 540);
 
-        FECHA_HORA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abstracto_rojo.jpeg"))); // NOI18N
-        getContentPane().add(FECHA_HORA);
-        FECHA_HORA.setBounds(0, 0, 1020, 610);
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abstracto_rojo.jpeg"))); // NOI18N
+        getContentPane().add(fondo);
+        fondo.setBounds(0, 0, 1020, 610);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -9243,7 +9243,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         Thread current = Thread.currentThread();
         while (current == hilo) {
             hora();
-            FECHA_HORA.setText("Ecuador, " + fechas.transformar(fechas.obtener()) + " - " + hora + ":" + minutos + ":" + segundos);
+            fecha_hora.setText("Ecuador, " + fechas.transformar(fechas.obtener()) + " - " + hora + ":" + minutos + ":" + segundos);
         }
     }
     
@@ -9354,7 +9354,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JTextField Bprovi;
     public static javax.swing.JTextField Bpue;
     public static javax.swing.JTextField Bsuc;
-    private javax.swing.JLabel FECHA_HORA;
     private javax.swing.JTabbedPane INICIO;
     private javax.swing.JButton JBcrear_factura;
     private javax.swing.JButton JBlimpiar_factura;
@@ -9559,6 +9558,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTextField f_suc;
     private javax.swing.JTextField f_tel;
     private javax.swing.JLabel f_total;
+    private javax.swing.JLabel fecha_hora;
     private javax.swing.JLabel fecha_nac_cli;
     private javax.swing.JLabel fecha_nac_emp;
     private javax.swing.JLabel fecha_pag_pe;
@@ -9566,6 +9566,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel fecha_reg_emp;
     private javax.swing.JLabel fecha_reg_pro;
     private javax.swing.JLabel fecha_reg_prov;
+    private javax.swing.JLabel fondo;
     private javax.swing.JLabel id_cat;
     private javax.swing.JLabel id_ciu;
     private javax.swing.JLabel id_cli;
@@ -9709,7 +9710,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
