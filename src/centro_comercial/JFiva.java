@@ -9,7 +9,6 @@ import javax.swing.JSpinner;
 
 public class JFiva extends javax.swing.JFrame {
     
-    public static String forma;
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
@@ -23,75 +22,29 @@ public class JFiva extends javax.swing.JFrame {
     public static void limpiar(){
         impuesto.setValue(0);
     }
-    public static void cambiar(){
-        if (forma.equals("registrar")) {
-            
-        }
-    }
 
-    public void llenar(String num) {
-        con =  (Connection) conexion.conectar();
+    public void registrar() {
+        con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM IVA WHERE IMPUESTO='" + num + "'");
-                rs = ps.executeQuery();
-                rs.next();
-                impuesto.setValue(rs.getString(1));
-
-                this.setVisible(true);
-            } catch (SQLException e) {
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM IVA WHERE IMPUESTO = " + impuesto.getValue());
+                if (ps.executeQuery().next()) {
+                    getToolkit().beep();
+                    JOptionPane.showMessageDialog(rootPane, "¡El IVA con el '" + impuesto.getValue() + "%' ya existe!");
+                } else {
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO IVA (IMPUESTO) VALUES (?)");
+                    ps.setInt(1, (int) impuesto.getValue());
+                    ps.executeUpdate(); //Ejecuta la consulta
+                    JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
+                    SISTEMA.actualizado = false;
+                    this.dispose();
+                }
+            } catch (SQLException ex) {
                 getToolkit().beep();
-                JOptionPane.showMessageDialog(rootPane, "¡El IVA '" + num + "' no existe!");
+                JOptionPane.showMessageDialog(null, "¡Error al registrar!");
             }
         }
     }
-
-    public void registrar() {
-        
-//        con = (Connection) conexion.conectar();
-//        if (con != null) {
-//            try {
-//                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM IVA WHERE IMPUESTO = '" + impuesto.getValue() + "'");
-//                rs = ps.executeQuery();
-//                if (rs.next()) {
-//                    getToolkit().beep();
-//                    JOptionPane.showMessageDialog(rootPane, "¡El IVA '" + impuesto.getValue() + "' ya existe!");
-//                } else {
-//                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO IVA (IMPUESTO) VALUES (?)");
-//                    ps.setString(1, impuesto.get());
-//
-//                    ps.executeUpdate(); //Ejecuta la consulta
-//                    
-//                    JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-//                    SISTEMA.actualizado = false;
-//                    this.dispose();
-//                }
-//            } catch (SQLException ex) {
-//                getToolkit().beep();
-//                JOptionPane.showMessageDialog(null, "¡Error al registrar!");
-//            }
-//        }
-    }
-    public void modificar(){
-//        con = (Connection) conexion.conectar();
-//        if (con != null) {
-//            try {
-//                ps = (PreparedStatement) con.prepareStatement("UPDATE IVA SET IMPUESTO=? WHERE IMPUESTO=?");
-//                ps.setString(1, impuesto.get());
-//
-//                ps.executeUpdate(); //Ejecuta la consulta
-//
-//                JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-//                SISTEMA.actualizado = false;
-//                this.dispose();
-//
-//            } catch (SQLException ex) {
-//                getToolkit().beep();
-//                JOptionPane.showMessageDialog(null, "¡Error al modificar!");
-//            }
-//        }
-    }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -103,8 +56,6 @@ public class JFiva extends javax.swing.JFrame {
         jp_2 = new javax.swing.JPanel();
         jb_Ejecutar = new javax.swing.JButton();
         impuesto = new javax.swing.JSpinner();
-        jlid = new javax.swing.JLabel();
-        id = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -182,13 +133,6 @@ public class JFiva extends javax.swing.JFrame {
             }
         });
 
-        jlid.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
-        jlid.setForeground(new java.awt.Color(0, 204, 102));
-        jlid.setText("Código:");
-
-        id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        id.setText("000");
-
         javax.swing.GroupLayout jp_2Layout = new javax.swing.GroupLayout(jp_2);
         jp_2.setLayout(jp_2Layout);
         jp_2Layout.setHorizontalGroup(
@@ -199,12 +143,7 @@ public class JFiva extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
             .addGroup(jp_2Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jp_2Layout.createSequentialGroup()
-                        .addComponent(jlid)
-                        .addGap(3, 3, 3)
-                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(76, Short.MAX_VALUE))
         );
         jp_2Layout.setVerticalGroup(
@@ -212,10 +151,6 @@ public class JFiva extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(impuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlid, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(id))
                 .addGap(30, 30, 30)
                 .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
@@ -246,16 +181,12 @@ public class JFiva extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-//        if (nombre.getText().equals("")) {
-//            getToolkit().beep();
-//            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
-//        } else {
-//            if (forma.equals("registrar")) {
-//                registrar();
-//            } else if (forma.equals("modificar")) {
-//                modificar();
-//            }
-//        }
+        if (impuesto.getValue().equals(0)) {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
+        } else {
+            registrar();
+        }
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
 
@@ -819,12 +750,10 @@ public class JFiva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JLabel id;
     public static javax.swing.JSpinner impuesto;
     public static javax.swing.JButton jb_Ejecutar;
     private javax.swing.JLabel jl_cerrar;
     public static javax.swing.JLabel jl_titulo;
-    private static javax.swing.JLabel jlid;
     public static javax.swing.JPanel jp_1;
     private javax.swing.JPanel jp_2;
     // End of variables declaration//GEN-END:variables

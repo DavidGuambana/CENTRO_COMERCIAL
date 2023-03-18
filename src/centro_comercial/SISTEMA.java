@@ -68,7 +68,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     //x2 encabezados: 8 y 9
     public static JFforma_pago JFfp = new JFforma_pago();//11
     public static JFgenero JFgen = new JFgenero();//12
-    public static JFiva JFiva = new JFiva();//13
+    public static JFiva JFIVA = new JFiva();//13
     public static JFmarca JFmar = new JFmarca();//14
 //  public static JFpago_empleado JFpe = new JFpago_empleado();//15
     //x1 pago_fac: 17
@@ -416,13 +416,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                             break;
                         case 12://genero
                             break;
-                        case 13://iva
-                            break;
                         case 14://marca
                             break;
                         case 15://pago_empleado
-                            break;
-                        case 16://pago_fac
                             break;
                         case 18://producto
                             break;
@@ -444,150 +440,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         JOptionPane.showMessageDialog(null, "¡Eliminado correctamente!");
                     }
                     ver_panel(clase, false);
-                    conexion.desconectar();
                     visualizar();
                 }
             }
         }
-
-//            try {
-//                base.abrir();
-//                switch (clase) {
-//                    case 1: //eliminar categoria
-//                        Categoria cate = new Categoria(jlNombre_cat.getText(), null);
-//                        resultado = base.gettear(cate);
-//                        Producto prod = new Producto(0, null, 0, 0, jlNombre_cat.getText(), null, null, null);
-//                        resultado2 = base.gettear(prod);
-//                        if (resultado2.isEmpty()) {
-//                            cate = (Categoria) resultado.next();
-//                            base.eliminar(cate);
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar la categoría ya que se encuentra asignado a un producto!");
-//                            eliminado = false;
-//                        }
-//
-//                        break;
-//                    case 2: //eliminar ciudad
-//                        Ciudad c = new Ciudad(Integer.parseInt(jlCodigo_ciu.getText()), null, null);
-//                        resultado = base.gettear(c);
-//                        Proveedor prov = new Proveedor(null, null, jlCodigo_ciu.getText(), null, null, null);
-//                        resultado2 = base.gettear(prov);
-//                        if (resultado2.isEmpty()) {
-//                            c = (Ciudad) resultado.next();
-//                            base.eliminar(c);
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar la ciudad ya que se encuentra asignado a un proveedor!");
-//                            eliminado = false;
-//                        }
-//
-//                        break;
-//                    case 3: //eliminar cliente
-//                        Cliente cl = new Cliente(null, jlCedula_cli.getText(), null, null, null, null, null, null, null, null);
-//                        resultado = base.gettear(cl);
-//                        Encabezado_fac fact = new Encabezado_fac(0, jlCedula_cli.getText(), null, 0, null);
-//                        resultado2 = base.gettear(fact);
-//                        if (resultado2.isEmpty()) {
-//                            cl = (Cliente) resultado.next();
-//                            base.eliminar(cl);
-//                            reiniciar_factura(); //por precaución
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el cliente ya que se encuentra asignado a una factura!");
-//                            eliminado = false;
-//                        }        
-//                        break;
-//                    case 4: //eliminar descuento
-//                        Descuento d = new Descuento(jlNombre_des.getText(), 0);
-//                        resultado = base.gettear(d);
-//                        Cliente cli2 = new Cliente(jlNombre_des.getText(), null, null, null, null, null, null, null, null, null);
-//                        resultado2 = base.gettear(cli2);
-//                        if (resultado2.isEmpty()) {
-//                            d = (Descuento) resultado.next();
-//                            base.eliminar(d);
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el descuento ya que se encuentra asignado a un cliente!");
-//                            eliminado = false;
-//                        }
-//                        break;
-//                    case 6: //eliminar empleado
-//                        Empleado e = new Empleado(0, jlCedula_emp.getText(), null, null, null, null, null, null, null, null);
-//                        resultado = base.gettear(e);
-//                        Pago_prov pp = new Pago_prov(0, 0, jlCedula_emp.getText(), null, null, null);
-//                        resultado2 = base.gettear(pp);
-//                        if (resultado2.isEmpty()) {
-//                            e = (Empleado) resultado.next();
-//                            base.eliminar(e);
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el empleado ya que se encuentra asignado a un gasto!");
-//                            eliminado = false;
-//                        }
-//                        break;
-//                    case 7: //ocultar factura
-//                        Encabezado_fac en = new Encabezado_fac(Integer.parseInt(VF_CODIGO.getText()), null, null, 0, null);
-//                        resultado = base.gettear(en);
-//                        en = (Encabezado_fac) resultado.next();
-//                        en.setEstado("INACTIVO");
-//                        base.settear(en);
-//                        break;
-//                    case 8: //eliminar pago a proveedor
-//                        Pago_prov p_p = new Pago_prov(Integer.parseInt(jlCodigo_pag.getText()), 0, null, null, null, null);
-//                        resultado = base.gettear(p_p);
-//                        p_p = (Pago_prov) resultado.next();
-//                        base.eliminar(p_p);
-//                        break;
-//                    case 9: //eliminar producto
-//                        Producto pr = new Producto(Integer.parseInt(jlCodigo_pro.getText()), null, 0, 0, null, null, null, null);
-//                        resultado = base.gettear(pr);
-//                        Detalle_fac enca = new Detalle_fac(0, Integer.parseInt(jlCodigo_pro.getText()), 0, 0,0);
-//                        resultado2 = base.gettear(enca);
-//                        if (resultado2.isEmpty()) {
-//                            pr = (Producto) resultado.next();
-//                            base.eliminar(pr);
-//                            reiniciar_factura(); //por precaución
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "¡Imposible eliminar el producto ya que se encuentra asignado a un detalle!");
-//                            eliminado = false;
-//                        }
-//
-//                        break;
-//                    case 10: //eliminar proveedor
-//                        Proveedor p = new Proveedor(jlRUC.getText(), null, null, null, null, null);
-//                        resultado = base.gettear(p);
-//                        Producto q = new Producto(0, null, 0, 0, null, null, jlRUC.getText(), null);
-//                        resultado2 = base.gettear(q);
-//                        Pago_prov r = new Pago_prov(0, 0, null, jlRUC.getText(), null, null);
-//                        resultado3 = base.gettear(r);
-//
-//                        if (resultado2.isEmpty() && resultado3.isEmpty()) {
-//                            p = (Proveedor) resultado.next();
-//                            base.eliminar(p);
-//                            limpiar(clase);
-//                        } else {
-//                            if (!resultado2.isEmpty()) {
-//                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el proveedor ya que se encuentra asignado a un producto!");
-//                            } 
-//                            if (!resultado3.isEmpty()) {
-//                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el proveedor ya que se encuentra asignado a un pago!");
-//                            }
-//                            eliminado = false;
-//                        }
-//                        break;
-//
-//                }
-//            } catch (Exception e) {
-//                eliminado = false;
-//                getToolkit().beep();
-//                JOptionPane.showMessageDialog(rootPane, "¡Registro no existente!", null, JOptionPane.ERROR_MESSAGE);
-//            } finally {
-//                base.cerrar();
-//                if (eliminado) {
-//                    JOptionPane.showMessageDialog(null, "¡Eliminado correctamente!");
-//                }
-//                limpiar(clase);
-//                visualizar();
-//            }
-//        }
     }
-    
+
     //método para registrar una factura (encabezado y detalles):
     public void generar_factura() {
 //        base.abrir();
@@ -848,14 +706,13 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jLabel170 = new javax.swing.JLabel();
         jsTabla_ciu21 = new javax.swing.JScrollPane();
         JTfp = new javax.swing.JTable();
-        JPiva = new javax.swing.JPanel();
+        JPIVA = new javax.swing.JPanel();
         jLabel171 = new javax.swing.JLabel();
         id_iva = new javax.swing.JLabel();
         jLabel172 = new javax.swing.JLabel();
         impuesto_iva = new javax.swing.JLabel();
         elim_iva = new javax.swing.JButton();
         reg_iva = new javax.swing.JButton();
-        mod_iva = new javax.swing.JButton();
         Bfp = new javax.swing.JTextField();
         JCfp = new javax.swing.JComboBox<>();
         jLabel173 = new javax.swing.JLabel();
@@ -931,7 +788,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jl_titulo19 = new javax.swing.JLabel();
         res_emp = new javax.swing.JLabel();
         Lemp = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
+        JPemp = new javax.swing.JPanel();
         jLabel64 = new javax.swing.JLabel();
         cedula_emp = new javax.swing.JLabel();
         jLabel67 = new javax.swing.JLabel();
@@ -3001,7 +2858,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTiva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTiva.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTiva.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTiva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -3108,7 +2965,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTfp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTfp.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTfp.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTfp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -3129,7 +2986,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTfp.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu21.setViewportView(JTfp);
 
-        JPiva.setBackground(new java.awt.Color(255, 255, 255));
+        JPIVA.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel171.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel171.setText("ID:");
@@ -3143,32 +3000,32 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         impuesto_iva.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         impuesto_iva.setText("0");
 
-        javax.swing.GroupLayout JPivaLayout = new javax.swing.GroupLayout(JPiva);
-        JPiva.setLayout(JPivaLayout);
-        JPivaLayout.setHorizontalGroup(
-            JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPivaLayout.createSequentialGroup()
+        javax.swing.GroupLayout JPIVALayout = new javax.swing.GroupLayout(JPIVA);
+        JPIVA.setLayout(JPIVALayout);
+        JPIVALayout.setHorizontalGroup(
+            JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPIVALayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPivaLayout.createSequentialGroup()
+                .addGroup(JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPIVALayout.createSequentialGroup()
                         .addComponent(jLabel171)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(id_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPivaLayout.createSequentialGroup()
+                    .addGroup(JPIVALayout.createSequentialGroup()
                         .addComponent(jLabel172)
                         .addGap(3, 3, 3)
                         .addComponent(impuesto_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        JPivaLayout.setVerticalGroup(
-            JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPivaLayout.createSequentialGroup()
+        JPIVALayout.setVerticalGroup(
+            JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPIVALayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel171)
                     .addComponent(id_iva))
                 .addGap(15, 15, 15)
-                .addGroup(JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel172)
                     .addComponent(impuesto_iva))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -3211,26 +3068,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         reg_iva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reg_ivaActionPerformed(evt);
-            }
-        });
-
-        mod_iva.setBackground(new java.awt.Color(51, 204, 255));
-        mod_iva.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        mod_iva.setForeground(new java.awt.Color(255, 255, 255));
-        mod_iva.setText("¡    Modificar");
-        mod_iva.setBorder(null);
-        mod_iva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mod_iva.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                mod_ivaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                mod_ivaMouseExited(evt);
-            }
-        });
-        mod_iva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mod_ivaActionPerformed(evt);
             }
         });
 
@@ -3440,14 +3277,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addGap(6, 6, 6)
                         .addComponent(Biva, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jsTabla_ciu20, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(JPiva_fpLayout.createSequentialGroup()
-                        .addComponent(reg_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(mod_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(elim_iva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPiva_fpLayout.createSequentialGroup()
+                        .addComponent(reg_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(elim_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                    .addComponent(JPiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(JPIVA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(Liva)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -3497,10 +3332,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addGap(22, 22, 22)
                         .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(JPiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JPIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(JPiva_fpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(reg_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mod_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(elim_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(JPiva_fpLayout.createSequentialGroup()
                         .addGap(44, 44, 44)
@@ -4065,7 +3899,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+        JPemp.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel64.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel64.setText("Cédula:");
@@ -4145,111 +3979,111 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         jLabel96.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel96.setText("Fecha de registro:");
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
+        javax.swing.GroupLayout JPempLayout = new javax.swing.GroupLayout(JPemp);
+        JPemp.setLayout(JPempLayout);
+        JPempLayout.setHorizontalGroup(
+            JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPempLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel90)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(direccion_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel78)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fecha_nac_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel76)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(celular_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel69)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nombre_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel67)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(id_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel88)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ciudad_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel73)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(apellido_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel92)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(email_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel82)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sexo_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel84)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(departamento_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel96)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fecha_reg_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel95)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(puesto_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGroup(JPempLayout.createSequentialGroup()
                         .addComponent(jLabel64)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cedula_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
         );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
+        JPempLayout.setVerticalGroup(
+            JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPempLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel64)
                     .addComponent(cedula_emp)
                     .addComponent(jLabel67)
                     .addComponent(id_emp))
                 .addGap(15, 15, 15)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel69)
                     .addComponent(nombre_emp)
                     .addComponent(jLabel73)
                     .addComponent(apellido_emp))
                 .addGap(15, 15, 15)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel78)
                     .addComponent(fecha_nac_emp)
                     .addComponent(jLabel82)
                     .addComponent(sexo_emp))
                 .addGap(15, 15, 15)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel76)
                     .addComponent(celular_emp)
                     .addComponent(jLabel92)
                     .addComponent(email_emp))
                 .addGap(15, 15, 15)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel90)
                     .addComponent(direccion_emp)
                     .addComponent(jLabel84)
                     .addComponent(departamento_emp))
                 .addGap(15, 15, 15)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel88)
                     .addComponent(ciudad_emp)
                     .addComponent(jLabel95)
                     .addComponent(puesto_emp))
                 .addGap(15, 15, 15)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(fecha_reg_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel96, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -4413,7 +4247,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addComponent(Bemp, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jsTabla_ciu5, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JPemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(JPcli_empLayout.createSequentialGroup()
                         .addComponent(reg_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
@@ -4485,7 +4319,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                         .addGap(22, 22, 22)
                         .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JPemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
                         .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(reg_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -5658,7 +5492,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                                 .addComponent(reg_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(mod_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(elim_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         MENU.addTab("Puestos y Departamentos", JPpue_dep);
@@ -8930,20 +8764,9 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_ivaMouseExited
 
     private void reg_ivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_ivaActionPerformed
-        // TODO add your handling code here:
+        JFiva.limpiar();
+        JFIVA.setVisible(true);
     }//GEN-LAST:event_reg_ivaActionPerformed
-
-    private void mod_ivaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_ivaMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_ivaMouseEntered
-
-    private void mod_ivaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_ivaMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_ivaMouseExited
-
-    private void mod_ivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_ivaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_ivaActionPerformed
 
     private void BfpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BfpMouseClicked
         // TODO add your handling code here:
@@ -8968,42 +8791,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private void LfpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LfpMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_LfpMouseClicked
-
-    private void elim_fpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_fpMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_elim_fpMouseEntered
-
-    private void elim_fpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_fpMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_elim_fpMouseExited
-
-    private void elim_fpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_fpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_elim_fpActionPerformed
-
-    private void mod_fpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_fpMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_fpMouseEntered
-
-    private void mod_fpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_fpMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_fpMouseExited
-
-    private void mod_fpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_fpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_fpActionPerformed
-
-    private void reg_fpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_fpMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_reg_fpMouseEntered
-
-    private void reg_fpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_fpMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_reg_fpMouseExited
-
-    private void reg_fpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_fpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_reg_fpActionPerformed
 
     private void LpagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LpagMouseClicked
         // TODO add your handling code here:
@@ -9036,6 +8823,52 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
         actualizado = false;
     }//GEN-LAST:event_formWindowLostFocus
+
+    private void elim_fpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_fpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_elim_fpActionPerformed
+
+    private void elim_fpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_fpMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_elim_fpMouseExited
+
+    private void elim_fpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_fpMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_elim_fpMouseEntered
+
+    private void mod_fpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_fpActionPerformed
+        if (JPfp.isVisible()) {
+            JFforma_pago.forma = "modificar";
+            JFforma_pago.cambiar_diseño();
+            JFfp.llenar(id_fp.getText());
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
+    }//GEN-LAST:event_mod_fpActionPerformed
+
+    private void mod_fpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_fpMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mod_fpMouseExited
+
+    private void mod_fpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_fpMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mod_fpMouseEntered
+
+    private void reg_fpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_fpActionPerformed
+        JFforma_pago.forma = "registrar";
+        JFforma_pago.cambiar_diseño();
+        JFforma_pago.limpiar();
+        JFfp.setVisible(true);
+    }//GEN-LAST:event_reg_fpActionPerformed
+
+    private void reg_fpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_fpMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reg_fpMouseExited
+
+    private void reg_fpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_fpMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reg_fpMouseEntered
 
     
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
@@ -9414,33 +9247,22 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }
      public void ver_panel(int num, boolean visible) {
         switch (num) {
-            case 1:
-                JPcat.setVisible(visible);
-                break;
-            case 2:
-                JPciu.setVisible(visible);
-                break;
-            case 3:
-                JPcli.setVisible(visible);
-                break;
-            case 5:
-                JPdes.setVisible(visible);
-                break;
-            case 10:
-                JPgen.setVisible(visible);
-                break;
-            case 12:
-                JPmar.setVisible(visible);
-                break;
-            case 16:
-                JPpro.setVisible(visible);
-                break;
-            case 17:
-                JPprov.setVisible(visible);
-                break;
-            case 18:
-                JPprovi.setVisible(visible);
-                break;
+            case 1: JPcat.setVisible(visible); break;
+            case 2: JPciu.setVisible(visible);break;
+            case 3: JPcli.setVisible(visible); break;
+            case 4: JPdep.setVisible(visible); break;
+            case 5: JPdes.setVisible(visible); break;
+            case 8: JPemp.setVisible(visible); break;
+            case 11: JPfp.setVisible(visible); break;
+            case 12: JPgen.setVisible(visible); break;
+            case 13: JPIVA.setVisible(visible); break;
+            case 14: JPmar.setVisible(visible); break;
+            case 15: JPpe.setVisible(visible); break;
+            case 18: JPpro.setVisible(visible); break;
+            case 19: JPprov.setVisible(visible); break;
+            case 20: JPprovi.setVisible(visible); break;
+            case 21: JPpue.setVisible(visible); break;
+            case 22: JPsuc.setVisible(visible); break;
          }
     }
 
@@ -9448,13 +9270,19 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JPcat.setVisible(false);
         JPciu.setVisible(false);
         JPcli.setVisible(false);
+        JPdep.setVisible(false);
         JPdes.setVisible(false);
-        
+        JPemp.setVisible(false);
+        JPfp.setVisible(false);
         JPgen.setVisible(false);
+        JPIVA.setVisible(false);
         JPmar.setVisible(false);
+        JPpe.setVisible(false);
         JPpro.setVisible(false);
         JPprov.setVisible(false);
         JPprovi.setVisible(false);
+        JPpue.setVisible(false);
+        JPsuc.setVisible(false);
     }
 
     public void resumen() {
@@ -9508,6 +9336,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JComboBox<String> JCprovi;
     private javax.swing.JComboBox<String> JCpue;
     private javax.swing.JComboBox<String> JCsuc;
+    private javax.swing.JPanel JPIVA;
     private javax.swing.JPanel JPcat;
     private javax.swing.JPanel JPciu;
     private javax.swing.JPanel JPciu_provi;
@@ -9515,11 +9344,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel JPcli_emp;
     private javax.swing.JPanel JPdep;
     private javax.swing.JPanel JPdes;
+    private javax.swing.JPanel JPemp;
     private javax.swing.JPanel JPfacturar;
     private javax.swing.JPanel JPfp;
     private javax.swing.JPanel JPgen;
     private javax.swing.JPanel JPgen_des;
-    private javax.swing.JPanel JPiva;
     private javax.swing.JPanel JPiva_fp;
     private javax.swing.JPanel JPmar;
     private javax.swing.JPanel JPmar_cat;
@@ -9842,7 +9671,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel99;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel18;
@@ -9946,7 +9774,6 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton mod_emp;
     private javax.swing.JButton mod_fp;
     private javax.swing.JButton mod_gen;
-    private javax.swing.JButton mod_iva;
     private javax.swing.JButton mod_mar;
     private javax.swing.JButton mod_pe;
     private javax.swing.JButton mod_pro;
