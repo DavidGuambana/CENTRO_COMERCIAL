@@ -3381,6 +3381,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JPcli_emp.setMaximumSize(new java.awt.Dimension(980, 1050));
         JPcli_emp.setMinimumSize(new java.awt.Dimension(980, 1050));
         JPcli_emp.setPreferredSize(new java.awt.Dimension(980, 1050));
+        JPcli_emp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jsTabla_ciu4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -3411,6 +3412,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTcli.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu4.setViewportView(JTcli);
 
+        JPcli_emp.add(jsTabla_ciu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 378, 420, 170));
+
         JCcli.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCcli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
         JCcli.addItemListener(new java.awt.event.ItemListener() {
@@ -3418,10 +3421,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 JCcliItemStateChanged(evt);
             }
         });
+        JPcli_emp.add(JCcli, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 331, 142, 35));
 
         jLabel72.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel72.setText("Buscar por");
+        JPcli_emp.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 331, -1, 34));
 
         Bcli.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bcli.setText("Buscar");
@@ -3447,6 +3452,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 BcliKeyTyped(evt);
             }
         });
+        JPcli_emp.add(Bcli, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 331, 195, -1));
 
         Lcli.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         Lcli.setForeground(new java.awt.Color(0, 102, 102));
@@ -3458,20 +3464,24 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 LcliMouseClicked(evt);
             }
         });
+        JPcli_emp.add(Lcli, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 331, -1, 35));
 
         res_cli.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         res_cli.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         res_cli.setText("Resultados: 0 de 0");
+        JPcli_emp.add(res_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 287, 204, 32));
 
         jl_titulo17.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo17.setText("Clientes");
         jl_titulo17.setIconTextGap(10);
         jl_titulo17.setVerifyInputWhenFocusTarget(false);
+        JPcli_emp.add(jl_titulo17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 287, 204, -1));
 
         jSeparator7.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JPcli_emp.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 257, 899, 12));
 
         jPanel23.setBackground(new java.awt.Color(153, 0, 51));
         jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -3492,6 +3502,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel80, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
+
+        JPcli_emp.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 569, 420, 47));
 
         jsTabla_ciu5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -3522,15 +3534,19 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTemp.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu5.setViewportView(JTemp);
 
+        JPcli_emp.add(jsTabla_ciu5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 378, 422, 170));
+
         jl_titulo20.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo20.setText("PERSONAS");
         jl_titulo20.setIconTextGap(10);
         jl_titulo20.setVerifyInputWhenFocusTarget(false);
+        JPcli_emp.add(jl_titulo20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 200, 35));
 
         jLabel74.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel74.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel74.setText("Buscar por");
+        JPcli_emp.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 20, -1, 35));
 
         JCper.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
@@ -3539,6 +3555,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 JCperItemStateChanged(evt);
             }
         });
+        JPcli_emp.add(JCper, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 20, 142, 35));
 
         Bper.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bper.setText("Buscar");
@@ -3564,6 +3581,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 BperKeyTyped(evt);
             }
         });
+        JPcli_emp.add(Bper, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 20, 185, -1));
 
         Lper.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         Lper.setForeground(new java.awt.Color(0, 102, 102));
@@ -3575,6 +3593,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 LperMouseClicked(evt);
             }
         });
+        JPcli_emp.add(Lper, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 20, -1, 35));
 
         jsTabla_ciu6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -3605,181 +3624,113 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         JTper.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu6.setViewportView(JTper);
 
+        JPcli_emp.add(jsTabla_ciu6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 67, 899, 170));
+
         res_per.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         res_per.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         res_per.setText("Resultados: 0 de 0");
+        JPcli_emp.add(res_per, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 20, 212, 35));
 
         JPcli.setBackground(new java.awt.Color(255, 255, 255));
+        JPcli.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel63.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel63.setText("Cédula:");
+        JPcli.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 20, -1, -1));
 
         cedula_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cedula_cli.setText("0");
+        JPcli.add(cedula_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 20, 123, -1));
 
         jLabel66.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel66.setText("ID:");
+        JPcli.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         id_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         id_cli.setText("0");
+        JPcli.add(id_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 20, 188, -1));
 
         jLabel68.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel68.setText("Nombre:");
+        JPcli.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 53, -1, -1));
 
         nombre_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         nombre_cli.setText("0");
+        JPcli.add(nombre_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 53, 154, -1));
 
         apellido_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         apellido_cli.setText("0");
+        JPcli.add(apellido_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 53, 114, -1));
 
         jLabel71.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel71.setText("Apellido:");
+        JPcli.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 53, -1, -1));
 
         jLabel75.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel75.setText("Celular:");
+        JPcli.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 119, -1, -1));
 
         celular_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         celular_cli.setText("0");
+        JPcli.add(celular_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 119, 161, -1));
 
         jLabel77.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel77.setText("Fecha de nacimiento:");
+        JPcli.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 86, -1, -1));
 
         fecha_nac_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_nac_cli.setText("0");
+        JPcli.add(fecha_nac_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 86, 81, -1));
 
         jLabel79.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel79.setText("Sexo:");
+        JPcli.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 86, -1, -1));
 
         sexo_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         sexo_cli.setText("0");
+        JPcli.add(sexo_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 86, 134, -1));
 
         jLabel83.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel83.setText("Descuento:");
+        JPcli.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 152, -1, -1));
 
         descuento_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         descuento_cli.setText("0");
+        JPcli.add(descuento_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 152, 101, -1));
 
         jLabel85.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel85.setText("Fecha de registro:");
+        JPcli.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 185, -1, -1));
 
         fecha_reg_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_reg_cli.setText("0");
+        JPcli.add(fecha_reg_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 185, 70, -1));
 
         jLabel87.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel87.setText("Ciudad:");
+        JPcli.add(jLabel87, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 185, -1, -1));
 
         ciudad_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         ciudad_cli.setText("0");
+        JPcli.add(ciudad_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 185, 162, -1));
 
         jLabel89.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel89.setText("Dirección:");
+        JPcli.add(jLabel89, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 152, -1, -1));
 
         direccion_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         direccion_cli.setText("0");
+        JPcli.add(direccion_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 152, 147, -1));
 
         jLabel91.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel91.setText("Email:");
+        JPcli.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 119, -1, -1));
 
         email_cli.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         email_cli.setText("0");
+        JPcli.add(email_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 119, 131, -1));
 
-        javax.swing.GroupLayout JPcliLayout = new javax.swing.GroupLayout(JPcli);
-        JPcli.setLayout(JPcliLayout);
-        JPcliLayout.setHorizontalGroup(
-            JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPcliLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel66)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(id_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel63)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cedula_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel68)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombre_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel71)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(apellido_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel77)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha_nac_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel79)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sexo_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel75)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(celular_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel91)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(email_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel89)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(direccion_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel83)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(descuento_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPcliLayout.createSequentialGroup()
-                        .addComponent(jLabel87)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ciudad_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel85)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha_reg_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        JPcliLayout.setVerticalGroup(
-            JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPcliLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel66)
-                    .addComponent(id_cli)
-                    .addComponent(jLabel63)
-                    .addComponent(cedula_cli))
-                .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel68)
-                    .addComponent(nombre_cli)
-                    .addComponent(jLabel71)
-                    .addComponent(apellido_cli))
-                .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel77)
-                    .addComponent(fecha_nac_cli)
-                    .addComponent(jLabel79)
-                    .addComponent(sexo_cli))
-                .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel75)
-                    .addComponent(celular_cli)
-                    .addComponent(jLabel91)
-                    .addComponent(email_cli))
-                .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel89)
-                    .addComponent(direccion_cli)
-                    .addComponent(jLabel83)
-                    .addComponent(descuento_cli))
-                .addGap(15, 15, 15)
-                .addGroup(JPcliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel87)
-                    .addComponent(ciudad_cli)
-                    .addComponent(jLabel85)
-                    .addComponent(fecha_reg_cli)))
-        );
+        JPcli_emp.add(JPcli, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 616, 420, 240));
 
         elim_cli.setBackground(new java.awt.Color(255, 0, 51));
         elim_cli.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -3800,6 +3751,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 elim_cliActionPerformed(evt);
             }
         });
+        JPcli_emp.add(elim_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 860, 130, 40));
 
         reg_cli.setBackground(new java.awt.Color(0, 204, 102));
         reg_cli.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -3820,6 +3772,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 reg_cliActionPerformed(evt);
             }
         });
+        JPcli_emp.add(reg_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 860, 130, 40));
 
         mod_cli.setBackground(new java.awt.Color(51, 204, 255));
         mod_cli.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -3840,6 +3793,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 mod_cliActionPerformed(evt);
             }
         });
+        JPcli_emp.add(mod_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 860, 136, 40));
 
         Bemp.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bemp.setText("Buscar");
@@ -3865,6 +3819,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 BempKeyTyped(evt);
             }
         });
+        JPcli_emp.add(Bemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 330, 197, -1));
 
         JCemp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCemp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
@@ -3873,20 +3828,24 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 JCempItemStateChanged(evt);
             }
         });
+        JPcli_emp.add(JCemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 331, 142, 35));
 
         jLabel93.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel93.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel93.setText("Buscar por");
+        JPcli_emp.add(jLabel93, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, -1, 34));
 
         jl_titulo19.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo19.setText("Empleados");
         jl_titulo19.setIconTextGap(10);
         jl_titulo19.setVerifyInputWhenFocusTarget(false);
+        JPcli_emp.add(jl_titulo19, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 287, 181, -1));
 
         res_emp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         res_emp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         res_emp.setText("Resultados: 0 de 0");
+        JPcli_emp.add(res_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(718, 291, 204, -1));
 
         Lemp.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         Lemp.setForeground(new java.awt.Color(0, 102, 102));
@@ -3898,196 +3857,116 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 LempMouseClicked(evt);
             }
         });
+        JPcli_emp.add(Lemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(925, 330, -1, 36));
 
         JPemp.setBackground(new java.awt.Color(255, 255, 255));
+        JPemp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel64.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel64.setText("Cédula:");
+        JPemp.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 20, -1, -1));
 
         cedula_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cedula_emp.setText("0");
+        JPemp.add(cedula_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 20, 122, -1));
 
         jLabel67.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel67.setText("ID:");
+        JPemp.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         id_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         id_emp.setText("0");
+        JPemp.add(id_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 20, 188, -1));
 
         jLabel69.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel69.setText("Nombre:");
+        JPemp.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 53, -1, -1));
 
         nombre_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         nombre_emp.setText("0");
+        JPemp.add(nombre_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 53, 154, -1));
 
         apellido_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         apellido_emp.setText("0");
+        JPemp.add(apellido_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 53, 113, -1));
 
         jLabel73.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel73.setText("Apellido:");
+        JPemp.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 53, -1, -1));
 
         jLabel76.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel76.setText("Celular:");
+        JPemp.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 119, -1, -1));
 
         celular_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         celular_emp.setText("0");
+        JPemp.add(celular_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 119, 161, -1));
 
         jLabel78.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel78.setText("Fecha de nacimiento:");
+        JPemp.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 86, -1, -1));
 
         fecha_nac_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_nac_emp.setText("0");
+        JPemp.add(fecha_nac_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 86, 81, -1));
 
         jLabel82.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel82.setText("Sexo:");
+        JPemp.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 86, -1, -1));
 
         sexo_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         sexo_emp.setText("0");
+        JPemp.add(sexo_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 86, 133, -1));
 
         jLabel84.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel84.setText("Departamento:");
+        JPemp.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 152, -1, -1));
 
         departamento_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         departamento_emp.setText("0");
+        JPemp.add(departamento_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 152, 77, -1));
 
         fecha_reg_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_reg_emp.setText("0");
+        JPemp.add(fecha_reg_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 218, 70, -1));
 
         jLabel88.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel88.setText("Ciudad:");
+        JPemp.add(jLabel88, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 185, -1, -1));
 
         ciudad_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         ciudad_emp.setText("0");
+        JPemp.add(ciudad_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 185, 162, -1));
 
         jLabel90.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel90.setText("Dirección:");
+        JPemp.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 152, -1, -1));
 
         direccion_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         direccion_emp.setText("0");
+        JPemp.add(direccion_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 152, 147, -1));
 
         jLabel92.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel92.setText("Email:");
+        JPemp.add(jLabel92, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 119, -1, -1));
 
         email_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         email_emp.setText("0");
+        JPemp.add(email_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 119, 130, -1));
 
         jLabel95.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel95.setText("Puesto:");
+        JPemp.add(jLabel95, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 185, -1, -1));
 
         puesto_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         puesto_emp.setText("0");
+        JPemp.add(puesto_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 185, 122, -1));
 
         jLabel96.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel96.setText("Fecha de registro:");
+        JPemp.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 218, -1, -1));
 
-        javax.swing.GroupLayout JPempLayout = new javax.swing.GroupLayout(JPemp);
-        JPemp.setLayout(JPempLayout);
-        JPempLayout.setHorizontalGroup(
-            JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPempLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel90)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(direccion_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel78)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha_nac_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel76)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(celular_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel69)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombre_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel67)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(id_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel88)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ciudad_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel73)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(apellido_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel92)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(email_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel82)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sexo_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel84)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(departamento_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel96)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha_reg_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel95)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(puesto_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(JPempLayout.createSequentialGroup()
-                        .addComponent(jLabel64)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cedula_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16))
-        );
-        JPempLayout.setVerticalGroup(
-            JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPempLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel64)
-                    .addComponent(cedula_emp)
-                    .addComponent(jLabel67)
-                    .addComponent(id_emp))
-                .addGap(15, 15, 15)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel69)
-                    .addComponent(nombre_emp)
-                    .addComponent(jLabel73)
-                    .addComponent(apellido_emp))
-                .addGap(15, 15, 15)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel78)
-                    .addComponent(fecha_nac_emp)
-                    .addComponent(jLabel82)
-                    .addComponent(sexo_emp))
-                .addGap(15, 15, 15)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel76)
-                    .addComponent(celular_emp)
-                    .addComponent(jLabel92)
-                    .addComponent(email_emp))
-                .addGap(15, 15, 15)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel90)
-                    .addComponent(direccion_emp)
-                    .addComponent(jLabel84)
-                    .addComponent(departamento_emp))
-                .addGap(15, 15, 15)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel88)
-                    .addComponent(ciudad_emp)
-                    .addComponent(jLabel95)
-                    .addComponent(puesto_emp))
-                .addGap(15, 15, 15)
-                .addGroup(JPempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(fecha_reg_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel96, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
+        JPcli_emp.add(JPemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 617, 420, 240));
 
         jPanel24.setBackground(new java.awt.Color(153, 0, 51));
         jPanel24.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -4109,6 +3988,8 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             .addComponent(jLabel94, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
+        JPcli_emp.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 570, 422, 47));
+
         elim_emp.setBackground(new java.awt.Color(255, 0, 51));
         elim_emp.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         elim_emp.setForeground(new java.awt.Color(255, 255, 255));
@@ -4128,6 +4009,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 elim_empActionPerformed(evt);
             }
         });
+        JPcli_emp.add(elim_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 860, 130, 40));
 
         mod_emp.setBackground(new java.awt.Color(51, 204, 255));
         mod_emp.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -4148,6 +4030,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 mod_empActionPerformed(evt);
             }
         });
+        JPcli_emp.add(mod_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 860, 136, 40));
 
         reg_emp.setBackground(new java.awt.Color(0, 204, 102));
         reg_emp.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -4168,6 +4051,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 reg_empActionPerformed(evt);
             }
         });
+        JPcli_emp.add(reg_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 860, 132, 40));
 
         jLabel86.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -4178,159 +4062,13 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 jLabel86MouseClicked(evt);
             }
         });
+        JPcli_emp.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 965, 59, -1));
 
         jSeparator24.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator24.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator24.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator24.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        javax.swing.GroupLayout JPcli_empLayout = new javax.swing.GroupLayout(JPcli_emp);
-        JPcli_emp.setLayout(JPcli_empLayout);
-        JPcli_empLayout.setHorizontalGroup(
-            JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPcli_empLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jl_titulo20, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel74)
-                .addGap(6, 6, 6)
-                .addComponent(JCper, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(Bper, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(Lper)
-                .addGap(46, 46, 46)
-                .addComponent(res_per, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(JPcli_empLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jsTabla_ciu6, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(JPcli_empLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(JPcli_empLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addComponent(jl_titulo17, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(res_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addComponent(jLabel72)
-                        .addGap(6, 6, 6)
-                        .addComponent(JCcli, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(Bcli, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jsTabla_ciu4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addComponent(reg_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(mod_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(elim_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPcli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(3, 3, 3)
-                .addComponent(Lcli)
-                .addGap(12, 12, 12)
-                .addComponent(jSeparator24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addComponent(jl_titulo19, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(res_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addComponent(jLabel93)
-                        .addGap(6, 6, 6)
-                        .addComponent(JCemp, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(Bemp, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jsTabla_ciu5, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JPemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addComponent(reg_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(mod_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(elim_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(3, 3, 3)
-                .addComponent(Lemp))
-            .addGroup(JPcli_empLayout.createSequentialGroup()
-                .addGap(442, 442, 442)
-                .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        JPcli_empLayout.setVerticalGroup(
-            JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPcli_empLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jl_titulo20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JCper, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Bper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Lper, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(res_per, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addComponent(jsTabla_ciu6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_titulo17)
-                            .addComponent(res_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JCcli, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bcli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addComponent(jsTabla_ciu4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(JPcli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reg_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mod_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(elim_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(Lcli, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator24, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_titulo19)
-                            .addGroup(JPcli_empLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(res_emp)))
-                        .addGap(11, 11, 11)
-                        .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(JPcli_empLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(JCemp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Bemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addComponent(jsTabla_ciu5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(JPemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addGroup(JPcli_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reg_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mod_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(elim_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(JPcli_empLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(Lemp, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38)
-                .addComponent(jLabel86))
-        );
+        JPcli_emp.add(jSeparator24, new org.netbeans.lib.awtextra.AbsoluteConstraints(471, 287, -1, 640));
 
         JScli_emp.setViewportView(JPcli_emp);
 
@@ -4915,7 +4653,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTpue.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTpue.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTpue.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTpue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -5022,7 +4760,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
             }
         };
         JTdep.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTdep.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTdep.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTdep.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -7865,7 +7603,15 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_empMouseExited
 
     private void mod_empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_empActionPerformed
-        // TODO add your handling code here:
+        if (JPemp.isVisible()) {
+            JFempleado.forma = "modificar";
+            JFempleado.cambiar_diseño();
+            JFemp.llenar(cedula_emp.getText());
+            reiniciar_factura(); //por precaución
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_mod_empActionPerformed
 
     private void reg_empMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_empMouseEntered
@@ -7877,7 +7623,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_empMouseExited
 
     private void reg_empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_empActionPerformed
-        
+        JFempleado.forma = "registrar";
+        JFempleado.cambiar_diseño();
+        JFempleado.limpiar();
+        JFemp.setVisible(true);
     }//GEN-LAST:event_reg_empActionPerformed
 
     private void jLabel86MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel86MouseClicked
@@ -8931,11 +8680,11 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                                 JFcli.setVisible(true);
                                 break;
                             case 1://empleado
-//                                JFempleado.FK_ciu = Integer.parseInt(pk);
-//                                JFempleado.ciudad.setText(""+pk+" - "+nombre_ciu.getText());
-//                                MENU.setSelectedIndex(1);
-//                                PERSONAS.setSelectedIndex(0);
-//                                JFemp.setVisible(true);
+                                JFempleado.FK_ciu = Integer.parseInt(pk);
+                                JFempleado.ciudad.setText(""+pk+" - "+nombre_ciu.getText());
+                                MENU.setSelectedIndex(1);
+                                PERSONAS.setSelectedIndex(0);
+                                JFemp.setVisible(true);
                                 break;
 
                             case 2://proveedor
@@ -8996,6 +8745,80 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 }
             });
             
+            JTdep.addMouseListener(new MouseAdapter() { //departamento - 4
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTdep.getValueAt(JTdep.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"DEPARTAMENTO WHERE ID="+pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            id_dep.setText(""+rs.getInt(1));
+                            nombre_dep.setText(rs.getString(2));
+                            descripcion_dep.setText(rs.getString(3));
+                            ver_panel(4,true);
+                        } catch (SQLException ex) {
+                        }
+                    }
+                    if (Mouse_evt.getClickCount() == 2) {
+                        JFempleado.FK_dep = Integer.parseInt(pk);
+                        JFempleado.departamento.setText("" + pk + " - " + nombre_dep.getText());
+                        MENU.setSelectedIndex(1);
+                        PERSONAS.setSelectedIndex(0);
+                        JFemp.setVisible(true);
+                    }
+                }
+            });
+            
+            JTemp.addMouseListener(new MouseAdapter() { //empleados - 8
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTemp.getValueAt(JTemp.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"EMPLEADO WHERE ID="+pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            id_emp.setText(""+rs.getInt(1));
+                            cedula_emp.setText(rs.getString(2));
+                            int FK_dep = rs.getInt(4);
+                            int FK_pue = rs.getInt(5);
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"DEPARTAMENTO WHERE ID="+FK_dep);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            departamento_emp.setText(rs.getString(2));
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"PUESTO WHERE ID="+FK_pue);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            puesto_emp.setText(rs.getString(2));
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "PERSONA WHERE CEDULA='"+cedula_emp.getText()+"'");
+                            rs = ps.executeQuery();
+                            rs.next();
+                            nombre_emp.setText(rs.getString(2));
+                            apellido_emp.setText(rs.getString(3));
+                            fecha_nac_emp.setText(rs.getDate(4).toString());
+                            celular_emp.setText(rs.getString(6));
+                            email_emp.setText(rs.getString(7));
+                            direccion_emp.setText(rs.getString(8));
+                            fecha_reg_emp.setText(rs.getDate(10).toString());
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "GENERO WHERE ID="+rs.getInt(5));
+                            rs2 = ps.executeQuery();
+                            rs2.next();
+                            sexo_emp.setText(rs2.getString(2));
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "CIUDAD WHERE ID="+rs.getInt(9));
+                            rs = ps.executeQuery();
+                            rs.next();
+                            ciudad_emp.setText(rs.getString(2));
+                            ver_panel(8,true);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                    
+                }
+            });
+            
             JTdes.addMouseListener(new MouseAdapter() { //descuento - 5
                 @Override
                 public void mousePressed(MouseEvent Mouse_evt) {
@@ -9048,13 +8871,12 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                                 JFcli.setVisible(true);
                                 break;
                             case 1://empleado
-//                                JFempleado.FK_gen = Integer.parseInt(pk);
-//                                JFempleado.genero.setText(""+pk+" - "+sexo_gen.getText());
-//                                MENU.setSelectedIndex(1);
-//                                PERSONAS.setSelectedIndex(0);
-//                                JFcli.setVisible(true);
-//                                break;
-
+                                JFempleado.FK_gen = Integer.parseInt(pk);
+                                JFempleado.genero.setText(""+pk+" - "+sexo_gen.getText());
+                                MENU.setSelectedIndex(1);
+                                PERSONAS.setSelectedIndex(0);
+                                JFemp.setVisible(true);
+                                break;
                         }
                     }
                 }
@@ -9181,6 +9003,31 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                     if (Mouse_evt.getClickCount() == 2) {
                         JFciudad.jt_provincia.setText(id_provi.getText());
                         JFciu.setVisible(true);
+                    }
+                }
+            });
+            JTpue.addMouseListener(new MouseAdapter() { //puesto - 21
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTpue.getValueAt(JTpue.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"PUESTO WHERE ID="+pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            id_pue.setText(""+rs.getInt(1));
+                            nombre_pue.setText(rs.getString(2));
+                            sueldo_pue.setText(String.valueOf(rs.getDouble(3)));
+                            ver_panel(21,true);
+                        } catch (SQLException ex) {
+                        }
+                    }
+                    if (Mouse_evt.getClickCount() == 2) {
+                        JFempleado.FK_pue = Integer.parseInt(pk);
+                        JFempleado.puesto.setText("" + pk + " - " + nombre_pue.getText());
+                        MENU.setSelectedIndex(1);
+                        PERSONAS.setSelectedIndex(0);
+                        JFemp.setVisible(true);
                     }
                 }
             });

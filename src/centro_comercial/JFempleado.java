@@ -19,7 +19,7 @@ public class JFempleado extends javax.swing.JFrame {
     long d;
     public static final String FK = "Seleccionar...";
     
-    public static int FK_gen, FK_ciu, FK_des;
+    public static int FK_gen, FK_ciu, FK_dep,FK_pue;
     String [] arreglo = {"Registrar con los datos ya existentes", "Registrar con los nuevos datos"};
     
     public JFempleado() {
@@ -47,38 +47,20 @@ public class JFempleado extends javax.swing.JFrame {
         jb_Ejecutar.setBackground(color);
         jp_1.setBackground(color);
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 12; i++) {
             switch (i) {
-                case 1:
-                    titulo = "Cédula:";
-                    break;
-                case 2:
-                    titulo = "Nombre:";
-                    break;
-                case 3:
-                    titulo = "Apellido:";
-                    break;
-                case 4:
-                    titulo = "Fecha de nacimiento:";
-                    break;
-                case 5:
-                    titulo = "Género:";
-                    break;
-                case 6:
-                    titulo = "N°. Celular:";
-                    break;
-                case 7:
-                    titulo = "Email:";
-                    break;
-                case 8:
-                    titulo = "Dirección:";
-                    break;
-                case 9:
-                    titulo = "Ciudad:";
-                    break;
-                case 10:
-                    titulo = "Descuento:";
-                    break;
+                case 1:titulo = "Cédula:"; break;
+                case 2:titulo = "Nombre:"; break;
+                case 3:titulo = "Apellido:";  break;
+                case 4:titulo = "Fecha de nacimiento:"; break;
+                case 5:titulo = "Género:"; break;
+                case 6:titulo = "N°. Celular:";  break;
+                case 7:titulo = "Email:";break;
+                case 8:titulo = "Dirección:";break;
+                case 9:titulo = "Ciudad:"; break;
+                case 10:titulo = "Departamento:";break;
+                case 11:titulo = "Puesto:";break;
+                case 12:titulo = "Contraseña:"; break;
             }
             tb = new TitledBorder(titulo);
             tb.setTitleJustification(0);
@@ -86,35 +68,29 @@ public class JFempleado extends javax.swing.JFrame {
             tb.setTitleColor(color);
             tb.setTitleFont(font);
             switch (i) {
-                case 1:
-                    cedula.setBorder(tb);
+                case 1:cedula.setBorder(tb);
                     break;
-                case 2:
-                    nombre.setBorder(tb);
+                case 2:nombre.setBorder(tb);
                     break;
-                case 3:
-                    apellido.setBorder(tb);
+                case 3: apellido.setBorder(tb);
                     break;
-                case 4:
-                    nacimiento.setBorder(tb);
+                case 4: nacimiento.setBorder(tb);
                     break;
-                case 5:
-                    genero.setBorder(tb);
+                case 5: genero.setBorder(tb);
                     break;
-                case 6:
-                    celular.setBorder(tb);
+                case 6:celular.setBorder(tb);
                     break;
-                case 7:
-                    email.setBorder(tb);
+                case 7:email.setBorder(tb);
                     break;
-                case 8:
-                    direccion.setBorder(tb);
+                case 8: direccion.setBorder(tb);
                     break;
-                case 9:
-                    ciudad.setBorder(tb);
+                case 9: ciudad.setBorder(tb);
                     break;
-                case 10:
-                    descuento.setBorder(tb);
+                case 10: departamento.setBorder(tb);
+                    break;
+                case 11: puesto.setBorder(tb);
+                    break;
+                case 12: password.setBorder(tb);
                     break;
             }
         }
@@ -130,7 +106,9 @@ public class JFempleado extends javax.swing.JFrame {
         email.setText("");
         direccion.setText("");
         ciudad.setText(FK);
-        descuento.setText(FK);
+        departamento.setText(FK);
+        puesto.setText(FK);
+        password.setText("");
     }
     public void llenar(String xcedula){
         con =  (Connection) conexion.conectar();
@@ -148,25 +126,29 @@ public class JFempleado extends javax.swing.JFrame {
                 email.setText(rs.getString(7));
                 direccion.setText(rs.getString(8));
                 FK_ciu = rs.getInt(9);
-            
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM CLIENTE WHERE CEDULA_PER='" + xcedula + "'");
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM EMPLEADO WHERE CEDULA_PER='" + xcedula + "'");
                 rs = ps.executeQuery();
                 rs.next();
-                FK_des = rs.getInt(3);
+                password.setText(rs.getString(3));
+                FK_dep = rs.getInt(4);
+                FK_pue = rs.getInt(5);
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM GENERO WHERE ID=" + FK_gen);
                 rs = ps.executeQuery();
                 rs.next();
                 genero.setText(""+rs.getInt(1)+" - "+rs.getString(2));
-                
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM CIUDAD WHERE ID=" + FK_ciu);
                 rs = ps.executeQuery();
                 rs.next();
                 ciudad.setText(""+rs.getInt(1)+" - "+rs.getString(2));
                 
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM DESCUENTO WHERE ID=" + FK_des);
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM DEPARTAMENTO WHERE ID=" + FK_dep);
                 rs = ps.executeQuery();
                 rs.next();
-                descuento.setText(""+rs.getInt(1)+" - "+rs.getString(2));
+                departamento.setText(""+rs.getInt(1)+" - "+rs.getString(2));
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PUESTO WHERE ID=" + FK_pue);
+                rs = ps.executeQuery();
+                rs.next();
+                puesto.setText(""+rs.getInt(1)+" - "+rs.getString(2));
                 
                 this.setVisible(true);
             } catch (SQLException e) {
@@ -178,17 +160,17 @@ public class JFempleado extends javax.swing.JFrame {
 
     public void registrar() {
         boolean registrado = false;
-        boolean cli_existente = false;
+        boolean emp_existente = false;
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PERSONA WHERE CEDULA = '" + cedula.getText() + "'");
                 if (ps.executeQuery().next()) {
-                    ps = (PreparedStatement) con.prepareStatement("SELECT * FROM CLIENTE WHERE CEDULA_PER = '" + cedula.getText() + "'");
+                    ps = (PreparedStatement) con.prepareStatement("SELECT * FROM EMPLEADO WHERE CEDULA_PER = '" + cedula.getText() + "'");
                     if (ps.executeQuery().next()) {
                         getToolkit().beep();
-                        JOptionPane.showMessageDialog(rootPane, "¡El cliente '" + cedula.getText() + "' ya existe!");
-                        cli_existente = true;
+                        JOptionPane.showMessageDialog(rootPane, "¡El empleado '" + cedula.getText() + "' ya existe!");
+                        emp_existente = true;
                     } else{
                         int opcion = -1;
                         do {
@@ -223,11 +205,13 @@ public class JFempleado extends javax.swing.JFrame {
                     ps.setInt(9, FK_ciu);
                     ps.executeUpdate(); //REGISTRA NUEVA PERSONA
                 }
-                if (!cli_existente) {
-                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO CLIENTE (CEDULA_PER,ID_DES) VALUES (?,?)");
+                if (!emp_existente) {
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO EMPLEADO (CEDULA_PER, PASSWORD, ID_DEP, ID_PUE) VALUES (?,?,?,?)");
                     ps.setString(1, cedula.getText());
-                    ps.setInt(2, FK_des);
-                    ps.executeUpdate(); //REGISTRA NUEVO CLIENTE
+                    ps.setString(2, password.getText());
+                    ps.setInt(3, FK_dep);
+                    ps.setInt(4, FK_pue);
+                    ps.executeUpdate(); //REGISTRA NUEVO EMPLEADO
                     registrado = true;
                 }
                 if (registrado) {
@@ -259,9 +243,11 @@ public class JFempleado extends javax.swing.JFrame {
                 ps.setString(9, cedula.getText());
                 ps.executeUpdate(); //Ejecuta la consulta
 
-                ps = (PreparedStatement) con.prepareStatement("UPDATE CLIENTE SET ID_DES=? WHERE CEDULA_PER=?");
-                ps.setInt(1, FK_des);
-                ps.setString(2, cedula.getText());
+                ps = (PreparedStatement) con.prepareStatement("UPDATE EMPLEADO SET PASSWORD=?, ID_DEP=?, ID_PUE=? WHERE CEDULA_PER=?");
+                ps.setString(1, password.getText());
+                ps.setInt(2, FK_dep);
+                ps.setInt(3, FK_pue);
+                ps.setString(4, cedula.getText());
                 ps.executeUpdate(); //ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
                 SISTEMA.actualizado = false;
@@ -284,12 +270,14 @@ public class JFempleado extends javax.swing.JFrame {
         apellido = new javax.swing.JTextField();
         celular = new javax.swing.JTextField();
         direccion = new javax.swing.JTextField();
-        jb_Ejecutar = new javax.swing.JButton();
         nacimiento = new com.toedter.calendar.JDateChooser();
         email = new javax.swing.JTextField();
         ciudad = new javax.swing.JTextField();
-        descuento = new javax.swing.JTextField();
+        departamento = new javax.swing.JTextField();
         genero = new javax.swing.JTextField();
+        jb_Ejecutar = new javax.swing.JButton();
+        puesto = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
         jp_1 = new javax.swing.JPanel();
         jl_cerrar = new javax.swing.JLabel();
         jl_titulo = new javax.swing.JLabel();
@@ -298,7 +286,6 @@ public class JFempleado extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(658, 437));
         setUndecorated(true);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(638, 365));
@@ -354,18 +341,6 @@ public class JFempleado extends javax.swing.JFrame {
             }
         });
 
-        jb_Ejecutar.setBackground(new java.awt.Color(51, 51, 51));
-        jb_Ejecutar.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
-        jb_Ejecutar.setForeground(new java.awt.Color(255, 255, 255));
-        jb_Ejecutar.setText("¡Registrar!");
-        jb_Ejecutar.setBorder(null);
-        jb_Ejecutar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_Ejecutar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_EjecutarActionPerformed(evt);
-            }
-        });
-
         nacimiento.setBackground(new java.awt.Color(255, 255, 255));
         nacimiento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fecha de nacimiento:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
         nacimiento.setDateFormatString("yyyy-MM-dd");
@@ -408,26 +383,26 @@ public class JFempleado extends javax.swing.JFrame {
             }
         });
 
-        descuento.setEditable(false);
-        descuento.setBackground(new java.awt.Color(255, 255, 255));
-        descuento.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        descuento.setForeground(new java.awt.Color(0, 153, 153));
-        descuento.setText("Seleccionar...");
-        descuento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descuento:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        descuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        descuento.addMouseListener(new java.awt.event.MouseAdapter() {
+        departamento.setEditable(false);
+        departamento.setBackground(new java.awt.Color(255, 255, 255));
+        departamento.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        departamento.setForeground(new java.awt.Color(0, 153, 153));
+        departamento.setText("Seleccionar...");
+        departamento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Departamento:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        departamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        departamento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                descuentoMouseClicked(evt);
+                departamentoMouseClicked(evt);
             }
         });
-        descuento.addActionListener(new java.awt.event.ActionListener() {
+        departamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descuentoActionPerformed(evt);
+                departamentoActionPerformed(evt);
             }
         });
-        descuento.addKeyListener(new java.awt.event.KeyAdapter() {
+        departamento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                descuentoKeyPressed(evt);
+                departamentoKeyPressed(evt);
             }
         });
 
@@ -450,6 +425,51 @@ public class JFempleado extends javax.swing.JFrame {
             }
         });
 
+        jb_Ejecutar.setBackground(new java.awt.Color(51, 51, 51));
+        jb_Ejecutar.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
+        jb_Ejecutar.setForeground(new java.awt.Color(255, 255, 255));
+        jb_Ejecutar.setText("¡Registrar!");
+        jb_Ejecutar.setBorder(null);
+        jb_Ejecutar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_Ejecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_EjecutarActionPerformed(evt);
+            }
+        });
+
+        puesto.setEditable(false);
+        puesto.setBackground(new java.awt.Color(255, 255, 255));
+        puesto.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        puesto.setForeground(new java.awt.Color(0, 153, 153));
+        puesto.setText("Seleccionar...");
+        puesto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Puesto:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        puesto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        puesto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                puestoMouseClicked(evt);
+            }
+        });
+        puesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                puestoActionPerformed(evt);
+            }
+        });
+        puesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                puestoKeyPressed(evt);
+            }
+        });
+
+        password.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        password.setText("jPasswordField1");
+        password.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -457,26 +477,38 @@ public class JFempleado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ciudad)
-                    .addComponent(nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(cedula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(genero, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(celular, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(puesto, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(descuento)
-                        .addGap(27, 27, 27)
-                        .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nombre)
-                            .addComponent(genero, javax.swing.GroupLayout.PREFERRED_SIZE, 193, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(celular, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                            .addComponent(apellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(direccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(12, 12, 12))
+                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(178, 178, 178))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(249, 249, 249))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,25 +521,23 @@ public class JFempleado extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(genero, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(celular, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(genero, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(celular, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(descuento, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puesto, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 46, 658, 380));
 
         jp_1.setBackground(new java.awt.Color(51, 51, 51));
         jp_1.setPreferredSize(new java.awt.Dimension(560, 40));
@@ -543,7 +573,21 @@ public class JFempleado extends javax.swing.JFrame {
             .addComponent(jl_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jp_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 658, 46));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jp_1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jp_1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -553,7 +597,7 @@ public class JFempleado extends javax.swing.JFrame {
             Date fecha = nacimiento.getDate();
             d = fecha.getTime();
             if (cedula.getText().equals("")||nombre.getText().equals("")||apellido.getText().equals("")||genero.getText().equals(FK)||celular.getText().equals("")||
-                    email.getText().equals("") || direccion.getText().equals("") || ciudad.getText().equals(FK)||descuento.getText().equals(FK)) {
+                    email.getText().equals("") || direccion.getText().equals("") || ciudad.getText().equals(FK)||departamento.getText().equals(FK)||puesto.getText().equals(FK)||password.getText().equals("")) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
             } else {
@@ -632,9 +676,9 @@ public class JFempleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_apellidoActionPerformed
 
-    private void descuentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descuentoKeyPressed
+    private void departamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_departamentoKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_descuentoKeyPressed
+    }//GEN-LAST:event_departamentoKeyPressed
 
     private void generoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_generoKeyPressed
         // TODO add your handling code here:
@@ -655,15 +699,31 @@ public class JFempleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ciudadActionPerformed
 
-    private void descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descuentoActionPerformed
+    private void departamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departamentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_descuentoActionPerformed
+    }//GEN-LAST:event_departamentoActionPerformed
 
-    private void descuentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_descuentoMouseClicked
-        SISTEMA.MENU.setSelectedIndex(1);
-        SISTEMA.PERSONAS.setSelectedIndex(1);
+    private void departamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departamentoMouseClicked
+        SISTEMA.MENU.setSelectedIndex(2);
         this.setVisible(false);
-    }//GEN-LAST:event_descuentoMouseClicked
+    }//GEN-LAST:event_departamentoMouseClicked
+
+    private void puestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_puestoMouseClicked
+        SISTEMA.MENU.setSelectedIndex(2);
+        this.setVisible(false);
+    }//GEN-LAST:event_puestoMouseClicked
+
+    private void puestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_puestoActionPerformed
+
+    private void puestoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_puestoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_puestoKeyPressed
+
+    private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
+        validar.V_contraseña(password, 30);
+    }//GEN-LAST:event_passwordKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -733,7 +793,7 @@ public class JFempleado extends javax.swing.JFrame {
     public static javax.swing.JTextField cedula;
     public static javax.swing.JTextField celular;
     public static javax.swing.JTextField ciudad;
-    public static javax.swing.JTextField descuento;
+    public static javax.swing.JTextField departamento;
     public static javax.swing.JTextField direccion;
     public static javax.swing.JTextField email;
     public static javax.swing.JTextField genero;
@@ -744,5 +804,7 @@ public class JFempleado extends javax.swing.JFrame {
     public static javax.swing.JPanel jp_1;
     public static com.toedter.calendar.JDateChooser nacimiento;
     public static javax.swing.JTextField nombre;
+    public static javax.swing.JPasswordField password;
+    public static javax.swing.JTextField puesto;
     // End of variables declaration//GEN-END:variables
 }

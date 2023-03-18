@@ -77,11 +77,11 @@ public class JFforma_pago extends javax.swing.JFrame {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE NOMBRE = '" + nombre.getText() + "'");
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE NOMBRE = '" + nombre.getText().toUpperCase() + "'");
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     getToolkit().beep();
-                    JOptionPane.showMessageDialog(rootPane, "¡La forma de pago '" + nombre.getText() + "' ya existe!");
+                    JOptionPane.showMessageDialog(rootPane, "¡La forma de pago '" + nombre.getText().toUpperCase() + "' ya existe!");
                 } else {
                     ps = (PreparedStatement) con.prepareStatement("INSERT INTO FORMA_PAGO (NOMBRE) VALUES (?)");
                     ps.setString(1, nombre.getText().toUpperCase());
