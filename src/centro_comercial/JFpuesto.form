@@ -24,13 +24,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jp_1" pref="404" max="32767" attributes="0"/>
-                  <Component id="jp_2" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jp_1" pref="340" max="32767" attributes="0"/>
+          <Component id="jp_2" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -38,7 +33,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jp_1" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="jp_2" min="-2" max="-2" attributes="0"/>
+              <Component id="jp_2" max="32767" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -64,7 +59,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Component id="jl_titulo" min="-2" pref="250" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="43" max="32767" attributes="0"/>
                   <Component id="jl_cerrar" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -108,7 +103,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Registrar g&#xe9;nero"/>
+            <Property name="text" type="java.lang.String" value="Registrar departamento"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -127,34 +122,42 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                  <Component id="sexo" min="-2" pref="362" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jt_nombre" alignment="0" pref="300" max="32767" attributes="0"/>
+                      <Component id="jt_sueldo" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="154" pref="154" max="-2" attributes="0"/>
-                  <Component id="jlid" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                  <Component id="id" min="-2" pref="70" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="133" pref="133" max="-2" attributes="0"/>
-                  <Component id="jb_Ejecutar" min="-2" pref="144" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jlid" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="id" min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jb_Ejecutar" min="-2" pref="144" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="sexo" min="-2" pref="75" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="jt_nombre" min="-2" pref="75" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                  <Component id="jt_sueldo" pref="58" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jlid" min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="id" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jb_Ejecutar" min="-2" pref="42" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -186,6 +189,28 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
+        <Component class="javax.swing.JTextField" name="jt_nombre">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Light" size="18" style="1"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Nombre:">
+                  <Font PropertyName="font" name="Yu Gothic UI Light" size="14" style="0"/>
+                  <Color PropertyName="color" blue="66" green="cc" red="0" type="rgb"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jt_nombreActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jt_nombreKeyPressed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
         <Component class="javax.swing.JLabel" name="jlid">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -211,14 +236,14 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="sexo">
+        <Component class="javax.swing.JTextField" name="jt_sueldo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic UI Light" size="18" style="1"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Sexo:">
+                <TitledBorder title="Sueldo:">
                   <Font PropertyName="font" name="Yu Gothic UI Light" size="14" style="0"/>
                   <Color PropertyName="color" blue="66" green="cc" red="0" type="rgb"/>
                 </TitledBorder>
@@ -226,7 +251,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="sexoKeyPressed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jt_sueldoKeyPressed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

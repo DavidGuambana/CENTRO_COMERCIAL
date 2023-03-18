@@ -172,7 +172,6 @@ public class JFgenero extends javax.swing.JFrame {
         );
 
         jp_2.setBackground(new java.awt.Color(255, 255, 255));
-        jp_2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jb_Ejecutar.setBackground(new java.awt.Color(0, 204, 102));
         jb_Ejecutar.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
@@ -185,16 +184,13 @@ public class JFgenero extends javax.swing.JFrame {
                 jb_EjecutarActionPerformed(evt);
             }
         });
-        jp_2.add(jb_Ejecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 173, 144, 42));
 
         jlid.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jlid.setForeground(new java.awt.Color(0, 204, 102));
         jlid.setText("Código:");
-        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 114, -1, 29));
 
         id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         id.setText("000");
-        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 114, 70, -1));
 
         sexo.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         sexo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sexo:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
@@ -203,7 +199,36 @@ public class JFgenero extends javax.swing.JFrame {
                 sexoKeyPressed(evt);
             }
         });
-        jp_2.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 21, 362, 75));
+
+        javax.swing.GroupLayout jp_2Layout = new javax.swing.GroupLayout(jp_2);
+        jp_2.setLayout(jp_2Layout);
+        jp_2Layout.setHorizontalGroup(
+            jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jp_2Layout.createSequentialGroup()
+                .addGap(154, 154, 154)
+                .addComponent(jlid)
+                .addGap(6, 6, 6)
+                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jp_2Layout.createSequentialGroup()
+                .addGap(133, 133, 133)
+                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jp_2Layout.setVerticalGroup(
+            jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlid, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(id))
+                .addGap(30, 30, 30)
+                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,7 +237,7 @@ public class JFgenero extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                    .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
+                    .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -220,7 +245,8 @@ public class JFgenero extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jp_1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jp_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();

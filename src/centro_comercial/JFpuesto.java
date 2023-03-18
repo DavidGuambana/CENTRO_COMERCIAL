@@ -9,84 +9,101 @@ import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class JFforma_pago extends javax.swing.JFrame {
+public class JFpuesto extends javax.swing.JFrame {
 
     public static String forma;
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
-
+    
     public static String nombre_propio;
 
-    public JFforma_pago() {
+    public JFpuesto() {
         initComponents();
         setLocationRelativeTo(null);
     }
-
+    
     public static void cambiar_diseño() {
+        String titulo = "";
         Color color = null;
         Font font = new Font("Yu Gothic UI Light", 0, 14);
         TitledBorder tb;
         if (forma.equals("registrar")) {
             id.setVisible(false);
             jlid.setVisible(false);
-            color = new Color(0, 204, 102);
-            jl_titulo.setText("Registrar forma de pago");
+            color = new Color(51,51,51);
+            jl_titulo.setText("Registrar puesto");
             jb_Ejecutar.setText("¡Registrar!");
-        } else if (forma.equals("modificar")) {
+        } else if(forma.equals("modificar")){
             id.setVisible(true);
             jlid.setVisible(true);
             color = new Color(0, 153, 255);
-            jl_titulo.setText("Modificar forma de pago");
+            jl_titulo.setText("Modificar puesto");
             jb_Ejecutar.setText("¡Modificar!");
         }
         jb_Ejecutar.setBackground(color);
         jp_1.setBackground(color);
-        tb = new TitledBorder("Nombre:");
-        tb.setTitleJustification(0);
-        tb.setTitlePosition(1);
-        tb.setTitleColor(color);
-        tb.setTitleFont(font);
-        nombre.setBorder(tb);
-    }
 
-    public static void limpiar() {
-        nombre.setText("");
+        for (int i = 1; i <= 2; i++) {
+            switch (i) {
+                case 1:
+                    titulo = "Nombre:";
+                    break;
+                case 2:
+                    titulo = "Descipción:";
+                    break;
+            }
+            tb = new TitledBorder(titulo);
+            tb.setTitleJustification(0);
+            tb.setTitlePosition(1);
+            tb.setTitleColor(color);
+            tb.setTitleFont(font);
+            switch (i) {
+                case 1:
+                    jt_nombre.setBorder(tb);
+                    break;
+                case 2:
+                    jt_sueldo.setForeground(color);
+                    break;
+            }
+        }
+    }
+    public static void limpiar(){
+        jt_nombre.setText("");
+        jt_sueldo.setText("");
     }
 
     public void llenar(String PK) {
-        con = (Connection) conexion.conectar();
+        con =  (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE ID=" + PK);
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PUESTO WHERE ID=" + PK);
                 rs = ps.executeQuery();
                 rs.next();
-                id.setText(""+rs.getInt(1));
-                nombre.setText(rs.getString(2));
+                id.setText(String.valueOf(""+rs.getInt(1)));
+                jt_nombre.setText(rs.getString(2).toUpperCase());
                 nombre_propio = rs.getString(2).toUpperCase();
+                jt_sueldo.setText(String.valueOf(rs.getDouble(3)));
                 this.setVisible(true);
             } catch (SQLException e) {
                 getToolkit().beep();
-                JOptionPane.showMessageDialog(rootPane, "¡La fortma de pago '" + PK + "' no existe!");
+                JOptionPane.showMessageDialog(rootPane, "¡El puesto '" + PK + "' no existe!");
             }
         }
-    
-
     }
+    
     public void registrar() {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE NOMBRE = '" + nombre.getText() + "'");
-                rs = ps.executeQuery();
-                if (rs.next()) {
-                    getToolkit().beep();
-                    JOptionPane.showMessageDialog(rootPane, "¡La forma de pago '" + nombre.getText() + "' ya existe!");
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PUESTO WHERE NOMBRE='" + jt_nombre.getText().toUpperCase() + "'");
+                if (ps.executeQuery().next()) {
+                    JOptionPane.showMessageDialog(null, "¡El nombre del puesto '" + jt_nombre.getText().toUpperCase() + "' ya está en uso!");
                 } else {
-                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO FORMA_PAGO (NOMBRE) VALUES (?)");
-                    ps.setString(1, nombre.getText().toUpperCase());
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO PUESTO (NOMBRE, SUELDO) VALUES (?,?)");
+                    ps.setString(1, jt_nombre.getText().toUpperCase());
+                    ps.setDouble(2, Double.parseDouble(jt_sueldo.getText()));
                     ps.executeUpdate(); //Ejecuta la consulta
-                    
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
                     SISTEMA.actualizado = false;
                     this.dispose();
@@ -97,20 +114,19 @@ public class JFforma_pago extends javax.swing.JFrame {
             }
         }
     }
-
-    public void modificar() {
+    public void modificar(){
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE NOMBRE='" + nombre.getText().toUpperCase() + "'");
-                if (ps.executeQuery().next() && !nombre.getText().toUpperCase().equals(nombre_propio)) {
-                    JOptionPane.showMessageDialog(null, "¡El nombre '" + nombre.getText().toUpperCase() + "' ya está en uso!");
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PUESTO WHERE NOMBRE='" + jt_nombre.getText().toUpperCase()+"'");
+                if (ps.executeQuery().next() && !jt_nombre.getText().toUpperCase().equals(nombre_propio)) {
+                    JOptionPane.showMessageDialog(null, "¡El puesto '" + jt_nombre.getText().toUpperCase() + "' ya está en uso!");
                 } else {
-                    ps = (PreparedStatement) con.prepareStatement("UPDATE FORMA_PAGO SET NOMBRE=? WHERE ID=?");
-                    ps.setString(1, nombre.getText().toUpperCase());
-                    ps.setInt(2, Integer.parseInt(id.getText()));
+                    ps = (PreparedStatement) con.prepareStatement("UPDATE PUESTO SET NOMBRE=?,SUELDO=? WHERE ID=?");
+                    ps.setString(1, jt_nombre.getText().toUpperCase());
+                    ps.setString(2, jt_sueldo.getText().toUpperCase());
+                    ps.setInt(3, Integer.parseInt(id.getText()));
                     ps.executeUpdate(); //Ejecuta la consulta
-
                     JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
                     SISTEMA.actualizado = false;
                     this.dispose();
@@ -120,7 +136,9 @@ public class JFforma_pago extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "¡Error al modificar!");
             }
         }
+       
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -130,9 +148,10 @@ public class JFforma_pago extends javax.swing.JFrame {
         jl_titulo = new javax.swing.JLabel();
         jp_2 = new javax.swing.JPanel();
         jb_Ejecutar = new javax.swing.JButton();
-        nombre = new javax.swing.JTextField();
+        jt_nombre = new javax.swing.JTextField();
         jlid = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
+        jt_sueldo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -153,7 +172,7 @@ public class JFforma_pago extends javax.swing.JFrame {
 
         jl_titulo.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         jl_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        jl_titulo.setText("Registrar forma de pago");
+        jl_titulo.setText("Registrar departamento");
 
         javax.swing.GroupLayout jp_1Layout = new javax.swing.GroupLayout(jp_1);
         jp_1.setLayout(jp_1Layout);
@@ -162,7 +181,7 @@ public class JFforma_pago extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jl_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jp_1Layout.setVerticalGroup(
@@ -188,12 +207,16 @@ public class JFforma_pago extends javax.swing.JFrame {
             }
         });
 
-        nombre.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        nombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        nombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre:", javax.swing.border.TitledBorder.LEADING, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        jt_nombre.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jt_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        jt_nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jt_nombreActionPerformed(evt);
+            }
+        });
+        jt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nombreKeyPressed(evt);
+                jt_nombreKeyPressed(evt);
             }
         });
 
@@ -204,41 +227,55 @@ public class JFforma_pago extends javax.swing.JFrame {
         id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         id.setText("000");
 
+        jt_sueldo.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jt_sueldo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sueldo:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        jt_sueldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jt_sueldoKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jp_2Layout = new javax.swing.GroupLayout(jp_2);
         jp_2.setLayout(jp_2Layout);
         jp_2Layout.setHorizontalGroup(
             jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jp_2Layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addComponent(jlid)
-                .addGap(3, 3, 3)
-                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jp_2Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jt_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jt_sueldo))
+                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jp_2Layout.createSequentialGroup()
+                        .addComponent(jlid)
+                        .addGap(6, 6, 6)
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(94, 94, 94))
         );
         jp_2Layout.setVerticalGroup(
             jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addComponent(jt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(jt_sueldo, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlid, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(id))
                 .addGap(30, 30, 30)
                 .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+            .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
             .addComponent(jp_2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -246,7 +283,7 @@ public class JFforma_pago extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jp_1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jp_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -258,23 +295,31 @@ public class JFforma_pago extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-   
-        if (nombre.getText().equals("")) {
+        String desc = jt_sueldo.getText().replaceAll("\\s+", "");
+        if (jt_nombre.getText().equals("") || desc.equals("")) {
             getToolkit().beep();
-        JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
+            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
             if (forma.equals("registrar")) {
                 registrar();
-            } else if (forma.equals("modificar")) {
+            } else if(forma.equals("modificar")){
                 modificar();
             }
         }
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
 
-    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
-        validar.V_letras_sin_tilde(nombre, 20);
-    }//GEN-LAST:event_nombreKeyPressed
+    private void jt_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyPressed
+        validar.V_letras(jt_nombre,30);
+    }//GEN-LAST:event_jt_nombreKeyPressed
+
+    private void jt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_nombreActionPerformed
+
+    private void jt_sueldoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_sueldoKeyPressed
+        validar.dinero(jt_sueldo,6);
+    }//GEN-LAST:event_jt_sueldoKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -290,13 +335,13 @@ public class JFforma_pago extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFforma_pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFpuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFforma_pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFpuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFforma_pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFpuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFforma_pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFpuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -322,51 +367,12 @@ public class JFforma_pago extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+    
+      
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFforma_pago().setVisible(true);
+                new JFpuesto().setVisible(true);
             }
         });
     }
@@ -379,6 +385,7 @@ public class JFforma_pago extends javax.swing.JFrame {
     private static javax.swing.JLabel jlid;
     public static javax.swing.JPanel jp_1;
     private javax.swing.JPanel jp_2;
-    public static javax.swing.JTextField nombre;
+    public static javax.swing.JTextField jt_nombre;
+    public static javax.swing.JTextField jt_sueldo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,5 @@
 package centro_comercial;
 import base_datos.conexion;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
@@ -10,11 +9,10 @@ import javax.swing.JSpinner;
 
 public class JFiva extends javax.swing.JFrame {
     
-    public static String forma = "registrar";
+    public static String forma;
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
-    public static final String FK = "Seleccionar...";
     
     public JFiva() {
         initComponents();
@@ -22,51 +20,13 @@ public class JFiva extends javax.swing.JFrame {
         ((JSpinner.DefaultEditor) impuesto.getEditor()).getTextField().setEditable(false);
     }
 
-//    public static void cambiar_diseño() {
-//        String titulo = "";
-//        Color color = null;
-//        Font font = new Font("Yu Gothic UI Light", 0, 14);
-//        TitledBorder tb;
-//        if (forma.equals("registrar")) {
-//            .setEditable(true);
-//            color = new Color(0,204,102);
-//            jl_titulo.setText("Registrar descuento");
-//            jb_Ejecutar.setText("¡Registrar!");
-//        } else if(forma.equals("modificar")){
-//            nombre.setEditable(false);
-//            color = new Color(0, 153, 255);
-//            jl_titulo.setText("Modificar descuento");
-//            jb_Ejecutar.setText("¡Modificar!");
-//        }
-//        jb_Ejecutar.setBackground(color);
-//        jp_1.setBackground(color);
-//
-//        for (int i = 1; i <= 2; i++) {
-//            switch (i) {
-//                case 1:
-//                    titulo = "Nombre:";
-//                    break;
-//                case 2:
-//                    titulo = "Impuesto (%):";
-//                    break;
-//            }
-//            tb = new TitledBorder(titulo);
-//            tb.setTitleJustification(0);
-//            tb.setTitlePosition(1);
-//            tb.setTitleColor(color);
-//            tb.setTitleFont(font);
-//            switch (i) {
-//                case 1:
-//                    nombre.setBorder(tb);
-//                    break;
-//                case 2:
-//                    impuesto.setBorder(tb);
-//                    break;
-//            }
-//        }
-//    }
     public static void limpiar(){
         impuesto.setValue(0);
+    }
+    public static void cambiar(){
+        if (forma.equals("registrar")) {
+            
+        }
     }
 
     public void llenar(String num) {
@@ -143,11 +103,13 @@ public class JFiva extends javax.swing.JFrame {
         jp_2 = new javax.swing.JPanel();
         jb_Ejecutar = new javax.swing.JButton();
         impuesto = new javax.swing.JSpinner();
+        jlid = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
-        jp_1.setBackground(new java.awt.Color(0, 204, 102));
+        jp_1.setBackground(new java.awt.Color(51, 51, 51));
         jp_1.setPreferredSize(new java.awt.Dimension(560, 40));
 
         jl_cerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
@@ -186,7 +148,7 @@ public class JFiva extends javax.swing.JFrame {
 
         jp_2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jb_Ejecutar.setBackground(new java.awt.Color(0, 204, 102));
+        jb_Ejecutar.setBackground(new java.awt.Color(51, 51, 51));
         jb_Ejecutar.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
         jb_Ejecutar.setForeground(new java.awt.Color(255, 255, 255));
         jb_Ejecutar.setText("¡Registrar!");
@@ -199,8 +161,8 @@ public class JFiva extends javax.swing.JFrame {
         });
 
         impuesto.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        impuesto.setModel(new javax.swing.SpinnerNumberModel(0, 0, 15, 1));
-        impuesto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Porcentaje (%):", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        impuesto.setModel(new javax.swing.SpinnerNumberModel(0, 0, 30, 1));
+        impuesto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Porcentaje (%):", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(51, 51, 51))); // NOI18N
         impuesto.setEditor(new javax.swing.JSpinner.NumberEditor(impuesto, ""));
         impuesto.setPreferredSize(new java.awt.Dimension(64, 52));
         impuesto.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -220,27 +182,43 @@ public class JFiva extends javax.swing.JFrame {
             }
         });
 
+        jlid.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
+        jlid.setForeground(new java.awt.Color(0, 204, 102));
+        jlid.setText("Código:");
+
+        id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        id.setText("000");
+
         javax.swing.GroupLayout jp_2Layout = new javax.swing.GroupLayout(jp_2);
         jp_2.setLayout(jp_2Layout);
         jp_2Layout.setHorizontalGroup(
             jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(impuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(impuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
             .addGroup(jp_2Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jp_2Layout.createSequentialGroup()
+                        .addComponent(jlid)
+                        .addGap(3, 3, 3)
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         jp_2Layout.setVerticalGroup(
             jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(20, 20, 20)
                 .addComponent(impuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(20, 20, 20)
+                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlid, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(id))
+                .addGap(30, 30, 30)
                 .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,7 +228,7 @@ public class JFiva extends javax.swing.JFrame {
             .addComponent(jp_1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jp_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -841,10 +819,12 @@ public class JFiva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JLabel id;
     public static javax.swing.JSpinner impuesto;
     public static javax.swing.JButton jb_Ejecutar;
     private javax.swing.JLabel jl_cerrar;
     public static javax.swing.JLabel jl_titulo;
+    private static javax.swing.JLabel jlid;
     public static javax.swing.JPanel jp_1;
     private javax.swing.JPanel jp_2;
     // End of variables declaration//GEN-END:variables

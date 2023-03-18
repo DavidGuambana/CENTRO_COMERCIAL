@@ -61,14 +61,22 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static JFcategoria JFcat = new JFcategoria();//1
     public static JFciudad JFciu = new JFciudad();//2
     public static JFcliente JFcli = new JFcliente();//3
+    public static JFdepartamento JFdep=new JFdepartamento();//4
     public static JFdescuento JFdes = new JFdescuento();//5
-    public static JFgenero JFgen = new JFgenero();//10
-    public static JFmarca JFmar = new JFmarca();//12
-//    public static JFempleado JFemp = new JFempleado();
-//    public static JFpagos JFpag = new JFpagos();
-    public static JFproducto JFpro = new JFproducto();//16
-    public static JFproveedor JFprov = new JFproveedor();//17
-    public static JFprovincia JFprovi = new JFprovincia();//18
+    //x2 detalles: 6 y 7
+    public static JFempleado JFemp = new JFempleado();//8
+    //x2 encabezados: 8 y 9
+    public static JFforma_pago JFfp = new JFforma_pago();//11
+    public static JFgenero JFgen = new JFgenero();//12
+    public static JFiva JFiva = new JFiva();//13
+    public static JFmarca JFmar = new JFmarca();//14
+//  public static JFpago_empleado JFpe = new JFpago_empleado();//15
+    //x1 pago_fac: 17
+    public static JFproducto JFpro = new JFproducto();//18
+    public static JFproveedor JFprov = new JFproveedor();//19
+    public static JFprovincia JFprovi = new JFprovincia();//20
+    public static JFpuesto JFpue = new JFpuesto();//21
+    public static JFsucursal JFsuc = new JFsucursal();//22
 
     public SISTEMA() {
         initComponents();
@@ -8067,7 +8075,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BdepMouseClicked
 
     private void mod_pueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_pueActionPerformed
-        // TODO add your handling code here:
+        if (JPpue.isVisible()) {
+            JFpuesto.forma = "modificar";
+            JFpuesto.cambiar_diseño();
+            JFpue.llenar(id_pue.getText());
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_mod_pueActionPerformed
 
     private void mod_pueMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_pueMouseExited
@@ -8079,7 +8094,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_pueMouseEntered
 
     private void reg_pueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_pueActionPerformed
-        // TODO add your handling code here:
+        JFpuesto.forma = "registrar";
+        JFpuesto.cambiar_diseño();
+        JFpuesto.limpiar();
+        JFpue.setVisible(true);
     }//GEN-LAST:event_reg_pueActionPerformed
 
     private void reg_pueMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_pueMouseExited
@@ -8356,7 +8374,10 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_depMouseExited
 
     private void reg_depActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_depActionPerformed
-        // TODO add your handling code here:
+        JFdepartamento.forma = "registrar";
+        JFdepartamento.cambiar_diseño();
+        JFdepartamento.limpiar();
+        JFdep.setVisible(true);
     }//GEN-LAST:event_reg_depActionPerformed
 
     private void mod_depMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_depMouseEntered
@@ -8368,7 +8389,14 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_depMouseExited
 
     private void mod_depActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_depActionPerformed
-        // TODO add your handling code here:
+        if (JPdep.isVisible()) {
+            JFdepartamento.forma = "modificar";
+            JFdepartamento.cambiar_diseño();
+            JFdep.llenar(id_dep.getText());
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_mod_depActionPerformed
 
     private void elim_depMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_depMouseEntered
