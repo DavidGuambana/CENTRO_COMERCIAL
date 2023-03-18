@@ -171,7 +171,7 @@ public class JFciudad extends javax.swing.JFrame {
                 ps.setInt(2, Integer.parseInt(jt_provincia.getText()));
                 ps.executeUpdate(); //Ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                SISTEMA.actualizado = false;
+                PRINCIPAL.actualizado = false;
                 this.dispose();
 
             } catch (SQLException ex) {
@@ -191,7 +191,7 @@ public class JFciudad extends javax.swing.JFrame {
                 ps.setInt(3, Integer.parseInt(id.getText()));
                 ps.executeUpdate(); //ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                SISTEMA.actualizado = false;
+                PRINCIPAL.actualizado = false;
                 this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();
@@ -348,7 +348,7 @@ public class JFciudad extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_provinciaKeyPressed
 
     private void jt_provinciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_provinciaMouseClicked
-        SISTEMA.MENU.setSelectedIndex(6);
+        PRINCIPAL.MENU.setSelectedIndex(6);
         this.setVisible(false);
     }//GEN-LAST:event_jt_provinciaMouseClicked
 

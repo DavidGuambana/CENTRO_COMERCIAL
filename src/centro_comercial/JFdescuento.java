@@ -108,7 +108,7 @@ public class JFdescuento extends javax.swing.JFrame {
                     ps.setInt(2, (int) porcentaje.getValue());
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -131,7 +131,7 @@ public class JFdescuento extends javax.swing.JFrame {
                     ps.setInt(3, Integer.parseInt(id.getText()));
                     ps.executeUpdate(); //ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {

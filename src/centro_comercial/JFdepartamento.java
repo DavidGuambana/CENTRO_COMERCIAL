@@ -105,7 +105,7 @@ public class JFdepartamento extends javax.swing.JFrame {
                     ps.setString(2, jta_descripcion.getText().toUpperCase());
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -128,7 +128,7 @@ public class JFdepartamento extends javax.swing.JFrame {
                     ps.setInt(3, Integer.parseInt(id.getText()));
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {

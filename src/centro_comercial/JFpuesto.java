@@ -105,7 +105,7 @@ public class JFpuesto extends javax.swing.JFrame {
                     ps.setDouble(2, Double.parseDouble(jt_sueldo.getText()));
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -128,7 +128,7 @@ public class JFpuesto extends javax.swing.JFrame {
                     ps.setInt(3, Integer.parseInt(id.getText()));
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {

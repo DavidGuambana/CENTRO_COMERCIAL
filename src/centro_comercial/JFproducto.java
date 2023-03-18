@@ -198,7 +198,7 @@ public class JFproducto extends javax.swing.JFrame {
                 ps.setString(9, FK_prov);
                 ps.executeUpdate(); //Ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                SISTEMA.actualizado = false;
+                PRINCIPAL.actualizado = false;
                 this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();
@@ -226,7 +226,7 @@ public class JFproducto extends javax.swing.JFrame {
                 ps.setInt(10,Integer.parseInt(id.getText()));
                 ps.executeUpdate(); //Ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                SISTEMA.actualizado = false;
+                PRINCIPAL.actualizado = false;
                 this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();
@@ -632,18 +632,18 @@ public class JFproducto extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_precioKeyPressed
 
     private void jt_proveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_proveedorMouseClicked
-        SISTEMA.MENU.setSelectedIndex(5);
+        PRINCIPAL.MENU.setSelectedIndex(5);
         this.setVisible(false);
     }//GEN-LAST:event_jt_proveedorMouseClicked
 
     private void jt_categoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_categoriaMouseClicked
-        SISTEMA.MENU.setSelectedIndex(4);
+        PRINCIPAL.MENU.setSelectedIndex(4);
         this.setVisible(false);
     }//GEN-LAST:event_jt_categoriaMouseClicked
 
     private void jt_marcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_marcaMouseClicked
         // TODO add your handling code here:
-        SISTEMA.MENU.setSelectedIndex(4);
+        PRINCIPAL.MENU.setSelectedIndex(4);
         this.setVisible(false);
     }//GEN-LAST:event_jt_marcaMouseClicked
 

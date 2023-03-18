@@ -88,7 +88,7 @@ public class JFforma_pago extends javax.swing.JFrame {
                     ps.executeUpdate(); //Ejecuta la consulta
                     
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -112,7 +112,7 @@ public class JFforma_pago extends javax.swing.JFrame {
                     ps.executeUpdate(); //Ejecuta la consulta
 
                     JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {

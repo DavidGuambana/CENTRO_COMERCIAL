@@ -36,7 +36,7 @@ public class JFiva extends javax.swing.JFrame {
                     ps.setInt(1, (int) impuesto.getValue());
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {

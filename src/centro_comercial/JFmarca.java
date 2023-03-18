@@ -86,7 +86,7 @@ public class JFmarca extends javax.swing.JFrame {
                     ps.setString(1, jt_nombre.getText().toUpperCase());
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -108,7 +108,7 @@ public class JFmarca extends javax.swing.JFrame {
                     ps.setInt(2, Integer.parseInt(id.getText()));
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {

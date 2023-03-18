@@ -161,7 +161,7 @@ public class JFprovincia extends javax.swing.JFrame {
                 ps.setString(1, jc_provincia.getSelectedItem().toString());
                 ps.executeUpdate(); //Ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                SISTEMA.actualizado = false;
+                PRINCIPAL.actualizado = false;
                 this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();
@@ -179,7 +179,7 @@ public class JFprovincia extends javax.swing.JFrame {
                 ps.setInt(2, Integer.parseInt(id.getText()));
                 ps.executeUpdate(); //ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                SISTEMA.actualizado = false;
+                PRINCIPAL.actualizado = false;
                 this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();

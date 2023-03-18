@@ -135,7 +135,7 @@ public class JFproveedor extends javax.swing.JFrame {
                     ps.setInt(5, FK_ciu);
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -156,7 +156,7 @@ public class JFproveedor extends javax.swing.JFrame {
                 ps.setInt(4, FK_ciu);
                 ps.executeUpdate(); //ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                SISTEMA.actualizado = false;
+                PRINCIPAL.actualizado = false;
                 this.dispose();
 
             } catch (SQLException ex) {
@@ -413,7 +413,7 @@ public class JFproveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_emailKeyPressed
 
     private void jt_ciudadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ciudadMouseClicked
-        SISTEMA.MENU.setSelectedIndex(6);
+        PRINCIPAL.MENU.setSelectedIndex(6);
         this.setVisible(false);
     }//GEN-LAST:event_jt_ciudadMouseClicked
 

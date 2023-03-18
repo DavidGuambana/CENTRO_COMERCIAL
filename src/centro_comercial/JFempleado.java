@@ -216,7 +216,7 @@ public class JFempleado extends javax.swing.JFrame {
                 }
                 if (registrado) {
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    SISTEMA.actualizado = false;
+                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -250,7 +250,7 @@ public class JFempleado extends javax.swing.JFrame {
                 ps.setString(4, cedula.getText());
                 ps.executeUpdate(); //ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                SISTEMA.actualizado = false;
+                PRINCIPAL.actualizado = false;
                 this.dispose();
 
             } catch (SQLException ex) {
@@ -685,13 +685,13 @@ public class JFempleado extends javax.swing.JFrame {
     }//GEN-LAST:event_generoKeyPressed
 
     private void ciudadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ciudadMouseClicked
-        SISTEMA.MENU.setSelectedIndex(6);
+        PRINCIPAL.MENU.setSelectedIndex(6);
         this.setVisible(false);
     }//GEN-LAST:event_ciudadMouseClicked
 
     private void generoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generoMouseClicked
-        SISTEMA.MENU.setSelectedIndex(1);
-        SISTEMA.PERSONAS.setSelectedIndex(1);
+        PRINCIPAL.MENU.setSelectedIndex(1);
+        PRINCIPAL.PERSONAS.setSelectedIndex(1);
         this.setVisible(false);
     }//GEN-LAST:event_generoMouseClicked
 
@@ -704,12 +704,12 @@ public class JFempleado extends javax.swing.JFrame {
     }//GEN-LAST:event_departamentoActionPerformed
 
     private void departamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departamentoMouseClicked
-        SISTEMA.MENU.setSelectedIndex(2);
+        PRINCIPAL.MENU.setSelectedIndex(2);
         this.setVisible(false);
     }//GEN-LAST:event_departamentoMouseClicked
 
     private void puestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_puestoMouseClicked
-        SISTEMA.MENU.setSelectedIndex(2);
+        PRINCIPAL.MENU.setSelectedIndex(2);
         this.setVisible(false);
     }//GEN-LAST:event_puestoMouseClicked
 

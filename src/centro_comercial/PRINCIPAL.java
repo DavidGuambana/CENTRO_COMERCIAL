@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import otros.ImagenTabla;
 
-public class SISTEMA extends javax.swing.JFrame implements Runnable {
+public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 //    rsscalelabel.RSScaleLabel.setScaleLabel(imagen_pro, rs.getString(3));
     
     //variables para consultas SQL:
@@ -78,7 +78,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
     public static JFpuesto JFpue = new JFpuesto();//21
     public static JFsucursal JFsuc = new JFsucursal();//22
 
-    public SISTEMA() {
+    public PRINCIPAL() {
         initComponents();
         setLocationRelativeTo(null);
         iniciar();
@@ -9334,14 +9334,18 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SISTEMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PRINCIPAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SISTEMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PRINCIPAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SISTEMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PRINCIPAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SISTEMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PRINCIPAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -9350,8 +9354,7 @@ public class SISTEMA extends javax.swing.JFrame implements Runnable {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                new SISTEMA().setVisible(true);
+                new PRINCIPAL().setVisible(true);
             }
         });
       
