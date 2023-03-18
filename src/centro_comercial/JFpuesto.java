@@ -15,8 +15,8 @@ public class JFpuesto extends javax.swing.JFrame {
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
-    
     public static String nombre_propio;
+    public static double sueldo;
 
     public JFpuesto() {
         initComponents();
@@ -50,7 +50,7 @@ public class JFpuesto extends javax.swing.JFrame {
                     titulo = "Nombre:";
                     break;
                 case 2:
-                    titulo = "Descipción:";
+                    titulo = "Sueldo:";
                     break;
             }
             tb = new TitledBorder(titulo);
@@ -63,7 +63,7 @@ public class JFpuesto extends javax.swing.JFrame {
                     jt_nombre.setBorder(tb);
                     break;
                 case 2:
-                    jt_sueldo.setForeground(color);
+                    jt_sueldo.setBorder(tb);
                     break;
             }
         }
@@ -172,7 +172,7 @@ public class JFpuesto extends javax.swing.JFrame {
 
         jl_titulo.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         jl_titulo.setForeground(new java.awt.Color(255, 255, 255));
-        jl_titulo.setText("Registrar departamento");
+        jl_titulo.setText("Registrar puesto");
 
         javax.swing.GroupLayout jp_1Layout = new javax.swing.GroupLayout(jp_1);
         jp_1.setLayout(jp_1Layout);
@@ -250,8 +250,8 @@ public class JFpuesto extends javax.swing.JFrame {
                 .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jp_2Layout.createSequentialGroup()
                         .addComponent(jlid)
-                        .addGap(6, 6, 6)
-                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(94, 94, 94))
         );
@@ -260,15 +260,15 @@ public class JFpuesto extends javax.swing.JFrame {
             .addGroup(jp_2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(jt_sueldo, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
+                .addGap(20, 20, 20)
+                .addComponent(jt_sueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlid, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(id))
                 .addGap(30, 30, 30)
                 .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,8 +283,7 @@ public class JFpuesto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jp_1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jp_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jp_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -295,22 +294,32 @@ public class JFpuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-        String desc = jt_sueldo.getText().replaceAll("\\s+", "");
-        if (jt_nombre.getText().equals("") || desc.equals("")) {
+        if (jt_nombre.getText().equals("")||jt_sueldo.getText().equals("")) {
             getToolkit().beep();
             JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
-            if (forma.equals("registrar")) {
-                registrar();
-            } else if(forma.equals("modificar")){
-                modificar();
+            try {
+                sueldo = Double.parseDouble(jt_sueldo.getText());
+                if (sueldo >= 450) {
+                    if (forma.equals("registrar")) {
+                        registrar();
+                    } else if (forma.equals("modificar")) {
+                        modificar();
+                    }
+                } else {
+                    getToolkit().beep();
+                    JOptionPane.showMessageDialog(rootPane, "¡El sueldo mínimo es de $450!");
+                }
+            } catch (Exception e) {
+                getToolkit().beep();
+                JOptionPane.showMessageDialog(rootPane, "¡Sueldo inválido!");
             }
         }
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
 
     private void jt_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyPressed
-        validar.V_letras(jt_nombre,30);
+        validar.nombre_compuesto(jt_nombre,30);
     }//GEN-LAST:event_jt_nombreKeyPressed
 
     private void jt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_nombreActionPerformed

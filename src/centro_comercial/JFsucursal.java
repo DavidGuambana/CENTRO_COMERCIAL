@@ -25,6 +25,7 @@ public class JFsucursal extends javax.swing.JFrame {
     }
     
     public static void cambiar_diseño() {
+        String titulo = "";
         Color color = null;
         Font font = new Font("Yu Gothic UI Light", 0, 14);
         TitledBorder tb;
@@ -43,18 +44,35 @@ public class JFsucursal extends javax.swing.JFrame {
         }
         jb_Ejecutar.setBackground(color);
         jp_1.setBackground(color);
-        tb = new TitledBorder("Nombre:");
-        tb.setTitleJustification(0);
-        tb.setTitlePosition(1);
-        tb.setTitleColor(color);
-        tb.setTitleFont(font);
-        jt_nombre.setBorder(tb);
-        jt_ciudad.setBorder(tb);
+        
+        for (int i = 1; i <= 2; i++) {
+            switch (i) {
+                case 1:
+                    titulo = "Nombre:";
+                    break;
+                case 2:
+                    titulo = "Ciudad:";
+                    break;
+            }
+            tb = new TitledBorder(titulo);
+            tb.setTitleJustification(0);
+            tb.setTitlePosition(1);
+            tb.setTitleColor(color);
+            tb.setTitleFont(font);
+            switch (i) {
+                case 1:
+                    nombre.setBorder(tb);
+                    break;
+                case 2:
+                    ciudad.setBorder(tb);
+                    break;
+            }
+        }
 
     }
     public static void limpiar(){
-        jt_nombre.setText("");
-        jt_ciudad.setText("Seleccionar...");      
+        nombre.setText("");
+        ciudad.setText("Seleccionar...");      
         id.setText("000");
         
     }
@@ -67,13 +85,13 @@ public class JFsucursal extends javax.swing.JFrame {
                 rs = ps.executeQuery();
                 rs.next();
                 id.setText(""+rs.getInt(1));
-                jt_nombre.setText(rs.getString(2).toUpperCase());
+                nombre.setText(rs.getString(2).toUpperCase());
                 FK_ciu = rs.getInt(3);
                 
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM CIUDAD WHERE ID=" + FK_ciu);
                 rs = ps.executeQuery();
                 rs.next();
-                jt_ciudad.setText(""+rs.getInt(1)+" - "+rs.getString(2));
+                ciudad.setText(""+rs.getInt(1)+" - "+rs.getString(2));
                 this.setVisible(true);
             } catch (SQLException e) {
                 getToolkit().beep();
@@ -87,11 +105,8 @@ public class JFsucursal extends javax.swing.JFrame {
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("INSERT INTO `sucursal`(`NOMBRE`, `ID_CIU`) VALUES (?,?);");
-                
-                ps.setString(1,jt_nombre.getText().toUpperCase());
+                ps.setString(1,nombre.getText().toUpperCase());
                 ps.setInt(2, FK_ciu);
-//                System.out.println(FK_ciu);
-//                System.out.println(jt_nombre.getText().toUpperCase());
                 ps.executeUpdate(); //Ejecuta la consulta
                 JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
                 SISTEMA.actualizado = false;
@@ -109,7 +124,7 @@ public class JFsucursal extends javax.swing.JFrame {
             try {
                     
                     ps = (PreparedStatement) con.prepareStatement("UPDATE SUCURSAL SET NOMBRE=?,ID_CIU=? WHERE ID=?");
-                    ps.setString(1,jt_nombre.getText().toUpperCase());
+                    ps.setString(1,nombre.getText().toUpperCase());
                     ps.setInt(2,FK_ciu);                  
                     ps.setInt(3, Integer.parseInt(id.getText()));
                     ps.executeUpdate(); //Ejecuta la consulta
@@ -135,8 +150,8 @@ public class JFsucursal extends javax.swing.JFrame {
         jb_Ejecutar = new javax.swing.JButton();
         jlid = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
-        jt_nombre = new javax.swing.JTextField();
-        jt_ciudad = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
+        ciudad = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -197,50 +212,50 @@ public class JFsucursal extends javax.swing.JFrame {
         jlid.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jlid.setForeground(new java.awt.Color(0, 204, 102));
         jlid.setText("Código:");
-        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, 29));
+        jp_2.add(jlid, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 50, 29));
 
         id.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         id.setText("000");
-        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 70, -1));
+        jp_2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 60, -1));
 
-        jt_nombre.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jt_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        jt_nombre.addActionListener(new java.awt.event.ActionListener() {
+        nombre.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        nombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jt_nombreActionPerformed(evt);
+                nombreActionPerformed(evt);
             }
         });
-        jt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jt_nombreKeyPressed(evt);
+                nombreKeyPressed(evt);
             }
         });
-        jp_2.add(jt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 300, 75));
+        jp_2.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 300, 75));
 
-        jt_ciudad.setEditable(false);
-        jt_ciudad.setBackground(new java.awt.Color(255, 255, 255));
-        jt_ciudad.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jt_ciudad.setForeground(new java.awt.Color(0, 153, 153));
-        jt_ciudad.setText("Seleccionar...");
-        jt_ciudad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ciudad:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
-        jt_ciudad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jt_ciudad.setPreferredSize(new java.awt.Dimension(64, 58));
-        jt_ciudad.addMouseListener(new java.awt.event.MouseAdapter() {
+        ciudad.setEditable(false);
+        ciudad.setBackground(new java.awt.Color(255, 255, 255));
+        ciudad.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        ciudad.setForeground(new java.awt.Color(0, 153, 153));
+        ciudad.setText("Seleccionar...");
+        ciudad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ciudad:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(0, 204, 102))); // NOI18N
+        ciudad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ciudad.setPreferredSize(new java.awt.Dimension(64, 58));
+        ciudad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jt_ciudadMouseClicked(evt);
+                ciudadMouseClicked(evt);
             }
         });
-        jt_ciudad.addActionListener(new java.awt.event.ActionListener() {
+        ciudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jt_ciudadActionPerformed(evt);
+                ciudadActionPerformed(evt);
             }
         });
-        jt_ciudad.addKeyListener(new java.awt.event.KeyAdapter() {
+        ciudad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jt_ciudadKeyPressed(evt);
+                ciudadKeyPressed(evt);
             }
         });
-        jp_2.add(jt_ciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 300, 70));
+        jp_2.add(ciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 300, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -266,8 +281,8 @@ public class JFsucursal extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-       
-        if (jt_nombre.getText().equals("")||jt_ciudad.getText().equals(FK)) {
+        String nom = nombre.getText().replaceAll("\\s+", "");
+        if (nom.equals("")||ciudad.getText().equals(FK)) {
             getToolkit().beep();
             JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
@@ -280,26 +295,26 @@ public class JFsucursal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
 
-    private void jt_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyPressed
-        validar.V_letras(jt_nombre,30);
-    }//GEN-LAST:event_jt_nombreKeyPressed
+    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
+        validar.nombre_compuesto(nombre,30);
+    }//GEN-LAST:event_nombreKeyPressed
 
-    private void jt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_nombreActionPerformed
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jt_nombreActionPerformed
+    }//GEN-LAST:event_nombreActionPerformed
 
-    private void jt_ciudadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ciudadMouseClicked
+    private void ciudadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ciudadMouseClicked
         SISTEMA.MENU.setSelectedIndex(6);
         this.setVisible(false);
-    }//GEN-LAST:event_jt_ciudadMouseClicked
+    }//GEN-LAST:event_ciudadMouseClicked
 
-    private void jt_ciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_ciudadActionPerformed
+    private void ciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ciudadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jt_ciudadActionPerformed
+    }//GEN-LAST:event_ciudadActionPerformed
 
-    private void jt_ciudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_ciudadKeyPressed
+    private void ciudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ciudadKeyPressed
 
-    }//GEN-LAST:event_jt_ciudadKeyPressed
+    }//GEN-LAST:event_ciudadKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -343,6 +358,7 @@ public class JFsucursal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTextField ciudad;
     public static javax.swing.JLabel id;
     public static javax.swing.JButton jb_Ejecutar;
     private javax.swing.JLabel jl_cerrar;
@@ -350,7 +366,6 @@ public class JFsucursal extends javax.swing.JFrame {
     private static javax.swing.JLabel jlid;
     public static javax.swing.JPanel jp_1;
     private javax.swing.JPanel jp_2;
-    public static javax.swing.JTextField jt_ciudad;
-    public static javax.swing.JTextField jt_nombre;
+    public static javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

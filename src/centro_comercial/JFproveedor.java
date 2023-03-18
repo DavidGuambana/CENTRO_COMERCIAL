@@ -185,7 +185,6 @@ public class JFproveedor extends javax.swing.JFrame {
         setUndecorated(true);
 
         jp_1.setBackground(new java.awt.Color(0, 204, 102));
-        jp_1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jp_1.setPreferredSize(new java.awt.Dimension(560, 40));
 
         jl_cerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
@@ -223,7 +222,6 @@ public class JFproveedor extends javax.swing.JFrame {
         );
 
         jp_2.setBackground(new java.awt.Color(255, 255, 255));
-        jp_2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jb_Ejecutar.setBackground(new java.awt.Color(0, 204, 102));
         jb_Ejecutar.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
@@ -302,7 +300,7 @@ public class JFproveedor extends javax.swing.JFrame {
         jp_2Layout.setHorizontalGroup(
             jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_2Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
                         .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -334,7 +332,7 @@ public class JFproveedor extends javax.swing.JFrame {
                 .addComponent(jt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
