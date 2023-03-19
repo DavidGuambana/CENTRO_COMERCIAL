@@ -20,8 +20,10 @@ import otros.BotonTabla;
 import otros.fechas;
 import java.sql.*;
 import com.mysql.jdbc.PreparedStatement;
+import java.awt.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import otros.ImagenTabla;
 
 public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
@@ -57,7 +59,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static double total_descuento = 0, subtotal = 0,total = 0; 
     public static int xcolum,xrow;
     public static int FK_suc, FK_emp;
-    public static int FK_iva, FK_fp;
+    public static int FK_iva, FK_fp, FK_enc;
     
     //instancias de los frames:
     public static JFcategoria JFcat = new JFcategoria();//1
@@ -118,7 +120,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         if (con != null) {
             try {
                 consulta = "SELECT * FROM ";
-                for (int i = 1; i <= 20; i++) {
+                for (int i = 1; i <= 22; i++) {
                     switch (i) {
                         case 1://categoria
                             String[] c_cat = {"ID", "NOMBRE", "DESCRIPCIÓN"};
@@ -183,7 +185,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         case 6://detalle_fac
                             String[] c_det = {"CÓDIGO", "CÓDIGO_PRO", "CANTIDAD", "SUBTOTAL", "CÓDIGO_ENC"};
                             tabla = new DefaultTableModel(null, c_det);
-                            ps = (PreparedStatement) con.prepareStatement(consulta + "detalle_fac JOIN encabezado_fac WHERE encabezado_fac.ESTADO = 'ACTIVO'");
+                            ps = (PreparedStatement) con.prepareStatement("SELECT D.CODIGO, D.CODIGO_PRO, D.CANTIDAD, D.SUBTOTAL, D.CODIGO_ENC FROM detalle_fac D "
+                                    + "INNER JOIN encabezado_fac E WHERE D.CODIGO_ENC = E.CODIGO AND E.ESTADO ='ACTIVO'");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4), rs.getInt(5)});
@@ -219,7 +222,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         case 9://forma_pago
                             String[] c_fp = {"ID", "NOMBRE"};
                             tabla = new DefaultTableModel(null, c_fp);
-                            ps = (PreparedStatement) con.prepareStatement(consulta + "FORMA_PAGO");
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "FORMA_PAGO ORDER BY NOMBRE ASC");
                             rs = ps.executeQuery();
                             f_forma_pago.removeAllItems();
                             f_forma_pago.addItem("Seleccione...");
@@ -244,17 +247,19 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             res_gen.setText("Resultados: " + gen + " de " + gen);
                             break;
                         case 11://iva
-                            for (int j = 0; j < f_iva.getItemCount(); j++) {
-                                f_iva.remove(j);}
-                            f_iva.addItem(""+0+"%");
+                            ArrayList <String> ivas = new ArrayList<>();
+                            ivas.add("0%");
                             String[] c_iva = {"ID", "IMPUESTO"};
                             tabla = new DefaultTableModel(null, c_iva);
-                            ps = (PreparedStatement) con.prepareStatement(consulta + "iva");
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"IVA ORDER BY IMPUESTO ASC");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2)});
-                                f_iva.addItem(""+rs.getInt(2)+"%");
+                                ivas.add(""+rs.getInt(2)+"%");
                             }
+                            String[] ivass = ivas.toArray(new String[0]);
+                            f_iva.setModel(new DefaultComboBoxModel<>(ivass));
+                            f_iva.setBackground(Color.red);
                             JTiva.setModel(tabla);
                             iva = tabla.getRowCount();
                             res_iva.setText("Resultados: " + iva + " de " + iva);
@@ -262,7 +267,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         case 12://marca
                             String[] c_mar = {"ID", "NOMBRE"};
                             tabla = new DefaultTableModel(null, c_mar);
-                            ps = (PreparedStatement) con.prepareStatement(consulta + "marca");
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "marca ORDER BY NOMBRE ASC");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2)});
@@ -274,7 +279,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         case 13://pago_empleado
                             String[] c_pe = {"NUMERO", "ID_REMITENTE", "ID_DESTINATARIO", "TOTAL", "FECHA_REG"};
                             tabla = new DefaultTableModel(null, c_pe);
-                            ps = (PreparedStatement) con.prepareStatement(consulta + "pago_empleado");
+                            ps = (PreparedStatement) con.prepareStatement(consulta +"pago_empleado ORDER BY FECHA_REG DESC");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4), fechas.transformar(rs.getDate(5))});
@@ -298,7 +303,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         case 15://persona
                             String[] c_per = {"CEDULA", "NOMBRE", "APELLIDO", "FECHA_NAC", "ID_SEXO", "CELULAR", "EMAIL", "DIRECCION", "ID_CIUDAD", "FECHA_REG"};
                             tabla = new DefaultTableModel(null, c_per);
-                            ps = (PreparedStatement) con.prepareStatement(consulta + "persona");
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "persona ORDER BY FECHA_REG DESC");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), fechas.transformar(rs.getDate(4)),
@@ -311,7 +316,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         case 16://producto
                             String[] c_pro = {"CODIGO", "NOMBRE", "ID_MAR", "PRECIO", "EXIS_MAX", "EXIS_MIN", "STOK", "ID_CAT", "FECHA_REG", "RUC_PROV"};
                             tabla = new DefaultTableModel(null, c_pro);
-                            ps = (PreparedStatement) con.prepareStatement(consulta + "producto");
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "producto ORDER BY NOMBRE ASC");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getDouble(5), rs.getInt(6),
@@ -454,35 +459,59 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     //método para registrar una factura (encabezado y detalles):
     public void generar_factura() {
-//        base.abrir();
-//        try {
-//            //registra el encabezado de la factura
-//            Encabezado_fac enc_fac = new Encabezado_fac(Codigos.obtener_codigo("Encabezado_fac"),enc_cedula.getText(),fechas.obtener_fecha(),total,"ACTIVO");
-//            base.settear(enc_fac);
-//            enc_codigo.setText("" + enc_fac.getCodigo());
-//
-//            for (int i = 0; i < num_det; i++) {
-//                int xcodigo_pro = Integer.parseInt(JTdetalle.getValueAt(i, 0).toString());
-//                int xcantidad = Integer.parseInt(JTdetalle.getValueAt(i, 2).toString());
-//                double xsubtotal = Double.parseDouble(JTdetalle.getValueAt(i, 6).toString());
-//
-//                Detalle_fac det_fac = new Detalle_fac(Codigos.obtener_codigo("Detalle_fac"), xcodigo_pro, xcantidad, xsubtotal, enc_fac.getCodigo());
-//                base.settear(det_fac);
-//                
-//                //actualiza las existencias del producto vendido
-//                Producto p = new Producto(xcodigo_pro,null,0,0,null,null,null,null);
-//                resultado = base.gettear(p);
-//                p = (Producto)resultado.next();
-//                p.setExistencias(p.getExistencias()-xcantidad);
-//                base.settear(p);
-//            }
-//            JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-//            
-//        } catch (Exception a) {
-//            getToolkit().beep();
-//            JOptionPane.showMessageDialog(null, "¡Error al registrar!");
-//        }
-//        base.cerrar();
+        con = conexion.conectar();
+        if (con != null) {
+            try {
+                
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM IVA WHERE IMPUESTO="+IVA);
+                rs = ps.executeQuery();
+                rs.next();
+                FK_iva = rs.getInt(1);
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE NOMBRE='"+f_forma_pago.getSelectedItem().toString()+"'");
+                rs = ps.executeQuery();
+                rs.next();
+                FK_fp = rs.getInt(1);
+                //registra el encabezado de la factura
+                ps = (PreparedStatement) con.prepareStatement("INSERT INTO encabezado_fac (ID_SUC, ID_EMP, ID_CLI, ESTADO) VALUES (?,?,?,?)");
+                ps.setInt(1, FK_suc);
+                ps.setInt(2, FK_emp);
+                ps.setInt(3,Integer.parseInt(f_id_cli.getText()));
+                ps.setString(4, "ACTIVO");
+                ps.executeUpdate();
+                //toma el último registro de encabezado
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  encabezado_fac ORDER BY CODIGO DESC LIMIT 1");
+                rs = ps.executeQuery();
+                rs.next();
+                FK_enc = rs.getInt(1);
+                //registra detalles de la factura
+                for (int i = 0; i < num_det; i++) {
+                    int xcodigo_pro = Integer.parseInt(JTdetalle.getValueAt(i, 0).toString());
+                    int xcantidad = Integer.parseInt(JTdetalle.getValueAt(i, 2).toString());
+                    double xsubtotal = Double.parseDouble(JTdetalle.getValueAt(i, 6).toString());
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO detalle_fac (CODIGO_PRO, CANTIDAD, SUBTOTAL, CODIGO_ENC) VALUES (?,?,?,?)");
+                    ps.setInt(1, xcodigo_pro);
+                    ps.setInt(2, xcantidad);
+                    ps.setDouble(3, xsubtotal);
+                    ps.setInt(4, FK_enc);
+                    ps.executeUpdate();
+                }
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE NOMBRE='"+f_forma_pago.getSelectedItem().toString()+"'");
+                rs = ps.executeQuery();
+                rs.next();
+                
+                //registra el pago de la factura
+                ps = (PreparedStatement) con.prepareStatement("INSERT INTO pago_fac (TOTAL_SIN_IVA, ID_FOR, ID_IVA, TOTAL_MAS_IVA, CODIGO_ENC) VALUES (?,?,?,?,?)");
+                ps.setDouble(1, subtotal);
+                ps.setInt(2, FK_fp);
+                ps.setInt(3, FK_iva);
+                ps.setDouble(4, total);
+                ps.setInt(5, FK_enc);
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                getToolkit().beep();
+                JOptionPane.showMessageDialog(null, "¡Error al registrar!");
+            }
+        }
     }
     
     //limpia los campos de texto y los reinicia valores:
@@ -490,33 +519,37 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         for (int i = num_det; i > 0; i--) {
             tabla_detalle.removeRow(i - 1);
         }
-//        num_det = 0;
-//        total = 0;
-//        total_descuento = 0;
-//        detalles.clear();
-//        subtotal = 0;
-//        
-//        jl_total.setText("Total: $0");
-//        jl_num_det.setText("Detalles: 0");
-//
-//        fec_enc.setText("");
-//        fec_enc.setBackground(Color.red);
-//        enc_codigo.setText("Autogenerado");
-//        enc_cedula.setText("");
-//        enc_cedula.setBackground(Color.red);
-//        enc_nombre_apellido.setText("");
-//        enc_direccion.setText("");
-//        enc_telefono.setText("");
-//        enc_correo.setText("");
-//        
-//        jlSubtotal.setText("$0");
-//        jlTotal_descuento.setText("- $0");
-//        jlTotal.setText("$0");
-//        
-//        enc_cedula.setEnabled(false);
-//        JBseleccionar_pro.setEnabled(false);
-//        JBcrear_factura.setEnabled(false);
-//        JSfacturar.getVerticalScrollBar().setValue(0);
+        num_det = 0;
+        total_descuento = 0;
+        subtotal = 0;
+        total = 0;
+        
+        detalles.clear();
+        f_num_det.setText("Detalles: 0");
+        f_descuento.setText("- $0");
+        f_subtotal.setText("$0");
+        f_iva.setSelectedIndex(0);
+        f_total.setText("$0");
+        f_forma_pago.setSelectedIndex(0);
+        
+        f_fecha.setText("");
+        f_fecha.setBackground(Color.red);
+        f_codigo.setText("Autogenerado");
+        f_suc.setText("");
+        f_suc.setBackground(Color.red);
+        f_emp.setText("");
+        f_emp.setBackground(Color.red);
+        f_ced_cli.setText("");
+        f_ced_cli.setBackground(Color.red);
+        f_id_cli.setText("");
+        f_nom_ape.setText(""); 
+        f_dir.setText(""); 
+        f_tel.setText("");
+        f_email.setText("");
+        f_des.setText("");
+        
+        JBseleccionar_pro.setEnabled(false);
+        JSfacturar.getVerticalScrollBar().setValue(0);
     }
     
     @SuppressWarnings("unchecked")
@@ -1500,7 +1533,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         });
 
         f_forma_pago.setBackground(new java.awt.Color(255, 0, 0));
-        f_forma_pago.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        f_forma_pago.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         f_forma_pago.setForeground(new java.awt.Color(255, 255, 255));
         f_forma_pago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione..." }));
         f_forma_pago.addItemListener(new java.awt.event.ItemListener() {
@@ -1582,21 +1615,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JBseleccionar_pro)
                             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(f_num_det, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(f_forma_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel22)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(f_forma_pago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(JBcrear_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(JBlimpiar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(110, 110, 110)))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1721,7 +1754,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             }
         };
         JTenc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTenc.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTenc.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTenc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -1748,7 +1781,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             }
         };
         JTdet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTdet.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTdet.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTdet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -2467,7 +2500,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             }
         };
         JTpag.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTpag.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTpag.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTpag.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -2607,7 +2640,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                         .addComponent(Bpag, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(3, 3, 3)
                                 .addComponent(Lpag)
-                                .addContainerGap(44, Short.MAX_VALUE))))))
+                                .addContainerGap(127, Short.MAX_VALUE))))))
             .addGroup(JPventasLayout.createSequentialGroup()
                 .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPventasLayout.createSequentialGroup()
@@ -3047,7 +3080,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mod_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(elim_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         INICIO.addTab("Pagos a empleados", JPpago_empleado);
@@ -3516,7 +3549,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(Lfp)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         JPiva_fpLayout.setVerticalGroup(
             JPiva_fpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -7429,7 +7462,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private void JBcrear_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBcrear_facturaActionPerformed
         if (f_fecha.getText().isEmpty() || f_suc.getText().isEmpty() || f_emp.getText().isEmpty()||num_det==0||f_iva.getSelectedIndex()==0||f_forma_pago.getSelectedIndex() == 0) {
             getToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
+            JOptionPane.showMessageDialog(null, "¡Aún hay campos por completar!");
         } else {
             int valor = JOptionPane.showConfirmDialog(this, "¿Desea continuar con la creación de la factura?", "Crear factura", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (valor == JOptionPane.YES_OPTION) {
@@ -9662,7 +9695,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTextField f_fecha;
     private javax.swing.JComboBox<String> f_forma_pago;
     private javax.swing.JTextField f_id_cli;
-    private javax.swing.JComboBox<String> f_iva;
+    public static javax.swing.JComboBox<String> f_iva;
     private javax.swing.JTextField f_nom_ape;
     private javax.swing.JLabel f_num_det;
     private javax.swing.JLabel f_subtotal;
