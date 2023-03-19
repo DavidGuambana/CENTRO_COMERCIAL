@@ -41,6 +41,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static String pk = "";
     String [] arreglo = {"Cliente", "Empleado", "Proveedor", "Sucursal"};
     String [] arreglo2 = {"Cliente", "Empleado"};
+    String [] arreglo3 = {"Factura", "Pagos sueldos (remitente)", "Pagos sueldos (destinatario)"};
     DefaultTableModel tabla = null, tabla_detalle = null;
     TableRowSorter sorter;
     public static String modo_prov = "producto";
@@ -52,9 +53,11 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     Thread hilo;
     
     //variables para factura:
-    public static int descuento = 0 , num_det = 0, IVA=0;
+    public static int descuento = 0 , num_det = 0, IVA;
     public static double total_descuento = 0, subtotal = 0,total = 0; 
     public static int xcolum,xrow;
+    public static int FK_suc, FK_emp;
+    public static int FK_iva, FK_fp;
     
     //instancias de los frames:
     public static JFcategoria JFcat = new JFcategoria();//1
@@ -106,9 +109,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 //        //lim_gas.setVisible(false);
 //        lim_pro.setVisible(false);
 //        lim_prov.setVisible(false);
-
-        JBseleccionar_pro.setEnabled(false);
-        JBcrear_factura.setEnabled(false);
 
     }
 
@@ -221,8 +221,11 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             tabla = new DefaultTableModel(null, c_fp);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "FORMA_PAGO");
                             rs = ps.executeQuery();
+                            f_forma_pago.removeAllItems();
+                            f_forma_pago.addItem("Seleccione...");
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2)});
+                                f_forma_pago.addItem(rs.getString(2));
                             }
                             JTfp.setModel(tabla);
                             fp = tabla.getRowCount();
@@ -241,12 +244,16 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             res_gen.setText("Resultados: " + gen + " de " + gen);
                             break;
                         case 11://iva
+                            for (int j = 0; j < f_iva.getItemCount(); j++) {
+                                f_iva.remove(j);}
+                            f_iva.addItem(""+0+"%");
                             String[] c_iva = {"ID", "IMPUESTO"};
                             tabla = new DefaultTableModel(null, c_iva);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "iva");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2)});
+                                f_iva.addItem(""+rs.getInt(2)+"%");
                             }
                             JTiva.setModel(tabla);
                             iva = tabla.getRowCount();
@@ -517,6 +524,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private void initComponents() {
 
         fecha_hora = new javax.swing.JLabel();
+        usuario = new javax.swing.JLabel();
+        empresa = new javax.swing.JLabel();
+        cerrar_sesion = new javax.swing.JLabel();
         MENU = new javax.swing.JTabbedPane();
         INICIO = new javax.swing.JTabbedPane();
         JSfacturar = new javax.swing.JScrollPane();
@@ -529,7 +539,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        f_ced = new javax.swing.JTextField();
+        f_ced_cli = new javax.swing.JTextField();
         f_nom_ape = new javax.swing.JTextField();
         f_dir = new javax.swing.JTextField();
         f_tel = new javax.swing.JTextField();
@@ -1099,13 +1109,35 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 formWindowLostFocus(evt);
             }
         });
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         fecha_hora.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         fecha_hora.setForeground(new java.awt.Color(255, 255, 255));
+        fecha_hora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         fecha_hora.setText("fecha_hora");
-        getContentPane().add(fecha_hora);
-        fecha_hora.setBounds(637, 556, 350, 30);
+        getContentPane().add(fecha_hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 580, 250, 20));
+
+        usuario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/verificado.png"))); // NOI18N
+        usuario.setText("usuario");
+        usuario.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 380, 40));
+
+        empresa.setFont(new java.awt.Font("Kristen ITC", 1, 24)); // NOI18N
+        empresa.setText("CENTRO COMERCIAL");
+        empresa.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(empresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 340, 40));
+
+        cerrar_sesion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cerrar_sesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion (1).png"))); // NOI18N
+        cerrar_sesion.setText("Cerrar Sesión");
+        cerrar_sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrar_sesionMouseClicked(evt);
+            }
+        });
+        getContentPane().add(cerrar_sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 0, 130, 40));
 
         MENU.setBackground(new java.awt.Color(255, 255, 255));
         MENU.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
@@ -1165,19 +1197,18 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jLabel13.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel13.setText("Cédula:");
 
-        f_ced.setEditable(false);
-        f_ced.setBackground(new java.awt.Color(255, 0, 0));
-        f_ced.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        f_ced.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        f_ced.setEnabled(false);
-        f_ced.addMouseListener(new java.awt.event.MouseAdapter() {
+        f_ced_cli.setEditable(false);
+        f_ced_cli.setBackground(new java.awt.Color(255, 0, 0));
+        f_ced_cli.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        f_ced_cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        f_ced_cli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                f_cedMouseClicked(evt);
+                f_ced_cliMouseClicked(evt);
             }
         });
-        f_ced.addActionListener(new java.awt.event.ActionListener() {
+        f_ced_cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                f_cedActionPerformed(evt);
+                f_ced_cliActionPerformed(evt);
             }
         });
 
@@ -1277,6 +1308,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JBseleccionar_pro.setForeground(new java.awt.Color(255, 255, 255));
         JBseleccionar_pro.setText("+    Seleccionar producto");
         JBseleccionar_pro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JBseleccionar_pro.setEnabled(false);
         JBseleccionar_pro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBseleccionar_proActionPerformed(evt);
@@ -1307,6 +1339,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         );
 
         jPanel7.setBackground(new java.awt.Color(252, 240, 219));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel8.setBackground(new java.awt.Color(153, 0, 51));
         jPanel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -1327,86 +1360,52 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
         );
 
+        jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 427, -1));
+
         jl_num_det1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jl_num_det1.setText("Subtotal:");
+        jPanel7.add(jl_num_det1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 96, 151, 28));
 
         jl_total1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jl_total1.setText("Descuento:");
+        jPanel7.add(jl_total1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 51, 151, 28));
 
         jl_num_det2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jl_num_det2.setText("Total a pagar:");
+        jPanel7.add(jl_num_det2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 204, 151, 36));
 
         f_descuento.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         f_descuento.setForeground(new java.awt.Color(255, 51, 51));
         f_descuento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         f_descuento.setText("- $0");
+        jPanel7.add(f_descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 49, 130, -1));
 
         f_total.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         f_total.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         f_total.setText("$0");
+        jPanel7.add(f_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 195, 130, -1));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel7.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 246, 160, 10));
 
+        f_iva.setBackground(new java.awt.Color(255, 0, 0));
         f_iva.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        f_iva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        f_iva.setForeground(new java.awt.Color(255, 255, 255));
+        f_iva.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                f_ivaItemStateChanged(evt);
+            }
+        });
+        jPanel7.add(f_iva, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 139, 130, 36));
 
         jl_num_det3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jl_num_det3.setText("Tipo de impositivo:");
+        jPanel7.add(jl_num_det3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 139, -1, 36));
 
         f_subtotal.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         f_subtotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         f_subtotal.setText("$0");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel7Layout.createSequentialGroup()
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jl_total1)
-                                .addComponent(jl_num_det2)
-                                .addComponent(jl_num_det3))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(f_descuento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(f_iva, javax.swing.GroupLayout.Alignment.TRAILING, 0, 141, Short.MAX_VALUE)
-                                .addComponent(f_total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                            .addComponent(jl_num_det1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(f_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(44, 44, 44))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_total1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(f_descuento))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_num_det1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(f_subtotal))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(f_iva, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(jl_num_det3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_num_det2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(f_total))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-        );
+        jPanel7.add(f_subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 94, 130, -1));
 
         l_des.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         l_des.setText("Descuento:");
@@ -1500,8 +1499,15 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        f_forma_pago.setBackground(new java.awt.Color(255, 0, 0));
         f_forma_pago.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        f_forma_pago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        f_forma_pago.setForeground(new java.awt.Color(255, 255, 255));
+        f_forma_pago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione..." }));
+        f_forma_pago.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                f_forma_pagoItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1566,7 +1572,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addComponent(f_id_cli, javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(f_ced, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(f_ced_cli, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGap(1, 1, 1)))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(l_des, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1576,7 +1582,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JBseleccionar_pro)
                             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(f_num_det, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1590,7 +1596,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                     .addComponent(JBcrear_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(JBlimpiar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(110, 110, 110)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1603,7 +1609,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addComponent(jLabel2)
                         .addGap(0, 0, 0)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(f_ced, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(f_ced_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1668,19 +1674,19 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     .addComponent(f_num_det)
                     .addComponent(JBseleccionar_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(f_forma_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(41, 41, 41)
                         .addComponent(JBcrear_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(JBlimpiar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(165, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout JPfacturarLayout = new javax.swing.GroupLayout(JPfacturar);
@@ -3696,7 +3702,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel80, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel80, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5430,7 +5436,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                 .addComponent(reg_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(mod_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(elim_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         MENU.addTab("Puestos y Departamentos", JPpue_dep);
@@ -5548,7 +5554,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel103, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel103, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -6482,7 +6488,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel130, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel130, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -6776,7 +6782,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jPanel34.setLayout(jPanel34Layout);
         jPanel34Layout.setHorizontalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel143, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel143, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -7024,7 +7030,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel135, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel135, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -7271,7 +7277,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jPanel35.setLayout(jPanel35Layout);
         jPanel35Layout.setHorizontalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel151, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel151, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -7309,7 +7315,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addComponent(jLabel152)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(id_provi, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         JPproviLayout.setVerticalGroup(
             JPproviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -7392,12 +7398,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
         MENU.addTab("Ciudades y Provincias", JPciu_provi);
 
-        getContentPane().add(MENU);
-        MENU.setBounds(10, 0, 980, 540);
+        getContentPane().add(MENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 530));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abstracto_rojo.jpeg"))); // NOI18N
-        getContentPane().add(fondo);
-        fondo.setBounds(0, 0, 1020, 610);
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1020, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -7409,21 +7413,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void f_cedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_cedActionPerformed
+    private void f_ced_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_ced_cliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_f_cedActionPerformed
+    }//GEN-LAST:event_f_ced_cliActionPerformed
 
     private void JBseleccionar_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBseleccionar_proActionPerformed
-        MENU.setSelectedIndex(6);
+        MENU.setSelectedIndex(3);
     }//GEN-LAST:event_JBseleccionar_proActionPerformed
 
-    private void f_cedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_f_cedMouseClicked
+    private void f_ced_cliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_f_ced_cliMouseClicked
         MENU.setSelectedIndex(1);
-    }//GEN-LAST:event_f_cedMouseClicked
+        PERSONAS.setSelectedIndex(0);
+    }//GEN-LAST:event_f_ced_cliMouseClicked
 
     private void JBcrear_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBcrear_facturaActionPerformed
-        if (f_fecha.getText().isEmpty() || f_suc.getText().isEmpty() || f_emp.getText().isEmpty() || f_ced.getText().isEmpty()
-                || f_num_det.getText().equals(0) || f_forma_pago.getSelectedIndex() == 0) {
+        if (f_fecha.getText().isEmpty() || f_suc.getText().isEmpty() || f_emp.getText().isEmpty()||num_det==0||f_iva.getSelectedIndex()==0||f_forma_pago.getSelectedIndex() == 0) {
             getToolkit().beep();
             JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
@@ -7452,22 +7456,19 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     num_det--;
                     
                     double c6 = Double.parseDouble(JTdetalle.getValueAt(JTdetalle.getSelectedRow(), 6).toString());
-                    total -= c6;
-                    total = Math.rint(total*100.0)/100.0; //deja al valor con dos decimales
+                    subtotal -= c6;
+                    subtotal = Math.rint(subtotal*100.0)/100.0; //deja al valor con dos decimales
                     
                     double c3 = Double.parseDouble(JTdetalle.getValueAt(JTdetalle.getSelectedRow(), 3).toString());
                     int c2 = Integer.parseInt(JTdetalle.getValueAt(JTdetalle.getSelectedRow(), 2).toString());
-                    
-                    subtotal -= c2*c3;
-                    subtotal = Math.rint(subtotal*100.0)/100.0; //deja al valor con dos decimales 
                     
                     total_descuento -= (c2 * c3) - c6;
                     total_descuento = Math.rint(total_descuento * 100.0) / 100.0; //deja al valor con dos decimales 
 
                     f_num_det.setText("Detalles: " + num_det);
-                    f_subtotal.setText("$" + subtotal);
                     f_descuento.setText("- $" + total_descuento);
-                    f_total.setText("$" + (total));
+                    f_subtotal.setText("$" + subtotal);
+                    calcular_total();
 
                     //----> Eliminar un detalle a la tabla:
                     tabla_detalle.removeRow(JTdetalle.getSelectedRow());
@@ -7478,10 +7479,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             detalles.remove(String.valueOf(codigo_pro));
                             i = detalles.size();
                         }
-                    }
-                    
-                    if (tabla_detalle.getRowCount() == 0) {
-                        JBcrear_factura.setEnabled(false);
                     }
                     JOptionPane.showMessageDialog(null, "¡Producto '" + codigo_pro + "' removido!", null, JOptionPane.INFORMATION_MESSAGE);
                     
@@ -7497,7 +7494,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private void f_fechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_f_fechaMouseClicked
         f_fecha.setText(fechas.transformar(fechas.obtener()));
         f_fecha.setBackground(Color.green);
-        f_ced.setEnabled(true);
     }//GEN-LAST:event_f_fechaMouseClicked
 
     private void f_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_fechaActionPerformed
@@ -8759,6 +8755,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void f_empMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_f_empMouseClicked
         MENU.setSelectedIndex(1);
+        PERSONAS.setSelectedIndex(0);
     }//GEN-LAST:event_f_empMouseClicked
 
     private void f_empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_empActionPerformed
@@ -8772,6 +8769,24 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private void f_sucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f_sucActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_f_sucActionPerformed
+
+    private void cerrar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrar_sesionMouseClicked
+        this.dispose();
+        JFlogin sesión = new JFlogin();
+        sesión.setVisible(true);
+    }//GEN-LAST:event_cerrar_sesionMouseClicked
+
+    private void f_ivaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_f_ivaItemStateChanged
+        calcular_total();
+    }//GEN-LAST:event_f_ivaItemStateChanged
+
+    private void f_forma_pagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_f_forma_pagoItemStateChanged
+        if (f_forma_pago.getSelectedIndex()!=0) {
+            f_forma_pago.setBackground(Color.green);
+        } else{
+            f_forma_pago.setBackground(Color.red);
+        }
+    }//GEN-LAST:event_f_forma_pagoItemStateChanged
 
     
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
@@ -8873,7 +8888,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             rs = ps.executeQuery();
                             rs.next();
                             descuento_cli.setText(rs.getString(2)+" ("+rs.getInt(3)+"%)");
-                            
+                            descuento = rs.getInt(3);
                             ps = (PreparedStatement) con.prepareStatement(consulta + "PERSONA WHERE CEDULA='"+cedula_cli.getText()+"'");
                             rs = ps.executeQuery();
                             rs.next();
@@ -8899,14 +8914,17 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         }
                     }
                     if (Mouse_evt.getClickCount() == 2) {
-                        if (f_fecha.getText().equals("")) {
-                            JOptionPane.showMessageDialog(null, "¡Primero genere una fecha de emisión!");
-                        } else{
-                            f_ced.setText(pk);
-                        }
-                        JFproducto.jt_categoria.setText("" + pk + " - " + nombre_cat.getText());
-                        MENU.setSelectedIndex(3);
-                        JFpro.setVisible(true);
+                        f_ced_cli.setText(cedula_cli.getText());
+                        f_ced_cli.setBackground(Color.green);
+                        f_id_cli.setText(pk);
+                        f_nom_ape.setText(nombre_cli.getText() + " " + apellido_cli.getText());
+                        f_dir.setText(direccion_cli.getText());
+                        f_tel.setText(celular_cli.getText());
+                        f_email.setText(email_cli.getText());
+                        f_des.setText(descuento_cli.getText());
+                        JBseleccionar_pro.setEnabled(true);
+                        MENU.setSelectedIndex(0);
+                        INICIO.setSelectedIndex(0);
                     }
                 }
             });
@@ -8981,7 +8999,32 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             System.out.println(ex.getMessage());
                         }
                     }
-                    
+                    if (Mouse_evt.getClickCount() == 2) {
+                        int opcion = JOptionPane.showOptionDialog(null, "¿A dónde desea enviar este empleado?", "Enviar empleado", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo3, null);
+                        switch(opcion) {
+                            case 0://factura
+                                FK_emp = Integer.parseInt(pk);
+                                f_emp.setText(nombre_emp.getText()+" "+apellido_emp.getText());
+                                f_emp.setBackground(Color.green);
+                                MENU.setSelectedIndex(0);
+                                INICIO.setSelectedIndex(0);
+                                break;
+                            case 1://pagos sueldos (remitente)
+                                JFempleado.FK_ciu = Integer.parseInt(pk);
+                                JFempleado.ciudad.setText(""+pk+" - "+nombre_ciu.getText());
+                                MENU.setSelectedIndex(1);
+                                PERSONAS.setSelectedIndex(0);
+                                JFemp.setVisible(true);
+                                break;
+
+                            case 2://pagos sueldos (destinatario)
+                                JFproveedor.FK_ciu = Integer.parseInt(pk);
+                                JFproveedor.jt_ciudad.setText("" + pk + " - " + nombre_ciu.getText());
+                                MENU.setSelectedIndex(5);
+                                JFprov.setVisible(true);
+                                break;
+                        }
+                    }
                 }
             });
             
@@ -9054,18 +9097,18 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     if (Mouse_evt.getClickCount() == 1) {
                         try {
                             pk = JTmar.getValueAt(JTmar.getSelectedRow(), 0).toString();
-                            ps = (PreparedStatement) con.prepareStatement(consulta+"MARCA WHERE ID="+pk);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "MARCA WHERE ID=" + pk);
                             rs = ps.executeQuery();
                             rs.next();
-                            id_mar.setText(""+rs.getInt(1));
+                            id_mar.setText("" + rs.getInt(1));
                             nombre_mar.setText(rs.getString(2));
-                            ver_panel(14,true);
+                            ver_panel(14, true);
                         } catch (SQLException ex) {
                         }
                     }
                     if (Mouse_evt.getClickCount() == 2) {
                         JFproducto.FK_mar = Integer.parseInt(pk);
-                        JFproducto.jt_marca.setText(""+pk+" - "+nombre_mar.getText());
+                        JFproducto.jt_marca.setText("" + pk + " - " + nombre_mar.getText());
                         MENU.setSelectedIndex(3);
                         JFpro.setVisible(true);
                     }
@@ -9077,12 +9120,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     if (Mouse_evt.getClickCount() == 1) {
                         try {
                             pk = JTpro.getValueAt(JTpro.getSelectedRow(), 0).toString();
-                            ps = (PreparedStatement) con.prepareStatement(consulta+"PRODUCTO WHERE CODIGO="+pk);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "PRODUCTO WHERE CODIGO=" + pk);
                             rs = ps.executeQuery();
                             rs.next();
-                            codigo_pro.setText(""+rs.getInt(1));
+                            codigo_pro.setText("" + rs.getInt(1));
                             nombre_pro.setText(rs.getString(2));
-                            rsscalelabel.RSScaleLabel.setScaleLabel(imagen_pro,rs.getString(3));
+                            rsscalelabel.RSScaleLabel.setScaleLabel(imagen_pro, rs.getString(3));
                             int FK_mar = rs.getInt(4);
                             precio_pro.setText("$" + rs.getDouble(5));
                             maximos_pro.setText("" + rs.getInt(6));
@@ -9091,31 +9134,85 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             int FK_cat = rs.getInt(9);
                             fecha_reg_pro.setText(rs.getDate(10).toString());
                             String FK_prov = rs.getString(11);
-                            
-                            ps = (PreparedStatement) con.prepareStatement(consulta+"MARCA WHERE ID="+FK_mar);
+
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "MARCA WHERE ID=" + FK_mar);
                             rs = ps.executeQuery();
                             rs.next();
                             marca_pro.setText(rs.getString(2));
-                            
-                            ps = (PreparedStatement) con.prepareStatement(consulta+"CATEGORIA WHERE ID="+FK_cat);
+
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "CATEGORIA WHERE ID=" + FK_cat);
                             rs = ps.executeQuery();
                             rs.next();
                             categoria_pro.setText(rs.getString(2));
-                            
-                            ps = (PreparedStatement) con.prepareStatement(consulta+"PROVEEDOR WHERE RUC="+FK_prov);
+
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "PROVEEDOR WHERE RUC=" + FK_prov);
                             rs = ps.executeQuery();
                             rs.next();
                             proveedor_pro.setText(rs.getString(2));
-                            
-                            ver_panel(18,true);
+
+                            ver_panel(18, true);
                         } catch (SQLException ex) {
                         }
                     }
                     if (Mouse_evt.getClickCount() == 2) {
-//                        JFcliente.genero.setText(id_gen.getText());
-//                        MENU.setSelectedIndex(1);
-//                        PERSONAS.setSelectedIndex(0);
-//                        JFcli.setVisible(true);
+                        if (f_ced_cli.getText().isEmpty()) {
+                            getToolkit().beep();
+                            JOptionPane.showMessageDialog(rootPane, "¡Primero seleccione un cliente!");
+                        } else {
+                            int existencias = Integer.parseInt(stock_pro.getText());
+                            if (existencias > 0) {
+                                boolean repetido = false;
+                                for (int i = 0; i < detalles.size(); i++) {
+                                    if (detalles.get(i).equals(codigo_pro.getText())) {
+                                        repetido = true;
+                                        break;
+                                    }
+                                }
+                                if (repetido) {
+                                    JOptionPane.showMessageDialog(null, "¡Este producto ya fué seleccionado!, Seleccione otro!", null, JOptionPane.WARNING_MESSAGE);
+                                } else {
+                                    try {
+                                        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad:", 1));
+                                        if (cantidad > 0 && cantidad <= existencias) {
+                                            Double xprecio = Double.valueOf(precio_pro.getText().replace("$", ""));
+                                            JTdetalle.setDefaultRenderer(Object.class, new BotonTabla());
+                                            Object detalle[] = {codigo_pro.getText(), nombre_pro.getText(), cantidad, xprecio, descuento + "%", xprecio - ((descuento * xprecio) / 100), Math.round((cantidad * (xprecio - ((descuento * xprecio) / 100))) * 100.0) / 100.0, boton1};
+                                            detalles.add(codigo_pro.getText());
+                                            //-------------- Agrega un detalle a la tabla
+                                            tabla_detalle.addRow(detalle);
+                                            JTdetalle.setModel(tabla_detalle);
+                                            //--------------- Actualiza variables
+                                            num_det++;
+                                            double xsubtotal = cantidad * (xprecio - ((descuento * xprecio) / 100));
+                                            subtotal += xsubtotal;
+                                            subtotal = (Math.rint(subtotal * 100.0) / 100.0); //lo deja con 2 decimales
+
+                                            total_descuento += (xprecio * cantidad) - (xsubtotal);
+                                            total_descuento = (Math.rint(total_descuento * 100.0) / 100.0); //lo deja con 2 decimales
+
+                                            f_num_det.setText("Detalles: " + num_det);
+                                            f_descuento.setText("- $" + total_descuento);
+                                            f_subtotal.setText("$" + (subtotal));
+                                            calcular_total();
+                                            MENU.setSelectedIndex(0);
+                                            INICIO.setSelectedIndex(0);
+                                        } else {
+                                            if (cantidad > existencias) {
+                                                JOptionPane.showMessageDialog(null, "¡Solo existen '" + existencias + "' de este producto!", null, JOptionPane.WARNING_MESSAGE);
+                                            }
+                                            if (cantidad <= 0) {
+                                                JOptionPane.showMessageDialog(null, "¡El mínimo de venta es de 1!", null, JOptionPane.WARNING_MESSAGE);
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        JOptionPane.showMessageDialog(null, "¡Cantiadad inválida!", null, JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }
+
+                            } else {
+                                JOptionPane.showMessageDialog(null, "¡Producto agotado!, Seleccione otro!", null, JOptionPane.WARNING_MESSAGE);
+                            }
+                        }
                     }
                 }
             });
@@ -9217,11 +9314,11 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         }
                     }
                     if (Mouse_evt.getClickCount() == 2) {
-//                        JFempleado.FK_pue = Integer.parseInt(pk);
-//                        JFempleado.puesto.setText("" + pk + " - " + nombre_pue.getText());
-//                        MENU.setSelectedIndex(1);
-//                        PERSONAS.setSelectedIndex(0);
-//                        JFemp.setVisible(true);
+                        FK_suc = Integer.parseInt(pk);
+                        f_suc.setText(nombre_suc.getText());
+                        f_suc.setBackground(Color.green);
+                        MENU.setSelectedIndex(0);
+                        INICIO.setSelectedIndex(0);
                     }
                 }
             });
@@ -9331,6 +9428,18 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     public void resumen() {
         
+    }
+    public void calcular_total() {
+        IVA = Integer.parseInt(f_iva.getSelectedItem().toString().replace("%", ""));
+        total = 0;
+        total = subtotal+((subtotal * IVA)/100);
+        total = (Math.rint(total * 100.0) / 100.0); //lo deja con 2 decimales
+        f_total.setText("$"+total);
+        if (f_iva.getSelectedIndex()!=0) {
+            f_iva.setBackground(Color.green);
+        } else{
+            f_iva.setBackground(Color.red);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -9500,6 +9609,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel celular_cli;
     private javax.swing.JLabel celular_emp;
     private javax.swing.JLabel celular_prov;
+    private javax.swing.JLabel cerrar_sesion;
     private javax.swing.JLabel ciudad_cli;
     private javax.swing.JLabel ciudad_emp;
     private javax.swing.JLabel ciudad_prov;
@@ -9541,7 +9651,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel email_cli;
     private javax.swing.JLabel email_emp;
     private javax.swing.JLabel email_prov;
-    private javax.swing.JTextField f_ced;
+    private javax.swing.JLabel empresa;
+    private javax.swing.JTextField f_ced_cli;
     private javax.swing.JTextField f_codigo;
     private javax.swing.JTextField f_des;
     private javax.swing.JLabel f_descuento;
@@ -9903,5 +10014,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel t_facturas_activas14;
     private javax.swing.JLabel t_facturas_activas15;
     private javax.swing.JLabel total_pe;
+    public static javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }
