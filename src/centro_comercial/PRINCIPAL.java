@@ -20,11 +20,9 @@ import otros.BotonTabla;
 import otros.fechas;
 import java.sql.*;
 import com.mysql.jdbc.PreparedStatement;
-import java.awt.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import otros.ImagenTabla;
 
 public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     
@@ -32,7 +30,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static Connection con = null;
     public static ResultSet rs;
     public static ResultSet rs2;
-    public static PreparedStatement ps;
+    public static PreparedStatement ps, ps2,ps3,ps4;
     public static String consulta = "";
     public static String consulta2 = "";
     //variables que guardan el número de registros:
@@ -62,25 +60,23 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static int FK_iva, FK_fp, FK_enc;
     
     //instancias de los frames:
-    public static JFcategoria JFcat = new JFcategoria();//1
-    public static JFciudad JFciu = new JFciudad();//2
-    public static JFcliente JFcli = new JFcliente();//3
-    public static JFdepartamento JFdep=new JFdepartamento();//4
-    public static JFdescuento JFdes = new JFdescuento();//5
-    //x2 detalles: 6 y 7
-    public static JFempleado JFemp = new JFempleado();//8
-    //x2 encabezados: 8 y 9
-    public static JFforma_pago JFfp = new JFforma_pago();//11
-    public static JFgenero JFgen = new JFgenero();//12
-    public static JFiva JFIVA = new JFiva();//13
-    public static JFmarca JFmar = new JFmarca();//14
-//  public static JFpago_empleado JFpe = new JFpago_empleado();//15
-    //x1 pago_fac: 17
-    public static JFproducto JFpro = new JFproducto();//18
-    public static JFproveedor JFprov = new JFproveedor();//19
-    public static JFprovincia JFprovi = new JFprovincia();//20
-    public static JFpuesto JFpue = new JFpuesto();//21
-    public static JFsucursal JFsuc = new JFsucursal();//22
+    public static JFcategoria JFcat = new JFcategoria();
+    public static JFciudad JFciu = new JFciudad();
+    public static JFcliente JFcli = new JFcliente();
+    public static JFdepartamento JFdep=new JFdepartamento();
+    public static JFdescuento JFdes = new JFdescuento();
+    public static JFempleado JFemp = new JFempleado();
+    public static JFVistaFactura JFvf = new JFVistaFactura();
+    public static JFforma_pago JFfp = new JFforma_pago();
+    public static JFgenero JFgen = new JFgenero();
+    public static JFiva JFIVA = new JFiva();
+    public static JFmarca JFmar = new JFmarca();
+    public static JFpago_empleado JFpe = new JFpago_empleado();
+    public static JFproducto JFpro = new JFproducto();
+    public static JFproveedor JFprov = new JFproveedor();
+    public static JFprovincia JFprovi = new JFprovincia();
+    public static JFpuesto JFpue = new JFpuesto();
+    public static JFsucursal JFsuc = new JFsucursal();
 
     public PRINCIPAL() {
         initComponents();
@@ -291,7 +287,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         case 14://pago_fac
                             String[] c_pf = {"NUMERO", "TOTAL_SIN_IVA", "ID_FOR", "ID_IVA", "TOTAL_MAS_IVA", "CODIGO_ENC"};
                             tabla = new DefaultTableModel(null, c_pf);
-                            ps = (PreparedStatement) con.prepareStatement(consulta + "pago_fac");
+                            ps = (PreparedStatement) con.prepareStatement("SELECT P.NUMERO, P.TOTAL_SIN_IVA, P.ID_FOR, P.ID_IVA, P.TOTAL_MAS_IVA, P.CODIGO_ENC FROM pago_fac P INNER JOIN encabezado_fac E WHERE P.CODIGO_ENC = E.CODIGO AND E.ESTADO = 'ACTIVO'");
                             rs = ps.executeQuery();
                             while (rs.next()) {
                                 tabla.addRow(new Object[]{rs.getInt(1), rs.getDouble(2), rs.getInt(3), rs.getInt(4), rs.getDouble(5), rs.getInt(6)});
@@ -393,7 +389,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }
 
     //método para eliminar registros de la base de datos:
-    public void eliminar(int clase) {
+     public void eliminar(int clase) {
         if (JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea continuar con esta acción?", "Eliminar registro", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
             if (conexion.conectar() != null) {
                 boolean eliminado = true;
@@ -412,34 +408,213 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             }
                             break;
                         case 2://ciudad
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "persona WHERE ID_CIUDAD = " + id_ciu.getText());
+                            ps2 = (PreparedStatement) con.prepareStatement(consulta + "sucursal WHERE ID_CIU = " + id_ciu.getText());
+                            ps3 = (PreparedStatement) con.prepareStatement(consulta + "proveedor WHERE ID_CIU = " + id_ciu.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar la ciudad ya que se encuentra asignado a una persona!");
+                                eliminado = false;
+                                if (ps2.executeQuery().next()) {
+                                    JOptionPane.showMessageDialog(null, "¡Imposible eliminar la ciudad ya que se encuentra asignado a una sucursal!");
+                                    eliminado = false;
+                                    if (ps3.executeQuery().next()) {
+                                        JOptionPane.showMessageDialog(null, "¡Imposible eliminar la ciudad ya que se encuentra asignado a un proveedor!");
+                                        eliminado = false;
+                                    }else {
+                                        ps3 = (PreparedStatement) con.prepareStatement(consulta2 + "ciudad WHERE ID = " + id_ciu.getText());
+                                        ps3.executeUpdate();
+                                    }
+                                }else {
+                                    ps2 = (PreparedStatement) con.prepareStatement(consulta2 + "ciudad WHERE ID = " + id_ciu.getText());
+                                    ps2.executeUpdate();
+                                }
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "ciudad WHERE ID = " + id_ciu.getText());
+                                ps.executeUpdate();
+                            }
+                            
                             break;
                         case 3://cliente
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "encabezado_fac WHERE ID_CLI = " + id_cli.getText());
+                            ps2 = (PreparedStatement) con.prepareStatement(consulta + "persona WHERE CEDULA = " + cedula_cli.getText());
+                            ps3 = (PreparedStatement) con.prepareStatement(consulta + "empleado WHERE CEDULA_PER = " + cedula_cli.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el cliente ya que se encuentra asignado a un encabezado de factura!");
+                                eliminado = false;
+                                if (ps2.executeQuery().next()) {
+                                    JOptionPane.showMessageDialog(null, "¡Imposible eliminar el cliente ya que se encuentra asignado a una persona!");
+                                    eliminado = false;
+                                    if (ps3.executeQuery().next()) {
+                                        JOptionPane.showMessageDialog(null, "¡Imposible eliminar el cliente ya que se encuentra asignado a un empleado!");
+                                        eliminado = false;
+                                    } else {
+                                        ps3 = (PreparedStatement) con.prepareStatement(consulta2 + "cliente WHERE ID = " + id_cli.getText());
+                                        ps3.executeUpdate();
+                                    }
+                                } else {
+                                    ps2 = (PreparedStatement) con.prepareStatement(consulta2 + "cliente WHERE ID = " + id_cli.getText());
+                                    ps2.executeUpdate();
+                                }
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "cliente WHERE ID = " + id_cli.getText());
+                                ps.executeUpdate();
+                            }
                             break;
                         case 4://departamento
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "empleado WHERE ID_DEP = " + id_dep.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el departamento ya que se encuentra asignado a un empleado!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "departamento WHERE ID = " + id_dep.getText());
+                                ps.executeUpdate();
+                            }
                             break;
+                         
                         case 5://descuento
+                             ps = (PreparedStatement) con.prepareStatement(consulta + "cliente WHERE ID_DES = " + id_des.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el descuento ya que se encuentra asignado a un cliente!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "descuento WHERE ID = " + id_des.getText());
+                                ps.executeUpdate();
+                            }
+
                             break;
                         case 8://empleado
-                            break;
-                        case 9://encabezado_fac (modificar el estado de "ACTIVO" a "INACTIVO")
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "encabezado_fac WHERE ID_EMP = " + id_emp.getText());
+                            ps2 = (PreparedStatement) con.prepareStatement(consulta + "encabezado_pp WHERE ID_EMP = " + id_emp.getText());
+                            ps3 = (PreparedStatement) con.prepareStatement(consulta + "PAGO_EMPLEADO WHERE ID_REMITENTE  = " + id_emp.getText());
+                            ps4 = (PreparedStatement) con.prepareStatement(consulta + "PAGO_EMPLEADO WHERE ID_DESTINATARIO = " + id_emp.getText());
+
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el empleado ya que se encuentra asignado a un encabezado de factura!");
+                                eliminado = false;
+                            }
+                            if (ps2.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el empleado ya que se encuentra asignado a un encabezado de ventas!");
+                                eliminado = false;
+                            }
+                            if (ps3.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el empleado ya que se encuentra asignado al pago de un remitente!");
+                                eliminado = false;
+                            }
+                            if (ps4.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el empleado ya que se encuentra asignado al pago de un destinatario!");
+                                eliminado = false;
+                            }
+                            if (!ps.executeQuery().next() && !ps2.executeQuery().next() && !ps3.executeQuery().next() && !ps4.executeQuery().next()) {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "empleado WHERE ID = " + id_emp.getText());
+                                ps.executeUpdate();
+                            }
                             break;
                         case 11://forma_pago
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "pago_fac WHERE ID_FOR = " + id_fp.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar la forma de pago ya que se encuentra asignado a un pago de una factura!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "forma_pago WHERE ID = " + id_fp.getText());
+                                ps.executeUpdate();
+                            }
                             break;
                         case 12://genero
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "persona WHERE ID_SEXO = " + id_gen.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el genero ya que se encuentra asignado a una persona!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "genero WHERE ID = " + id_gen.getText());
+                                ps.executeUpdate();
+                            }
+                            break;
+                        case 13://iva
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "pago_fac WHERE ID_IVA = " + id_iva.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el iva ya que se encuentra asignado a un pago de una factura!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "iva WHERE ID = " + id_iva.getText());
+                                ps.executeUpdate();
+                            }
                             break;
                         case 14://marca
-                            break;
-                        case 15://pago_empleado
+                             ps = (PreparedStatement) con.prepareStatement(consulta + "producto WHERE ID_MAR = " + id_mar.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar la marca ya que se encuentra asignado a un producto!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "marca WHERE ID = " + id_mar.getText());
+                                ps.executeUpdate();
+                            }
                             break;
                         case 18://producto
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "detalle_fac WHERE CODIGO_PRO = " + codigo_pro.getText());
+                            ps2 = (PreparedStatement) con.prepareStatement(consulta + "detalle_pp WHERE CODIGO_PRO = " + codigo_pro.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el producto ya que se encuentra asignado a un detalle de factura!");
+                                eliminado = false;
+                                }
+                            if (ps2.executeQuery().next()) {
+                                    JOptionPane.showMessageDialog(null, "¡Imposible eliminar el producto ya que se encuentra asignado a una compra !");
+                                    eliminado = false;
+                                }
+                            if (!ps.executeQuery().next() && !ps2.executeQuery().next()) {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "producto WHERE CODIGO = " + codigo_pro.getText());
+                               
+                                ps.executeUpdate();
+                            }
+
                             break;
                         case 19://proveedor
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "producto WHERE RUC_PROV = " + ruc_prov.getText());
+                            ps2 = (PreparedStatement) con.prepareStatement(consulta + "encabezado_pp WHERE RUC_PROV = " + ruc_prov.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el proveedor ya que se encuentra asignado a un producto!");
+                                eliminado = false;
+                            }
+                            if (ps2.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el proveedor ya que se encuentra asignado a una compra de productos!");
+                                eliminado = false;
+                            }
+                            if (!ps.executeQuery().next() && !ps2.executeQuery().next()) {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "proveedor WHERE RUC = " + ruc_prov.getText());
+                                ps.executeUpdate();
+                            }
+                          
+                            
                             break;
                         case 20://provincia
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "ciudad WHERE ID_PROVI = " + id_provi.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar la provincia ya que se encuentra asignado a una ciudad!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "provincia WHERE ID = " + id_provi.getText());
+                                ps.executeUpdate();
+                            }
+                            
                             break;
                         case 21://puesto
+                             ps = (PreparedStatement) con.prepareStatement(consulta + "empleado WHERE ID_PUE = " + id_pue.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar el puesto ya que se encuentra asignado a un empleado!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "puesto WHERE ID = " + id_pue.getText());
+                                ps.executeUpdate();
+                            }
                             break;
                         case 22://sucursal
+                             ps = (PreparedStatement) con.prepareStatement(consulta + "encabezado_fac WHERE ID_SUC = " + id_suc.getText());
+                            if (ps.executeQuery().next()) {
+                                JOptionPane.showMessageDialog(null, "¡Imposible eliminar la sucursal ya que se encuentra asignado a un encabezado de factura!");
+                                eliminado = false;
+                            } else {
+                                ps = (PreparedStatement) con.prepareStatement(consulta2 + "sucursal WHERE ID = " + id_suc.getText());
+                                ps.executeUpdate();
+                            }
                             break;
                     }
                 } catch (Exception e) {
@@ -747,8 +922,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jLabel156 = new javax.swing.JLabel();
         jLabel158 = new javax.swing.JLabel();
         destinatario_pe = new javax.swing.JLabel();
-        elim_pe = new javax.swing.JButton();
-        mod_pe = new javax.swing.JButton();
         reg_pe = new javax.swing.JButton();
         JPiva_fp = new javax.swing.JPanel();
         jsTabla_ciu20 = new javax.swing.JScrollPane();
@@ -763,7 +936,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jLabel170 = new javax.swing.JLabel();
         jsTabla_ciu21 = new javax.swing.JScrollPane();
         JTfp = new javax.swing.JTable();
-        JPIVA = new javax.swing.JPanel();
+        JPiva = new javax.swing.JPanel();
         jLabel171 = new javax.swing.JLabel();
         id_iva = new javax.swing.JLabel();
         jLabel172 = new javax.swing.JLabel();
@@ -872,6 +1045,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jLabel95 = new javax.swing.JLabel();
         puesto_emp = new javax.swing.JLabel();
         jLabel96 = new javax.swing.JLabel();
+        sueldo_emp = new javax.swing.JLabel();
+        jLabel98 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jLabel94 = new javax.swing.JLabel();
         elim_emp = new javax.swing.JButton();
@@ -1615,7 +1790,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JBseleccionar_pro)
                             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(f_num_det, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1629,7 +1804,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                     .addComponent(JBcrear_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(JBlimpiar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(110, 110, 110)))))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2783,7 +2958,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             }
         };
         JTpe.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTpe.setFont(new java.awt.Font("Calibri Light", 1, 12)); // NOI18N
+        JTpe.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
         JTpe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -2958,48 +3133,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 .addGroup(JPpeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel158)
                     .addComponent(destinatario_pe))
-                .addGap(20, 20, 20))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
-
-        elim_pe.setBackground(new java.awt.Color(255, 0, 51));
-        elim_pe.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        elim_pe.setForeground(new java.awt.Color(255, 255, 255));
-        elim_pe.setText("x    Eliminar");
-        elim_pe.setBorder(null);
-        elim_pe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        elim_pe.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                elim_peMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                elim_peMouseExited(evt);
-            }
-        });
-        elim_pe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                elim_peActionPerformed(evt);
-            }
-        });
-
-        mod_pe.setBackground(new java.awt.Color(51, 204, 255));
-        mod_pe.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        mod_pe.setForeground(new java.awt.Color(255, 255, 255));
-        mod_pe.setText("¡    Modificar");
-        mod_pe.setBorder(null);
-        mod_pe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mod_pe.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                mod_peMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                mod_peMouseExited(evt);
-            }
-        });
-        mod_pe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mod_peActionPerformed(evt);
-            }
-        });
 
         reg_pe.setBackground(new java.awt.Color(0, 204, 102));
         reg_pe.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -3026,37 +3161,30 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPpago_empleadoLayout.setHorizontalGroup(
             JPpago_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPpago_empleadoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(JPpago_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPpago_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPpago_empleadoLayout.createSequentialGroup()
+                            .addComponent(jl_titulo29)
+                            .addGap(31, 31, 31)
+                            .addComponent(jLabel147)
+                            .addGap(6, 6, 6)
+                            .addComponent(JCpe, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(Bpe, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(3, 3, 3)
+                            .addComponent(Lpe)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(res_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jsTabla_ciu16))
                     .addGroup(JPpago_empleadoLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addGap(146, 146, 146)
                         .addGroup(JPpago_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(JPpe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPpago_empleadoLayout.createSequentialGroup()
-                                .addComponent(jl_titulo29)
-                                .addGap(31, 31, 31)
-                                .addComponent(jLabel147)
-                                .addGap(6, 6, 6)
-                                .addComponent(JCpe, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(Bpe, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(3, 3, 3)
-                                .addComponent(Lpe)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(res_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jsTabla_ciu16)
-                            .addGroup(JPpago_empleadoLayout.createSequentialGroup()
-                                .addGap(146, 146, 146)
-                                .addGroup(JPpago_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(JPpe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE))
-                                .addGap(23, 23, 23))))
-                    .addGroup(JPpago_empleadoLayout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(mod_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(elim_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(61, 61, 61))
+                                .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(143, 143, 143))))))
         );
         JPpago_empleadoLayout.setVerticalGroup(
             JPpago_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3076,11 +3204,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 .addGap(0, 0, 0)
                 .addComponent(JPpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(JPpago_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mod_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(elim_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         INICIO.addTab("Pagos a empleados", JPpago_empleado);
@@ -3225,7 +3350,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JTfp.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu21.setViewportView(JTfp);
 
-        JPIVA.setBackground(new java.awt.Color(255, 255, 255));
+        JPiva.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel171.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel171.setText("ID:");
@@ -3239,32 +3364,32 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         impuesto_iva.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         impuesto_iva.setText("0");
 
-        javax.swing.GroupLayout JPIVALayout = new javax.swing.GroupLayout(JPIVA);
-        JPIVA.setLayout(JPIVALayout);
-        JPIVALayout.setHorizontalGroup(
-            JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPIVALayout.createSequentialGroup()
+        javax.swing.GroupLayout JPivaLayout = new javax.swing.GroupLayout(JPiva);
+        JPiva.setLayout(JPivaLayout);
+        JPivaLayout.setHorizontalGroup(
+            JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPivaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPIVALayout.createSequentialGroup()
+                .addGroup(JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPivaLayout.createSequentialGroup()
                         .addComponent(jLabel171)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(id_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JPIVALayout.createSequentialGroup()
+                    .addGroup(JPivaLayout.createSequentialGroup()
                         .addComponent(jLabel172)
                         .addGap(3, 3, 3)
                         .addComponent(impuesto_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        JPIVALayout.setVerticalGroup(
-            JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPIVALayout.createSequentialGroup()
+        JPivaLayout.setVerticalGroup(
+            JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPivaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel171)
                     .addComponent(id_iva))
                 .addGap(15, 15, 15)
-                .addGroup(JPIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JPivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel172)
                     .addComponent(impuesto_iva))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -3521,7 +3646,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addGap(18, 18, 18)
                         .addComponent(elim_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                    .addComponent(JPIVA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(JPiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(Liva)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -3571,7 +3696,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addGap(22, 22, 22)
                         .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(JPIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JPiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(JPiva_fpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(reg_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(elim_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -4103,11 +4228,11 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
         jLabel64.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel64.setText("Cédula:");
-        JPemp.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 20, -1, -1));
+        JPemp.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 20, 44, -1));
 
         cedula_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cedula_emp.setText("0");
-        JPemp.add(cedula_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 20, 122, -1));
+        JPemp.add(cedula_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 20, 132, -1));
 
         jLabel67.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel67.setText("ID:");
@@ -4119,91 +4244,99 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
         jLabel69.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel69.setText("Nombre:");
-        JPemp.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 53, -1, -1));
+        JPemp.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 51, 52, -1));
 
         nombre_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         nombre_emp.setText("0");
-        JPemp.add(nombre_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 53, 154, -1));
+        JPemp.add(nombre_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 51, 154, -1));
 
         apellido_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         apellido_emp.setText("0");
-        JPemp.add(apellido_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 53, 113, -1));
+        JPemp.add(apellido_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 51, 123, -1));
 
         jLabel73.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel73.setText("Apellido:");
-        JPemp.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 53, -1, -1));
+        JPemp.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 51, -1, -1));
 
         jLabel76.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel76.setText("Celular:");
-        JPemp.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 119, -1, -1));
+        JPemp.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, -1, -1));
 
         celular_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         celular_emp.setText("0");
-        JPemp.add(celular_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 119, 161, -1));
+        JPemp.add(celular_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 113, 161, -1));
 
         jLabel78.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel78.setText("Fecha de nacimiento:");
-        JPemp.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 86, -1, -1));
+        JPemp.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 82, 125, -1));
 
         fecha_nac_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_nac_emp.setText("0");
-        JPemp.add(fecha_nac_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 86, 81, -1));
+        JPemp.add(fecha_nac_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 82, 81, -1));
 
         jLabel82.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel82.setText("Sexo:");
-        JPemp.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 86, -1, -1));
+        JPemp.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 82, -1, -1));
 
         sexo_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         sexo_emp.setText("0");
-        JPemp.add(sexo_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 86, 133, -1));
+        JPemp.add(sexo_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 82, 143, -1));
 
         jLabel84.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel84.setText("Departamento:");
-        JPemp.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 152, -1, -1));
+        JPemp.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 206, 91, -1));
 
         departamento_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         departamento_emp.setText("0");
-        JPemp.add(departamento_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 152, 77, -1));
+        JPemp.add(departamento_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 206, 111, -1));
 
         fecha_reg_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         fecha_reg_emp.setText("0");
-        JPemp.add(fecha_reg_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 218, 70, -1));
+        JPemp.add(fecha_reg_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 206, 72, -1));
 
         jLabel88.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel88.setText("Ciudad:");
-        JPemp.add(jLabel88, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 185, -1, -1));
+        JPemp.add(jLabel88, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 175, 45, -1));
 
         ciudad_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         ciudad_emp.setText("0");
-        JPemp.add(ciudad_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 185, 162, -1));
+        JPemp.add(ciudad_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 175, 162, -1));
 
         jLabel90.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel90.setText("Dirección:");
-        JPemp.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 152, -1, -1));
+        JPemp.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 144, 59, -1));
 
         direccion_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         direccion_emp.setText("0");
-        JPemp.add(direccion_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 152, 147, -1));
+        JPemp.add(direccion_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 144, 147, -1));
 
         jLabel92.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel92.setText("Email:");
-        JPemp.add(jLabel92, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 119, -1, -1));
+        JPemp.add(jLabel92, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 113, -1, -1));
 
         email_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         email_emp.setText("0");
-        JPemp.add(email_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 119, 130, -1));
+        JPemp.add(email_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 113, 140, -1));
 
         jLabel95.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel95.setText("Puesto:");
-        JPemp.add(jLabel95, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 185, -1, -1));
+        JPemp.add(jLabel95, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 144, 45, -1));
 
         puesto_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         puesto_emp.setText("0");
-        JPemp.add(puesto_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 185, 122, -1));
+        JPemp.add(puesto_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 144, 132, -1));
 
         jLabel96.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel96.setText("Fecha de registro:");
-        JPemp.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 218, -1, -1));
+        JPemp.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 206, 105, -1));
+
+        sueldo_emp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        sueldo_emp.setText("0");
+        JPemp.add(sueldo_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 175, 132, -1));
+
+        jLabel98.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel98.setText("Sueldo:");
+        JPemp.add(jLabel98, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 175, 45, -1));
 
         JPcli_emp.add(JPemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 617, 420, 240));
 
@@ -7668,7 +7801,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             eliminar(3);
         } else {
             getToolkit().beep();
-            JOptionPane.showMessageDialog(null, "!Ningun registro seleccionado!");
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
     }//GEN-LAST:event_elim_cliActionPerformed
 
@@ -7748,7 +7881,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_empMouseExited
 
     private void elim_empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_empActionPerformed
-        // TODO add your handling code here:
+        if (JPemp.isVisible()) {
+            eliminar(8);
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_empActionPerformed
 
     private void mod_empMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_empMouseEntered
@@ -7849,7 +7987,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_pueMouseEntered
 
     private void elim_pueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_pueActionPerformed
-        // TODO add your handling code here:
+        if (JPpue.isVisible()) {
+           eliminar(21); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_pueActionPerformed
 
     private void elim_pueMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_pueMouseExited
@@ -7917,7 +8060,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_proMouseExited
 
     private void elim_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_proActionPerformed
-        // TODO add your handling code here:
+        if (JPpro.isVisible()) {
+           eliminar(18); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_proActionPerformed
 
     private void mod_proMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_proMouseEntered
@@ -7988,7 +8136,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_marMouseExited
 
     private void elim_marActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_marActionPerformed
-        // TODO add your handling code here:
+        if (JPmar.isVisible()) {
+           eliminar(14); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_marActionPerformed
 
     private void reg_marMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_marMouseEntered
@@ -8148,7 +8301,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_depMouseExited
 
     private void elim_depActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_depActionPerformed
-        // TODO add your handling code here:
+        if (JPdep.isVisible()) {
+            eliminar(4);
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_depActionPerformed
 
     private void JCprovItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCprovItemStateChanged
@@ -8184,7 +8342,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_provMouseExited
 
     private void elim_provActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_provActionPerformed
-        // TODO add your handling code here:
+        if (JPprov.isVisible()) {
+           eliminar(19); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_provActionPerformed
 
     private void reg_provMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_provMouseEntered
@@ -8288,7 +8451,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_sucMouseExited
 
     private void elim_sucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_sucActionPerformed
-        // TODO add your handling code here:
+         if (JPsuc.isVisible()) {
+           eliminar(22); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_sucActionPerformed
 
     private void JCciuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCciuItemStateChanged
@@ -8324,7 +8492,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_ciuMouseExited
 
     private void elim_ciuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_ciuActionPerformed
-        // TODO add your handling code here:
+        if (JPciu.isVisible()) {
+           eliminar(2); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_ciuActionPerformed
 
     private void reg_ciuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_ciuMouseEntered
@@ -8432,7 +8605,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_proviMouseExited
 
     private void elim_proviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_proviActionPerformed
-        // TODO add your handling code here:
+        if (JPprovi.isVisible()) {
+           eliminar(20); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_proviActionPerformed
 
     private void JCgenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCgenItemStateChanged
@@ -8468,7 +8646,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_genMouseExited
 
     private void elim_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_genActionPerformed
-        // TODO add your handling code here:
+        if (JPgen.isVisible()) {
+           eliminar(12); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_genActionPerformed
 
     private void reg_genMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_genMouseEntered
@@ -8538,7 +8721,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_desMouseExited
 
     private void elim_desActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_desActionPerformed
-        // TODO add your handling code here:
+         if (JPdes.isVisible()) {
+            eliminar(5);
+        } else {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_desActionPerformed
 
     private void mod_desMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_desMouseEntered
@@ -8599,30 +8787,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_LpeMouseClicked
 
-    private void elim_peMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_peMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_elim_peMouseEntered
-
-    private void elim_peMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_peMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_elim_peMouseExited
-
-    private void elim_peActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_peActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_elim_peActionPerformed
-
-    private void mod_peMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_peMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_peMouseEntered
-
-    private void mod_peMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_peMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_peMouseExited
-
-    private void mod_peActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_peActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mod_peActionPerformed
-
     private void reg_peMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_peMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_reg_peMouseEntered
@@ -8632,7 +8796,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_peMouseExited
 
     private void reg_peActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_peActionPerformed
-        // TODO add your handling code here:
+        JFpago_empleado.forma = "registrar";
+        JFpago_empleado.cambiar_diseño();
+        JFpago_empleado.limpiar();
+        JFpe.setVisible(true); 
     }//GEN-LAST:event_reg_peActionPerformed
 
     private void JCivaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCivaItemStateChanged
@@ -8668,7 +8835,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_ivaMouseExited
 
     private void elim_ivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_ivaActionPerformed
-        // TODO add your handling code here:
+        if (JPiva.isVisible()) {
+           eliminar(13); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_ivaActionPerformed
 
     private void reg_ivaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_ivaMouseEntered
@@ -8741,7 +8913,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_formWindowLostFocus
 
     private void elim_fpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_fpActionPerformed
-        // TODO add your handling code here:
+        if (JPfp.isVisible()) {
+           eliminar(11); 
+        } else{
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
+        }
     }//GEN-LAST:event_elim_fpActionPerformed
 
     private void elim_fpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_fpMouseExited
@@ -9008,7 +9185,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             ps = (PreparedStatement) con.prepareStatement(consulta+"PUESTO WHERE ID="+FK_pue);
                             rs = ps.executeQuery();
                             rs.next();
-                            puesto_emp.setText(rs.getString(2)+" ($"+rs.getDouble(3)+")");
+                            puesto_emp.setText(rs.getString(2));
+                            sueldo_emp.setText("$"+rs.getDouble(3));
                             ps = (PreparedStatement) con.prepareStatement(consulta + "PERSONA WHERE CEDULA='"+cedula_emp.getText()+"'");
                             rs = ps.executeQuery();
                             rs.next();
@@ -9033,30 +9211,61 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         }
                     }
                     if (Mouse_evt.getClickCount() == 2) {
-                        int opcion = JOptionPane.showOptionDialog(null, "¿A dónde desea enviar este empleado?", "Enviar empleado", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo3, null);
-                        switch(opcion) {
-                            case 0://factura
-                                FK_emp = Integer.parseInt(pk);
-                                f_emp.setText(nombre_emp.getText()+" "+apellido_emp.getText());
-                                f_emp.setBackground(Color.green);
-                                MENU.setSelectedIndex(0);
-                                INICIO.setSelectedIndex(0);
-                                break;
-                            case 1://pagos sueldos (remitente)
-                                JFempleado.FK_ciu = Integer.parseInt(pk);
-                                JFempleado.ciudad.setText(""+pk+" - "+nombre_ciu.getText());
-                                MENU.setSelectedIndex(1);
-                                PERSONAS.setSelectedIndex(0);
-                                JFemp.setVisible(true);
-                                break;
-
-                            case 2://pagos sueldos (destinatario)
-                                JFproveedor.FK_ciu = Integer.parseInt(pk);
-                                JFproveedor.jt_ciudad.setText("" + pk + " - " + nombre_ciu.getText());
-                                MENU.setSelectedIndex(5);
-                                JFprov.setVisible(true);
-                                break;
+                        try {
+                            int opcion = JOptionPane.showOptionDialog(null, "¿A dónde desea enviar este empleado?", "Enviar empleado", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo3, null);
+                            switch(opcion) {
+                                case 0://factura
+                                    FK_emp = Integer.parseInt(pk);
+                                    f_emp.setText(nombre_emp.getText()+" "+apellido_emp.getText());
+                                    f_emp.setBackground(Color.green);
+                                    MENU.setSelectedIndex(0);
+                                    INICIO.setSelectedIndex(0);
+                                    break;
+                                case 1://pagos sueldos (remitente)
+                                    ps = (PreparedStatement) con.prepareStatement(consulta + "PERSONA WHERE CEDULA='" + cedula_emp.getText() + "'");
+                                    rs = ps.executeQuery();
+                                    rs.next();
+                                    nombre_emp.setText(rs.getString(2));
+                                    JFpago_empleado.FK_paga = Integer.parseInt(pk);
+                                    JFpago_empleado.id_paga.setText("" + pk + " - " + nombre_emp.getText()+" "+ apellido_emp.getText());
+                                    MENU.setSelectedIndex(0);
+                                    INICIO.setSelectedIndex(2);
+                                    JFpe.setVisible(true);
+                                    break;
+                                    
+                                case 2://pagos sueldos (destinatario)
+                                     ps = (PreparedStatement) con.prepareStatement(consulta + "PERSONA WHERE CEDULA='" + cedula_emp.getText() + "'");
+                                    rs = ps.executeQuery();
+                                    rs.next();
+                                    nombre_emp.setText(rs.getString(2));
+                                    JFpago_empleado.FK_recibe = Integer.parseInt(pk);
+                                    JFpago_empleado.id_recibe.setText("" + pk + " - " + nombre_emp.getText()+" "+ apellido_emp.getText());
+                                    ps = (PreparedStatement) con.prepareStatement(consulta + "EMPLEADO WHERE ID=" + pk);
+                                    rs = ps.executeQuery();
+                                    rs.next();
+                                    int id_puesto=(rs.getInt(5));
+                                    ps = (PreparedStatement) con.prepareStatement(consulta + "PUESTO WHERE ID='" + id_puesto + "'");
+                                    rs = ps.executeQuery();
+                                    rs.next();
+                                    JFpago_empleado.totalsueldo.setText(String.valueOf(rs.getDouble(3)));
+                                    MENU.setSelectedIndex(0);
+                                    INICIO.setSelectedIndex(2);
+                                    JFpe.setVisible(true);
+                                    break;
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PRINCIPAL.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                    }
+                }
+            });
+            
+            JTenc.addMouseListener(new MouseAdapter() { //facturas - 9
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 2) {
+                        pk = JTenc.getValueAt(JTenc.getSelectedRow(), 0).toString();
+                        JFvf.llenar(pk);
                     }
                 }
             });
@@ -9144,6 +9353,42 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         JFproducto.jt_marca.setText("" + pk + " - " + nombre_mar.getText());
                         MENU.setSelectedIndex(3);
                         JFpro.setVisible(true);
+                    }
+                }
+            });
+            JTpe.addMouseListener(new MouseAdapter() { //pago_empleados - 15
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTpe.getValueAt(JTpe.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "PAGO_EMPLEADO WHERE NUMERO=" + pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            numero_pe.setText("" + rs.getInt(1));
+                            int paga = rs.getInt(2);
+                            int recibe = rs.getInt(3);
+                            total_pe.setText(String.valueOf(rs.getDouble(4)));
+                            fecha_pag_pe.setText(rs.getDate(5).toString());
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "EMPLEADO WHERE ID=" + paga);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "PERSONA WHERE CEDULA=" + rs.getString(2));
+                            rs = ps.executeQuery();
+                            rs.next();
+                            remitente_pe.setText(rs.getString(2) + " " + rs.getString(3));
+                            ///////////////////////////////
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "EMPLEADO WHERE ID=" + recibe);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "PERSONA WHERE CEDULA=" + rs.getString(2));
+                            rs = ps.executeQuery();
+                            rs.next();
+                            destinatario_pe.setText(rs.getString(2) + " " + rs.getString(3));
+
+                            ver_panel(15, true);
+                        } catch (SQLException ex) {
+                        }
                     }
                 }
             });
@@ -9355,8 +9600,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     }
                 }
             });
-            
-            
         }
     }
 
@@ -9429,7 +9672,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             case 8: JPemp.setVisible(visible); break;
             case 11: JPfp.setVisible(visible); break;
             case 12: JPgen.setVisible(visible); break;
-            case 13: JPIVA.setVisible(visible); break;
+            case 13: JPiva.setVisible(visible); break;
             case 14: JPmar.setVisible(visible); break;
             case 15: JPpe.setVisible(visible); break;
             case 18: JPpro.setVisible(visible); break;
@@ -9449,7 +9692,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPemp.setVisible(false);
         JPfp.setVisible(false);
         JPgen.setVisible(false);
-        JPIVA.setVisible(false);
+        JPiva.setVisible(false);
         JPmar.setVisible(false);
         JPpe.setVisible(false);
         JPpro.setVisible(false);
@@ -9496,7 +9739,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JTextField Bprovi;
     public static javax.swing.JTextField Bpue;
     public static javax.swing.JTextField Bsuc;
-    private javax.swing.JTabbedPane INICIO;
+    public static javax.swing.JTabbedPane INICIO;
     private javax.swing.JButton JBcrear_factura;
     private javax.swing.JButton JBlimpiar_factura;
     public transient javax.swing.JButton JBseleccionar_pro;
@@ -9520,7 +9763,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JComboBox<String> JCprovi;
     private javax.swing.JComboBox<String> JCpue;
     private javax.swing.JComboBox<String> JCsuc;
-    private javax.swing.JPanel JPIVA;
     private javax.swing.JPanel JPcat;
     private javax.swing.JPanel JPciu;
     private javax.swing.JPanel JPciu_provi;
@@ -9533,6 +9775,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel JPfp;
     private javax.swing.JPanel JPgen;
     private javax.swing.JPanel JPgen_des;
+    private javax.swing.JPanel JPiva;
     private javax.swing.JPanel JPiva_fp;
     private javax.swing.JPanel JPmar;
     private javax.swing.JPanel JPmar_cat;
@@ -9675,7 +9918,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton elim_gen;
     private javax.swing.JButton elim_iva;
     private javax.swing.JButton elim_mar;
-    private javax.swing.JButton elim_pe;
     private javax.swing.JButton elim_pro;
     private javax.swing.JButton elim_prov;
     private javax.swing.JButton elim_provi;
@@ -9872,6 +10114,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel97;
+    private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -9973,7 +10216,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton mod_fp;
     private javax.swing.JButton mod_gen;
     private javax.swing.JButton mod_mar;
-    private javax.swing.JButton mod_pe;
     private javax.swing.JButton mod_pro;
     private javax.swing.JButton mod_prov;
     private javax.swing.JButton mod_provi;
@@ -10040,6 +10282,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel sexo_gen;
     private javax.swing.JLabel stock_pro;
     private javax.swing.JLabel subir_1;
+    private javax.swing.JLabel sueldo_emp;
     private javax.swing.JLabel sueldo_pue;
     private javax.swing.JLabel t_facturas_activas11;
     private javax.swing.JLabel t_facturas_activas12;
