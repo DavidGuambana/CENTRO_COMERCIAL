@@ -938,22 +938,22 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jPanel33 = new javax.swing.JPanel();
         jLabel181 = new javax.swing.JLabel();
         jsTabla_ciu22 = new javax.swing.JScrollPane();
-        JTpp = new javax.swing.JTable();
-        res_pe1 = new javax.swing.JLabel();
-        Lpe1 = new javax.swing.JLabel();
-        Bpe1 = new javax.swing.JTextField();
-        JCpp = new javax.swing.JComboBox<>();
+        JTenc_pp = new javax.swing.JTable();
+        res_enc_pp = new javax.swing.JLabel();
+        Lepp = new javax.swing.JLabel();
+        Bepp = new javax.swing.JTextField();
+        JCepp = new javax.swing.JComboBox<>();
         jLabel182 = new javax.swing.JLabel();
         jl_titulo30 = new javax.swing.JLabel();
         reg_pp = new javax.swing.JButton();
         jl_titulo35 = new javax.swing.JLabel();
         jLabel183 = new javax.swing.JLabel();
         jsTabla_ciu23 = new javax.swing.JScrollPane();
-        JTpp1 = new javax.swing.JTable();
-        JCpp1 = new javax.swing.JComboBox<>();
-        Bpe2 = new javax.swing.JTextField();
-        Lpe2 = new javax.swing.JLabel();
-        res_pe2 = new javax.swing.JLabel();
+        JTdet_pp = new javax.swing.JTable();
+        JCdpp = new javax.swing.JComboBox<>();
+        Bdpp = new javax.swing.JTextField();
+        Ldpp = new javax.swing.JLabel();
+        res_det_pp = new javax.swing.JLabel();
         JPiva_fp = new javax.swing.JPanel();
         jsTabla_ciu20 = new javax.swing.JScrollPane();
         JTiva = new javax.swing.JTable();
@@ -3294,14 +3294,14 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
         jsTabla_ciu22.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        JTpp = new javax.swing.JTable(){
+        JTenc_pp = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex){
                 return false;
             }
         };
-        JTpp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTpp.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
-        JTpp.setModel(new javax.swing.table.DefaultTableModel(
+        JTenc_pp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        JTenc_pp.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
+        JTenc_pp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -3312,60 +3312,60 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
             }
         ));
-        JTpp.setFocusable(false);
-        JTpp.setGridColor(new java.awt.Color(255, 255, 255));
-        JTpp.setOpaque(false);
-        JTpp.setRowHeight(30);
-        JTpp.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        JTpp.getTableHeader().setResizingAllowed(false);
-        JTpp.getTableHeader().setReorderingAllowed(false);
-        jsTabla_ciu22.setViewportView(JTpp);
+        JTenc_pp.setFocusable(false);
+        JTenc_pp.setGridColor(new java.awt.Color(255, 255, 255));
+        JTenc_pp.setOpaque(false);
+        JTenc_pp.setRowHeight(30);
+        JTenc_pp.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        JTenc_pp.getTableHeader().setResizingAllowed(false);
+        JTenc_pp.getTableHeader().setReorderingAllowed(false);
+        jsTabla_ciu22.setViewportView(JTenc_pp);
 
-        res_pe1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_pe1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        res_pe1.setText("Resultados: 0 de 0");
+        res_enc_pp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_enc_pp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        res_enc_pp.setText("Resultados: 0 de 0");
 
-        Lpe1.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-        Lpe1.setForeground(new java.awt.Color(0, 102, 102));
-        Lpe1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Lpe1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
-        Lpe1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Lpe1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Lepp.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        Lepp.setForeground(new java.awt.Color(0, 102, 102));
+        Lepp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lepp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        Lepp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Lepp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Lpe1MouseClicked(evt);
+                LeppMouseClicked(evt);
             }
         });
 
-        Bpe1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        Bpe1.setText("Buscar");
-        Bpe1.setMinimumSize(new java.awt.Dimension(317, 31));
-        Bpe1.setPreferredSize(new java.awt.Dimension(317, 35));
-        Bpe1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        Bpe1.setSelectionColor(new java.awt.Color(153, 204, 255));
-        Bpe1.setSelectionEnd(0);
-        Bpe1.setSelectionStart(0);
-        Bpe1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Bepp.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        Bepp.setText("Buscar");
+        Bepp.setMinimumSize(new java.awt.Dimension(317, 31));
+        Bepp.setPreferredSize(new java.awt.Dimension(317, 35));
+        Bepp.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        Bepp.setSelectionColor(new java.awt.Color(153, 204, 255));
+        Bepp.setSelectionEnd(0);
+        Bepp.setSelectionStart(0);
+        Bepp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Bpe1MouseClicked(evt);
+                BeppMouseClicked(evt);
             }
         });
-        Bpe1.addKeyListener(new java.awt.event.KeyAdapter() {
+        Bepp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                Bpe1KeyPressed(evt);
+                BeppKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                Bpe1KeyReleased(evt);
+                BeppKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                Bpe1KeyTyped(evt);
+                BeppKeyTyped(evt);
             }
         });
 
-        JCpp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCpp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
-        JCpp.addItemListener(new java.awt.event.ItemListener() {
+        JCepp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        JCepp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCepp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JCppItemStateChanged(evt);
+                JCeppItemStateChanged(evt);
             }
         });
 
@@ -3411,14 +3411,14 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
         jsTabla_ciu23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        JTpp = new javax.swing.JTable(){
+        JTenc_pp = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex){
                 return false;
             }
         };
-        JTpp1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        JTpp1.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
-        JTpp1.setModel(new javax.swing.table.DefaultTableModel(
+        JTdet_pp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        JTdet_pp.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
+        JTdet_pp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -3429,62 +3429,62 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
             }
         ));
-        JTpp1.setFocusable(false);
-        JTpp1.setGridColor(new java.awt.Color(255, 255, 255));
-        JTpp1.setOpaque(false);
-        JTpp1.setRowHeight(30);
-        JTpp1.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        JTpp1.getTableHeader().setResizingAllowed(false);
-        JTpp1.getTableHeader().setReorderingAllowed(false);
-        jsTabla_ciu23.setViewportView(JTpp1);
+        JTdet_pp.setFocusable(false);
+        JTdet_pp.setGridColor(new java.awt.Color(255, 255, 255));
+        JTdet_pp.setOpaque(false);
+        JTdet_pp.setRowHeight(30);
+        JTdet_pp.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        JTdet_pp.getTableHeader().setResizingAllowed(false);
+        JTdet_pp.getTableHeader().setReorderingAllowed(false);
+        jsTabla_ciu23.setViewportView(JTdet_pp);
 
-        JCpp1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCpp1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
-        JCpp1.addItemListener(new java.awt.event.ItemListener() {
+        JCdpp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        JCdpp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCdpp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JCpp1ItemStateChanged(evt);
+                JCdppItemStateChanged(evt);
             }
         });
 
-        Bpe2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        Bpe2.setText("Buscar");
-        Bpe2.setMinimumSize(new java.awt.Dimension(317, 31));
-        Bpe2.setPreferredSize(new java.awt.Dimension(317, 35));
-        Bpe2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        Bpe2.setSelectionColor(new java.awt.Color(153, 204, 255));
-        Bpe2.setSelectionEnd(0);
-        Bpe2.setSelectionStart(0);
-        Bpe2.addMouseListener(new java.awt.event.MouseAdapter() {
+        Bdpp.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        Bdpp.setText("Buscar");
+        Bdpp.setMinimumSize(new java.awt.Dimension(317, 31));
+        Bdpp.setPreferredSize(new java.awt.Dimension(317, 35));
+        Bdpp.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        Bdpp.setSelectionColor(new java.awt.Color(153, 204, 255));
+        Bdpp.setSelectionEnd(0);
+        Bdpp.setSelectionStart(0);
+        Bdpp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Bpe2MouseClicked(evt);
+                BdppMouseClicked(evt);
             }
         });
-        Bpe2.addKeyListener(new java.awt.event.KeyAdapter() {
+        Bdpp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                Bpe2KeyPressed(evt);
+                BdppKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                Bpe2KeyReleased(evt);
+                BdppKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                Bpe2KeyTyped(evt);
+                BdppKeyTyped(evt);
             }
         });
 
-        Lpe2.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-        Lpe2.setForeground(new java.awt.Color(0, 102, 102));
-        Lpe2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Lpe2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
-        Lpe2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Lpe2.addMouseListener(new java.awt.event.MouseAdapter() {
+        Ldpp.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        Ldpp.setForeground(new java.awt.Color(0, 102, 102));
+        Ldpp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Ldpp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        Ldpp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Ldpp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Lpe2MouseClicked(evt);
+                LdppMouseClicked(evt);
             }
         });
 
-        res_pe2.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        res_pe2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        res_pe2.setText("Resultados: 0 de 0");
+        res_det_pp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        res_det_pp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        res_det_pp.setText("Resultados: 0 de 0");
 
         javax.swing.GroupLayout JPpagosLayout = new javax.swing.GroupLayout(JPpagos);
         JPpagos.setLayout(JPpagosLayout);
@@ -3521,17 +3521,17 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                     .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(JPpagosLayout.createSequentialGroup()
                                 .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(res_pe1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(res_enc_pp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jl_titulo30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jsTabla_ciu22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPpagosLayout.createSequentialGroup()
                                         .addComponent(jLabel182)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JCpp, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(JCepp, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Bpe1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(Bepp, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(3, 3, 3)
-                                .addComponent(Lpe1)
+                                .addComponent(Lepp)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                                 .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jl_titulo35, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -3539,12 +3539,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPpagosLayout.createSequentialGroup()
                                         .addComponent(jLabel183)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JCpp1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(JCdpp, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Bpe2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(res_pe2, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Bdpp, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(res_det_pp, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(3, 3, 3)
-                                .addComponent(Lpe2))))
+                                .addComponent(Ldpp))))
                     .addGroup(JPpagosLayout.createSequentialGroup()
                         .addGap(318, 318, 318)
                         .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -3580,13 +3580,13 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addGap(13, 13, 13)
                         .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel182, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JCpp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bpe1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Lpe1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JCepp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Bepp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Lepp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jsTabla_ciu22, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(res_pe1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(res_enc_pp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPpagosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3594,13 +3594,13 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                         .addGap(13, 13, 13)
                         .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel183, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JCpp1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bpe2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Lpe2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JCdpp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Bdpp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Ldpp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jsTabla_ciu23, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(res_pe2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(res_det_pp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -9402,29 +9402,29 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_f_forma_pagoItemStateChanged
 
-    private void Lpe1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lpe1MouseClicked
+    private void LeppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LeppMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Lpe1MouseClicked
+    }//GEN-LAST:event_LeppMouseClicked
 
-    private void Bpe1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bpe1MouseClicked
+    private void BeppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BeppMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bpe1MouseClicked
+    }//GEN-LAST:event_BeppMouseClicked
 
-    private void Bpe1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bpe1KeyPressed
+    private void BeppKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BeppKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bpe1KeyPressed
+    }//GEN-LAST:event_BeppKeyPressed
 
-    private void Bpe1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bpe1KeyReleased
+    private void BeppKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BeppKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bpe1KeyReleased
+    }//GEN-LAST:event_BeppKeyReleased
 
-    private void Bpe1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bpe1KeyTyped
+    private void BeppKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BeppKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bpe1KeyTyped
+    }//GEN-LAST:event_BeppKeyTyped
 
-    private void JCppItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCppItemStateChanged
+    private void JCeppItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCeppItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_JCppItemStateChanged
+    }//GEN-LAST:event_JCeppItemStateChanged
 
     private void reg_ppMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_ppMouseEntered
         // TODO add your handling code here:
@@ -9438,29 +9438,29 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_reg_ppActionPerformed
 
-    private void JCpp1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCpp1ItemStateChanged
+    private void JCdppItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCdppItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_JCpp1ItemStateChanged
+    }//GEN-LAST:event_JCdppItemStateChanged
 
-    private void Bpe2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bpe2MouseClicked
+    private void BdppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BdppMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bpe2MouseClicked
+    }//GEN-LAST:event_BdppMouseClicked
 
-    private void Bpe2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bpe2KeyPressed
+    private void BdppKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdppKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bpe2KeyPressed
+    }//GEN-LAST:event_BdppKeyPressed
 
-    private void Bpe2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bpe2KeyReleased
+    private void BdppKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdppKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bpe2KeyReleased
+    }//GEN-LAST:event_BdppKeyReleased
 
-    private void Bpe2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bpe2KeyTyped
+    private void BdppKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdppKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bpe2KeyTyped
+    }//GEN-LAST:event_BdppKeyTyped
 
-    private void Lpe2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lpe2MouseClicked
+    private void LdppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LdppMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Lpe2MouseClicked
+    }//GEN-LAST:event_LdppMouseClicked
 
     
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
@@ -10225,16 +10225,16 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JTextField Bdep;
     public static javax.swing.JTextField Bdes;
     public static javax.swing.JTextField Bdet;
+    public static javax.swing.JTextField Bdpp;
     public static javax.swing.JTextField Bemp;
     public static javax.swing.JTextField Benc;
+    public static javax.swing.JTextField Bepp;
     public static javax.swing.JTextField Bfp;
     public static javax.swing.JTextField Bgen;
     public static javax.swing.JTextField Biva;
     public static javax.swing.JTextField Bmar;
     public static javax.swing.JTextField Bpag;
     public static javax.swing.JTextField Bpe;
-    public static javax.swing.JTextField Bpe1;
-    public static javax.swing.JTextField Bpe2;
     public static javax.swing.JTextField Bper;
     public static javax.swing.JTextField Bpro;
     public static javax.swing.JTextField Bprov;
@@ -10251,8 +10251,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JComboBox<String> JCdep;
     private javax.swing.JComboBox<String> JCdes;
     private javax.swing.JComboBox<String> JCdet;
+    private javax.swing.JComboBox<String> JCdpp;
     private javax.swing.JComboBox<String> JCemp;
     private javax.swing.JComboBox<String> JCenc;
+    private javax.swing.JComboBox<String> JCepp;
     private javax.swing.JComboBox<String> JCfp;
     private javax.swing.JComboBox<String> JCgen;
     private javax.swing.JComboBox<String> JCiva;
@@ -10260,8 +10262,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JComboBox<String> JCpag;
     private javax.swing.JComboBox<String> JCpe;
     private javax.swing.JComboBox<String> JCper;
-    private javax.swing.JComboBox<String> JCpp;
-    private javax.swing.JComboBox<String> JCpp1;
     private javax.swing.JComboBox<String> JCpro;
     private javax.swing.JComboBox<String> JCprov;
     private javax.swing.JComboBox<String> JCprovi;
@@ -10305,9 +10305,11 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTable JTdep;
     private javax.swing.JTable JTdes;
     private javax.swing.JTable JTdet;
+    private javax.swing.JTable JTdet_pp;
     public transient javax.swing.JTable JTdetalle;
     private javax.swing.JTable JTemp;
     private javax.swing.JTable JTenc;
+    private javax.swing.JTable JTenc_pp;
     private javax.swing.JTable JTfp;
     private javax.swing.JTable JTgen;
     private javax.swing.JTable JTiva;
@@ -10315,8 +10317,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTable JTpag;
     private javax.swing.JTable JTpe;
     private javax.swing.JTable JTper;
-    private javax.swing.JTable JTpp;
-    private javax.swing.JTable JTpp1;
     private javax.swing.JTable JTpro;
     private javax.swing.JTable JTprov;
     private javax.swing.JTable JTprovi;
@@ -10328,16 +10328,16 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel Ldep;
     private javax.swing.JLabel Ldes;
     private javax.swing.JLabel Ldet;
+    private javax.swing.JLabel Ldpp;
     private javax.swing.JLabel Lemp;
     private javax.swing.JLabel Lenc;
+    private javax.swing.JLabel Lepp;
     private javax.swing.JLabel Lfp;
     private javax.swing.JLabel Lgen;
     private javax.swing.JLabel Liva;
     private javax.swing.JLabel Lmar;
     private javax.swing.JLabel Lpag;
     private javax.swing.JLabel Lpe;
-    private javax.swing.JLabel Lpe1;
-    private javax.swing.JLabel Lpe2;
     private javax.swing.JLabel Lper;
     private javax.swing.JLabel Lpro;
     private javax.swing.JLabel Lprov;
@@ -10790,16 +10790,16 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel res_dep;
     private javax.swing.JLabel res_des;
     private javax.swing.JLabel res_det;
+    private javax.swing.JLabel res_det_pp;
     private javax.swing.JLabel res_emp;
     private javax.swing.JLabel res_enc;
+    private javax.swing.JLabel res_enc_pp;
     private javax.swing.JLabel res_fp;
     private javax.swing.JLabel res_gen;
     private javax.swing.JLabel res_iva;
     private javax.swing.JLabel res_mar;
     private javax.swing.JLabel res_pag;
     private javax.swing.JLabel res_pe;
-    private javax.swing.JLabel res_pe1;
-    private javax.swing.JLabel res_pe2;
     private javax.swing.JLabel res_per;
     private javax.swing.JLabel res_pro;
     private javax.swing.JLabel res_prov;

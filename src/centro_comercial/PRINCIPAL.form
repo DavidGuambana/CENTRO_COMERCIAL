@@ -3697,19 +3697,19 @@
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="res_pe1" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="res_enc_pp" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="jl_titulo30" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="jsTabla_ciu22" alignment="0" pref="0" max="32767" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="jLabel182" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="JCpp" min="-2" pref="137" max="-2" attributes="0"/>
+                                                      <Component id="JCepp" min="-2" pref="137" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="Bpe1" min="-2" pref="202" max="-2" attributes="0"/>
+                                                      <Component id="Bepp" min="-2" pref="202" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                                              <Component id="Lpe1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Lepp" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace pref="42" max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                                   <Component id="jl_titulo35" alignment="0" max="32767" attributes="0"/>
@@ -3717,14 +3717,14 @@
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="jLabel183" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="JCpp1" min="-2" pref="137" max="-2" attributes="0"/>
+                                                      <Component id="JCdpp" min="-2" pref="137" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="Bpe2" min="-2" pref="202" max="-2" attributes="0"/>
+                                                      <Component id="Bdpp" min="-2" pref="202" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="res_pe2" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
+                                                  <Component id="res_det_pp" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                                              <Component id="Lpe2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Ldpp" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -3769,14 +3769,14 @@
                                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel182" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                          <Component id="JCpp" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                          <Component id="Bpe1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="Lpe1" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <Component id="JCepp" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <Component id="Bepp" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="Lepp" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jsTabla_ciu22" min="-2" pref="150" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                      <Component id="res_pe1" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="res_enc_pp" min="-2" pref="35" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -3785,14 +3785,14 @@
                                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel183" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                          <Component id="JCpp1" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                          <Component id="Bpe2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="Lpe2" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <Component id="JCdpp" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <Component id="Bdpp" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="Ldpp" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jsTabla_ciu23" min="-2" pref="150" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                      <Component id="res_pe2" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="res_det_pp" min="-2" pref="35" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -4392,7 +4392,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="JTpp">
+                        <Component class="javax.swing.JTable" name="JTenc_pp">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -4424,12 +4424,12 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTpp = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int colIndex){&#xa;    return false;&#xa;    }&#xa;};"/>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTenc_pp = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int colIndex){&#xa;    return false;&#xa;    }&#xa;};"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="res_pe1">
+                    <Component class="javax.swing.JLabel" name="res_enc_pp">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI" size="18" style="1"/>
@@ -4438,7 +4438,7 @@
                         <Property name="text" type="java.lang.String" value="Resultados: 0 de 0"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="Lpe1">
+                    <Component class="javax.swing.JLabel" name="Lepp">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="PMingLiU-ExtB" size="18" style="0"/>
@@ -4455,10 +4455,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Lpe1MouseClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="LeppMouseClicked"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="Bpe1">
+                    <Component class="javax.swing.JTextField" name="Bepp">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI Light" size="18" style="1"/>
@@ -4480,16 +4480,16 @@
                         <Property name="selectionStart" type="int" value="0"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Bpe1MouseClicked"/>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="Bpe1KeyPressed"/>
-                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="Bpe1KeyReleased"/>
-                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="Bpe1KeyTyped"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BeppMouseClicked"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BeppKeyPressed"/>
+                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BeppKeyReleased"/>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BeppKeyTyped"/>
                       </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="JCpp">
+                    <Component class="javax.swing.JComboBox" name="JCepp">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
@@ -4504,7 +4504,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="JCppItemStateChanged"/>
+                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="JCeppItemStateChanged"/>
                       </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -4589,7 +4589,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="JTpp1">
+                        <Component class="javax.swing.JTable" name="JTdet_pp">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -4621,12 +4621,12 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTpp = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int colIndex){&#xa;    return false;&#xa;    }&#xa;};"/>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTenc_pp = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int colIndex){&#xa;    return false;&#xa;    }&#xa;};"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JComboBox" name="JCpp1">
+                    <Component class="javax.swing.JComboBox" name="JCdpp">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
@@ -4641,13 +4641,13 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="JCpp1ItemStateChanged"/>
+                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="JCdppItemStateChanged"/>
                       </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="Bpe2">
+                    <Component class="javax.swing.JTextField" name="Bdpp">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI Light" size="18" style="1"/>
@@ -4669,16 +4669,16 @@
                         <Property name="selectionStart" type="int" value="0"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Bpe2MouseClicked"/>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="Bpe2KeyPressed"/>
-                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="Bpe2KeyReleased"/>
-                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="Bpe2KeyTyped"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BdppMouseClicked"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BdppKeyPressed"/>
+                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BdppKeyReleased"/>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BdppKeyTyped"/>
                       </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="Lpe2">
+                    <Component class="javax.swing.JLabel" name="Ldpp">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="PMingLiU-ExtB" size="18" style="0"/>
@@ -4695,10 +4695,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Lpe2MouseClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="LdppMouseClicked"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="res_pe2">
+                    <Component class="javax.swing.JLabel" name="res_det_pp">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI" size="18" style="1"/>
