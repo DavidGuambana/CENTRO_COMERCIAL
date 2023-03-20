@@ -177,8 +177,8 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 1) {
-                    FK_prov = JTpro.getValueAt(JTprov.getSelectedRow(), 0).toString();
-                    proveedor.setText(JTpro.getValueAt(JTprov.getSelectedRow(), 1).toString());
+                    FK_prov = JTprov.getValueAt(JTprov.getSelectedRow(), 0).toString();
+                    proveedor.setText(JTprov.getValueAt(JTprov.getSelectedRow(), 1).toString());
                     proveedor.setBackground(Color.green);
                 }
             }
@@ -187,9 +187,9 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 1) {
-                    FK_emp = Integer.parseInt(FK_emp.getValueAt(FK_emp.getSelectedRow(), 0).toString());
-                    proveedor.setText((JTpro.getValueAt(JTprov.getSelectedRow(), 2).toString())+" "+JTpro.getValueAt(JTprov.getSelectedRow(), 3).toString());
-                    proveedor.setBackground(Color.green);
+                    //FK_emp = Integer.parseInt(FK_emp.getValueAt(FK_emp.getSelectedRow(), 0).toString());
+                    empleado.setText((JTemp.getValueAt(JTemp.getSelectedRow(), 2).toString())+" "+JTemp.getValueAt(JTemp.getSelectedRow(), 3).toString());
+                    empleado.setBackground(Color.green);
                 }
             }
         });
