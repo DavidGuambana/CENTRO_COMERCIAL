@@ -6,6 +6,7 @@ import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -21,11 +22,13 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
     public static PreparedStatement ps;
     public static DefaultTableModel tabla = null, tabla_detalle = null;
     public static String nombre_propio;
-    public static int FK_emp;
+    public static String FK_emp;
     public static String FK_prov;
     ArrayList<String> detalles = new ArrayList<>();
     JButton boton1 = new JButton();
     double xtotal;
+    
+     public static int xcolum,xrow;
     public JFpago_proveedor() {
         initComponents();
         setLocationRelativeTo(null);
@@ -36,6 +39,8 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         InsertarIcono(boton1, "/imagenes/elim.png");
         tabla_detalle = new DefaultTableModel(null, new Object[]{"C. Producto", "Descipción", "Cantidad", "Precio","Subtotal", "Aciones"});
         JTdetalles.setModel(tabla_detalle);
+        visualizar(1);
+        visualizar(2);
     }
 
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
@@ -47,9 +52,6 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         proveedor.setBackground(Color.red);
         empleado.setText("");
         empleado.setBackground(Color.red);
-        for (int i = 1; i > JTdetalles.getRowCount(); i--) {
-            tabla_detalle.removeRow(i - 1);
-        }
     }
      //cargar los datos en las tablas:
     public static void visualizar(int num) {
@@ -99,12 +101,13 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                 ps = (PreparedStatement) con.prepareStatement("INSERT INTO encabezado_pp (RUC_PROV, TOTAL, ID_EMP) VALUES (?,?,?)");
                 ps.setString(1, FK_prov);
                 ps.setDouble(2, xtotal);
-                ps.setInt(3,FK_emp);
+                ps.setInt(3,Integer.parseInt(FK_emp));
                 ps.executeUpdate();
                 //toma el último registro de encabezado
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  encabezado_pp ORDER BY CODIGO DESC LIMIT 1");
                 rs = ps.executeQuery();
                 rs.next();
+                System.out.println("a");
                 //registra detalles de la factura
                 for (int i = 0; i < JTdetalles.getRowCount(); i++) {
                     int xcodigo_pro = Integer.parseInt(JTdetalles.getValueAt(i, 0).toString());
@@ -117,8 +120,13 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                     ps.setInt(4, rs.getInt(1));
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    this.dispose();
+                    System.out.println("b");
                 }
+                System.out.println("c");
+                for (int j = 1; j > JTdetalles.getRowCount(); j--) {
+                        tabla_detalle.removeRow(j - 1);
+                    }
+                    this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al registrar!");
@@ -140,7 +148,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                         String nombre_pro = JTpro.getValueAt(JTpro.getSelectedRow(), 1).toString();
                         Double precio = Double.valueOf(JTpro.getValueAt(JTpro.getSelectedRow(), 2).toString());
                         for (int i = 0; i < detalles.size(); i++) {
-                            if (detalles.get(i).equals(codigo_pro)) {
+                            if (detalles.get(i).equals(""+codigo_pro)) {
                                 repetido = true;
                                 break;
                             }
@@ -148,7 +156,8 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                         if (repetido) {
                             JOptionPane.showMessageDialog(null, "¡Este producto ya fué seleccionado!, Seleccione otro!", null, JOptionPane.WARNING_MESSAGE);
                         } else {
-                            int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad:", 1));
+                            try {
+                                int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad:", 1));
                                 if (cantidad > 0) {
                                     JTdetalles.setDefaultRenderer(Object.class, new BotonTabla());
                                     Object detalle[] = {codigo_pro, nombre_pro, cantidad, precio, Math.round((cantidad * precio) * 100.0) / 100.0, boton1};
@@ -167,11 +176,9 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                                     }
 
                                 }
-//                            try {
-//                                
-//                            } catch (Exception e) {
-//                                JOptionPane.showMessageDialog(null, "¡Cantiadad inválida!", null, JOptionPane.ERROR_MESSAGE);
-//                            }
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "¡Cantiadad inválida!", null, JOptionPane.ERROR_MESSAGE);
+                            }
                         }
                     }
                 }
@@ -192,7 +199,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 1) {
-                    //FK_emp = Integer.parseInt(FK_emp.getValueAt(FK_emp.getSelectedRow(), 0).toString());
+                    FK_emp = JTemp.getValueAt(JTemp.getSelectedRow(), 0).toString();
                     empleado.setText((JTemp.getValueAt(JTemp.getSelectedRow(), 2).toString())+" "+JTemp.getValueAt(JTemp.getSelectedRow(), 3).toString());
                     empleado.setBackground(Color.green);
                 }
@@ -555,6 +562,11 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         JTdetalles.setSelectionBackground(new java.awt.Color(0, 204, 204));
         JTdetalles.getTableHeader().setResizingAllowed(false);
         JTdetalles.getTableHeader().setReorderingAllowed(false);
+        JTdetalles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTdetallesMouseClicked(evt);
+            }
+        });
         jsTabla_ciu13.setViewportView(JTdetalles);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
@@ -691,6 +703,8 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -700,7 +714,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
        
-        if (proveedor.getText().equals("") || empleado.getText().equals("")||total.getText().equals("$0")) {
+        if (proveedor.getText().equals("") || empleado.getText().equals("")||xtotal<=0) {
             getToolkit().beep();
             JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
         } else {
@@ -792,6 +806,38 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
     private void totalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalKeyPressed
+
+    private void JTdetallesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTdetallesMouseClicked
+        xcolum = JTdetalles.getColumnModel().getColumnIndexAtX(evt.getX());
+        xrow = evt.getY() / JTdetalles.getRowHeight();
+        
+        if (xcolum <= JTdetalles.getColumnCount() && xcolum >= 0 && xrow <= JTdetalles.getRowCount() && xrow >= 0) {
+            Object obj = JTdetalles.getValueAt(xrow, xcolum);
+            if (obj instanceof JButton) {
+                int valor = JOptionPane.showConfirmDialog(this, "¿Desea remover este producto?", null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (valor == JOptionPane.YES_OPTION) {
+                    int codigo_pro = Integer.parseInt(JTdetalles.getValueAt(JTdetalles.getSelectedRow(), 0).toString());
+                    double c6 = Double.parseDouble(JTdetalles.getValueAt(JTdetalles.getSelectedRow(), 4).toString());
+                    xtotal -= c6;
+                    xtotal = Math.rint(xtotal*100.0)/100.0; //deja al valor con dos decimales
+                    total.setText("$"+xtotal);
+                    
+                    //----> Eliminar un detalle a la tabla:
+                    tabla_detalle.removeRow(JTdetalles.getSelectedRow());
+                    JTdetalles.setModel(tabla_detalle);
+                    //-- > Deseleccinar al producto eliminado
+                    for (int i = 0; i < detalles.size(); i++) {
+                        if (detalles.get(i).equals(String.valueOf(codigo_pro))) {
+                            detalles.remove(String.valueOf(codigo_pro));
+                            i = detalles.size();
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "¡Producto '" + codigo_pro + "' removido!", null, JOptionPane.INFORMATION_MESSAGE);
+                    
+                }
+            }
+        }
+    }//GEN-LAST:event_JTdetallesMouseClicked
 
     public static void main(String args[]) {
         try {

@@ -2820,6 +2820,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JSpagos.setViewportView(JPpagos);
 
         INICIO.addTab("Pagos", JSpagos);
+        JSpagos.getVerticalScrollBar().setUnitIncrement(16);
 
         JPiva_fp.setBackground(new java.awt.Color(224, 255, 244));
         JPiva_fp.setMaximumSize(new java.awt.Dimension(980, 500));
@@ -3285,7 +3286,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(Lfp)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         JPiva_fpLayout.setVerticalGroup(
             JPiva_fpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
