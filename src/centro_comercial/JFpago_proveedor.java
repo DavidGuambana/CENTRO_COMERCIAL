@@ -5,84 +5,115 @@ import otros.validar;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import otros.BotonTabla;
 
-public class JFpago_proveedor extends javax.swing.JFrame {
-
+public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
+    public boolean actualizado = false;
     public static String forma;
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
-    DefaultTableModel tabla = null;
+    public static DefaultTableModel tabla = null, tabla_detalle;
     public static String nombre_propio;
-    public static int FK_prov, FK_emp;
+    public static int FK_emp;
+    public static String FK_prov;
+    ArrayList<String> detalles = new ArrayList<>();
+    JButton boton1 = new JButton();
+    double xtotal;
     public JFpago_proveedor() {
         initComponents();
         setLocationRelativeTo(null);
-//        visualizar();
+        iniciar();
     }
-    
+    public final void iniciar() {
+        seleccionar();
+        InsertarIcono(boton1, "/imagenes/elim.png");
+    }
+    public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
+        bot.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta)));
+    }
     public static void limpiar(){
+        
         proveedor.setText("");
+        proveedor.setBackground(Color.red);
+        empleado.setText("");
+        empleado.setBackground(Color.red);
+        for (int i = 1; i > JTdetalles.getRowCount(); i--) {
+            tabla_detalle.removeRow(i - 1);
+        }
     }
-
      //cargar los datos en las tablas:
-    public void visualizar(int num) {
+    public static void visualizar(int num) {
         con = (Connection) conexion.conectar();
         if (con != null) {
             try {
                 switch (num) {
-                        case 1://proveedores
-                            String[] c_prov = {"RUC", "NOMBRE EMPRESA"};
-                            tabla = new DefaultTableModel(null, c_prov);
-                            ps = (PreparedStatement) con.prepareStatement("SELECT * FROM PROVEEDOR");
-                            rs = ps.executeQuery();
-                            while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getString(1), rs.getString(2)});
-                            }
-                            JTprov.setModel(tabla);
-                            break;
-                        case 2://empleados
-                            String[] c_emp = {"ID", "CÉDULA", "NOMBRE", "APELLIDO"};
-                            tabla = new DefaultTableModel(null, c_emp);
-                            ps = (PreparedStatement) con.prepareStatement("SELECT E.id, P.cedula, P.nombre, P.apellido from empleado E INNER JOIN persona P WHERE E.CEDULA_PER = P.CEDULA");
-                            rs = ps.executeQuery();
-                            while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)});
-                            }
-                            JTemp.setModel(tabla);
-                            break;
-                            case 3://productos
-                            String[] c_pro = {"CÓDIGO", "NOMBRE", "PRECIO", "PROVEEDOR"};
-                            tabla = new DefaultTableModel(null, c_pro);
-                            ps = (PreparedStatement) con.prepareStatement("SELECT * from producto WHERE RUC_PROV ="+FK_prov);
-                            rs = ps.executeQuery();
-                            while (rs.next()) {
-                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getString(4)});
-                            }
-                            JTprov.setModel(tabla);
-                            break;
-                    }
+                    case 1://proveedores
+                        String[] c_prov = {"RUC", "NOMBRE EMPRESA"};
+                        tabla = new DefaultTableModel(null, c_prov);
+                        ps = (PreparedStatement) con.prepareStatement("SELECT DISTINCT proveedor.RUC, proveedor.NOMBRE_EMPRESA FROM proveedor,producto WHERE proveedor.RUC=producto.RUC_PROV;");
+                        rs = ps.executeQuery();
+                        while (rs.next()) {
+                            tabla.addRow(new Object[]{rs.getString(1), rs.getString(2)});
+                        }
+                        JTprov.setModel(tabla);
+                        break;
+                    case 2://empleados
+                        String[] c_emp = {"ID", "CÉDULA", "NOMBRE", "APELLIDO"};
+                        tabla = new DefaultTableModel(null, c_emp);
+                        ps = (PreparedStatement) con.prepareStatement("SELECT E.id, P.cedula, P.nombre, P.apellido from empleado E INNER JOIN persona P WHERE E.CEDULA_PER = P.CEDULA");
+                        rs = ps.executeQuery();
+                        while (rs.next()) {
+                            tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)});
+                        }
+                        JTemp.setModel(tabla);
+                        break;
+                    case 3://productos
+                        String[] c_pro = {"CÓDIGO", "NOMBRE", "PRECIO", "PROVEEDOR"};
+                        tabla = new DefaultTableModel(null, c_pro);
+                        ps = (PreparedStatement) con.prepareStatement("SELECT * from producto WHERE RUC_PROV =" + FK_prov);
+                        rs = ps.executeQuery();
+                        while (rs.next()) {
+                            tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getDouble(5), rs.getString(11)});
+                        }
+                        JTpro.setModel(tabla);
+                        break;
+                }
             } catch (Exception e) {
-                System.out.println(e);
             }
         }
     }
-    
     public void registrar() {
-        con = (Connection) conexion.conectar();
         if (con != null) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM CATEGORIA WHERE NOMBRE='" + proveedor.getText().toUpperCase() + "'");
-                if (ps.executeQuery().next()) {
-                    JOptionPane.showMessageDialog(null, "¡La categoría '" + proveedor.getText().toUpperCase() + "' ya está en uso!");
-                } else {
-                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO CATEGORIA (NOMBRE, DESCRIPCION) VALUES (?,?)");
-                    ps.setString(1, proveedor.getText().toUpperCase());
-                    //ps.setString(2, jta_descripcion.getText().toUpperCase());
-                    ps.executeUpdate(); //Ejecuta la consulta
+                //registra el encabezado de la factura
+                ps = (PreparedStatement) con.prepareStatement("INSERT INTO encabezado_pp (RUC_PROV, TOTAL, ID_EMP) VALUES (?,?,?)");
+                ps.setString(1, FK_prov);
+                ps.setDouble(2, xtotal);
+                ps.setInt(3,FK_emp);
+                ps.executeUpdate();
+                //toma el último registro de encabezado
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  encabezado_pp ORDER BY CODIGO DESC LIMIT 1");
+                rs = ps.executeQuery();
+                rs.next();
+                //registra detalles de la factura
+                for (int i = 0; i < JTdetalles.getRowCount(); i++) {
+                    int xcodigo_pro = Integer.parseInt(JTdetalles.getValueAt(i, 0).toString());
+                    int xcantidad = Integer.parseInt(JTdetalles.getValueAt(i, 2).toString());
+                    double xsubtotal = Double.parseDouble(JTdetalles.getValueAt(i, 4).toString());
+                    ps = (PreparedStatement) con.prepareStatement("INSERT INTO detalle_pp (CODIGO_PRO, CANTIDAD, SUBTOTOTAL, CODIGO_ENC_PP) VALUES (?,?,?,?)");
+                    ps.setInt(1, xcodigo_pro);
+                    ps.setInt(2, xcantidad);
+                    ps.setDouble(3, xsubtotal);
+                    ps.setInt(4, rs.getInt(1));
+                    ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    PRINCIPAL.actualizado = false;
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -91,31 +122,78 @@ public class JFpago_proveedor extends javax.swing.JFrame {
             }
         }
     }
-    public void modificar(){
-        con = (Connection) conexion.conectar();
-        if (con != null) {
-            try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM CATEGORIA WHERE NOMBRE='" + proveedor.getText().toUpperCase()+"'");
-                if (ps.executeQuery().next() && !proveedor.getText().toUpperCase().equals(nombre_propio)) {
-                    JOptionPane.showMessageDialog(null, "¡La categoría '" + proveedor.getText().toUpperCase() + "' ya está en uso!");
-                } else {
-                    ps = (PreparedStatement) con.prepareStatement("UPDATE CATEGORIA SET NOMBRE=?,DESCRIPCION=? WHERE ID=?");
-                    ps.setString(1, proveedor.getText().toUpperCase());
-//                    ps.setString(2, jta_descripcion.getText().toUpperCase());
-                    //ps.setInt(3, Integer.parseInt(id.getText()));
-                    ps.executeUpdate(); //Ejecuta la consulta
-                    JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
-                    PRINCIPAL.actualizado = false;
-                    this.dispose();
-                }
-            } catch (SQLException ex) {
-                getToolkit().beep();
-                JOptionPane.showMessageDialog(null, "¡Error al modificar!");
-            }
-        }
-       
-    }
 
+    public void seleccionar() {
+        JTpro.addMouseListener(new MouseAdapter() { //productos
+            @Override
+            public void mousePressed(MouseEvent Mouse_evt) {
+                if (Mouse_evt.getClickCount() == 2) {
+                    if (proveedor.getText().equals("")) {
+                        getToolkit().beep();
+                        JOptionPane.showMessageDialog(rootPane, "¡Primero seleccione un proveedor!");
+                    } else {
+                        boolean repetido = false;
+                        int codigo_pro = Integer.parseInt(JTpro.getValueAt(JTpro.getSelectedRow(), 0).toString());
+                        String nombre_pro = JTpro.getValueAt(JTpro.getSelectedRow(), 1).toString();
+                        Double precio = Double.valueOf(JTpro.getValueAt(JTpro.getSelectedRow(), 2).toString());
+                        for (int i = 0; i < detalles.size(); i++) {
+                            if (detalles.get(i).equals(codigo_pro)) {
+                                repetido = true;
+                                break;
+                            }
+                        }
+                        if (repetido) {
+                            JOptionPane.showMessageDialog(null, "¡Este producto ya fué seleccionado!, Seleccione otro!", null, JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            try {
+                                int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad:", 1));
+                                if (cantidad > 0) {
+                                    JTdetalles.setDefaultRenderer(Object.class, new BotonTabla());
+                                    Object detalle[] = {codigo_pro, nombre_pro, cantidad, precio, Math.round((cantidad * precio) * 100.0) / 100.0, boton1};
+                                    detalles.add("" + codigo_pro);
+                                    //-------------- Agrega un detalle a la tabla
+                                    tabla_detalle.addRow(detalle);
+                                    JTdetalles.setModel(tabla_detalle);
+                                    //--------------- Actualiza variables
+                                    xtotal += cantidad * precio;
+                                    xtotal = Math.rint(xtotal * 100.0) / 100.0;
+                                    total.setText("$" + xtotal);
+
+                                } else {
+                                    if (cantidad <= 0) {
+                                        JOptionPane.showMessageDialog(null, "¡El mínimo de compra es de 1!", null, JOptionPane.WARNING_MESSAGE);
+                                    }
+
+                                }
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "¡Cantiadad inválida!", null, JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        JTprov.addMouseListener(new MouseAdapter() { //proveedor
+            @Override
+            public void mousePressed(MouseEvent Mouse_evt) {
+                if (Mouse_evt.getClickCount() == 1) {
+                    FK_prov = JTpro.getValueAt(JTprov.getSelectedRow(), 0).toString();
+                    proveedor.setText(JTpro.getValueAt(JTprov.getSelectedRow(), 1).toString());
+                    proveedor.setBackground(Color.green);
+                }
+            }
+        });
+        JTemp.addMouseListener(new MouseAdapter() { //empleados
+            @Override
+            public void mousePressed(MouseEvent Mouse_evt) {
+                if (Mouse_evt.getClickCount() == 1) {
+                    FK_emp = Integer.parseInt(FK_emp.getValueAt(FK_emp.getSelectedRow(), 0).toString());
+                    proveedor.setText((JTpro.getValueAt(JTprov.getSelectedRow(), 2).toString())+" "+JTpro.getValueAt(JTprov.getSelectedRow(), 3).toString());
+                    proveedor.setBackground(Color.green);
+                }
+            }
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,7 +224,7 @@ public class JFpago_proveedor extends javax.swing.JFrame {
         jsTabla_ciu13 = new javax.swing.JScrollPane();
         JTdetalles = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jt_nombre2 = new javax.swing.JTextField();
+        total = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -478,18 +556,19 @@ public class JFpago_proveedor extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Detalles:");
 
-        jt_nombre2.setEditable(false);
-        jt_nombre2.setBackground(new java.awt.Color(255, 255, 255));
-        jt_nombre2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jt_nombre2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Total:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(51, 51, 51))); // NOI18N
-        jt_nombre2.addActionListener(new java.awt.event.ActionListener() {
+        total.setEditable(false);
+        total.setBackground(new java.awt.Color(255, 255, 255));
+        total.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        total.setText("$0");
+        total.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Total:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 0, 14), new java.awt.Color(51, 51, 51))); // NOI18N
+        total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jt_nombre2ActionPerformed(evt);
+                totalActionPerformed(evt);
             }
         });
-        jt_nombre2.addKeyListener(new java.awt.event.KeyAdapter() {
+        total.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jt_nombre2KeyPressed(evt);
+                totalKeyPressed(evt);
             }
         });
 
@@ -504,22 +583,10 @@ public class JFpago_proveedor extends javax.swing.JFrame {
             .addGroup(jp_2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jt_nombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jl_titulo23, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jl_titulo25, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jp_2Layout.createSequentialGroup()
-                            .addComponent(jl_titulo26, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
-                            .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Bcat3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jsTabla_ciu12, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(6, 6, 6)
-                            .addComponent(Lcat3)
-                            .addGap(44, 44, 44)
-                            .addComponent(jsTabla_ciu13, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jp_2Layout.createSequentialGroup()
                             .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jp_2Layout.createSequentialGroup()
@@ -537,7 +604,20 @@ public class JFpago_proveedor extends javax.swing.JFrame {
                             .addGap(55, 55, 55)
                             .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                                .addComponent(empleado)))))
+                                .addComponent(empleado)))
+                        .addGroup(jp_2Layout.createSequentialGroup()
+                            .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jl_titulo26, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jp_2Layout.createSequentialGroup()
+                                    .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Bcat3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jsTabla_ciu12, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(6, 6, 6)
+                                    .addComponent(Lcat3)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jsTabla_ciu13, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(41, 41, 41))
         );
         jp_2Layout.setVerticalGroup(
@@ -583,7 +663,7 @@ public class JFpago_proveedor extends javax.swing.JFrame {
                     .addComponent(Lcat3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jsTabla_ciu13, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addComponent(jt_nombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(86, 86, 86))
@@ -614,17 +694,13 @@ public class JFpago_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-       //String desc = jta_descripcion.getText().replaceAll("\\s+", "");
-//        if (proveedor.getText().equals("") || desc.equals("")) {
-//            getToolkit().beep();
-//            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
-//        } else {
-//            if (forma.equals("registrar")) {
-//                registrar();
-//            } else if(forma.equals("modificar")){
-//                modificar();
-//            }
-//        }
+       
+        if (proveedor.getText().equals("") || empleado.getText().equals("")||total.getText().equals("$0")) {
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
+        } else {
+            registrar();
+        }
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
 
@@ -704,20 +780,15 @@ public class JFpago_proveedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Lcat3MouseClicked
 
-    private void jt_nombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_nombre2ActionPerformed
+    private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jt_nombre2ActionPerformed
+    }//GEN-LAST:event_totalActionPerformed
 
-    private void jt_nombre2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombre2KeyPressed
+    private void totalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jt_nombre2KeyPressed
+    }//GEN-LAST:event_totalKeyPressed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -734,263 +805,6 @@ public class JFpago_proveedor extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFpago_proveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1003,10 +817,10 @@ public class JFpago_proveedor extends javax.swing.JFrame {
     public static javax.swing.JTextField Bcat;
     public static javax.swing.JTextField Bcat2;
     public static javax.swing.JTextField Bcat3;
-    private javax.swing.JTable JTdetalles;
-    private javax.swing.JTable JTemp;
-    private javax.swing.JTable JTpro;
-    private javax.swing.JTable JTprov;
+    public static javax.swing.JTable JTdetalles;
+    public static javax.swing.JTable JTemp;
+    public static javax.swing.JTable JTpro;
+    public static javax.swing.JTable JTprov;
     private javax.swing.JLabel Lcat;
     private javax.swing.JLabel Lcat2;
     private javax.swing.JLabel Lcat3;
@@ -1025,7 +839,12 @@ public class JFpago_proveedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jsTabla_ciu11;
     private javax.swing.JScrollPane jsTabla_ciu12;
     private javax.swing.JScrollPane jsTabla_ciu13;
-    public static javax.swing.JTextField jt_nombre2;
     public static javax.swing.JTextField proveedor;
+    public static javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

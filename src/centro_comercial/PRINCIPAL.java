@@ -34,7 +34,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static String consulta = "";
     public static String consulta2 = "";
     //variables que guardan el número de registros:
-    public static int cat, ciu, cli, dep, des, det, emp, enc, fp, gen, iva, mar, pe, pag, per, pro, prov, provi, pue, suc;
+    public static int cat, ciu, cli, dep, des, det, emp, enc, fp, gen, iva, mar, pe, pag, per, pro, prov, provi, pue, suc, e_pp, d_pp;
 
     //otras variables útiles:
     public static boolean actualizado = false;
@@ -66,6 +66,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static JFdepartamento JFdep=new JFdepartamento();
     public static JFdescuento JFdes = new JFdescuento();
     public static JFempleado JFemp = new JFempleado();
+    public static JFpago_proveedor JFpp = new JFpago_proveedor();
     public static JFVistaFactura JFvf = new JFVistaFactura();
     public static JFforma_pago JFfp = new JFforma_pago();
     public static JFgenero JFgen = new JFgenero();
@@ -370,6 +371,30 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                             suc = tabla.getRowCount();
                             res_suc.setText("Resultados: " + suc + " de " + suc);
                             break;
+                        case 21://encabezado_pago_prov
+                            String[] c_encapag = {"CODIGO", "RUC", "TOTAL", "EMPLEADO", "FECHA"};
+                            tabla = new DefaultTableModel(null, c_encapag);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "ENCABEZADO_PP");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getInt(5), fechas.transformar(rs.getDate(5))});
+                            }
+                            JTenc_pp.setModel(tabla);
+                            e_pp = tabla.getRowCount();
+                            res_enc_pp.setText("Resultados: " + e_pp + " de " + e_pp);
+                            break;
+                        case 22://detallepagp_proveedores
+                            String[] c_detapag = {"CODIGO", "PRODUCTO", "CANTIDAD", "SUBTOTAL", "NUM_COMPRA"};
+                            tabla = new DefaultTableModel(null, c_detapag);
+                            ps = (PreparedStatement) con.prepareStatement(consulta + "DETALLE_PP");
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                tabla.addRow(new Object[]{rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4), rs.getInt(5)});
+                            }
+                            JTdet_pp.setModel(tabla);
+                            d_pp = tabla.getRowCount();
+                            res_det_pp.setText("Resultados: " + d_pp + " de " + d_pp);
+                            break;
                     }
                 }
             } catch (Exception e) {
@@ -667,6 +692,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 ps.setDouble(4, total);
                 ps.setInt(5, FK_enc);
                 ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al registrar!");
@@ -707,7 +733,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         f_tel.setText("");
         f_email.setText("");
         f_des.setText("");
-        
         JBseleccionar_pro.setEnabled(false);
         JSfacturar.getVerticalScrollBar().setValue(0);
     }
@@ -2203,37 +2228,36 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(JPventasLayout.createSequentialGroup()
-                            .addComponent(jl_titulo8)
-                            .addGap(15, 15, 15)
-                            .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Bdet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Ldet, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(JPventasLayout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(JCdet, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(12, 12, 12)
-                            .addComponent(res_det)
-                            .addGap(5, 5, 5)
-                            .addComponent(jsTabla_ciu3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(JPventasLayout.createSequentialGroup()
-                            .addComponent(jl_titulo10)
-                            .addGap(15, 15, 15)
-                            .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Bpag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Lpag, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(JPventasLayout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(JCpag, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(12, 12, 12)
-                            .addComponent(res_pag)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jsTabla_ciu17, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(JPventasLayout.createSequentialGroup()
+                        .addComponent(jl_titulo8)
+                        .addGap(15, 15, 15)
+                        .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Bdet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Ldet, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(JPventasLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JCdet, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(12, 12, 12)
+                        .addComponent(res_det)
+                        .addGap(5, 5, 5)
+                        .addComponent(jsTabla_ciu3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JPventasLayout.createSequentialGroup()
+                        .addComponent(jl_titulo10)
+                        .addGap(15, 15, 15)
+                        .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Bpag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Lpag, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(JPventasLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(JPventasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(JCpag, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(12, 12, 12)
+                        .addComponent(res_pag)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jsTabla_ciu17, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator29, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
@@ -2246,12 +2270,14 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPpagos.setBackground(new java.awt.Color(224, 255, 244));
         JPpagos.setMaximumSize(new java.awt.Dimension(980, 500));
         JPpagos.setMinimumSize(new java.awt.Dimension(980, 500));
+        JPpagos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jl_titulo29.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo29.setText("Pagos a empleados");
         jl_titulo29.setIconTextGap(10);
         jl_titulo29.setVerifyInputWhenFocusTarget(false);
+        JPpagos.add(jl_titulo29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 35));
 
         jsTabla_ciu16.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -2282,9 +2308,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JTpe.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu16.setViewportView(JTpe);
 
+        JPpagos.add(jsTabla_ciu16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 67, 899, 150));
+
         jLabel147.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel147.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel147.setText("Buscar por");
+        JPpagos.add(jLabel147, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 20, -1, 35));
 
         JCpe.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCpe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
@@ -2293,6 +2322,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 JCpeItemStateChanged(evt);
             }
         });
+        JPpagos.add(JCpe, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 20, 142, 35));
 
         Bpe.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bpe.setText("Buscar");
@@ -2318,6 +2348,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 BpeKeyTyped(evt);
             }
         });
+        JPpagos.add(Bpe, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 20, 185, -1));
 
         Lpe.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         Lpe.setForeground(new java.awt.Color(0, 102, 102));
@@ -2329,10 +2360,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 LpeMouseClicked(evt);
             }
         });
+        JPpagos.add(Lpe, new org.netbeans.lib.awtextra.AbsoluteConstraints(731, 20, -1, 35));
 
         res_pe.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         res_pe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         res_pe.setText("Resultados: 0 de 0");
+        JPpagos.add(res_pe, new org.netbeans.lib.awtextra.AbsoluteConstraints(753, 20, 166, 35));
 
         jPanel27.setBackground(new java.awt.Color(153, 0, 51));
         jPanel27.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -2353,6 +2386,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel148, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
+
+        JPpagos.add(jPanel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 239, 611, 47));
 
         JPpe.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2439,6 +2474,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
+        JPpagos.add(JPpe, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 286, -1, -1));
+
         reg_pe.setBackground(new java.awt.Color(0, 204, 102));
         reg_pe.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         reg_pe.setForeground(new java.awt.Color(255, 255, 255));
@@ -2458,6 +2495,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 reg_peActionPerformed(evt);
             }
         });
+        JPpagos.add(reg_pe, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 404, 309, 40));
 
         JPpp.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2544,6 +2582,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
+        JPpagos.add(JPpp, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 850, 611, -1));
+
         jPanel33.setBackground(new java.awt.Color(153, 0, 51));
         jPanel33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel33.setPreferredSize(new java.awt.Dimension(2, 100));
@@ -2563,6 +2603,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel181, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
+
+        JPpagos.add(jPanel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 803, 611, 47));
 
         jsTabla_ciu22.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -2593,9 +2635,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JTenc_pp.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu22.setViewportView(JTenc_pp);
 
+        JPpagos.add(jsTabla_ciu22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 601, 428, 150));
+
         res_enc_pp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         res_enc_pp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         res_enc_pp.setText("Resultados: 0 de 0");
+        JPpagos.add(res_enc_pp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 751, 428, 35));
 
         Lpe1.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         Lpe1.setForeground(new java.awt.Color(0, 102, 102));
@@ -2607,6 +2652,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 Lpe1MouseClicked(evt);
             }
         });
+        JPpagos.add(Lpe1, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 560, -1, 35));
 
         Bepp.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bepp.setText("Buscar");
@@ -2632,6 +2678,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 BeppKeyTyped(evt);
             }
         });
+        JPpagos.add(Bepp, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 560, 202, -1));
 
         JCepp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCepp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
@@ -2640,16 +2687,19 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 JCeppItemStateChanged(evt);
             }
         });
+        JPpagos.add(JCepp, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 560, 137, 35));
 
         jLabel182.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel182.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel182.setText("Buscar por");
+        JPpagos.add(jLabel182, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, -1, 35));
 
         jl_titulo30.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo30.setText("Encabezados P. proveedores");
         jl_titulo30.setIconTextGap(10);
         jl_titulo30.setVerifyInputWhenFocusTarget(false);
+        JPpagos.add(jl_titulo30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 512, 428, 35));
 
         reg_pp.setBackground(new java.awt.Color(0, 204, 102));
         reg_pp.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -2670,20 +2720,23 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 reg_ppActionPerformed(evt);
             }
         });
+        JPpagos.add(reg_pp, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 968, 309, 40));
 
         jl_titulo35.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo35.setText("Detalles P. proveedores");
         jl_titulo35.setIconTextGap(10);
         jl_titulo35.setVerifyInputWhenFocusTarget(false);
+        JPpagos.add(jl_titulo35, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 511, 428, 35));
 
         jLabel183.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel183.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel183.setText("Buscar por");
+        JPpagos.add(jLabel183, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 559, -1, 35));
 
         jsTabla_ciu23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        JTenc_pp = new javax.swing.JTable(){
+        JTdet_pp = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex){
                 return false;
             }
@@ -2710,6 +2763,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JTdet_pp.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu23.setViewportView(JTdet_pp);
 
+        JPpagos.add(jsTabla_ciu23, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 600, 428, 150));
+
         JCdpp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCdpp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
         JCdpp.addItemListener(new java.awt.event.ItemListener() {
@@ -2717,6 +2772,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 JCdppItemStateChanged(evt);
             }
         });
+        JPpagos.add(JCdpp, new org.netbeans.lib.awtextra.AbsoluteConstraints(586, 559, 137, 35));
 
         Bdpp.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bdpp.setText("Buscar");
@@ -2742,6 +2798,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 BdppKeyTyped(evt);
             }
         });
+        JPpagos.add(Bdpp, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 559, 202, -1));
 
         Ldpp.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         Ldpp.setForeground(new java.awt.Color(0, 102, 102));
@@ -2753,134 +2810,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 LdppMouseClicked(evt);
             }
         });
+        JPpagos.add(Ldpp, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 559, -1, 35));
 
         res_det_pp.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         res_det_pp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         res_det_pp.setText("Resultados: 0 de 0");
-
-        javax.swing.GroupLayout JPpagosLayout = new javax.swing.GroupLayout(JPpagos);
-        JPpagos.setLayout(JPpagosLayout);
-        JPpagosLayout.setHorizontalGroup(
-            JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPpagosLayout.createSequentialGroup()
-                .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPpagosLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPpagosLayout.createSequentialGroup()
-                                    .addComponent(jl_titulo29)
-                                    .addGap(31, 31, 31)
-                                    .addComponent(jLabel147)
-                                    .addGap(6, 6, 6)
-                                    .addComponent(JCpe, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(6, 6, 6)
-                                    .addComponent(Bpe, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(3, 3, 3)
-                                    .addComponent(Lpe)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(res_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jsTabla_ciu16))
-                            .addGroup(JPpagosLayout.createSequentialGroup()
-                                .addGap(146, 146, 146)
-                                .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(JPpe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)))
-                            .addGroup(JPpagosLayout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(JPpp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(JPpagosLayout.createSequentialGroup()
-                                .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(res_enc_pp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jl_titulo30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jsTabla_ciu22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPpagosLayout.createSequentialGroup()
-                                        .addComponent(jLabel182)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JCepp, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Bepp, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(3, 3, 3)
-                                .addComponent(Lpe1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                                .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jl_titulo35, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jsTabla_ciu23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPpagosLayout.createSequentialGroup()
-                                        .addComponent(jLabel183)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JCdpp, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Bdpp, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(res_det_pp, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 3, 3)
-                                .addComponent(Ldpp))))
-                    .addGroup(JPpagosLayout.createSequentialGroup()
-                        .addGap(318, 318, 318)
-                        .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(24, 24, 24))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPpagosLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(reg_pp, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(328, 328, 328))
-        );
-        JPpagosLayout.setVerticalGroup(
-            JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPpagosLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jl_titulo29, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel147, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JCpe, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Bpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Lpe, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(res_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addComponent(jsTabla_ciu16, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(JPpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(reg_pe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JPpagosLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jl_titulo30, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel182, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JCepp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bepp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Lpe1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jsTabla_ciu22, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(res_enc_pp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPpagosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jl_titulo35, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addGroup(JPpagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel183, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JCdpp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bdpp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Ldpp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jsTabla_ciu23, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(res_det_pp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(JPpp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(reg_pp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
+        JPpagos.add(res_det_pp, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 750, 428, 35));
 
         JSpagos.setViewportView(JPpagos);
 
@@ -8601,7 +8536,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_ppMouseExited
 
     private void reg_ppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_ppActionPerformed
-        // TODO add your handling code here:
+       JFpago_proveedor.limpiar();
+       JFpago_proveedor.visualizar(1);
+       JFpago_proveedor.visualizar(2);
+       JFpp.setVisible(true); 
     }//GEN-LAST:event_reg_ppActionPerformed
 
     private void JCdppItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCdppItemStateChanged
@@ -9022,6 +8960,40 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     }
                 }
             });
+            
+            JTenc_pp.addMouseListener(new MouseAdapter() { //ENCABEZADO PP - 10
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    if (Mouse_evt.getClickCount() == 1) {
+                        try {
+                            pk = JTenc_pp.getValueAt(JTenc_pp.getSelectedRow(), 0).toString();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"ENCABEZADO_PP WHERE CODIGO="+pk);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            codigo_pp.setText(pk);
+                            total_pp.setText(String.valueOf(rs.getDouble(4)));
+                            fecha_pag_pp.setText(String.valueOf(rs.getDate(5)));
+                            String ruc_prov=rs.getString(2);
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"EMPLEADO WHERE ID="+rs.getInt(4));
+                            rs = ps.executeQuery();
+                            rs.next();
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"PERSONA WHERE CEDULA="+rs.getString(2));
+                            rs = ps.executeQuery();
+                            rs.next();
+                            empleado_pp.setText(rs.getString(2)+" "+rs.getString(3));
+                            ps = (PreparedStatement) con.prepareStatement(consulta+"PROVEEDOR WHERE RUC="+ruc_prov);
+                            rs = ps.executeQuery();
+                            rs.next();
+                            proveedor_pp.setText(rs.getString(2));
+                        } catch (SQLException ex) {
+                            
+                        }
+                    }
+                    if (Mouse_evt.getClickCount() == 2) {
+                        
+                    }
+                }
+            });
             JTfp.addMouseListener(new MouseAdapter() { //FORMA DE PAGO - 11
                 @Override
                 public void mousePressed(MouseEvent Mouse_evt) {
@@ -9413,16 +9385,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PRINCIPAL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PRINCIPAL().setVisible(true);
@@ -9470,9 +9433,6 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPsuc.setVisible(false);
     }
 
-    public void resumen() {
-        
-    }
     public void calcular_total() {
         IVA = Integer.parseInt(f_iva.getSelectedItem().toString().replace("%", ""));
         total = 0;
@@ -9492,16 +9452,16 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JTextField Bcli;
     public static javax.swing.JTextField Bdep;
     public static javax.swing.JTextField Bdes;
-    private javax.swing.JTextField Bdet;
+    public static javax.swing.JTextField Bdet;
     public static javax.swing.JTextField Bdpp;
     public static javax.swing.JTextField Bemp;
-    private javax.swing.JTextField Benc;
+    public static javax.swing.JTextField Benc;
     public static javax.swing.JTextField Bepp;
     public static javax.swing.JTextField Bfp;
     public static javax.swing.JTextField Bgen;
     public static javax.swing.JTextField Biva;
     public static javax.swing.JTextField Bmar;
-    private javax.swing.JTextField Bpag;
+    public static javax.swing.JTextField Bpag;
     public static javax.swing.JTextField Bpe;
     public static javax.swing.JTextField Bper;
     public static javax.swing.JTextField Bpro;

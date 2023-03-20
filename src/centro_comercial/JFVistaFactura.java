@@ -17,7 +17,7 @@ public class JFVistaFactura extends javax.swing.JFrame {
     }
 
     public void llenar(String PK) {
-        con = (Connection) conexion.conectar();
+        con = conexion.conectar();
         if (con != null) {
             try {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM ENCABEZADO_FAC WHERE CODIGO=" + PK);
