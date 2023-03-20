@@ -5226,7 +5226,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                 .addComponent(reg_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(mod_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(elim_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         MENU.addTab("Puestos y Departamentos", JPpue_dep);
@@ -6513,7 +6513,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 BsucKeyTyped(evt);
             }
         });
-        JPprov_suc.add(Bsuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(783, 63, 145, -1));
+        JPprov_suc.add(Bsuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 63, 160, -1));
 
         JCsuc.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCsuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE", "ID_CIU" }));
@@ -6522,7 +6522,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 JCsucItemStateChanged(evt);
             }
         });
-        JPprov_suc.add(JCsuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(635, 64, 142, 35));
+        JPprov_suc.add(JCsuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(635, 64, 120, 35));
 
         jLabel133.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel133.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -7295,7 +7295,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCcliItemStateChanged
 
     private void BcliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BcliMouseClicked
-        // TODO add your handling code here:
+        if (Bcli.getText().equals("Buscar")) {
+            Bcli.select(0, 0);
+        }
     }//GEN-LAST:event_BcliMouseClicked
 
     private void BcliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcliKeyPressed
@@ -7322,7 +7324,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCperItemStateChanged
 
     private void BperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BperMouseClicked
-        // TODO add your handling code here:
+        if (Bper.getText().equals("Buscar")) {
+            Bper.select(0, 0);
+        }
     }//GEN-LAST:event_BperMouseClicked
 
     private void BperKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BperKeyPressed
@@ -7397,7 +7401,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_cliActionPerformed
 
     private void BempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BempMouseClicked
-        // TODO add your handling code here:
+        if (Bemp.getText().equals("Buscar")) {
+            Bemp.select(0, 0);
+        }
     }//GEN-LAST:event_BempMouseClicked
 
     private void BempKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BempKeyPressed
@@ -7503,7 +7509,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BdepKeyPressed
 
     private void BdepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BdepMouseClicked
-        // TODO add your handling code here:
+        if (Bdep.getText().equals("Buscar")) {
+            Bdep.select(0, 0);
+        }
     }//GEN-LAST:event_BdepMouseClicked
 
     private void mod_pueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mod_pueActionPerformed
@@ -7577,7 +7585,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BpueKeyPressed
 
     private void BpueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BpueMouseClicked
-        // TODO add your handling code here:
+        if (Bpue.getText().equals("Buscar")) {
+            Bpue.select(0, 0);
+        }
     }//GEN-LAST:event_BpueMouseClicked
 
     private void JCpueItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCpueItemStateChanged
@@ -7589,7 +7599,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCproItemStateChanged
 
     private void BproMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BproMouseClicked
-        // TODO add your handling code here:
+        if (Bpro.getText().equals("Buscar")) {
+            Bpro.select(0, 0);
+        }
     }//GEN-LAST:event_BproMouseClicked
 
     private void BproKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproKeyPressed
@@ -7668,7 +7680,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCmarItemStateChanged
 
     private void BmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BmarMouseClicked
-        // TODO add your handling code here:
+        if (Bmar.getText().equals("Buscar")) {
+            Bmar.select(0, 0);
+        }
     }//GEN-LAST:event_BmarMouseClicked
 
     private void BmarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BmarKeyPressed
@@ -7742,7 +7756,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_marActionPerformed
 
     private void BcatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BcatMouseClicked
-        // TODO add your handling code here:
+        if (Bcat.getText().equals("Buscar")) {
+            Bcat.select(0, 0);
+        }
     }//GEN-LAST:event_BcatMouseClicked
 
     private void BcatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcatKeyPressed
@@ -7880,7 +7896,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCprovItemStateChanged
 
     private void BprovMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BprovMouseClicked
-        // TODO add your handling code here:
+       if (Bprov.getText().equals("Buscar")) {
+            Bprov.select(0, 0);
+        }
     }//GEN-LAST:event_BprovMouseClicked
 
     private void BprovKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BprovKeyPressed
@@ -7954,7 +7972,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_provActionPerformed
 
     private void BsucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BsucMouseClicked
-        // TODO add your handling code here:
+        if (Bsuc.getText().equals("Buscar")) {
+            Bsuc.select(0, 0);
+        }
     }//GEN-LAST:event_BsucMouseClicked
 
     private void BsucKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BsucKeyPressed
@@ -8036,7 +8056,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCciuItemStateChanged
 
     private void BciuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BciuMouseClicked
-        // TODO add your handling code here:
+        if (Bciu.getText().equals("Buscar")) {
+            Bciu.select(0, 0);
+        }
     }//GEN-LAST:event_BciuMouseClicked
 
     private void BciuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BciuKeyPressed
@@ -8112,7 +8134,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_ciuActionPerformed
 
     private void BproviMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BproviMouseClicked
-        // TODO add your handling code here:
+       if (Bprovi.getText().equals("Buscar")) {
+            Bprovi.select(0, 0);
+        }
     }//GEN-LAST:event_BproviMouseClicked
 
     private void BproviKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproviKeyPressed
@@ -8196,7 +8220,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCgenItemStateChanged
 
     private void BgenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BgenMouseClicked
-        // TODO add your handling code here:
+        if (Bgen.getText().equals("Buscar")) {
+            Bgen.select(0, 0);
+        }
     }//GEN-LAST:event_BgenMouseClicked
 
     private void BgenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BgenKeyPressed
@@ -8267,7 +8293,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_genActionPerformed
 
     private void BdesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BdesMouseClicked
-        // TODO add your handling code here:
+        if (Bdes.getText().equals("Buscar")) {
+            Bdes.select(0, 0);
+        }
     }//GEN-LAST:event_BdesMouseClicked
 
     private void BdesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdesKeyPressed
@@ -8346,7 +8374,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCpeItemStateChanged
 
     private void BpeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BpeMouseClicked
-        // TODO add your handling code here:
+        if (Bpe.getText().equals("Buscar")) {
+            Bpe.select(0, 0);
+        }
     }//GEN-LAST:event_BpeMouseClicked
 
     private void BpeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpeKeyPressed
@@ -8388,7 +8418,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCivaItemStateChanged
 
     private void BivaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BivaMouseClicked
-        // TODO add your handling code here:
+        if (Biva.getText().equals("Buscar")) {
+            Biva.select(0, 0);
+        }
     }//GEN-LAST:event_BivaMouseClicked
 
     private void BivaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BivaKeyPressed
@@ -8441,7 +8473,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_ivaActionPerformed
 
     private void BfpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BfpMouseClicked
-        // TODO add your handling code here:
+        if (Bfp.getText().equals("Buscar")) {
+            Bfp.select(0, 0);
+        }
     }//GEN-LAST:event_BfpMouseClicked
 
     private void BfpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BfpKeyPressed
@@ -8569,7 +8603,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_LeppMouseClicked
 
     private void BeppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BeppMouseClicked
-        // TODO add your handling code here:
+        if (Bepp.getText().equals("Buscar")) {
+            Bepp.select(0, 0);
+        }
     }//GEN-LAST:event_BeppMouseClicked
 
     private void BeppKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BeppKeyPressed
@@ -8608,7 +8644,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCdppItemStateChanged
 
     private void BdppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BdppMouseClicked
-        // TODO add your handling code here:
+        if (Bdpp.getText().equals("Buscar")) {
+            Bdpp.select(0, 0);
+        }
     }//GEN-LAST:event_BdppMouseClicked
 
     private void BdppKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdppKeyPressed

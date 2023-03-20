@@ -6504,7 +6504,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                      <EmptySpace pref="104" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -9559,7 +9559,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="783" y="63" width="145" height="-1"/>
+                  <AbsoluteConstraints x="768" y="63" width="160" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -9584,7 +9584,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="635" y="64" width="142" height="35"/>
+                  <AbsoluteConstraints x="635" y="64" width="120" height="35"/>
                 </Constraint>
               </Constraints>
             </Component>
