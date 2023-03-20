@@ -4,7 +4,12 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import otros.validar;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class JFlogin extends javax.swing.JFrame {
 
@@ -258,6 +263,7 @@ public class JFlogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JFlogin().setVisible(true);
+
             }
         });
     }

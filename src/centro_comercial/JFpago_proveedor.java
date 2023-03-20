@@ -1,5 +1,6 @@
 package centro_comercial;
 import base_datos.conexion;
+import static centro_comercial.PRINCIPAL.actualizado;
 import javax.swing.JOptionPane;
 import otros.validar;
 import java.sql.*;
@@ -11,7 +12,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import otros.BotonTabla;
 
 public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
@@ -41,6 +48,29 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         JTdetalles.setModel(tabla_detalle);
         visualizar(1);
         visualizar(2);
+        Lprov.setVisible(false);
+        Lemp.setVisible(false);
+        Lpro.setVisible(false);
+    }
+    TableRowSorter sorter;
+    //buscar registros de cualquier tabla:
+    public void buscar(JTable tab, JTextField tex, int numero) {
+        DefaultTableModel modelo = (DefaultTableModel) tab.getModel();
+        sorter = new TableRowSorter<>(modelo);
+        tab.setAutoCreateRowSorter(true);
+        tab.setRowSorter(sorter);
+        switch (numero) {
+            case 1://proveedor
+                sorter.setRowFilter(RowFilter.regexFilter(tex.getText(), 0, 1));
+                break;
+            case 2://empleado
+                sorter.setRowFilter(RowFilter.regexFilter(tex.getText(), 0, 1,2,3));
+                break;
+            case 3://producto
+                sorter.setRowFilter(RowFilter.regexFilter(tex.getText(), 0, 1,2,3));
+                break;
+        }
+
     }
 
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
@@ -214,20 +244,20 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         jb_Ejecutar = new javax.swing.JButton();
         proveedor = new javax.swing.JTextField();
         jl_titulo23 = new javax.swing.JLabel();
-        Bcat = new javax.swing.JTextField();
-        Lcat = new javax.swing.JLabel();
+        Bprov = new javax.swing.JTextField();
+        Lprov = new javax.swing.JLabel();
         jsTabla_ciu10 = new javax.swing.JScrollPane();
         JTprov = new javax.swing.JTable();
         jl_titulo25 = new javax.swing.JLabel();
-        Bcat2 = new javax.swing.JTextField();
+        Bemp = new javax.swing.JTextField();
         jsTabla_ciu11 = new javax.swing.JScrollPane();
         JTemp = new javax.swing.JTable();
-        Lcat2 = new javax.swing.JLabel();
+        Lemp = new javax.swing.JLabel();
         empleado = new javax.swing.JTextField();
         jsTabla_ciu12 = new javax.swing.JScrollPane();
         JTpro = new javax.swing.JTable();
-        Bcat3 = new javax.swing.JTextField();
-        Lcat3 = new javax.swing.JLabel();
+        Bpro = new javax.swing.JTextField();
+        Lpro = new javax.swing.JLabel();
         jl_titulo26 = new javax.swing.JLabel();
         jsTabla_ciu13 = new javax.swing.JScrollPane();
         JTdetalles = new javax.swing.JTable();
@@ -236,6 +266,14 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
 
         jp_1.setBackground(new java.awt.Color(0, 204, 102));
         jp_1.setPreferredSize(new java.awt.Dimension(560, 40));
@@ -274,7 +312,8 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                     .addComponent(jl_cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
         );
 
-        jp_2.setBackground(new java.awt.Color(255, 255, 255));
+        jp_2.setBackground(new java.awt.Color(221, 243, 221));
+        jp_2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jb_Ejecutar.setBackground(new java.awt.Color(0, 204, 102));
         jb_Ejecutar.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
@@ -287,6 +326,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                 jb_EjecutarActionPerformed(evt);
             }
         });
+        jp_2.add(jb_Ejecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 730, 144, 42));
 
         proveedor.setEditable(false);
         proveedor.setBackground(new java.awt.Color(255, 255, 255));
@@ -302,48 +342,52 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                 proveedorKeyPressed(evt);
             }
         });
+        jp_2.add(proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(487, 97, 253, 70));
 
         jl_titulo23.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo23.setText("Proveedores disponibles");
         jl_titulo23.setIconTextGap(10);
         jl_titulo23.setVerifyInputWhenFocusTarget(false);
+        jp_2.add(jl_titulo23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 390, -1));
 
-        Bcat.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        Bcat.setText("Buscar");
-        Bcat.setMinimumSize(new java.awt.Dimension(317, 31));
-        Bcat.setPreferredSize(new java.awt.Dimension(317, 35));
-        Bcat.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        Bcat.setSelectionColor(new java.awt.Color(153, 204, 255));
-        Bcat.setSelectionEnd(0);
-        Bcat.setSelectionStart(0);
-        Bcat.addMouseListener(new java.awt.event.MouseAdapter() {
+        Bprov.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        Bprov.setText("Buscar");
+        Bprov.setMinimumSize(new java.awt.Dimension(317, 31));
+        Bprov.setPreferredSize(new java.awt.Dimension(317, 35));
+        Bprov.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        Bprov.setSelectionColor(new java.awt.Color(153, 204, 255));
+        Bprov.setSelectionEnd(0);
+        Bprov.setSelectionStart(0);
+        Bprov.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BcatMouseClicked(evt);
+                BprovMouseClicked(evt);
             }
         });
-        Bcat.addKeyListener(new java.awt.event.KeyAdapter() {
+        Bprov.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                BcatKeyPressed(evt);
+                BprovKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                BcatKeyReleased(evt);
+                BprovKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                BcatKeyTyped(evt);
+                BprovKeyTyped(evt);
             }
         });
+        jp_2.add(Bprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 390, -1));
 
-        Lcat.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-        Lcat.setForeground(new java.awt.Color(0, 102, 102));
-        Lcat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Lcat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
-        Lcat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Lcat.addMouseListener(new java.awt.event.MouseAdapter() {
+        Lprov.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        Lprov.setForeground(new java.awt.Color(0, 102, 102));
+        Lprov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lprov.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        Lprov.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Lprov.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LcatMouseClicked(evt);
+                LprovMouseClicked(evt);
             }
         });
+        jp_2.add(Lprov, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 70, -1, 35));
 
         jsTabla_ciu10.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -374,36 +418,40 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         JTprov.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu10.setViewportView(JTprov);
 
+        jp_2.add(jsTabla_ciu10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 105, 390, 122));
+
         jl_titulo25.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo25.setText("Empleados disponibles");
         jl_titulo25.setIconTextGap(10);
         jl_titulo25.setVerifyInputWhenFocusTarget(false);
+        jp_2.add(jl_titulo25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 256, 390, -1));
 
-        Bcat2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        Bcat2.setText("Buscar");
-        Bcat2.setMinimumSize(new java.awt.Dimension(317, 31));
-        Bcat2.setPreferredSize(new java.awt.Dimension(317, 35));
-        Bcat2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        Bcat2.setSelectionColor(new java.awt.Color(153, 204, 255));
-        Bcat2.setSelectionEnd(0);
-        Bcat2.setSelectionStart(0);
-        Bcat2.addMouseListener(new java.awt.event.MouseAdapter() {
+        Bemp.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        Bemp.setText("Buscar");
+        Bemp.setMinimumSize(new java.awt.Dimension(317, 31));
+        Bemp.setPreferredSize(new java.awt.Dimension(317, 35));
+        Bemp.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        Bemp.setSelectionColor(new java.awt.Color(153, 204, 255));
+        Bemp.setSelectionEnd(0);
+        Bemp.setSelectionStart(0);
+        Bemp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Bcat2MouseClicked(evt);
+                BempMouseClicked(evt);
             }
         });
-        Bcat2.addKeyListener(new java.awt.event.KeyAdapter() {
+        Bemp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                Bcat2KeyPressed(evt);
+                BempKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                Bcat2KeyReleased(evt);
+                BempKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                Bcat2KeyTyped(evt);
+                BempKeyTyped(evt);
             }
         });
+        jp_2.add(Bemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 306, 390, -1));
 
         jsTabla_ciu11.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -434,16 +482,19 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         JTemp.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu11.setViewportView(JTemp);
 
-        Lcat2.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-        Lcat2.setForeground(new java.awt.Color(0, 102, 102));
-        Lcat2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Lcat2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
-        Lcat2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Lcat2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jp_2.add(jsTabla_ciu11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 341, 390, 122));
+
+        Lemp.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        Lemp.setForeground(new java.awt.Color(0, 102, 102));
+        Lemp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lemp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        Lemp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Lemp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Lcat2MouseClicked(evt);
+                LempMouseClicked(evt);
             }
         });
+        jp_2.add(Lemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 306, -1, 35));
 
         empleado.setEditable(false);
         empleado.setBackground(new java.awt.Color(255, 255, 255));
@@ -459,6 +510,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                 empleadoKeyPressed(evt);
             }
         });
+        jp_2.add(empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(487, 333, 253, 70));
 
         jsTabla_ciu12.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -489,47 +541,52 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         JTpro.getTableHeader().setReorderingAllowed(false);
         jsTabla_ciu12.setViewportView(JTpro);
 
-        Bcat3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        Bcat3.setText("Buscar");
-        Bcat3.setMinimumSize(new java.awt.Dimension(317, 31));
-        Bcat3.setPreferredSize(new java.awt.Dimension(317, 35));
-        Bcat3.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        Bcat3.setSelectionColor(new java.awt.Color(153, 204, 255));
-        Bcat3.setSelectionEnd(0);
-        Bcat3.setSelectionStart(0);
-        Bcat3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jp_2.add(jsTabla_ciu12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 575, 352, 122));
+
+        Bpro.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        Bpro.setText("Buscar");
+        Bpro.setMinimumSize(new java.awt.Dimension(317, 31));
+        Bpro.setPreferredSize(new java.awt.Dimension(317, 35));
+        Bpro.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        Bpro.setSelectionColor(new java.awt.Color(153, 204, 255));
+        Bpro.setSelectionEnd(0);
+        Bpro.setSelectionStart(0);
+        Bpro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Bcat3MouseClicked(evt);
+                BproMouseClicked(evt);
             }
         });
-        Bcat3.addKeyListener(new java.awt.event.KeyAdapter() {
+        Bpro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                Bcat3KeyPressed(evt);
+                BproKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                Bcat3KeyReleased(evt);
+                BproKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                Bcat3KeyTyped(evt);
+                BproKeyTyped(evt);
             }
         });
+        jp_2.add(Bpro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 352, -1));
 
-        Lcat3.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-        Lcat3.setForeground(new java.awt.Color(0, 102, 102));
-        Lcat3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Lcat3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
-        Lcat3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Lcat3.addMouseListener(new java.awt.event.MouseAdapter() {
+        Lpro.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        Lpro.setForeground(new java.awt.Color(0, 102, 102));
+        Lpro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lpro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        Lpro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Lpro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Lcat3MouseClicked(evt);
+                LproMouseClicked(evt);
             }
         });
+        jp_2.add(Lpro, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 540, -1, 35));
 
         jl_titulo26.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jl_titulo26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/table_icon_128243.png"))); // NOI18N
         jl_titulo26.setText("Productos disponibles");
         jl_titulo26.setIconTextGap(10);
         jl_titulo26.setVerifyInputWhenFocusTarget(false);
+        jp_2.add(jl_titulo26, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 390, -1));
 
         jsTabla_ciu13.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -565,9 +622,12 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         });
         jsTabla_ciu13.setViewportView(JTdetalles);
 
+        jp_2.add(jsTabla_ciu13, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 540, 318, 157));
+
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Detalles:");
+        jp_2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 520, 318, -1));
 
         total.setEditable(false);
         total.setBackground(new java.awt.Color(255, 255, 255));
@@ -584,103 +644,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                 totalKeyPressed(evt);
             }
         });
-
-        javax.swing.GroupLayout jp_2Layout = new javax.swing.GroupLayout(jp_2);
-        jp_2.setLayout(jp_2Layout);
-        jp_2Layout.setHorizontalGroup(
-            jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(309, 309, 309))
-            .addGroup(jp_2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jl_titulo23, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jl_titulo25, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jp_2Layout.createSequentialGroup()
-                            .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jp_2Layout.createSequentialGroup()
-                                    .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Bcat2, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jsTabla_ciu11, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(6, 6, 6)
-                                    .addComponent(Lcat2))
-                                .addGroup(jp_2Layout.createSequentialGroup()
-                                    .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Bcat, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jsTabla_ciu10, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(6, 6, 6)
-                                    .addComponent(Lcat)))
-                            .addGap(55, 55, 55)
-                            .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                                .addComponent(empleado)))
-                        .addGroup(jp_2Layout.createSequentialGroup()
-                            .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jl_titulo26, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jp_2Layout.createSequentialGroup()
-                                    .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Bcat3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jsTabla_ciu12, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(6, 6, 6)
-                                    .addComponent(Lcat3)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jsTabla_ciu13, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(41, 41, 41))
-        );
-        jp_2Layout.setVerticalGroup(
-            jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jl_titulo23)
-                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jp_2Layout.createSequentialGroup()
-                                .addComponent(Bcat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jsTabla_ciu10, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Lcat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jp_2Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
-                .addComponent(jl_titulo25)
-                .addGap(18, 18, 18)
-                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_2Layout.createSequentialGroup()
-                        .addComponent(Bcat2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jsTabla_ciu11, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Lcat2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jp_2Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
-                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jl_titulo26)
-                    .addGroup(jp_2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel1)))
-                .addGroup(jp_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_2Layout.createSequentialGroup()
-                        .addComponent(Bcat3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jsTabla_ciu12, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Lcat3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jsTabla_ciu13, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jb_Ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
-        );
+        jp_2.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(606, 697, 134, 60));
 
         jScrollPane1.setViewportView(jp_2);
 
@@ -727,45 +691,75 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_proveedorActionPerformed
 
-    private void BcatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BcatMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BcatMouseClicked
+    private void BprovMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BprovMouseClicked
+        if (Bprov.getText().equals("Buscar")) {
+            Bprov.select(0, 0);
+        }
+    }//GEN-LAST:event_BprovMouseClicked
 
-    private void BcatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcatKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BcatKeyPressed
+    private void BprovKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BprovKeyPressed
+        if (Bprov.getText().equals("Buscar")) {
+            Bprov.setText("");
+            Lprov.setVisible(true);
+        }
+    }//GEN-LAST:event_BprovKeyPressed
 
-    private void BcatKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcatKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BcatKeyReleased
+    private void BprovKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BprovKeyReleased
+        if (!Bprov.getText().equals("")) {
+            buscar(JTprov, Bprov, 1);
+        } else {
+            Lprov.setVisible(false);
+            Bprov.setText("Buscar");
+            Bprov.select(0, 0);
+            visualizar(1);
+        }
+    }//GEN-LAST:event_BprovKeyReleased
 
-    private void BcatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcatKeyTyped
+    private void BprovKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BprovKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_BcatKeyTyped
+    }//GEN-LAST:event_BprovKeyTyped
 
-    private void LcatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LcatMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LcatMouseClicked
+    private void LprovMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LprovMouseClicked
+        Lprov.setVisible(false);
+        Bprov.setText("Buscar");
+        Bprov.select(0, 0);
+        visualizar(1);
+    }//GEN-LAST:event_LprovMouseClicked
 
-    private void Bcat2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bcat2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bcat2MouseClicked
+    private void BempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BempMouseClicked
+        if (Bemp.getText().equals("Buscar")) {
+            Bemp.select(0, 0);
+        }
+    }//GEN-LAST:event_BempMouseClicked
 
-    private void Bcat2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bcat2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bcat2KeyPressed
+    private void BempKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BempKeyPressed
+        if (Bemp.getText().equals("Buscar")) {
+            Bemp.setText("");
+            Lemp.setVisible(true);
+        }
+    }//GEN-LAST:event_BempKeyPressed
 
-    private void Bcat2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bcat2KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bcat2KeyReleased
+    private void BempKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BempKeyReleased
+        if (!Bemp.getText().equals("")) {
+            buscar(JTemp, Bemp, 2);
+        } else {
+            Lemp.setVisible(false);
+            Bemp.setText("Buscar");
+            Bemp.select(0, 0);
+            visualizar(2);
+        }
+    }//GEN-LAST:event_BempKeyReleased
 
-    private void Bcat2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bcat2KeyTyped
+    private void BempKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BempKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bcat2KeyTyped
+    }//GEN-LAST:event_BempKeyTyped
 
-    private void Lcat2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lcat2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Lcat2MouseClicked
+    private void LempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LempMouseClicked
+        Lemp.setVisible(false);
+        Bemp.setText("Buscar");
+        Bemp.select(0, 0);
+        visualizar(2);
+    }//GEN-LAST:event_LempMouseClicked
 
     private void empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoActionPerformed
         // TODO add your handling code here:
@@ -775,25 +769,40 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_empleadoKeyPressed
 
-    private void Bcat3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bcat3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bcat3MouseClicked
+    private void BproMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BproMouseClicked
+        if (Bpro.getText().equals("Buscar")) {
+            Bpro.select(0, 0);
+        }
+    }//GEN-LAST:event_BproMouseClicked
 
-    private void Bcat3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bcat3KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bcat3KeyPressed
+    private void BproKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproKeyPressed
+        if (Bpro.getText().equals("Buscar")) {
+            Bpro.setText("");
+            Lpro.setVisible(true);
+        }
+    }//GEN-LAST:event_BproKeyPressed
 
-    private void Bcat3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bcat3KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bcat3KeyReleased
+    private void BproKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproKeyReleased
+        if (!Bpro.getText().equals("")) {
+            buscar(JTpro, Bpro, 3);
+        } else {
+            Lpro.setVisible(false);
+            Bpro.setText("Buscar");
+            Bpro.select(0, 0);
+            visualizar(3);
+        }
+    }//GEN-LAST:event_BproKeyReleased
 
-    private void Bcat3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Bcat3KeyTyped
+    private void BproKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_Bcat3KeyTyped
+    }//GEN-LAST:event_BproKeyTyped
 
-    private void Lcat3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lcat3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Lcat3MouseClicked
+    private void LproMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LproMouseClicked
+        Lpro.setVisible(false);
+        Bpro.setText("Buscar");
+        Bpro.select(0, 0);
+        visualizar(3);
+    }//GEN-LAST:event_LproMouseClicked
 
     private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
         // TODO add your handling code here:
@@ -835,6 +844,18 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_JTdetallesMouseClicked
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+         if (actualizado == false) {
+            visualizar(1);
+            visualizar(2);
+            actualizado = true;
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        actualizado = false;
+    }//GEN-LAST:event_formWindowLostFocus
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -861,16 +882,16 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTextField Bcat;
-    public static javax.swing.JTextField Bcat2;
-    public static javax.swing.JTextField Bcat3;
+    public static javax.swing.JTextField Bemp;
+    public static javax.swing.JTextField Bpro;
+    public static javax.swing.JTextField Bprov;
     public static javax.swing.JTable JTdetalles;
     public static javax.swing.JTable JTemp;
     public static javax.swing.JTable JTpro;
     public static javax.swing.JTable JTprov;
-    private javax.swing.JLabel Lcat;
-    private javax.swing.JLabel Lcat2;
-    private javax.swing.JLabel Lcat3;
+    private javax.swing.JLabel Lemp;
+    private javax.swing.JLabel Lpro;
+    private javax.swing.JLabel Lprov;
     public static javax.swing.JTextField empleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
