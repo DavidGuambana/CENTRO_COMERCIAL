@@ -1325,6 +1325,11 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         MENU.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         MENU.setMinimumSize(new java.awt.Dimension(980, 600));
         MENU.setPreferredSize(new java.awt.Dimension(980, 600));
+        MENU.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MENUKeyPressed(evt);
+            }
+        });
 
         INICIO.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         INICIO.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
@@ -5226,7 +5231,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                                 .addComponent(reg_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(mod_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(elim_dep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         MENU.addTab("Puestos y Departamentos", JPpue_dep);
@@ -6513,7 +6518,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 BsucKeyTyped(evt);
             }
         });
-        JPprov_suc.add(Bsuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 63, 160, -1));
+        JPprov_suc.add(Bsuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(783, 63, 145, -1));
 
         JCsuc.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         JCsuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE", "ID_CIU" }));
@@ -7301,7 +7306,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BcliMouseClicked
 
     private void BcliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcliKeyPressed
-        // TODO add your handling code here:
+        if (Bcli.getText().equals("Buscar")) {
+            Bcli.setText("");
+            Lcli.setVisible(true);
+        }
     }//GEN-LAST:event_BcliKeyPressed
 
     private void BcliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcliKeyReleased
@@ -7330,7 +7338,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BperMouseClicked
 
     private void BperKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BperKeyPressed
-        // TODO add your handling code here:
+        if (Bper.getText().equals("Buscar")) {
+            Bper.setText("");
+            Lper.setVisible(true);
+        }
     }//GEN-LAST:event_BperKeyPressed
 
     private void BperKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BperKeyReleased
@@ -7407,7 +7418,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BempMouseClicked
 
     private void BempKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BempKeyPressed
-        // TODO add your handling code here:
+        if (Bemp.getText().equals("Buscar")) {
+            Bemp.setText("");
+            Lemp.setVisible(true);
+        }
     }//GEN-LAST:event_BempKeyPressed
 
     private void BempKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BempKeyReleased
@@ -7501,11 +7515,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BdepKeyTyped
 
     private void BdepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdepKeyReleased
-        // TODO add your handling code here:
+        if (!Bdep.getText().equals("")) {
+            buscar(JTdep, Bdep, res_dep, dep, JCdep);
+        } else {
+            Ldep.setVisible(false);
+            Bdep.setText("Buscar");
+            Bdep.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BdepKeyReleased
 
     private void BdepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdepKeyPressed
-        // TODO add your handling code here:
+        if (Bdep.getText().equals("Buscar")) {
+            Bdep.setText("");
+            Ldep.setVisible(true);
+        }
     }//GEN-LAST:event_BdepKeyPressed
 
     private void BdepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BdepMouseClicked
@@ -7550,8 +7574,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_pueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_pueActionPerformed
         if (JPpue.isVisible()) {
-           eliminar(21); 
-        } else{
+            eliminar(21);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -7577,11 +7601,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BpueKeyTyped
 
     private void BpueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpueKeyReleased
-        // TODO add your handling code here:
+        if (!Bpue.getText().equals("")) {
+            buscar(JTpue, Bpue, res_pue, pue, JCpue);
+        } else {
+            Lpue.setVisible(false);
+            Bpue.setText("Buscar");
+            Bpue.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BpueKeyReleased
 
     private void BpueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpueKeyPressed
-        // TODO add your handling code here:
+        if (Bpue.getText().equals("Buscar")) {
+            Bpue.setText("");
+            Lpue.setVisible(true);
+        }
     }//GEN-LAST:event_BpueKeyPressed
 
     private void BpueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BpueMouseClicked
@@ -7605,11 +7639,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BproMouseClicked
 
     private void BproKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproKeyPressed
-        // TODO add your handling code here:
+        if (Bpro.getText().equals("Buscar")) {
+            Bpro.setText("");
+            Lpro.setVisible(true);
+        }
     }//GEN-LAST:event_BproKeyPressed
 
     private void BproKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproKeyReleased
-        // TODO add your handling code here:
+        if (!Bpro.getText().equals("")) {
+            buscar(JTpro, Bpro, res_pro, pro, JCpro);
+        } else {
+            Lpro.setVisible(false);
+            Bpro.setText("Buscar");
+            Bpro.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BproKeyReleased
 
     private void BproKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproKeyTyped
@@ -7633,8 +7677,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_proActionPerformed
         if (JPpro.isVisible()) {
-           eliminar(18); 
-        } else{
+            eliminar(18);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -7672,7 +7716,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JFproducto.forma = "registrar";
         JFproducto.cambiar_diseño();
         JFproducto.limpiar();
-        JFpro.setVisible(true);   
+        JFpro.setVisible(true);
     }//GEN-LAST:event_reg_proActionPerformed
 
     private void JCmarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCmarItemStateChanged
@@ -7686,11 +7730,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BmarMouseClicked
 
     private void BmarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BmarKeyPressed
-        // TODO add your handling code here:
+        if (Bmar.getText().equals("Buscar")) {
+            Bmar.setText("");
+            Lmar.setVisible(true);
+        }
     }//GEN-LAST:event_BmarKeyPressed
 
     private void BmarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BmarKeyReleased
-        // TODO add your handling code here:
+        if (!Bmar.getText().equals("")) {
+            buscar(JTmar, Bmar, res_mar, mar, JCmar);
+        } else {
+            Lmar.setVisible(false);
+            Bmar.setText("Buscar");
+            Bmar.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BmarKeyReleased
 
     private void BmarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BmarKeyTyped
@@ -7714,8 +7768,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_marActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_marActionPerformed
         if (JPmar.isVisible()) {
-           eliminar(14); 
-        } else{
+            eliminar(14);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -7762,11 +7816,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BcatMouseClicked
 
     private void BcatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcatKeyPressed
-        // TODO add your handling code here:
+        if (Bcat.getText().equals("Buscar")) {
+            Bcat.setText("");
+            Lcat.setVisible(true);
+        }
     }//GEN-LAST:event_BcatKeyPressed
 
     private void BcatKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcatKeyReleased
-        // TODO add your handling code here:
+        if (!Bcat.getText().equals("")) {
+            buscar(JTcat, Bcat, res_cat, cat, JCcat);
+        } else {
+            Lcat.setVisible(false);
+            Bcat.setText("Buscar");
+            Bcat.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BcatKeyReleased
 
     private void BcatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcatKeyTyped
@@ -7794,12 +7858,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_catActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_catActionPerformed
         if (JPcat.isVisible()) {
-           eliminar(1); 
-        } else{
+            eliminar(1);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
-        
+
     }//GEN-LAST:event_elim_catActionPerformed
 
     private void mod_catMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mod_catMouseEntered
@@ -7837,7 +7901,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_catActionPerformed
 
     private void descripcion_catKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcion_catKeyPressed
-        
+
     }//GEN-LAST:event_descripcion_catKeyPressed
 
     private void reg_depMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_depMouseEntered
@@ -7896,17 +7960,27 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCprovItemStateChanged
 
     private void BprovMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BprovMouseClicked
-       if (Bprov.getText().equals("Buscar")) {
+        if (Bprov.getText().equals("Buscar")) {
             Bprov.select(0, 0);
         }
     }//GEN-LAST:event_BprovMouseClicked
 
     private void BprovKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BprovKeyPressed
-        // TODO add your handling code here:
+        if (Bprov.getText().equals("Buscar")) {
+            Bprov.setText("");
+            Lprov.setVisible(true);
+        }
     }//GEN-LAST:event_BprovKeyPressed
 
     private void BprovKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BprovKeyReleased
-        // TODO add your handling code here:
+        if (!Bprov.getText().equals("")) {
+            buscar(JTprov, Bprov, res_prov, prov, JCprov);
+        } else {
+            Lprov.setVisible(false);
+            Bprov.setText("Buscar");
+            Bprov.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BprovKeyReleased
 
     private void BprovKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BprovKeyTyped
@@ -7930,8 +8004,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_provActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_provActionPerformed
         if (JPprov.isVisible()) {
-           eliminar(19); 
-        } else{
+            eliminar(19);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -7978,11 +8052,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BsucMouseClicked
 
     private void BsucKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BsucKeyPressed
-        // TODO add your handling code here:
+        if (Bsuc.getText().equals("Buscar")) {
+            Bsuc.setText("");
+            Lsuc.setVisible(true);
+        }
     }//GEN-LAST:event_BsucKeyPressed
 
     private void BsucKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BsucKeyReleased
-        // TODO add your handling code here:
+        if (!Bsuc.getText().equals("")) {
+            buscar(JTsuc, Bsuc, res_suc, suc, JCsuc);
+        } else {
+            Lsuc.setVisible(false);
+            Bsuc.setText("Buscar");
+            Bsuc.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BsucKeyReleased
 
     private void BsucKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BsucKeyTyped
@@ -8043,9 +8127,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_sucMouseExited
 
     private void elim_sucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_sucActionPerformed
-         if (JPsuc.isVisible()) {
-           eliminar(22); 
-        } else{
+        if (JPsuc.isVisible()) {
+            eliminar(22);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -8062,11 +8146,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BciuMouseClicked
 
     private void BciuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BciuKeyPressed
-        // TODO add your handling code here:
+        if (Bciu.getText().equals("Buscar")) {
+            Bciu.setText("");
+            Lciu.setVisible(true);
+        }
     }//GEN-LAST:event_BciuKeyPressed
 
     private void BciuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BciuKeyReleased
-        // TODO add your handling code here:
+        if (!Bciu.getText().equals("")) {
+            buscar(JTciu, Bciu, res_ciu, ciu, JCciu);
+        } else {
+            Lciu.setVisible(false);
+            Bciu.setText("Buscar");
+            Bciu.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BciuKeyReleased
 
     private void BciuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BciuKeyTyped
@@ -8090,8 +8184,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_ciuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_ciuActionPerformed
         if (JPciu.isVisible()) {
-           eliminar(2); 
-        } else{
+            eliminar(2);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -8134,17 +8228,27 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_mod_ciuActionPerformed
 
     private void BproviMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BproviMouseClicked
-       if (Bprovi.getText().equals("Buscar")) {
+        if (Bprovi.getText().equals("Buscar")) {
             Bprovi.select(0, 0);
         }
     }//GEN-LAST:event_BproviMouseClicked
 
     private void BproviKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproviKeyPressed
-        // TODO add your handling code here:
+        if (Bprovi.getText().equals("Buscar")) {
+            Bprovi.setText("");
+            Lprovi.setVisible(true);
+        }
     }//GEN-LAST:event_BproviKeyPressed
 
     private void BproviKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproviKeyReleased
-        // TODO add your handling code here:
+        if (!Bprovi.getText().equals("")) {
+            buscar(JTprovi, Bprovi, res_provi, provi, JCprovi);
+        } else {
+            Lprovi.setVisible(false);
+            Bprovi.setText("Buscar");
+            Bprovi.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BproviKeyReleased
 
     private void BproviKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BproviKeyTyped
@@ -8208,8 +8312,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_proviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_proviActionPerformed
         if (JPprovi.isVisible()) {
-           eliminar(20); 
-        } else{
+            eliminar(20);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -8226,11 +8330,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BgenMouseClicked
 
     private void BgenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BgenKeyPressed
-        // TODO add your handling code here:
+        if (Bgen.getText().equals("Buscar")) {
+            Bgen.setText("");
+            Lgen.setVisible(true);
+        }
     }//GEN-LAST:event_BgenKeyPressed
 
     private void BgenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BgenKeyReleased
-        // TODO add your handling code here:
+        if (!Bgen.getText().equals("")) {
+            buscar(JTgen, Bgen, res_gen, gen, JCgen);
+        } else {
+            Lgen.setVisible(false);
+            Bgen.setText("Buscar");
+            Bgen.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BgenKeyReleased
 
     private void BgenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BgenKeyTyped
@@ -8238,7 +8352,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BgenKeyTyped
 
     private void LgenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LgenMouseClicked
-        // TODO add your handling code here:
+        Lgen.setVisible(false);
+        Bgen.setText("Buscar");
+        Bgen.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LgenMouseClicked
 
     private void elim_genMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_genMouseEntered
@@ -8251,8 +8368,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_genActionPerformed
         if (JPgen.isVisible()) {
-           eliminar(12); 
-        } else{
+            eliminar(12);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -8299,11 +8416,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BdesMouseClicked
 
     private void BdesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdesKeyPressed
-        // TODO add your handling code here:
+        if (Bdes.getText().equals("Buscar")) {
+            Bdes.setText("");
+            Ldes.setVisible(true);
+        }
     }//GEN-LAST:event_BdesKeyPressed
 
     private void BdesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdesKeyReleased
-        // TODO add your handling code here:
+        if (!Bdes.getText().equals("")) {
+            buscar(JTdes, Bdes, res_des, des, JCdes);
+        } else {
+            Ldes.setVisible(false);
+            Bdes.setText("Buscar");
+            Bdes.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BdesKeyReleased
 
     private void BdesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdesKeyTyped
@@ -8315,7 +8442,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCdesItemStateChanged
 
     private void LdesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LdesMouseClicked
-        // TODO add your handling code here:
+        Ldes.setVisible(false);
+        Bdes.setText("Buscar");
+        Bdes.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LdesMouseClicked
 
     private void elim_desMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_desMouseEntered
@@ -8327,7 +8457,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_desMouseExited
 
     private void elim_desActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_desActionPerformed
-         if (JPdes.isVisible()) {
+        if (JPdes.isVisible()) {
             eliminar(5);
         } else {
             getToolkit().beep();
@@ -8380,11 +8510,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BpeMouseClicked
 
     private void BpeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpeKeyPressed
-        // TODO add your handling code here:
+        if (Bpe.getText().equals("Buscar")) {
+            Bpe.setText("");
+            Lpe.setVisible(true);
+        }
     }//GEN-LAST:event_BpeKeyPressed
 
     private void BpeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpeKeyReleased
-        // TODO add your handling code here:
+        if (!Bpe.getText().equals("")) {
+            buscar(JTpe, Bpe, res_pe, pe, JCpe);
+        } else {
+            Lpe.setVisible(false);
+            Bpe.setText("Buscar");
+            Bpe.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BpeKeyReleased
 
     private void BpeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpeKeyTyped
@@ -8392,10 +8532,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BpeKeyTyped
 
     private void LpeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LpeMouseClicked
-       Lpe.setVisible(false);
-       Bpe.setText("Buscar");
-       Bpe.select(0, 0);
-       visualizar();
+        Lpe.setVisible(false);
+        Bpe.setText("Buscar");
+        Bpe.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LpeMouseClicked
 
     private void reg_peMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_peMouseEntered
@@ -8410,7 +8550,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JFpago_empleado.forma = "registrar";
         JFpago_empleado.cambiar_diseño();
         JFpago_empleado.limpiar();
-        JFpe.setVisible(true); 
+        JFpe.setVisible(true);
     }//GEN-LAST:event_reg_peActionPerformed
 
     private void JCivaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCivaItemStateChanged
@@ -8424,11 +8564,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BivaMouseClicked
 
     private void BivaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BivaKeyPressed
-        // TODO add your handling code here:
+        if (Biva.getText().equals("Buscar")) {
+            Biva.setText("");
+            Liva.setVisible(true);
+        }
     }//GEN-LAST:event_BivaKeyPressed
 
     private void BivaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BivaKeyReleased
-        // TODO add your handling code here:
+        if (!Biva.getText().equals("")) {
+            buscar(JTiva, Biva, res_iva, iva, JCiva);
+        } else {
+            Liva.setVisible(false);
+            Biva.setText("Buscar");
+            Biva.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BivaKeyReleased
 
     private void BivaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BivaKeyTyped
@@ -8452,8 +8602,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_ivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_ivaActionPerformed
         if (JPiva.isVisible()) {
-           eliminar(13); 
-        } else{
+            eliminar(13);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -8479,11 +8629,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BfpMouseClicked
 
     private void BfpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BfpKeyPressed
-        // TODO add your handling code here:
+        if (Bfp.getText().equals("Buscar")) {
+            Bfp.setText("");
+            Lfp.setVisible(true);
+        }
     }//GEN-LAST:event_BfpKeyPressed
 
     private void BfpKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BfpKeyReleased
-        // TODO add your handling code here:
+        if (!Bfp.getText().equals("")) {
+            buscar(JTfp, Bfp, res_fp, fp, JCfp);
+        } else {
+            Lfp.setVisible(false);
+            Bfp.setText("Buscar");
+            Bfp.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BfpKeyReleased
 
     private void BfpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BfpKeyTyped
@@ -8511,8 +8671,8 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
 
     private void elim_fpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_fpActionPerformed
         if (JPfp.isVisible()) {
-           eliminar(11); 
-        } else{
+            eliminar(11);
+        } else {
             getToolkit().beep();
             JOptionPane.showMessageDialog(null, "¡Ningun registro seleccionado!");
         }
@@ -8588,9 +8748,9 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_f_ivaItemStateChanged
 
     private void f_forma_pagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_f_forma_pagoItemStateChanged
-        if (f_forma_pago.getSelectedIndex()!=0) {
+        if (f_forma_pago.getSelectedIndex() != 0) {
             f_forma_pago.setBackground(Color.green);
-        } else{
+        } else {
             f_forma_pago.setBackground(Color.red);
         }
     }//GEN-LAST:event_f_forma_pagoItemStateChanged
@@ -8609,11 +8769,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BeppMouseClicked
 
     private void BeppKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BeppKeyPressed
-        // TODO add your handling code here:
+        if (Bepp.getText().equals("Buscar")) {
+            Bepp.setText("");
+            Lepp.setVisible(true);
+        }
     }//GEN-LAST:event_BeppKeyPressed
 
     private void BeppKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BeppKeyReleased
-        // TODO add your handling code here:
+        if (!Bepp.getText().equals("")) {
+            buscar(JTenc_pp, Bepp, res_enc_pp, e_pp, JCepp);
+        } else {
+            Lepp.setVisible(false);
+            Bepp.setText("Buscar");
+            Bepp.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BeppKeyReleased
 
     private void BeppKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BeppKeyTyped
@@ -8633,10 +8803,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_reg_ppMouseExited
 
     private void reg_ppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_ppActionPerformed
-       JFpago_proveedor.limpiar();
-       JFpago_proveedor.visualizar(1);
-       JFpago_proveedor.visualizar(2);
-       JFpp.setVisible(true); 
+        JFpago_proveedor.limpiar();
+        JFpago_proveedor.visualizar(1);
+        JFpago_proveedor.visualizar(2);
+        JFpp.setVisible(true);
     }//GEN-LAST:event_reg_ppActionPerformed
 
     private void JCdppItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCdppItemStateChanged
@@ -8650,11 +8820,21 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BdppMouseClicked
 
     private void BdppKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdppKeyPressed
-        // TODO add your handling code here:
+        if (Bdpp.getText().equals("Buscar")) {
+            Bdpp.setText("");
+            Ldpp.setVisible(true);
+        }
     }//GEN-LAST:event_BdppKeyPressed
 
     private void BdppKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdppKeyReleased
-        // TODO add your handling code here:
+        if (!Bdpp.getText().equals("")) {
+            buscar(JTdet_pp, Bdpp, res_det_pp, d_pp, JCdpp);
+        } else {
+            Ldpp.setVisible(false);
+            Bdpp.setText("Buscar");
+            Bdpp.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BdppKeyReleased
 
     private void BdppKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BdppKeyTyped
@@ -8784,6 +8964,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private void JCencItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCencItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_JCencItemStateChanged
+
+    private void MENUKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MENUKeyPressed
+        
+    }//GEN-LAST:event_MENUKeyPressed
 
     
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
