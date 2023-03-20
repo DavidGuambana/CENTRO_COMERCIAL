@@ -98,16 +98,28 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
             "Descuento", "Precio con descuento", "Valor total", "Aciones"});
         JTdetalle.setModel(tabla_detalle);
         //ocultar o bloquear componentes
-//        lim_cat.setVisible(false);
-//        lim_ciu.setVisible(false);
-//        Lcli.setVisible(false);
-//        lim_des.setVisible(false);
-//        lim_det.setVisible(false);
-//        Lemp.setVisible(false);
-//        lim_enc.setVisible(false);
-//        //lim_gas.setVisible(false);
-//        lim_pro.setVisible(false);
-//        lim_prov.setVisible(false);
+        Lcat.setVisible(false);
+        Lciu.setVisible(false);
+        Lcli.setVisible(false);
+        Ldep.setVisible(false);
+        Ldes.setVisible(false);
+        Ldet.setVisible(false);
+        Ldpp.setVisible(false);
+        Lemp.setVisible(false);
+        Lenc.setVisible(false);
+        Lfp.setVisible(false);
+        Lgen.setVisible(false);
+        Liva.setVisible(false);
+        Lmar.setVisible(false);
+        Lpag.setVisible(false);
+        Lpe.setVisible(false);
+        Lepp.setVisible(false);
+        Lper.setVisible(false);
+        Lpro.setVisible(false);
+        Lprov.setVisible(false);
+        Lprovi.setVisible(false);
+        Lpue.setVisible(false);
+        Lsuc.setVisible(false);
 
     }
 
@@ -871,7 +883,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jsTabla_ciu22 = new javax.swing.JScrollPane();
         JTenc_pp = new javax.swing.JTable();
         res_enc_pp = new javax.swing.JLabel();
-        Lpe1 = new javax.swing.JLabel();
+        Lepp = new javax.swing.JLabel();
         Bepp = new javax.swing.JTextField();
         JCepp = new javax.swing.JComboBox<>();
         jLabel182 = new javax.swing.JLabel();
@@ -2642,17 +2654,17 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         res_enc_pp.setText("Resultados: 0 de 0");
         JPpagos.add(res_enc_pp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 751, 428, 35));
 
-        Lpe1.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-        Lpe1.setForeground(new java.awt.Color(0, 102, 102));
-        Lpe1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Lpe1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
-        Lpe1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Lpe1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Lepp.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        Lepp.setForeground(new java.awt.Color(0, 102, 102));
+        Lepp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lepp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        Lepp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Lepp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Lpe1MouseClicked(evt);
+                LeppMouseClicked(evt);
             }
         });
-        JPpagos.add(Lpe1, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 560, -1, 35));
+        JPpagos.add(Lepp, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 560, -1, 35));
 
         Bepp.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         Bepp.setText("Buscar");
@@ -7299,7 +7311,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BcliKeyTyped
 
     private void LcliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LcliMouseClicked
-        // TODO add your handling code here:
+        Lcli.setVisible(false);
+        Bcli.setText("Buscar");
+        Bcli.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LcliMouseClicked
 
     private void JCperItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCperItemStateChanged
@@ -7323,7 +7338,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BperKeyTyped
 
     private void LperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LperMouseClicked
-        // TODO add your handling code here:
+        Lper.setVisible(false);
+        Bper.setText("Buscar");
+        Bper.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LperMouseClicked
 
     private void elim_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_cliActionPerformed
@@ -7399,7 +7417,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCempItemStateChanged
 
     private void LempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LempMouseClicked
-        // TODO add your handling code here:
+        Lemp.setVisible(false);
+        Bemp.setText("Buscar");
+        Bemp.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LempMouseClicked
 
     private void elim_empMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_empMouseEntered
@@ -7459,7 +7480,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jLabel86MouseClicked
 
     private void LdepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LdepMouseClicked
-        // TODO add your handling code here:
+        Ldep.setVisible(false);
+        Bdep.setText("Buscar");
+        Bdep.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LdepMouseClicked
 
     private void JCdepItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCdepItemStateChanged
@@ -7534,7 +7558,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_elim_pueMouseEntered
 
     private void LpueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LpueMouseClicked
-        // TODO add your handling code here:
+        Lpue.setVisible(false);
+        Bpue.setText("Buscar");
+        Bpue.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LpueMouseClicked
 
     private void BpueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpueKeyTyped
@@ -7578,7 +7605,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BproKeyTyped
 
     private void LproMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LproMouseClicked
-        // TODO add your handling code here:
+        Lpro.setVisible(false);
+        Bpro.setText("Buscar");
+        Bpro.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LproMouseClicked
 
     private void elim_proMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_proMouseEntered
@@ -7654,7 +7684,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BmarKeyTyped
 
     private void LmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LmarMouseClicked
-        // TODO add your handling code here:
+        Lmar.setVisible(false);
+        Bmar.setText("Buscar");
+        Bmar.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LmarMouseClicked
 
     private void elim_marMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_marMouseEntered
@@ -7729,7 +7762,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCcatItemStateChanged
 
     private void LcatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LcatMouseClicked
-        // TODO add your handling code here:
+        Lcat.setVisible(false);
+        Bcat.setText("Buscar");
+        Bcat.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LcatMouseClicked
 
     private void elim_catMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_catMouseEntered
@@ -7860,7 +7896,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BprovKeyTyped
 
     private void LprovMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LprovMouseClicked
-        // TODO add your handling code here:
+        Lprov.setVisible(false);
+        Bprov.setText("Buscar");
+        Bprov.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LprovMouseClicked
 
     private void elim_provMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_provMouseEntered
@@ -7935,7 +7974,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCsucItemStateChanged
 
     private void LsucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LsucMouseClicked
-        // TODO add your handling code here:
+        Lsuc.setVisible(false);
+        Bsuc.setText("Buscar");
+        Bsuc.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LsucMouseClicked
 
     private void reg_sucMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_sucMouseEntered
@@ -8010,7 +8052,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BciuKeyTyped
 
     private void LciuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LciuMouseClicked
-        // TODO add your handling code here:
+        Lciu.setVisible(false);
+        Bciu.setText("Buscar");
+        Bciu.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LciuMouseClicked
 
     private void elim_ciuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_ciuMouseEntered
@@ -8087,7 +8132,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCproviItemStateChanged
 
     private void LproviMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LproviMouseClicked
-        // TODO add your handling code here:
+        Lprovi.setVisible(false);
+        Bprovi.setText("Buscar");
+        Bprovi.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LproviMouseClicked
 
     private void reg_proviMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_proviMouseEntered
@@ -8314,7 +8362,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BpeKeyTyped
 
     private void LpeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LpeMouseClicked
-        // TODO add your handling code here:
+       Lpe.setVisible(false);
+       Bpe.setText("Buscar");
+       Bpe.select(0, 0);
+       visualizar();
     }//GEN-LAST:event_LpeMouseClicked
 
     private void reg_peMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reg_peMouseEntered
@@ -8353,7 +8404,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BivaKeyTyped
 
     private void LivaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LivaMouseClicked
-        // TODO add your handling code here:
+        Liva.setVisible(false);
+        Biva.setText("Buscar");
+        Biva.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LivaMouseClicked
 
     private void elim_ivaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elim_ivaMouseEntered
@@ -8407,7 +8461,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JCfpItemStateChanged
 
     private void LfpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LfpMouseClicked
-        // TODO add your handling code here:
+        Lfp.setVisible(false);
+        Bfp.setText("Buscar");
+        Bfp.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LfpMouseClicked
 
     private void descripcion_depKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcion_depKeyPressed
@@ -8504,9 +8561,12 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_f_forma_pagoItemStateChanged
 
-    private void Lpe1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lpe1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Lpe1MouseClicked
+    private void LeppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LeppMouseClicked
+        Lepp.setVisible(false);
+        Bepp.setText("Buscar");
+        Bepp.select(0, 0);
+        visualizar();
+    }//GEN-LAST:event_LeppMouseClicked
 
     private void BeppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BeppMouseClicked
         // TODO add your handling code here:
@@ -8564,7 +8624,10 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BdppKeyTyped
 
     private void LdppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LdppMouseClicked
-        // TODO add your handling code here:
+        Ldpp.setVisible(false);
+        Bdpp.setText("Buscar");
+        Bdpp.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LdppMouseClicked
 
     private void JCpagItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCpagItemStateChanged
@@ -8576,19 +8639,34 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BpagKeyTyped
 
     private void BpagKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpagKeyReleased
-        // TODO add your handling code here:
+        if (!Bpag.getText().equals("")) {
+            buscar(JTpag, Bpag, res_pag, pag, JCpag);
+        } else {
+            Lpag.setVisible(false);
+            Bpag.setText("Buscar");
+            Bpag.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BpagKeyReleased
 
     private void BpagKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BpagKeyPressed
-        // TODO add your handling code here:
+        if (Bpag.getText().equals("Buscar")) {
+            Bpag.setText("");
+            Lpag.setVisible(true);
+        }
     }//GEN-LAST:event_BpagKeyPressed
 
     private void BpagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BpagMouseClicked
-        // TODO add your handling code here:
+        if (Bpag.getText().equals("Buscar")) {
+            Bpag.select(0, 0);
+        }
     }//GEN-LAST:event_BpagMouseClicked
 
     private void LpagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LpagMouseClicked
-        // TODO add your handling code here:
+        Lpag.setVisible(false);
+        Bpag.setText("Buscar");
+        Bpag.select(0, 0);
+        visualizar();
     }//GEN-LAST:event_LpagMouseClicked
 
     private void LdetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LdetMouseClicked
@@ -9558,13 +9636,13 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel Ldpp;
     private javax.swing.JLabel Lemp;
     private javax.swing.JLabel Lenc;
+    private javax.swing.JLabel Lepp;
     private javax.swing.JLabel Lfp;
     private javax.swing.JLabel Lgen;
     private javax.swing.JLabel Liva;
     private javax.swing.JLabel Lmar;
     private javax.swing.JLabel Lpag;
     private javax.swing.JLabel Lpe;
-    private javax.swing.JLabel Lpe1;
     private javax.swing.JLabel Lper;
     private javax.swing.JLabel Lpro;
     private javax.swing.JLabel Lprov;
