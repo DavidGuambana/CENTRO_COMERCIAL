@@ -1,6 +1,5 @@
 package centro_comercial;
 import base_datos.conexion;
-import static centro_comercial.PRINCIPAL.actualizado;
 import javax.swing.JOptionPane;
 import otros.validar;
 import java.sql.*;
@@ -12,8 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -24,9 +21,9 @@ import otros.BotonTabla;
 public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
     public boolean actualizado = false;
     public static String forma;
-    public static ResultSet rs;
+    public static ResultSet rs, rs2;
     public static Connection con = null;
-    public static PreparedStatement ps;
+    public static PreparedStatement ps, ps2;
     public static DefaultTableModel tabla = null, tabla_detalle = null;
     public static String nombre_propio;
     public static String FK_emp;
@@ -147,8 +144,16 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                     ps.setDouble(3, xsubtotal);
                     ps.setInt(4, rs.getInt(1));
                     ps.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
+                    ps2 = (PreparedStatement) con.prepareStatement("SELECT * FROM PRODUCTO WHERE CODIGO=" + xcodigo_pro);
+                    rs2 = ps2.executeQuery();
+                    rs2.next();
+                    int cant = rs2.getInt(8) + xcantidad;
+                    ps2 = (PreparedStatement) con.prepareStatement("UPDATE PRODUCTO SET STOK=? WHERE CODIGO=?");
+                    ps2.setInt(1, cant);
+                    ps2.setInt(2, xcodigo_pro);
+                    ps2.executeUpdate();
                 }
+                JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
                 this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();

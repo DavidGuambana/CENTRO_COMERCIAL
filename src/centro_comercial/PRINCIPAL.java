@@ -695,6 +695,15 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                     ps.setDouble(3, xsubtotal);
                     ps.setInt(4, FK_enc);
                     ps.executeUpdate();
+                    ps = (PreparedStatement) con.prepareStatement("SELECT STOK FROM PRODUCTO WHERE CODIGO="+xcodigo_pro);
+                    rs = ps.executeQuery();
+                    rs.next();
+                    int cant = rs.getInt(1)-xcantidad;
+                    ps = (PreparedStatement) con.prepareStatement("UPDATE PRODUCTO SET STOK=? WHERE CODIGO=?");
+                    ps.setInt(1, cant);
+                    ps.setInt(2, xcodigo_pro);
+                    ps.executeUpdate();
+                    
                 }
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM FORMA_PAGO WHERE NOMBRE='"+f_forma_pago.getSelectedItem().toString()+"'");
                 rs = ps.executeQuery();
