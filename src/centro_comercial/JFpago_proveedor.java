@@ -47,7 +47,6 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         bot.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta)));
     }
     public static void limpiar(){
-        
         proveedor.setText("");
         proveedor.setBackground(Color.red);
         empleado.setText("");
@@ -107,7 +106,6 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                 ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  encabezado_pp ORDER BY CODIGO DESC LIMIT 1");
                 rs = ps.executeQuery();
                 rs.next();
-                System.out.println("a");
                 //registra detalles de la factura
                 for (int i = 0; i < JTdetalles.getRowCount(); i++) {
                     int xcodigo_pro = Integer.parseInt(JTdetalles.getValueAt(i, 0).toString());
@@ -120,9 +118,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                     ps.setInt(4, rs.getInt(1));
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    System.out.println("b");
                 }
-                System.out.println("c");
                 for (int j = 1; j > JTdetalles.getRowCount(); j--) {
                         tabla_detalle.removeRow(j - 1);
                     }

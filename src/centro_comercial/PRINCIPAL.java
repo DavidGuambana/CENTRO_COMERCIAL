@@ -1940,7 +1940,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jsTabla_ciu3.setViewportView(JTdet);
 
         JCenc.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCenc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCenc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CODIGO", "ID_SUCURSAL", "ID_EMPLEADO", "ID_CLIENTE", "FECHA_REGISTRO", "ESTADO" }));
         JCenc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCencItemStateChanged(evt);
@@ -2011,7 +2011,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         res_det.setText("Resultados: 0 de 0");
 
         JCdet.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCdet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Producto", "Cantidad", "Subtotal", "C. Factura" }));
+        JCdet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CODIGO", "CÓDIGO_PRODUCTO", "CANTIDAD", "SUBTOTAL", "CODIGO_ENCABEZADO" }));
         JCdet.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCdetItemStateChanged(evt);
@@ -2122,7 +2122,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         });
 
         JCpag.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCpag.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Producto", "Cantidad", "Subtotal", "C. Factura" }));
+        JCpag.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NUMERO", "TOTAL_SIN_IVA", "ID_FORMA PAGO", "ID_IVA", "TOTAL_MAS_IVA", "CODIGO_ENC" }));
         JCpag.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCpagItemStateChanged(evt);
@@ -2316,7 +2316,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPpagos.add(jLabel147, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 20, -1, 35));
 
         JCpe.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCpe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCpe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NUMERO", "ID_REMITENTE", "ID_DESTINATARIO", "TOTAL", "FECHA_REG" }));
         JCpe.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCpeItemStateChanged(evt);
@@ -2681,7 +2681,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPpagos.add(Bepp, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 560, 202, -1));
 
         JCepp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCepp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCepp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CODIGO", "RUC", "TOTAL", "ID_EMPLEADO", "FECHA" }));
         JCepp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCeppItemStateChanged(evt);
@@ -2766,7 +2766,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPpagos.add(jsTabla_ciu23, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 600, 428, 150));
 
         JCdpp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCdpp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCdpp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CODIGO", "PRODUCTO", "CANTIDAD", "SUBTOTAL", "NUM_COMPRA" }));
         JCdpp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCdppItemStateChanged(evt);
@@ -2856,7 +2856,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jsTabla_ciu20.setViewportView(JTiva);
 
         JCiva.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCiva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCiva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "IMPUESTO" }));
         JCiva.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCivaItemStateChanged(evt);
@@ -3073,7 +3073,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         });
 
         JCfp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCfp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCfp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE" }));
         JCfp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCfpItemStateChanged(evt);
@@ -3391,7 +3391,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPcli_emp.add(jsTabla_ciu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 378, 420, 170));
 
         JCcli.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCcli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCcli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "CEDULA", "ID_DESCUENTO" }));
         JCcli.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCcliItemStateChanged(evt);
@@ -3525,7 +3525,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPcli_emp.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 20, -1, 35));
 
         JCper.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CEDULA", "NOMBRE", "APELLIDO", "FECHA_NAC", "ID_SEXO", "CELULAR", "EMAIL", "DIRECCION", "ID_CIUDAD", "FECHA_REGISTRO" }));
         JCper.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCperItemStateChanged(evt);
@@ -3798,7 +3798,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPcli_emp.add(Bemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 330, 197, -1));
 
         JCemp.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCemp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCemp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "CEDULA", "ID_DEPARTAMENTO", "ID_PUESTO" }));
         JCemp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCempItemStateChanged(evt);
@@ -4093,7 +4093,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jsTabla_ciu18.setViewportView(JTgen);
 
         JCgen.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCgen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCgen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "SEXO" }));
         JCgen.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCgenItemStateChanged(evt);
@@ -4330,7 +4330,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         });
 
         JCdes.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCdes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCdes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE", "PORCENTAJE" }));
         JCdes.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCdesItemStateChanged(evt);
@@ -4659,7 +4659,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jsTabla_ciu7.setViewportView(JTpue);
 
         JCpue.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCpue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCpue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE", "SUELDO" }));
         JCpue.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCpueItemStateChanged(evt);
@@ -4908,7 +4908,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         });
 
         JCdep.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCdep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCdep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE", "DESCRIPCIÓN" }));
         JCdep.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCdepItemStateChanged(evt);
@@ -5268,7 +5268,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPproductos.add(jLabel114, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 20, -1, 35));
 
         JCpro.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCpro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCpro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CODIGO", "NOMBRE", "ID_MARCA", "PRECIO", "EXIS_MAX", "EXIS_MIN", "STOK", "ID_CATEGORIA", "FECHA_REGISTRO", "RUC_PROVEEDOR" }));
         JCpro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCproItemStateChanged(evt);
@@ -5609,7 +5609,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         jsTabla_ciu9.setViewportView(JTmar);
 
         JCmar.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCmar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCmar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE" }));
         JCmar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCmarItemStateChanged(evt);
@@ -5846,7 +5846,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         });
 
         JCcat.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCcat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCcat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE", "DESCRIPCIÓN" }));
         JCcat.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCcatItemStateChanged(evt);
@@ -6190,7 +6190,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPprov_suc.add(jsTabla_ciu12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 111, 469, 150));
 
         JCprov.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCprov.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCprov.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RUC", "NOMBRE_EMPRESA", "CELULAR", "EMAIL", "ID_CIUDAD", "FECHA_REGISTRO" }));
         JCprov.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCprovItemStateChanged(evt);
@@ -6504,7 +6504,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPprov_suc.add(Bsuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(783, 63, 145, -1));
 
         JCsuc.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCsuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCsuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE", "ID_CIU" }));
         JCsuc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCsucItemStateChanged(evt);
@@ -6732,7 +6732,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPciu_provi.add(jsTabla_ciu14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 111, 420, 150));
 
         JCciu.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCciu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCciu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE", "ID_PROVICIA" }));
         JCciu.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCciuItemStateChanged(evt);
@@ -6999,7 +6999,7 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
         JPciu_provi.add(Bprovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 63, 197, -1));
 
         JCprovi.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        JCprovi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "C. Cliente", "F. Registro", "Total" }));
+        JCprovi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "NOMBRE" }));
         JCprovi.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCproviItemStateChanged(evt);
@@ -9058,16 +9058,14 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
                 public void mousePressed(MouseEvent Mouse_evt) {
                     if (Mouse_evt.getClickCount() == 1) {
                         try {
-                            System.out.println("aqui");
                             pk = JTiva.getValueAt(JTiva.getSelectedRow(), 0).toString();
                             ps = (PreparedStatement) con.prepareStatement(consulta+"IVA WHERE ID="+pk);
                             rs = ps.executeQuery();
                             rs.next();
                             id_iva.setText(pk);
-                            impuesto_iva.setText("%"+String.valueOf(rs.getInt(2)));
+                            impuesto_iva.setText(""+rs.getInt(2)+"%");
                             ver_panel(13,true);
                         } catch (SQLException ex) {
-                            
                         }
                     }
                     if (Mouse_evt.getClickCount() == 2) {

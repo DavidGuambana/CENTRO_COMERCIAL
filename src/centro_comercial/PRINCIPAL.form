@@ -1474,11 +1474,13 @@
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Cliente"/>
-                            <StringItem index="2" value="F. Registro"/>
-                            <StringItem index="3" value="Total"/>
+                          <StringArray count="6">
+                            <StringItem index="0" value="CODIGO"/>
+                            <StringItem index="1" value="ID_SUCURSAL"/>
+                            <StringItem index="2" value="ID_EMPLEADO"/>
+                            <StringItem index="3" value="ID_CLIENTE"/>
+                            <StringItem index="4" value="FECHA_REGISTRO"/>
+                            <StringItem index="5" value="ESTADO"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -1608,11 +1610,11 @@
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="5">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Producto"/>
-                            <StringItem index="2" value="Cantidad"/>
-                            <StringItem index="3" value="Subtotal"/>
-                            <StringItem index="4" value="C. Factura"/>
+                            <StringItem index="0" value="CODIGO"/>
+                            <StringItem index="1" value="C&#xd3;DIGO_PRODUCTO"/>
+                            <StringItem index="2" value="CANTIDAD"/>
+                            <StringItem index="3" value="SUBTOTAL"/>
+                            <StringItem index="4" value="CODIGO_ENCABEZADO"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -1788,12 +1790,13 @@
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="5">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Producto"/>
-                            <StringItem index="2" value="Cantidad"/>
-                            <StringItem index="3" value="Subtotal"/>
-                            <StringItem index="4" value="C. Factura"/>
+                          <StringArray count="6">
+                            <StringItem index="0" value="NUMERO"/>
+                            <StringItem index="1" value="TOTAL_SIN_IVA"/>
+                            <StringItem index="2" value="ID_FORMA PAGO"/>
+                            <StringItem index="3" value="ID_IVA"/>
+                            <StringItem index="4" value="TOTAL_MAS_IVA"/>
+                            <StringItem index="5" value="CODIGO_ENC"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -1973,11 +1976,12 @@
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Cliente"/>
-                            <StringItem index="2" value="F. Registro"/>
-                            <StringItem index="3" value="Total"/>
+                          <StringArray count="5">
+                            <StringItem index="0" value="NUMERO"/>
+                            <StringItem index="1" value="ID_REMITENTE"/>
+                            <StringItem index="2" value="ID_DESTINATARIO"/>
+                            <StringItem index="3" value="TOTAL"/>
+                            <StringItem index="4" value="FECHA_REG"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -2651,11 +2655,12 @@
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Cliente"/>
-                            <StringItem index="2" value="F. Registro"/>
-                            <StringItem index="3" value="Total"/>
+                          <StringArray count="5">
+                            <StringItem index="0" value="CODIGO"/>
+                            <StringItem index="1" value="RUC"/>
+                            <StringItem index="2" value="TOTAL"/>
+                            <StringItem index="3" value="ID_EMPLEADO"/>
+                            <StringItem index="4" value="FECHA"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -2823,11 +2828,12 @@
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Cliente"/>
-                            <StringItem index="2" value="F. Registro"/>
-                            <StringItem index="3" value="Total"/>
+                          <StringArray count="5">
+                            <StringItem index="0" value="CODIGO"/>
+                            <StringItem index="1" value="PRODUCTO"/>
+                            <StringItem index="2" value="CANTIDAD"/>
+                            <StringItem index="3" value="SUBTOTAL"/>
+                            <StringItem index="4" value="NUM_COMPRA"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -3127,11 +3133,9 @@
                       <Font name="Yu Gothic UI Light" size="16" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="C&#xf3;digo"/>
-                        <StringItem index="1" value="C. Cliente"/>
-                        <StringItem index="2" value="F. Registro"/>
-                        <StringItem index="3" value="Total"/>
+                      <StringArray count="2">
+                        <StringItem index="0" value="ID"/>
+                        <StringItem index="1" value="IMPUESTO"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -3483,11 +3487,9 @@
                       <Font name="Yu Gothic UI Light" size="16" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="C&#xf3;digo"/>
-                        <StringItem index="1" value="C. Cliente"/>
-                        <StringItem index="2" value="F. Registro"/>
-                        <StringItem index="3" value="Total"/>
+                      <StringArray count="2">
+                        <StringItem index="0" value="ID"/>
+                        <StringItem index="1" value="NOMBRE"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -3885,11 +3887,10 @@
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Cliente"/>
-                            <StringItem index="2" value="F. Registro"/>
-                            <StringItem index="3" value="Total"/>
+                          <StringArray count="3">
+                            <StringItem index="0" value="ID"/>
+                            <StringItem index="1" value="CEDULA"/>
+                            <StringItem index="2" value="ID_DESCUENTO"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -4169,11 +4170,17 @@
                           <Font name="Yu Gothic UI Light" size="16" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Cliente"/>
-                            <StringItem index="2" value="F. Registro"/>
-                            <StringItem index="3" value="Total"/>
+                          <StringArray count="10">
+                            <StringItem index="0" value="CEDULA"/>
+                            <StringItem index="1" value="NOMBRE"/>
+                            <StringItem index="2" value="APELLIDO"/>
+                            <StringItem index="3" value="FECHA_NAC"/>
+                            <StringItem index="4" value="ID_SEXO"/>
+                            <StringItem index="5" value="CELULAR"/>
+                            <StringItem index="6" value="EMAIL"/>
+                            <StringItem index="7" value="DIRECCION"/>
+                            <StringItem index="8" value="ID_CIUDAD"/>
+                            <StringItem index="9" value="FECHA_REGISTRO"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -4779,10 +4786,10 @@
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="4">
-                            <StringItem index="0" value="C&#xf3;digo"/>
-                            <StringItem index="1" value="C. Cliente"/>
-                            <StringItem index="2" value="F. Registro"/>
-                            <StringItem index="3" value="Total"/>
+                            <StringItem index="0" value="ID"/>
+                            <StringItem index="1" value="CEDULA"/>
+                            <StringItem index="2" value="ID_DEPARTAMENTO"/>
+                            <StringItem index="3" value="ID_PUESTO"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -5641,11 +5648,9 @@
                       <Font name="Yu Gothic UI Light" size="16" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="C&#xf3;digo"/>
-                        <StringItem index="1" value="C. Cliente"/>
-                        <StringItem index="2" value="F. Registro"/>
-                        <StringItem index="3" value="Total"/>
+                      <StringArray count="2">
+                        <StringItem index="0" value="ID"/>
+                        <StringItem index="1" value="SEXO"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -6022,11 +6027,10 @@
                       <Font name="Yu Gothic UI Light" size="16" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="C&#xf3;digo"/>
-                        <StringItem index="1" value="C. Cliente"/>
-                        <StringItem index="2" value="F. Registro"/>
-                        <StringItem index="3" value="Total"/>
+                      <StringArray count="3">
+                        <StringItem index="0" value="ID"/>
+                        <StringItem index="1" value="NOMBRE"/>
+                        <StringItem index="2" value="PORCENTAJE"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -6559,11 +6563,10 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="ID"/>
+                    <StringItem index="1" value="NOMBRE"/>
+                    <StringItem index="2" value="SUELDO"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -6962,11 +6965,10 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="ID"/>
+                    <StringItem index="1" value="NOMBRE"/>
+                    <StringItem index="2" value="DESCRIPCI&#xd3;N"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -7422,11 +7424,17 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="10">
+                    <StringItem index="0" value="CODIGO"/>
+                    <StringItem index="1" value="NOMBRE"/>
+                    <StringItem index="2" value="ID_MARCA"/>
+                    <StringItem index="3" value="PRECIO"/>
+                    <StringItem index="4" value="EXIS_MAX"/>
+                    <StringItem index="5" value="EXIS_MIN"/>
+                    <StringItem index="6" value="STOK"/>
+                    <StringItem index="7" value="ID_CATEGORIA"/>
+                    <StringItem index="8" value="FECHA_REGISTRO"/>
+                    <StringItem index="9" value="RUC_PROVEEDOR"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -8189,11 +8197,9 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="2">
+                    <StringItem index="0" value="ID"/>
+                    <StringItem index="1" value="NOMBRE"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -8570,11 +8576,10 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="ID"/>
+                    <StringItem index="1" value="NOMBRE"/>
+                    <StringItem index="2" value="DESCRIPCI&#xd3;N"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -9002,11 +9007,13 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="6">
+                    <StringItem index="0" value="RUC"/>
+                    <StringItem index="1" value="NOMBRE_EMPRESA"/>
+                    <StringItem index="2" value="CELULAR"/>
+                    <StringItem index="3" value="EMAIL"/>
+                    <StringItem index="4" value="ID_CIUDAD"/>
+                    <StringItem index="5" value="FECHA_REGISTRO"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -9562,11 +9569,10 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="ID"/>
+                    <StringItem index="1" value="NOMBRE"/>
+                    <StringItem index="2" value="ID_CIU"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -10007,11 +10013,10 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="ID"/>
+                    <StringItem index="1" value="NOMBRE"/>
+                    <StringItem index="2" value="ID_PROVICIA"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -10479,11 +10484,9 @@
                   <Font name="Yu Gothic UI Light" size="16" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="C&#xf3;digo"/>
-                    <StringItem index="1" value="C. Cliente"/>
-                    <StringItem index="2" value="F. Registro"/>
-                    <StringItem index="3" value="Total"/>
+                  <StringArray count="2">
+                    <StringItem index="0" value="ID"/>
+                    <StringItem index="1" value="NOMBRE"/>
                   </StringArray>
                 </Property>
               </Properties>
