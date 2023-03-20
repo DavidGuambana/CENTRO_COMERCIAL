@@ -19,7 +19,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
     public static ResultSet rs;
     public static Connection con = null;
     public static PreparedStatement ps;
-    public static DefaultTableModel tabla = null, tabla_detalle;
+    public static DefaultTableModel tabla = null, tabla_detalle = null;
     public static String nombre_propio;
     public static int FK_emp;
     public static String FK_prov;
@@ -34,7 +34,10 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
     public final void iniciar() {
         seleccionar();
         InsertarIcono(boton1, "/imagenes/elim.png");
+        tabla_detalle = new DefaultTableModel(null, new Object[]{"C. Producto", "Descipción", "Cantidad", "Precio","Subtotal", "Aciones"});
+        JTdetalles.setModel(tabla_detalle);
     }
+
     public void InsertarIcono(JButton bot, String ruta){ //insertar icono en boton:
         bot.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta)));
     }
@@ -145,8 +148,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                         if (repetido) {
                             JOptionPane.showMessageDialog(null, "¡Este producto ya fué seleccionado!, Seleccione otro!", null, JOptionPane.WARNING_MESSAGE);
                         } else {
-                            try {
-                                int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad:", 1));
+                            int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad:", 1));
                                 if (cantidad > 0) {
                                     JTdetalles.setDefaultRenderer(Object.class, new BotonTabla());
                                     Object detalle[] = {codigo_pro, nombre_pro, cantidad, precio, Math.round((cantidad * precio) * 100.0) / 100.0, boton1};
@@ -165,9 +167,11 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                                     }
 
                                 }
-                            } catch (Exception e) {
-                                JOptionPane.showMessageDialog(null, "¡Cantiadad inválida!", null, JOptionPane.ERROR_MESSAGE);
-                            }
+//                            try {
+//                                
+//                            } catch (Exception e) {
+//                                JOptionPane.showMessageDialog(null, "¡Cantiadad inválida!", null, JOptionPane.ERROR_MESSAGE);
+//                            }
                         }
                     }
                 }
@@ -180,6 +184,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                     FK_prov = JTprov.getValueAt(JTprov.getSelectedRow(), 0).toString();
                     proveedor.setText(JTprov.getValueAt(JTprov.getSelectedRow(), 1).toString());
                     proveedor.setBackground(Color.green);
+                    visualizar(3);
                 }
             }
         });
