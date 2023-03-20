@@ -19,7 +19,7 @@ public class JFpago_proveedor extends javax.swing.JFrame {
     public JFpago_proveedor() {
         initComponents();
         setLocationRelativeTo(null);
-        visualizar();
+//        visualizar();
     }
     
     public static void limpiar(){
@@ -79,7 +79,7 @@ public class JFpago_proveedor extends javax.swing.JFrame {
                 } else {
                     ps = (PreparedStatement) con.prepareStatement("INSERT INTO CATEGORIA (NOMBRE, DESCRIPCION) VALUES (?,?)");
                     ps.setString(1, proveedor.getText().toUpperCase());
-                    ps.setString(2, jta_descripcion.getText().toUpperCase());
+                    //ps.setString(2, jta_descripcion.getText().toUpperCase());
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
                     PRINCIPAL.actualizado = false;
@@ -101,8 +101,8 @@ public class JFpago_proveedor extends javax.swing.JFrame {
                 } else {
                     ps = (PreparedStatement) con.prepareStatement("UPDATE CATEGORIA SET NOMBRE=?,DESCRIPCION=? WHERE ID=?");
                     ps.setString(1, proveedor.getText().toUpperCase());
-                    ps.setString(2, jta_descripcion.getText().toUpperCase());
-                    ps.setInt(3, Integer.parseInt(id.getText()));
+//                    ps.setString(2, jta_descripcion.getText().toUpperCase());
+                    //ps.setInt(3, Integer.parseInt(id.getText()));
                     ps.executeUpdate(); //Ejecuta la consulta
                     JOptionPane.showMessageDialog(null, "¡Modificado correctamente!");
                     PRINCIPAL.actualizado = false;
@@ -614,17 +614,17 @@ public class JFpago_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_cerrarMouseClicked
 
     private void jb_EjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_EjecutarActionPerformed
-        String desc = jta_descripcion.getText().replaceAll("\\s+", "");
-        if (proveedor.getText().equals("") || desc.equals("")) {
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
-        } else {
-            if (forma.equals("registrar")) {
-                registrar();
-            } else if(forma.equals("modificar")){
-                modificar();
-            }
-        }
+       //String desc = jta_descripcion.getText().replaceAll("\\s+", "");
+//        if (proveedor.getText().equals("") || desc.equals("")) {
+//            getToolkit().beep();
+//            JOptionPane.showMessageDialog(rootPane, "¡Aún hay campos por completar!");
+//        } else {
+//            if (forma.equals("registrar")) {
+//                registrar();
+//            } else if(forma.equals("modificar")){
+//                modificar();
+//            }
+//        }
 
     }//GEN-LAST:event_jb_EjecutarActionPerformed
 
