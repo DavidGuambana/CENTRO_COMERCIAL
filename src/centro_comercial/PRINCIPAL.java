@@ -7313,7 +7313,14 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BcliKeyPressed
 
     private void BcliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcliKeyReleased
-        // TODO add your handling code here:
+       if (!Bcli.getText().equals("")) {
+            buscar(JTcli, Bcli, res_cli, cli, JCcli);
+        } else {
+            Lcli.setVisible(false);
+            Bcli.setText("Buscar");
+            Bcli.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BcliKeyReleased
 
     private void BcliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcliKeyTyped
@@ -7345,7 +7352,14 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BperKeyPressed
 
     private void BperKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BperKeyReleased
-        // TODO add your handling code here:
+      if (!Bper.getText().equals("")) {
+            buscar(JTper, Bper, res_per, per, JCper);
+        } else {
+            Lper.setVisible(false);
+            Bper.setText("Buscar");
+            Bper.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BperKeyReleased
 
     private void BperKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BperKeyTyped
@@ -7425,7 +7439,14 @@ public class PRINCIPAL extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BempKeyPressed
 
     private void BempKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BempKeyReleased
-        // TODO add your handling code here:
+        if (!Bemp.getText().equals("")) {
+            buscar(JTemp, Bemp, res_emp, emp, JCemp);
+        } else {
+            Lemp.setVisible(false);
+            Bemp.setText("Buscar");
+            Bemp.select(0, 0);
+            visualizar();
+        }
     }//GEN-LAST:event_BempKeyReleased
 
     private void BempKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BempKeyTyped
