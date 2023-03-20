@@ -31,7 +31,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
     public static String nombre_propio;
     public static String FK_emp;
     public static String FK_prov;
-    ArrayList<String> detalles = new ArrayList<>();
+    public static ArrayList<String> detalles = new ArrayList<>();
     JButton boton1 = new JButton();
     double xtotal;
     
@@ -82,7 +82,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
         empleado.setText("");
         empleado.setBackground(Color.red);
     }
-     //cargar los datos en las tablas:
+    //cargar los datos en las tablas:
     public static void visualizar(int num) {
         con = (Connection) conexion.conectar();
         if (con != null) {
@@ -149,10 +149,7 @@ public class JFpago_proveedor extends javax.swing.JFrame implements Runnable {
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
                 }
-                for (int j = 1; j > JTdetalles.getRowCount(); j--) {
-                        tabla_detalle.removeRow(j - 1);
-                    }
-                    this.dispose();
+                this.dispose();
             } catch (SQLException ex) {
                 getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "¡Error al registrar!");
